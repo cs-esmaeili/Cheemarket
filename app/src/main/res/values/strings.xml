@@ -1,0 +1,674 @@
+<resources>
+    <string name="app_name">Cheemarket</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <string name="title_activity_namayshkalaha">Namayshkalaha</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_namayeshkalaha">Namayeshkalaha</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_namayesh"></string>
+
+
+    <string-array name="ostanha">
+        <item>اصفهان</item>
+        <item>آذربایجان‌شرقی</item>
+        <item>آذربایجان‌غربی</item>
+        <item>اردبیل</item>
+        <item>البرز</item>
+        <item>ایلام</item>
+        <item>بوشهر</item>
+        <item>تهران</item>
+        <item>چهارمحال‌و‌بختیاری</item>
+        <item>خراسان‌جنوبی</item>
+        <item>خراسان‌رضوی</item>
+        <item>خراسان‌شمالی</item>
+        <item>خوزستان</item>
+        <item>زنجان</item>
+        <item>سمنان</item>
+        <item>سیستان‌و‌بلوچستان</item>
+        <item>فارس</item>
+        <item>قزوین</item>
+        <item>قم</item>
+        <item>كردستان</item>
+        <item>كرمان </item>
+        <item>كرمانشاه</item>
+        <item>کهگیلویه‌و‌بویراحمد</item>
+        <item>گلستان</item>
+        <item>گیلان</item>
+        <item>لرستان</item>
+        <item>مازندران</item>
+        <item>مركزی</item>
+        <item>هرمزگان</item>
+        <item>همدان</item>
+        <item>یزد</item>
+    </string-array>
+
+
+    <string-array name="azarbaijansharghi">
+        <item>اسکو</item>
+        <item>اهر</item>
+        <item>آذرشهر</item>
+        <item>بستان آباد</item>
+        <item>بناب</item>
+        <item>تبریز</item>
+        <item>جلفا</item>
+        <item>چاراویماق</item>
+        <item>خداآفرین</item>
+        <item>سراب</item>
+        <item>شبستر</item>
+        <item>عجب شیر</item>
+        <item>کلیبر</item>
+        <item>مراغه</item>
+        <item>مرند</item>
+        <item>ملکان</item>
+        <item>میانه</item>
+        <item>ورزقان</item>
+        <item>هریس</item>
+        <item>هشترود</item>
+    </string-array>
+
+    <string-array name="azarbaijangharbi">
+        <item>ارومیه</item>
+        <item>اشنویه</item>
+        <item>بوكان</item>
+        <item>پلدشت</item>
+        <item>پیرانشهر</item>
+        <item>تكاب</item>
+        <item>چالدران</item>
+        <item>چایپاره</item>
+        <item>خوئ</item>
+        <item>سردشت</item>
+        <item>سلماس</item>
+        <item>شاهین دژ</item>
+        <item>شوط</item>
+        <item>ماكو</item>
+        <item>مهاباد</item>
+        <item>میاندوآب</item>
+        <item>نقده</item>
+    </string-array>
+
+    <string-array name="ardebil">
+        <item>اردبیل</item>
+        <item>بیله سوار</item>
+        <item>پارس آباد</item>
+        <item>خلخال</item>
+        <item>سرعین</item>
+        <item>كوثر</item>
+        <item>گرمی</item>
+        <item>مشگین شهر</item>
+        <item>نمین</item>
+        <item>نیر</item>
+    </string-array>
+
+    <string-array name="esfahan">
+        <item>اردستان</item>
+        <item>اصفهان</item>
+        <item>آران وبیدگل</item>
+        <item>برخوار</item>
+        <item>بو یین و میاندشت</item>
+        <item>تیران وکرون</item>
+        <item>چادگان</item>
+        <item>خمینی شهر</item>
+        <item>خوانسار</item>
+        <item>خور و بیابانک</item>
+        <item>دهاقان</item>
+        <item>سمیرم</item>
+        <item>شاهین شهرومیمه</item>
+        <item>شهرضا</item>
+        <item>فریدن</item>
+        <item>فریدونشهر</item>
+        <item>فلاورجان</item>
+        <item>کاشان</item>
+        <item>گلپایگان</item>
+        <item>لنجان</item>
+        <item>مبارکه</item>
+        <item>نایین</item>
+        <item>نجف آباد</item>
+        <item>نطنز</item>
+    </string-array>
+
+    <string-array name="alborz">
+        <item>اشتهارد</item>
+        <item>ساوجبلاغ</item>
+        <item>طالقان</item>
+        <item>فردیس</item>
+        <item>کرج</item>
+        <item>نظرآباد</item>
+    </string-array>
+
+    <string-array name="eilam">
+        <item>ایلام</item>
+        <item>ایوان</item>
+        <item>آبدانان</item>
+        <item>بدره</item>
+        <item>چرداول</item>
+        <item>دره شهر</item>
+        <item>دهلران</item>
+        <item>سیروان</item>
+        <item>ملكشاهی</item>
+        <item>مهران</item>
+    </string-array>
+
+    <string-array name="boshehr">
+        <item>بوشهر</item>
+        <item>تنگستان</item>
+        <item>جم</item>
+        <item>دشتستان</item>
+        <item>دشتی</item>
+        <item>دیر</item>
+        <item>دیلم</item>
+        <item>عسلویه</item>
+        <item>كنگان</item>
+        <item>گناوه</item>
+    </string-array>
+
+    <string-array name="tehran">
+        <item>اسلامشهر</item>
+        <item>بهارستان</item>
+        <item>پاكدشت</item>
+        <item>پردیس</item>
+        <item>پیشوا</item>
+        <item>تهران</item>
+        <item>دماوند</item>
+        <item>رباطكریم</item>
+        <item>رئ</item>
+        <item>شمیرانات</item>
+        <item>شهریار</item>
+        <item>فیروزكوه</item>
+        <item>قدس</item>
+        <item>قرچک</item>
+        <item>ملارد</item>
+        <item>ورامین</item>
+    </string-array>
+
+    <string-array name="charmahalbakhtiyari">
+        <item>اردل</item>
+        <item>بروجن</item>
+        <item>بن</item>
+        <item>سامان</item>
+        <item>شهركرد</item>
+        <item>فارسان</item>
+        <item>كوهرنگ</item>
+        <item>كیار</item>
+        <item>لردگان</item>
+    </string-array>
+
+    <string-array name="khorasanjonobi">
+        <item>بشرویه</item>
+        <item>بیرجند</item>
+        <item>خوسف</item>
+        <item>درمیان</item>
+        <item>زیرکوه</item>
+        <item>سرایان</item>
+        <item>سربیشه</item>
+        <item>طبس</item>
+        <item>فردوس</item>
+        <item>قائنات</item>
+        <item>نهبندان</item>
+    </string-array>
+
+    <string-array name="khorasanrazavi">
+        <item>باخرز</item>
+        <item>بجستان</item>
+        <item>بردسكن</item>
+        <item>بینالود</item>
+        <item>تایباد</item>
+        <item>تربت جام</item>
+        <item>تربت حیدریه</item>
+        <item>جغتای</item>
+        <item>جوین</item>
+        <item>چناران</item>
+        <item>خلیل آباد</item>
+        <item>خواف</item>
+        <item>خوشاب</item>
+        <item>داورزن</item>
+        <item>درگز</item>
+        <item>رشتخوار</item>
+        <item>زاوه</item>
+        <item>سبزوار</item>
+        <item>سرخس</item>
+        <item>فریمان</item>
+        <item>فیروزه</item>
+        <item>قوچان</item>
+        <item>كاشمر</item>
+        <item>كلات</item>
+        <item>گناباد</item>
+        <item>مشهد</item>
+        <item>مه ولات</item>
+        <item>نیشابور</item>
+    </string-array>
+
+    <string-array name="khorasanshomali">
+        <item>اسفراین</item>
+        <item>بجنورد</item>
+        <item>جاجرم</item>
+        <item>راز و جرگلان</item>
+        <item>شیروان</item>
+        <item>فاروج</item>
+        <item>گرمه</item>
+        <item>مانه وسملقان</item>
+    </string-array>
+
+    <string-array name="khozestan">
+        <item>امیدیه</item>
+        <item>اندیکا</item>
+        <item>اندیمشک</item>
+        <item>اهواز</item>
+        <item>ایذه</item>
+        <item>آبادان</item>
+        <item>آغاجاری</item>
+        <item>باغ ملک</item>
+        <item>باوی</item>
+        <item>بندرماهشهر</item>
+        <item>بهبهان</item>
+        <item>حمیدیه</item>
+        <item>خرمشهر</item>
+        <item>دزفول</item>
+        <item>دشت آزادگان</item>
+        <item>رامشیر</item>
+        <item>رامهرمز</item>
+        <item>شادگان</item>
+        <item>شوش</item>
+        <item>شوشتر</item>
+        <item>کارون</item>
+        <item>گتوند</item>
+        <item>لالی</item>
+        <item>مسجدسلیمان</item>
+        <item>هفتگل</item>
+        <item>هندیجان</item>
+        <item>هویزه</item>
+    </string-array>
+
+    <string-array name="zanjan">
+        <item>ابهر</item>
+        <item>ایجرود</item>
+        <item>خدابنده</item>
+        <item>خرمدره</item>
+        <item>زنجان</item>
+        <item>سلطانیه</item>
+        <item>طارم</item>
+        <item>ماهنشان</item>
+    </string-array>
+
+    <string-array name="semnan">
+        <item>آرادان</item>
+        <item>دامغان</item>
+        <item>سرخه</item>
+        <item>سمنان</item>
+        <item>شاهرود</item>
+        <item>گرمسار</item>
+        <item>مهدئ شهر</item>
+        <item>میامی</item>
+    </string-array>
+
+    <string-array name="sistanvabalochestan">
+        <item>ایرانشهر</item>
+        <item>چاه بهار</item>
+        <item>خاش</item>
+        <item>دلگان</item>
+        <item>زابل</item>
+        <item>زاهدان</item>
+        <item>زهك</item>
+        <item>سراوان</item>
+        <item>سرباز</item>
+        <item>سیب و سوران</item>
+        <item>فنوج</item>
+        <item>قصرقند</item>
+        <item>كنارك</item>
+        <item>مهرستان</item>
+        <item>میرجاوه</item>
+        <item>نیك شهر</item>
+        <item>نیمروز</item>
+        <item>هامون</item>
+        <item>هیرمند</item>
+    </string-array>
+
+    <string-array name="fars">
+        <item>ارسنجان</item>
+        <item>استهبان</item>
+        <item>اقلید</item>
+        <item>آباده</item>
+        <item>بوانات</item>
+        <item>پاسارگاد</item>
+        <item>جهرم</item>
+        <item>خرامه</item>
+        <item>خرم بید</item>
+        <item>خنج</item>
+        <item>داراب</item>
+        <item>رستم</item>
+        <item>زرین دشت</item>
+        <item>سپیدان</item>
+        <item>سروستان</item>
+        <item>شیراز</item>
+        <item>فراشبند</item>
+        <item>فسا</item>
+        <item>فیروزآباد</item>
+        <item>قیروکارزین</item>
+        <item>کازرون</item>
+        <item>کوار</item>
+        <item>گراش</item>
+        <item>لارستان</item>
+        <item>لامرد</item>
+        <item>مرودشت</item>
+        <item>ممسنی</item>
+        <item>مهر</item>
+        <item>نی ریز</item>
+    </string-array>
+
+    <string-array name="ghazvin">
+        <item>البرز</item>
+        <item>آبیك</item>
+        <item>آوج</item>
+        <item>بوئین زهرا</item>
+        <item>تاكستان</item>
+        <item>قزوین</item>
+    </string-array>
+
+    <string-array name="ghom">
+        <item>قم</item>
+    </string-array>
+
+    <string-array name="kordestan">
+        <item>بانه</item>
+        <item>بیجار</item>
+        <item>دهگلان</item>
+        <item>دیواندره</item>
+        <item>سروآباد</item>
+        <item>سقز</item>
+        <item>سنندج</item>
+        <item>قروه</item>
+        <item>كامیاران</item>
+        <item>مریوان</item>
+    </string-array>
+
+    <string-array name="kerman">
+        <item>ارزوئیه</item>
+        <item>انار</item>
+        <item>بافت</item>
+        <item>بردسیر</item>
+        <item>بم</item>
+        <item>جیرفت</item>
+        <item>رابر</item>
+        <item>راور</item>
+        <item>رفسنجان</item>
+        <item>رودبارجنوب</item>
+        <item>ریگان</item>
+        <item>زرند</item>
+        <item>سیرجان</item>
+        <item>شهربابك</item>
+        <item>عنبرآباد</item>
+        <item>فاریاب</item>
+        <item>فهرج</item>
+        <item>قلعه گنج</item>
+        <item>كرمان</item>
+        <item>كوهبنان</item>
+        <item>كهنوج</item>
+        <item>منوجان</item>
+        <item>نرماشیر</item>
+    </string-array>
+
+    <string-array name="kermanshah">
+        <item>اسلام آبادغرب</item>
+        <item>پاوه</item>
+        <item>ثلاث باباجانی</item>
+        <item>جوانرود</item>
+        <item>دالاهو</item>
+        <item>روانسر</item>
+        <item>سرپل ذهاب</item>
+        <item>سنقر</item>
+        <item>صحنه</item>
+        <item>قصرشیرین</item>
+        <item>کرمانشاه</item>
+        <item>کنگاور</item>
+        <item>گیلانغرب</item>
+        <item>هرسین</item>
+    </string-array>
+
+    <string-array name="kohkiloyevaboyerahmad">
+        <item>باشت</item>
+        <item>بویراحمد</item>
+        <item>بهمئی</item>
+        <item>چرام</item>
+        <item>دنا</item>
+        <item>كهگیلویه</item>
+        <item>گچساران</item>
+        <item>لنده</item>
+    </string-array>
+
+    <string-array name="golestan">
+        <item>آزادشهر</item>
+        <item>آق قلا</item>
+        <item>بندرگز</item>
+        <item>تركمن</item>
+        <item>رامیان</item>
+        <item>علی آباد</item>
+        <item>كردكوئ</item>
+        <item>كلاله</item>
+        <item>گالیكش</item>
+        <item>گرگان</item>
+        <item>گمیشان</item>
+        <item>گنبدكاووس</item>
+        <item>مراوه تپه</item>
+        <item>مینودشت</item>
+    </string-array>
+
+    <string-array name="gilan">
+        <item>املش</item>
+        <item>آستارا</item>
+        <item>آستانه اشرفیه</item>
+        <item>بندرانزلی</item>
+        <item>رشت</item>
+        <item>رضوانشهر</item>
+        <item>رودبار</item>
+        <item>رودسر</item>
+        <item>سیاهكل</item>
+        <item>شفت</item>
+        <item>صومعه سرا</item>
+        <item>طوالش</item>
+        <item>فومن</item>
+        <item>لاهیجان</item>
+        <item>لنگرود</item>
+        <item>ماسال</item>
+    </string-array>
+
+    <string-array name="lorstan">
+        <item>ازنا</item>
+        <item>الیگودرز</item>
+        <item>بروجرد</item>
+        <item>پلدختر</item>
+        <item>خرم آباد</item>
+        <item>دلفان</item>
+        <item>دورود</item>
+        <item>دوره</item>
+        <item>رومشکان</item>
+        <item>سلسله</item>
+        <item>کوهدشت</item>
+    </string-array>
+
+    <string-array name="mazandaran">
+        <item>آمل</item>
+        <item>بابل</item>
+        <item>بابلسر</item>
+        <item>بهشهر</item>
+        <item>تنكابن</item>
+        <item>جویبار</item>
+        <item>چالوس</item>
+        <item>رامسر</item>
+        <item>سارئ</item>
+        <item>سوادکوه شمالی</item>
+        <item>سوادكوه</item>
+        <item>سیمرغ</item>
+        <item>عباس آباد</item>
+        <item>فریدونكنار</item>
+        <item>قائم شهر</item>
+        <item>کلاردشت</item>
+        <item>گلوگاه</item>
+        <item>محمودآباد</item>
+        <item>میاندورود</item>
+        <item>نكا</item>
+        <item>نور</item>
+        <item>نوشهر</item>
+    </string-array>
+
+    <string-array name="markazi">
+        <item>اراک</item>
+        <item>آشتیان</item>
+        <item>تفرش</item>
+        <item>خمین</item>
+        <item>خنداب</item>
+        <item>دلیجان</item>
+        <item>زرندیه</item>
+        <item>ساوه</item>
+        <item>شازند</item>
+        <item>فراهان</item>
+        <item>کمیجان</item>
+        <item>محلات</item>
+    </string-array>
+
+    <string-array name="hormozgan">
+        <item>ابوموسی</item>
+        <item>بستك</item>
+        <item>بشاگرد</item>
+        <item>بندرعباس</item>
+        <item>بندرلنگه</item>
+        <item>پارسیان</item>
+        <item>جاسك</item>
+        <item>حاجی اباد</item>
+        <item>خمیر</item>
+        <item>رودان</item>
+        <item>سیریك</item>
+        <item>قشم</item>
+        <item>میناب</item>
+    </string-array>
+
+    <string-array name="hamedan">
+        <item>اسدآباد</item>
+        <item>بهار</item>
+        <item>تویسركان</item>
+        <item>رزن</item>
+        <item>فامنین</item>
+        <item>كبودرآهنگ</item>
+        <item>ملایر</item>
+        <item>نهاوند</item>
+        <item>همدان</item>
+    </string-array>
+
+    <string-array name="yazd">
+        <item>ابركوه</item>
+        <item>اردكان</item>
+        <item>اشکذر</item>
+        <item>بافق</item>
+        <item>بهاباد</item>
+        <item>تفت</item>
+        <item>خاتم</item>
+        <item>مهریز</item>
+        <item>میبد</item>
+    </string-array>
+
+
+    <string name="title_activity_scrolling"> </string>
+    <string name="large_text">
+        "Material is the metaphor.\n\n"
+
+        "A material metaphor is the unifying theory of a rationalized space and a system of motion."
+        "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
+        "technologically advanced and open to imagination and magic.\n"
+        "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
+        "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
+        "flexibility of the material creates new affordances that supercede those in the physical "
+        "world, without breaking the rules of physics.\n"
+        "The fundamentals of light, surface, and movement are key to conveying how objects move, "
+        "interact, and exist in space and in relation to each other. Realistic lighting shows "
+        "seams, divides space, and indicates moving parts.\n\n"
+
+        "Bold, graphic, intentional.\n\n"
+
+        "The foundational elements of print based design typography, grids, space, scale, color, "
+        "and use of imagery guide visual treatments. These elements do far more than please the "
+        "eye. They create hierarchy, meaning, and focus. Deliberate color choices, edge to edge "
+        "imagery, large scale typography, and intentional white space create a bold and graphic "
+        "interface that immerse the user in the experience.\n"
+        "An emphasis on user actions makes core functionality immediately apparent and provides "
+        "waypoints for the user.\n\n"
+
+        "Motion provides meaning.\n\n"
+
+        "Motion respects and reinforces the user as the prime mover. Primary user actions are "
+        "inflection points that initiate motion, transforming the whole design.\n"
+        "All action takes place in a single environment. Objects are presented to the user without "
+        "breaking the continuity of experience even as they transform and reorganize.\n"
+        "Motion is meaningful and appropriate, serving to focus attention and maintain continuity. "
+        "Feedback is subtle yet clear. Transitions are efﬁcient yet coherent.\n\n"
+
+        "3D world.\n\n"
+
+        "The material environment is a 3D space, which means all objects have x, y, and z "
+        "dimensions. The z-axis is perpendicularly aligned to the plane of the display, with the "
+        "positive z-axis extending towards the viewer. Every sheet of material occupies a single "
+        "position along the z-axis and has a standard 1dp thickness.\n"
+        "On the web, the z-axis is used for layering and not for perspective. The 3D world is "
+        "emulated by manipulating the y-axis.\n\n"
+
+        "Light and shadow.\n\n"
+
+        "Within the material environment, virtual lights illuminate the scene. Key lights create "
+        "directional shadows, while ambient light creates soft shadows from all angles.\n"
+        "Shadows in the material environment are cast by these two light sources. In Android "
+        "development, shadows occur when light sources are blocked by sheets of material at "
+        "various positions along the z-axis. On the web, shadows are depicted by manipulating the "
+        "y-axis only. The following example shows the card with a height of 6dp.\n\n"
+
+        "Resting elevation.\n\n"
+
+        "All material objects, regardless of size, have a resting elevation, or default elevation "
+        "that does not change. If an object changes elevation, it should return to its resting "
+        "elevation as soon as possible.\n\n"
+
+        "Component elevations.\n\n"
+
+        "The resting elevation for a component type is consistent across apps (e.g., FAB elevation "
+        "does not vary from 6dp in one app to 16dp in another app).\n"
+        "Components may have different resting elevations across platforms, depending on the depth "
+        "of the environment (e.g., TV has a greater depth than mobile or desktop).\n\n"
+
+        "Responsive elevation and dynamic elevation offsets.\n\n"
+
+        "Some component types have responsive elevation, meaning they change elevation in response "
+        "to user input (e.g., normal, focused, and pressed) or system events. These elevation "
+        "changes are consistently implemented using dynamic elevation offsets.\n"
+        "Dynamic elevation offsets are the goal elevation that a component moves towards, relative "
+        "to the component’s resting state. They ensure that elevation changes are consistent "
+        "across actions and component types. For example, all components that lift on press have "
+        "the same elevation change relative to their resting elevation.\n"
+        "Once the input event is completed or cancelled, the component will return to its resting "
+        "elevation.\n\n"
+
+        "Avoiding elevation interference.\n\n"
+
+        "Components with responsive elevations may encounter other components as they move between "
+        "their resting elevations and dynamic elevation offsets. Because material cannot pass "
+        "through other material, components avoid interfering with one another any number of ways, "
+        "whether on a per component basis or using the entire app layout.\n"
+        "On a component level, components can move or be removed before they cause interference. "
+        "For example, a floating action button (FAB) can disappear or move off screen before a "
+        "user picks up a card, or it can move if a snackbar appears.\n"
+        "On the layout level, design your app layout to minimize opportunities for interference. "
+        "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
+        "when a user tries to pick up one of cards.\n\n"
+    </string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="textview">TextView</string>
+</resources>

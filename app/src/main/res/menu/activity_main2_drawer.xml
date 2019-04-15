@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single" >
+        <item
+            android:id="@+id/category"
+            android:icon="@drawable/ic_book_black_24dp"
+            android:title="دسته بندی محصولات" />
+
+        <item
+            android:id="@+id/sabadkharid"
+            android:icon="@drawable/ic_shopping_cart_black_24dp"
+            android:title="سبد خرید" />
+
+        <item
+            android:id="@+id/address"
+            android:icon="@drawable/ic_location_on_black_24dp"
+            android:title="آدرس های شما" />
+
+        <item
+            android:id="@+id/alaghemandiha"
+            android:icon="@drawable/ic_favorite_border_black_24dp"
+            android:title="علاقه مندی ها" />
+
+
+        <item
+            android:id="@+id/yourorders"
+            android:icon="@drawable/ic_location_on_black_24dp"
+            android:title="سفارش های شما" />
+
+
+
+
+    </group>
+
+    <item
+        android:id="@+id/exit"
+        android:icon="@drawable/ic_exit_to_app_black_24dp"
+        android:title="خروج از حساب کاربری" />
+
+    <item android:title="ارتباط با ما">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="ارسال تیکت" />
+
+            <item
+                android:id="@+id/s"
+                android:icon="@drawable/ic_menu_share"
+                android:title="درباره ما" />
+
+        </menu>
+    </item>
+
+</menu>

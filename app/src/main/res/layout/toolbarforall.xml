@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layoutDirection="ltr"
+    android:onClick="onClickListener"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/colorPrimary"
+        android:paddingRight="10dip"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingRight="15dip">
+
+
+            <ImageView
+                android:id="@+id/imglogo"
+                android:layout_width="50dip"
+                android:layout_height="50dip"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="right"
+                android:layout_margin="1dip"
+                android:scaleType="fitXY"
+                app:srcCompat="@mipmap/logoi" />
+
+
+            <ImageView
+                android:id="@+id/searchlogo"
+                android:layout_width="27dip"
+                android:layout_height="27dip"
+                android:layout_alignTop="@+id/shoplogo"
+                android:layout_gravity="left"
+                android:layout_marginLeft="20dip"
+                android:layout_toEndOf="@+id/shoplogo"
+                android:layout_toRightOf="@+id/shoplogo"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/ic_search_white_24dp" />
+
+            <ImageView
+                android:id="@+id/shoplogo"
+                android:layout_width="27dip"
+                android:layout_height="27dip"
+                android:layout_centerVertical="true"
+                android:layout_gravity="left"
+                android:layout_margin="1dip"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/ic_shopping_cart_black_24dp" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+
+</LinearLayout>

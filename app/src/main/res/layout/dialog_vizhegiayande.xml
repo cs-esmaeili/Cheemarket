@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layoutDirection="ltr"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dip"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/gifImageView2"
+            android:layout_width="125dip"
+            android:layout_height="125dip"
+            android:layout_gravity="center"
+            android:layout_margin="4dip"
+            android:background="#ffffff"
+            android:src="@mipmap/vizhgeayande" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="4dip"
+
+            android:gravity="center"
+            android:text="این قسمت به زودی در دسترس خواهد بود"
+            android:textColor="#000000"
+            android:textSize="22dip" />
+
+        <Button
+            android:id="@+id/exit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dip"
+            android:text="برگشت"
+            android:textSize="25dip" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

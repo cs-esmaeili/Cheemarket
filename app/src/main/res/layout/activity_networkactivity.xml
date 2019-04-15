@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layoutDirection="ltr"
+    tools:context="www.cheemarket.com.javadesmaeili.Networkactivity">
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="60dip"
+        android:layout_height="60dip"
+        app:srcCompat="@drawable/ic_signal_wifi_off_black_24dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="1dp"
+        android:padding="15dip"
+        android:text="خطا در اتصال به اینترنت !"
+        android:textColor="#000000"
+        android:textSize="18dip" />
+
+    <TextView
+        android:id="@+id/txttry"
+        android:layout_width="210dip"
+        android:layout_height="40dip"
+
+        android:background="@drawable/ripple_effect"
+        android:gravity="center"
+        android:text="تلاش مجدد"
+        android:textColor="#ffffff"
+        android:textSize="18dip" />
+</LinearLayout>
