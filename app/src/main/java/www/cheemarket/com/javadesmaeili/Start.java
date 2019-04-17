@@ -7,6 +7,12 @@ import android.util.DisplayMetrics;
 
 import org.json.JSONException;
 
+import java.io.IOException;
+import java.net.SocketTimeoutException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 import www.cheemarket.com.javadesmaeili.Customview.Dialogs;
 import www.cheemarket.com.javadesmaeili.R;
 
@@ -30,37 +36,45 @@ public class Start extends AppCompatActivity {
         G.IMAGES_WIDTH = (int) (Double.parseDouble(displayMetrics.widthPixels + "") / 1.5);
 
 
-        Webservice webservice = new Webservice();
-        OndownloadListener ondownloadListener = new OndownloadListener() {
+        Webservice.request("server.php", new Callback() {
             @Override
-            public void Oncompelet(String input) throws JSONException {
-                if (input.equals("run")) {
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                Thread.sleep(300);
-                                Intent intent = new Intent(G.CurrentActivity, ActivityMain.class);
-                                startActivity(intent);
-                                finish();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                try {
+                    if (response.body().string().equals("run")) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Thread.sleep(300);
+                                    Intent intent = new Intent(G.CurrentActivity, ActivityMain.class);
+                                    startActivity(intent);
+                                    finish();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
                             }
-                        }
-                    }).start();
-                } else {
+                        }).start();
+                    } else {
 
-                    Dialogs.ShowRepairDialog();
+                        Dialogs.ShowRepairDialog();
+                    }
+
+                } catch (SocketTimeoutException e) {
+                    e.printStackTrace();
+                    Webservice.handelerro("timeout");
+                } catch (IOException e) {
+                    Webservice.handelerro(null);
                 }
-            }
-
-            @Override
-            public void onProgressDownload(int percent) {
 
             }
-        };
-        webservice.setDatalistener(ondownloadListener);
-        webservice.downloaddata(G.Baseurl + "server.php", null);
+
+        }, null);
 
 
     }

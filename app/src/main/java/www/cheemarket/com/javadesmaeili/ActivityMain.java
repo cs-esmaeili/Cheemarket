@@ -35,9 +35,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
 import me.relex.circleindicator.CircleIndicator;
+import okhttp3.Call;
+import okhttp3.Response;
 import www.cheemarket.com.javadesmaeili.Customview.Dialogs;
 import www.cheemarket.com.javadesmaeili.Adapter.Adapter;
 import www.cheemarket.com.javadesmaeili.Structure.KalaStructure;
@@ -67,7 +71,6 @@ public class ActivityMain extends AppCompatActivity
     private static ImageView[] imgs = new ImageView[6];
 
     static ScrollView scroll;
-    private static Webservice req;
     private static DrawerLayout drawer;
     private static TextView txtprofile;
     public static SharedPreferences pre;
@@ -96,8 +99,8 @@ public class ActivityMain extends AppCompatActivity
         G.CurrentActivity = this;
         if (pre.contains("Username") && pre.contains("Id")) {
             if (!pre.getString("Username", "Error").equals("Error") && !pre.getString("Id", "Error").equals("")) {
-              //  txtprofile.setText(pre.getString("Username", "Error"));
-                Textconfig.settext(txtprofile,pre.getString("Username", "Error"));
+                //  txtprofile.setText(pre.getString("Username", "Error"));
+                Textconfig.settext(txtprofile, pre.getString("Username", "Error"));
                 G.userid = Long.parseLong(pre.getString("Id", "Error"));
             }
         }
@@ -192,7 +195,7 @@ public class ActivityMain extends AppCompatActivity
         if (pre.contains("Username") && pre.contains("Id")) {
             if (!pre.getString("Username", "Error").equals("Error") && !pre.getString("Id", "Error").equals("")) {
                 txtprofile.setText(pre.getString("Username", "Error"));
-                Textconfig.settext(txtprofile,pre.getString("Username", "Error"));
+                Textconfig.settext(txtprofile, pre.getString("Username", "Error"));
                 G.userid = Long.parseLong(pre.getString("Id", "Error"));
             }
         }
@@ -225,10 +228,6 @@ public class ActivityMain extends AppCompatActivity
         AdapterList6 = new Adapter(mdatasetList6, R.layout.listone);
         RecyclerViewList6.setAdapter(AdapterList6);
 
-        req = new Webservice()
-                .setDatalistener(datalistener)
-                .downloaddata(G.Baseurl + "Store.php?action=Firstpagedata", null);
-
 
         txtprofile.setOnClickListener(new View.OnClickListener() {
 
@@ -243,156 +242,170 @@ public class ActivityMain extends AppCompatActivity
         });
 
 
+        Webservice.request("Store.php?action=Firstpagedata", callback, null);
+
     }
 
     static int index = -1;
-    static OndownloadListener datalistener = new OndownloadListener() {
 
 
+    static okhttp3.Callback callback = new okhttp3.Callback() {
         @Override
-        public void Oncompelet(final String input) throws JSONException {
-
-            //  index = -1;
-            mdatasetList1.clear();
-            mdatasetList4.clear();
-            mdatasetList6.clear();
-
-            JSONArray array = new JSONArray(input);
-
-            for (int i = 0; i < array.length(); i++) {
-                final JSONObject jsonObject = array.getJSONObject(i);
-
-                if (jsonObject.has("Name") && jsonObject.getString("Postimage").equals("")) {
-
-                    KalaStructure kalaStructure = Converts.convertinputdata(jsonObject);
-
-                    if (jsonObject.getString("Location").equals("1")) {
-                        mdatasetList1.add(kalaStructure);
-                    } else if (jsonObject.getString("Location").equals("7")) {
-                        mdatasetList4.add(kalaStructure);
-                    } else if (jsonObject.getString("Location").equals("9")) {
-                        mdatasetList6.add(kalaStructure);
-                    }
-
-                } else {
-
-                    if (jsonObject.getString("Location").equals("2")) {
-                        index = 0;
-                        showimage(imgs[index], jsonObject);
-                    } else if (jsonObject.getString("Location").equals("3")) {
-                        index = 1;
-                        showimage(imgs[index], jsonObject);
-                    } else if (jsonObject.getString("Location").equals("4")) {
-                        index = 2;
-                        showimage(imgs[index], jsonObject);
-                    } else if (jsonObject.getString("Location").equals("5")) {
-                        index = 3;
-                        showimage(imgs[index], jsonObject);
-                    } else if (jsonObject.getString("Location").equals("6")) {
-                        index = 4;
-                        showimage(imgs[index], jsonObject);
-                    } else if (jsonObject.getString("Location").equals("8")) {
-                        index = 5;
-                        showimage(imgs[index], jsonObject);
-                    } else if (jsonObject.getString("Location").equals("10")) {
-                        SliderStructure sliderStructure = new SliderStructure();
-                        sliderStructure.Postimage = jsonObject.getString("Postimage");
-                        sliderStructure.Caption = "";
-                        Slider.array.add(sliderStructure);
-                    }
-
-
-                    setonclicks(imgs[index],jsonObject);
-
-
-                }
-
-
+        public void onFailure(Call call, IOException e) {
+            if (e instanceof SocketTimeoutException) {
+                Log.e("LOG", "Socket Time out. Please try again.");
             }
-
-            Slider.setsliders();
-
-
-            G.HANDLER.post(new Runnable() {
-                @Override
-                public void run() {
-                    AdapterList1.notifyDataSetChanged();
-                    AdapterList4.notifyDataSetChanged();
-                    AdapterList6.notifyDataSetChanged();
-                }
-            });
-            Datetimeserver = mdatasetList1.get(0).Datetime1;
-            if (Datetimeserver.equals("0000-00-00 00:00:00")) {
-                G.HANDLER.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Textconfig.settext(h,saat + "");
-                        Textconfig.settext(m,daghighe + "");
-                        Textconfig.settext(s,saniye + "");
-
-                    }
-                });
-
-                return;
-            }
-            Log.i("LOG", "Date =" + Datetimeserver);
-            int roz = Integer.parseInt(Datetimeserver.substring(Datetimeserver.lastIndexOf("-") + 1, Datetimeserver.lastIndexOf("-") + 3).trim());
-            roz = roz * 24;
-            saat = roz + Integer.parseInt(Datetimeserver.substring(Datetimeserver.indexOf(" ") + 1, Datetimeserver.indexOf(" ") + 3).replace(":", ""));///
-            daghighe = Integer.parseInt(Datetimeserver.substring(Datetimeserver.indexOf(":") + 1, Datetimeserver.indexOf(":") + 3).replace(":", ""));
-
-            saniye = Integer.parseInt(Datetimeserver.substring(Datetimeserver.lastIndexOf(":") + 1, Datetimeserver.length()));
-
-            Log.i("LOG", "saat =" + saat + "//daghighe =" + daghighe + "//" + saniye);
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-
-                    try {
-                        while (true) {
-
-                            G.HANDLER.post(new Runnable() {
-                                @Override
-                                public void run() {
-
-                                    Textconfig.settext(h,saat + "");
-                                    Textconfig.settext(m,daghighe + "");
-                                    Textconfig.settext(s,saniye + "");
-
-                                }
-                            });
-
-                            if (saat == 0 && daghighe == 0 && saniye == 0) {
-
-                                break;
-                            }
-                            Thread.sleep(1000);
-                            if (saniye > 0) {
-                                saniye--;
-                            } else if (daghighe > 0) {
-                                daghighe--;
-                                saniye = 60;
-                            } else if (saat > 0) {
-                                saat--;
-                                daghighe = 60;
-
-                            }
-
-
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            }).start();
-
 
         }
 
         @Override
-        public void onProgressDownload(int percent) {
+        public void onResponse(Call call, Response response) throws IOException {
 
+            try {
+                index = -1;
+                mdatasetList1.clear();
+                mdatasetList4.clear();
+                mdatasetList6.clear();
+
+                JSONArray array = new JSONArray(response.body().string());
+
+                for (int i = 0; i < array.length(); i++) {
+                    final JSONObject jsonObject = array.getJSONObject(i);
+
+                    if (jsonObject.has("Name") && jsonObject.getString("Postimage").equals("")) {
+
+                        KalaStructure kalaStructure = Converts.convertinputdata(jsonObject);
+
+                        if (jsonObject.getString("Location").equals("1")) {
+                            mdatasetList1.add(kalaStructure);
+                        } else if (jsonObject.getString("Location").equals("7")) {
+                            mdatasetList4.add(kalaStructure);
+                        } else if (jsonObject.getString("Location").equals("9")) {
+                            mdatasetList6.add(kalaStructure);
+                        }
+
+                    } else {
+
+                        if (jsonObject.getString("Location").equals("2")) {
+                            index = 0;
+                            showimage(imgs[index], jsonObject);
+                        } else if (jsonObject.getString("Location").equals("3")) {
+                            index = 1;
+                            showimage(imgs[index], jsonObject);
+                        } else if (jsonObject.getString("Location").equals("4")) {
+                            index = 2;
+                            showimage(imgs[index], jsonObject);
+                        } else if (jsonObject.getString("Location").equals("5")) {
+                            index = 3;
+                            showimage(imgs[index], jsonObject);
+                        } else if (jsonObject.getString("Location").equals("6")) {
+                            index = 4;
+                            showimage(imgs[index], jsonObject);
+                        } else if (jsonObject.getString("Location").equals("8")) {
+                            index = 5;
+                            showimage(imgs[index], jsonObject);
+                        } else if (jsonObject.getString("Location").equals("10")) {
+                            SliderStructure sliderStructure = new SliderStructure();
+                            sliderStructure.Postimage = jsonObject.getString("Postimage");
+                            sliderStructure.Caption = "";
+                            Slider.array.add(sliderStructure);
+                        }
+
+
+                        setonclicks(imgs[index], jsonObject);
+
+
+                    }
+
+
+                }
+
+                Slider.setsliders();
+
+
+                G.HANDLER.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        AdapterList1.notifyDataSetChanged();
+                        AdapterList4.notifyDataSetChanged();
+                        AdapterList6.notifyDataSetChanged();
+                    }
+                });
+                Datetimeserver = mdatasetList1.get(0).Datetime1;
+                if (Datetimeserver.equals("0000-00-00 00:00:00")) {
+                    G.HANDLER.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Textconfig.settext(h, saat + "");
+                            Textconfig.settext(m, daghighe + "");
+                            Textconfig.settext(s, saniye + "");
+
+                        }
+                    });
+
+                    return;
+                }
+                Log.i("LOG", "Date =" + Datetimeserver);
+                int roz = Integer.parseInt(Datetimeserver.substring(Datetimeserver.lastIndexOf("-") + 1, Datetimeserver.lastIndexOf("-") + 3).trim());
+                roz = roz * 24;
+                saat = roz + Integer.parseInt(Datetimeserver.substring(Datetimeserver.indexOf(" ") + 1, Datetimeserver.indexOf(" ") + 3).replace(":", ""));///
+                daghighe = Integer.parseInt(Datetimeserver.substring(Datetimeserver.indexOf(":") + 1, Datetimeserver.indexOf(":") + 3).replace(":", ""));
+
+                saniye = Integer.parseInt(Datetimeserver.substring(Datetimeserver.lastIndexOf(":") + 1, Datetimeserver.length()));
+
+                Log.i("LOG", "saat =" + saat + "//daghighe =" + daghighe + "//" + saniye);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try {
+                            while (true) {
+
+                                G.HANDLER.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        Textconfig.settext(h, saat + "");
+                                        Textconfig.settext(m, daghighe + "");
+                                        Textconfig.settext(s, saniye + "");
+
+                                    }
+                                });
+
+                                if (saat == 0 && daghighe == 0 && saniye == 0) {
+
+                                    break;
+                                }
+                                Thread.sleep(1000);
+                                if (saniye > 0) {
+                                    saniye--;
+                                } else if (daghighe > 0) {
+                                    daghighe--;
+                                    saniye = 60;
+                                } else if (saat > 0) {
+                                    saat--;
+                                    daghighe = 60;
+
+                                }
+
+
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }).start();
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Webservice.handelerro(null);
+            } catch (SocketTimeoutException e) {
+                e.printStackTrace();
+                Webservice.handelerro("timeout");
+            }catch (IOException e){
+                e.printStackTrace();
+                Webservice.handelerro(null);
+            }
         }
     };
 
@@ -519,7 +532,6 @@ public class ActivityMain extends AppCompatActivity
                 try {
 
 
-
                     Picasso.get()
                             .load(G.Baseurl + "Listimages/" + jsonObject.getString("Postimage") + "/" + jsonObject.getString("Postimage") + ".png")
                             .resize(G.IMAGES_HEIGHT, G.IMAGES_WIDTH)
@@ -548,7 +560,7 @@ public class ActivityMain extends AppCompatActivity
 
     }
 
-    private  static  void setonclicks(final ImageView img, final JSONObject jsonObject){
+    private static void setonclicks(final ImageView img, final JSONObject jsonObject) {
 
 
         G.HANDLER.post(new Runnable() {

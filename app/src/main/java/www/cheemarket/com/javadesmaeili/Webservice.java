@@ -1,157 +1,94 @@
 package www.cheemarket.com.javadesmaeili;
 
+
 import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
+import okhttp3.Callback;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import www.cheemarket.com.javadesmaeili.Customview.Dialogs;
-
 
 
 public class Webservice {
 
 
+    private static OkHttpClient client = null;
 
-    public    OndownloadListener datalistener;
+    private static OkHttpClient getclient()    {
+        if (client == null) {
+            client = new OkHttpClient.Builder()
+                    .connectTimeout(1,TimeUnit.SECONDS)
+                    .writeTimeout(1,TimeUnit.SECONDS)
+                    .readTimeout(1,TimeUnit.SECONDS)
+                    .build();
 
-    public Webservice setDatalistener(OndownloadListener datalistener) {
-        this.datalistener = datalistener;
-        return this;
+        }
+        return client;
     }
 
-    long Starttime = 0;
-    public Webservice downloaddata(final String url, final ArrayList<NameValuePair> params) {
-     Log.i("LOG","url = " + url);
+
+    public class requestparameter {
+        public String key;
+        public String value;
+    }
+
+    public static void request(String url, Callback callback, ArrayList<requestparameter> array) {
 
 
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(G.Baseurl + url).newBuilder();
 
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    Starttime = System.currentTimeMillis();
-                    HttpClient client = new DefaultHttpClient();
-
-                    HttpParams paramss = client.getParams();
-                    HttpConnectionParams.setConnectionTimeout(paramss, 10000);
-                    HttpConnectionParams.setSoTimeout(paramss, 10000);
-
-
-
-                    HttpPost method = new HttpPost(url);
-
-                    if (params != null) {
-                        method.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-                        Log.i("LOG","params =" + params.toString());
-                    }
-
-                    HttpResponse response = client.execute(method);
-                    InputStream stream = response.getEntity().getContent();
-                    String result = convertInputStreamToString(stream);
-
-                    Log.i("LOG", "result = " + result);
-
-                    if(result.equals("close")){
-                        new JSONArray(result);
-                    }
-
-                    if (datalistener != null) {
-                        datalistener.Oncompelet(result);
-                    }
-
-
-
-                } catch (ClientProtocolException e) {
-                    e.printStackTrace();
-                    handelerro();
-                }
-                catch (IOException e) {
-                    e.printStackTrace();
-                    handelerro();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    handelerro();
-                }catch (Exception e){
-                    e.printStackTrace();
-
-                    handelerro();
-                }
-
-
+        if (array != null) {
+            for (requestparameter parameter : array) {
+                urlBuilder.addQueryParameter(parameter.key, parameter.value);
             }
-        });
-        thread.start();
-        return this;
+        }
+
+
+        url = urlBuilder.build().toString();
+
+
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+
+
+
+            getclient().newCall(request).enqueue(callback);
+
+
+
+
     }
 
-    private  void handelerro(){
 
-        Log.i("LOG", "start = " + Starttime);
-        Log.i("LOG", "current = " + System.currentTimeMillis());
+    public static void handelerro(String check) {
 
-
-        if(!G.readNetworkStatus()){
+        if (!G.readNetworkStatus()) {
             Intent intent = new Intent(G.CurrentActivity, Networkactivity.class);
             G.CurrentActivity.startActivity(intent);
+        } else if(check != null && check.equals("timeout")){
+            G.HANDLER.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(G.CurrentActivity, "time out", Toast.LENGTH_LONG).show();
+                }
+            });
+
         }else {
-
-            if((System.currentTimeMillis() - Starttime) > 5000){
-
-                G.HANDLER.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(G.CurrentActivity,"time out",Toast.LENGTH_LONG).show();
-                    }
-                });
-            }else{
-                Dialogs.ShowRepairDialog();
-            }
-
-
-
+            Dialogs.ShowRepairDialog();
         }
 
 
-    }
-
-
-    private static String convertInputStreamToString(InputStream inputStream) {
-        try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            StringBuilder builder = new StringBuilder();
-
-            String line = "";
-
-            while ((line = reader.readLine()) != null) {
-                builder.append(line);
-            }
-
-            return builder.toString();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return null;
     }
 
 }
