@@ -13,9 +13,13 @@ import java.util.concurrent.TimeoutException;
 
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import www.cheemarket.com.javadesmaeili.Customview.Dialogs;
+
+import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 
 public class Webservice {
@@ -36,7 +40,7 @@ public class Webservice {
     }
 
 
-    public class requestparameter {
+    public static  class requestparameter {
         public String key;
         public String value;
     }
@@ -44,26 +48,32 @@ public class Webservice {
     public static void request(String url, Callback callback, ArrayList<requestparameter> array) {
 
 
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(G.Baseurl + url).newBuilder();
 
+        MultipartBody.Builder MultipartBodyBuilder = null;
         if (array != null) {
+
+            MultipartBodyBuilder = new MultipartBody.Builder();
+            MultipartBodyBuilder.setType(MultipartBody.FORM);
+
             for (requestparameter parameter : array) {
-                urlBuilder.addQueryParameter(parameter.key, parameter.value);
+                MultipartBodyBuilder.addFormDataPart(parameter.key, parameter.value);
             }
         }
 
 
-        url = urlBuilder.build().toString();
-
-
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
+        RequestBody requestBody = (MultipartBodyBuilder != null) ? MultipartBodyBuilder.build() : null;
 
 
 
 
-            getclient().newCall(request).enqueue(callback);
+        Request.Builder RequestBuilder = new Request.Builder();
+        RequestBuilder.url(G.Baseurl + url);
+        if(requestBody != null){
+            Log.i("LOG",requestBody.toString());
+            RequestBuilder.post(requestBody);
+        }
+        Request request = RequestBuilder.build();
+        getclient().newCall(request).enqueue(callback);
 
 
 

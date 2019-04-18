@@ -14,11 +14,13 @@ import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
 import me.relex.circleindicator.CircleIndicator;
 import www.cheemarket.com.javadesmaeili.G;
 import www.cheemarket.com.javadesmaeili.R;
+import www.cheemarket.com.javadesmaeili.Webservice;
 
 public class Sliderimage {
 
@@ -63,7 +65,13 @@ public class Sliderimage {
 
                         @Override
                         public void onError(Exception e) {
-
+                            if (e instanceof SocketTimeoutException) {
+                                e.printStackTrace();
+                                Webservice.handelerro("timeout");
+                            } else {
+                                e.printStackTrace();
+                                Webservice.handelerro(null);
+                            }
                         }
                     });
 

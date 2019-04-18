@@ -176,8 +176,8 @@ public class ActivityMain extends AppCompatActivity
         searchlogo.setOnClickListener(G.onClickListener);
 
         if (!G.readNetworkStatus()) {
-            // Intent intent = new Intent(G.CurrentActivity,Networkactivity.class);
-            // startActivity(intent);
+            Intent intent = new Intent(G.CurrentActivity, Networkactivity.class);
+            startActivity(intent);
 
         } else {
 
@@ -253,7 +253,11 @@ public class ActivityMain extends AppCompatActivity
         @Override
         public void onFailure(Call call, IOException e) {
             if (e instanceof SocketTimeoutException) {
-                Log.e("LOG", "Socket Time out. Please try again.");
+                e.printStackTrace();
+                Webservice.handelerro("timeout");
+            } else {
+                e.printStackTrace();
+                Webservice.handelerro(null);
             }
 
         }
@@ -402,7 +406,7 @@ public class ActivityMain extends AppCompatActivity
             } catch (SocketTimeoutException e) {
                 e.printStackTrace();
                 Webservice.handelerro("timeout");
-            }catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
                 Webservice.handelerro(null);
             }
@@ -495,8 +499,7 @@ public class ActivityMain extends AppCompatActivity
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         for (String permission : permissions) {
@@ -545,7 +548,13 @@ public class ActivityMain extends AppCompatActivity
 
                                 @Override
                                 public void onError(Exception e) {
-
+                                    if (e instanceof SocketTimeoutException) {
+                                        e.printStackTrace();
+                                        Webservice.handelerro("timeout");
+                                    } else {
+                                        e.printStackTrace();
+                                        Webservice.handelerro(null);
+                                    }
                                 }
                             });
 
@@ -576,15 +585,17 @@ public class ActivityMain extends AppCompatActivity
                                 G.HANDLER.post(new Runnable() {
                                     @Override
                                     public void run() {
-
+   /*
                                         try {
+
                                             Intent intent = new Intent(G.CurrentActivity, android.widget.Adapter.class);//Subdastebandi
                                             intent.putExtra("frommain", jsonObject.getString("Subcategori"));
                                             G.CurrentActivity.startActivity(intent);
+
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
-
+     */
                                     }
                                 });
 
@@ -597,8 +608,8 @@ public class ActivityMain extends AppCompatActivity
                             @Override
                             public void onClick(View v) {
 
-
-                                Converts.openactivity(jsonObject, ActivityMain.class);
+                                Log.i("LOG", "TEST OK");
+                                Converts.openactivity(jsonObject, ActivityAtelaatkala.class);
 
 
                             }

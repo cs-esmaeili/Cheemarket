@@ -40,6 +40,13 @@ public class Start extends AppCompatActivity {
             @Override
             public void onFailure(Call call, IOException e) {
 
+                if (e instanceof SocketTimeoutException) {
+                    e.printStackTrace();
+                    Webservice.handelerro("timeout");
+                }else {
+                    e.printStackTrace();
+                    Webservice.handelerro(null);
+                }
             }
 
             @Override
@@ -69,6 +76,7 @@ public class Start extends AppCompatActivity {
                     e.printStackTrace();
                     Webservice.handelerro("timeout");
                 } catch (IOException e) {
+                    e.printStackTrace();
                     Webservice.handelerro(null);
                 }
 

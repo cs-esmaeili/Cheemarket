@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="www.cheemarket.com.javadesmaeili.ActivityAtelaatkala"
+    android:layoutDirection="ltr"
+    tools:showIn="@layout/activity_atelaatkala">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dip">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dip"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="130dip"
+                            android:layout_height="36dip"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/imageView12"
+                                android:layout_width="60dip"
+                                android:layout_height="match_parent"
+                                android:layout_margin="3dip"
+                                android:layout_weight="1"
+                                android:scaleType="fitXY"
+                                android:src="@mipmap/share" />
+
+                            <ImageView
+                                android:id="@+id/imgalaghemandi"
+                                android:layout_width="60dip"
+                                android:layout_height="match_parent"
+                                android:layout_margin="3dip"
+                                android:layout_weight="1"
+                                android:background="@color/colorPrimary"
+                                android:scaleType="fitXY" />
+
+                            <ImageView
+                                android:id="@+id/imageView13"
+                                android:layout_width="60dip"
+                                android:layout_height="match_parent"
+                                android:layout_margin="3dip"
+                                android:layout_weight="1"
+                                android:scaleType="fitXY"
+                                android:src="@mipmap/notification" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/txtname"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip"
+                                android:layout_margin="3dip"
+                                android:layout_weight="0.166"
+                                android:gravity="right|center"
+                                android:text="TextView" />
+
+                            <TextView
+                                android:id="@+id/txtcode"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip"
+                                android:layout_margin="3dip"
+                                android:layout_weight="0.166"
+                                android:gravity="right|center"
+                                android:text="TextView" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/talaei"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.166"
+                            android:orientation="horizontal"
+                            android:visibility="visible">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="2dip"
+                                android:layout_marginBottom="2dip">
+
+                                <ImageView
+                                    android:id="@+id/imageView2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="fitXY"
+                                    app:srcCompat="@mipmap/pishnahadvizhtitle" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="2dip"
+                                    android:layout_marginLeft="2dip"
+                                    android:layout_marginTop="2dip"
+                                    android:layout_marginEnd="2dip"
+                                    android:layout_marginRight="2dip"
+                                    android:layout_marginBottom="2dip"
+                                    android:orientation="horizontal"
+                                    android:padding="2dip">
+
+                                    <TextView
+                                        android:id="@+id/h"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center_vertical|center_horizontal"
+                                        android:background="#007580"
+                                        android:elevation="0dp"
+
+                                        android:padding="3dip"
+                                        android:text="2"
+                                        android:textSize="25dip" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center_vertical|center_horizontal"
+
+                                        android:text=":"
+                                        android:textSize="25dip" />
+
+                                    <TextView
+                                        android:id="@+id/m"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center_vertical|center_horizontal"
+                                        android:background="#007580"
+
+                                        android:padding="3dip"
+                                        android:text="20"
+                                        android:textSize="25dip" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center_vertical|center_horizontal"
+
+                                        android:text=":"
+                                        android:textSize="25dip" />
+
+                                    <TextView
+                                        android:id="@+id/s"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center_vertical|center_horizontal"
+                                        android:background="#007580"
+
+                                        android:padding="3dip"
+                                        android:text="55"
+                                        android:textSize="25dip" />
+
+                                </LinearLayout>
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="2dip"
+                        android:layout_marginTop="10dip"
+                        android:layout_marginRight="15dip"
+                        android:layout_marginBottom="10dip"
+                        android:layout_weight="0.5"
+                        app:cardUseCompatPadding="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/text432"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="4dip"
+                                android:gravity="right"
+                                android:padding="7dip"
+                                android:text="نظرات کاربران" />
+
+                            <ImageView
+                                android:id="@+id/imageView123"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@android:drawable/star_big_on" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="2dip"
+                        android:layout_marginTop="10dip"
+                        android:layout_marginRight="15dip"
+                        android:layout_marginBottom="10dip"
+                        android:layout_weight="0.5"
+                        app:cardUseCompatPadding="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/text7"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="4dip"
+                                android:gravity="right"
+                                android:padding="7dip"
+                                android:text="مشخصات" />
+
+                            <ImageView
+                                android:id="@+id/imageView14"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@android:drawable/star_big_on" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dip"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txt1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dip"
+                            android:gravity="right"
+                            android:text="TextView" />
+
+                        <TextView
+                            android:id="@+id/txt2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dip"
+                            android:gravity="right"
+                            android:text="TextView" />
+
+                        <TextView
+                            android:id="@+id/txt3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dip"
+                            android:gravity="right"
+                            android:text="TextView" />
+
+                        <ImageView
+                            android:id="@+id/imageView15"
+                            android:layout_width="match_parent"
+                            android:layout_height="3dip"
+                            android:layout_marginTop="8dip"
+                            android:layout_marginBottom="4dip"
+                            android:background="#e3dede"
+                            android:contentDescription="TODO" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <view
+                                android:id="@+id/txtoff"
+                                class="www.cheemarket.com.javadesmaeili.Customview.Lineimage"
+                                id="@+id/view"
+                                layout_weight="0.75"
+                                layout_width="match_parent"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dip"
+                                android:layout_marginLeft="8dip"
+                                android:layout_marginTop="10dip"
+                                android:layout_marginRight="8dip"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:id="@+id/txtprice"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="3dip"
+                                android:layout_marginRight="3dip"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="3dip"
+                                android:text="TextView" />
+
+                            <TextView
+                                android:id="@+id/txtafzodan"
+                                android:layout_width="match_parent"
+                                android:layout_height="37dip"
+                                android:layout_margin="10dip"
+                                android:layout_weight="1"
+                                android:background="#d966d23c"
+                                android:clickable="false"
+                                android:gravity="center"
+                                android:padding="3dip"
+                                android:text="افزودن به سبد خرید" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dip"
+                    app:cardUseCompatPadding="true">
+
+                    <TextView
+                        android:id="@+id/txttozihat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="7dip"
+                        android:gravity="right"
+                        android:padding="3dip"
+                        android:text="TextView" />
+                </android.support.v7.widget.CardView>
+
+                <ImageView
+                    android:id="@+id/imageView16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dip"
+                    android:scaleType="fitXY" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</android.support.v4.widget.NestedScrollView>

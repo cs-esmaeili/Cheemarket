@@ -59,28 +59,32 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-        if (mdataset.get(position).oldPrice1.equals("0")) {
+        if (mdataset.get(position).OldPrice1.equals("0")) {
             holder.textoffPrice.setVisibility(View.GONE);
-
-
-
         } else {
-           holder.textoffPrice.setText(mdataset.get(position).oldPrice1 + "");
+            holder.textoffPrice.setText(mdataset.get(position).OldPrice1 + "");
 
         }
 
-        Textconfig.settext(holder.txtname,mdataset.get(position).Name1);
-        Textconfig.settext(holder.txtWeight,mdataset.get(position).Weight1);
-        Textconfig.settext(holder.textPrice,"" + mdataset.get(position).Price1);
-        Textconfig.settext(holder.textVolume,mdataset.get(position).Volume1);
+        Textconfig.settext(holder.txtname, mdataset.get(position).Name1);
+        Textconfig.settext(holder.textPrice, "" + mdataset.get(position).Price1);
 
+        if (mdataset.get(position).Weight1 != null && !mdataset.get(position).Weight1.equals("")) {
+            Textconfig.settext(holder.txtWeight, mdataset.get(position).Weight1);
+        } else {
+            holder.txtWeight.setVisibility(View.GONE);
+        }
 
+        if (mdataset.get(position).Volume1 != null && !mdataset.get(position).Volume1.equals("")) {
+            Textconfig.settext(holder.textVolume, mdataset.get(position).Volume1);
+        } else {
+            holder.textVolume.setVisibility(View.GONE);
+        }
 
 
         G.HANDLER.post(new Runnable() {
             @Override
             public void run() {
-
 
 
                 Picasso.get()
@@ -99,7 +103,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
                             }
                         });
-
 
             }
         });
