@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/Card"
+        android:id="@+id/Cardone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardUseCompatPadding="true">
@@ -20,7 +20,7 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/image"
+                android:id="@+id/imageone"
                 android:layout_width="150dip"
                 android:layout_height="180dip"
                 android:layout_weight="0.75"
@@ -28,7 +28,7 @@
                 android:scaleType="centerCrop" />
 
             <TextView
-                android:id="@+id/txtname"
+                android:id="@+id/txtnameone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
@@ -38,7 +38,7 @@
 
 
             <pl.droidsonroids.gif.GifImageView
-                android:id="@+id/gifImageView2"
+                android:id="@+id/gifone"
                 android:layout_width="match_parent"
                 android:layout_height="30dip"
                 android:layout_gravity="center"
@@ -46,27 +46,6 @@
                 android:background="#ffffff"
                 android:scaleType="fitXY"
                 android:src="@drawable/comp" />
-
-            <TextView
-                android:id="@+id/txtWeight"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dip"
-                android:gravity="right"
-                android:paddingRight="4dip"
-                android:text="بسته 5 تایی"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/textVolume"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:paddingRight="4dip"
-                android:paddingBottom="4dip"
-                android:text="حجم"
-                android:textColor="#000000"
-                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/imageView3"
@@ -77,15 +56,15 @@
                 android:background="#E8E8E8" />
 
             <view
+                android:id="@+id/textoffPriceone"
                 class="www.cheemarket.com.javadesmaeili.Customview.Lineimage"
-                android:id="@+id/textoffPrice"
                 android:layout_width="match_parent"
                 android:layout_height="30dip"
                 android:layout_marginLeft="8dip"
                 android:layout_marginRight="8dip" />
 
             <TextView
-                android:id="@+id/textPrice"
+                android:id="@+id/textPriceone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"

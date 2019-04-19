@@ -7,8 +7,6 @@ package www.cheemarket.com.javadesmaeili.Structure;
 public class KalaStructure {
 
     public String Name1;
-    public String Berand1;
-    public String Dastebandi1;
     public String Code1;
     public String Weight1;
     public String Price1;
@@ -22,8 +20,6 @@ public class KalaStructure {
     public String Id1;
 
     public String Name2;
-    public String Berand2;
-    public String Dastebandi2;
     public String Code2;
     public String Weight2;
     public String Price2;

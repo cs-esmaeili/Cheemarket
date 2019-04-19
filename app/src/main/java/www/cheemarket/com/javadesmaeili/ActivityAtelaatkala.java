@@ -95,7 +95,8 @@ public class ActivityAtelaatkala extends AppCompatActivity {
         toolbar.setTitle("");
         colaps.setCollapsedTitleTextColor(Color.WHITE);
         colaps.setExpandedTitleColor(Color.TRANSPARENT);
-
+        colaps.setCollapsedTitleGravity(Gravity.CENTER);
+        colaps.setExpandedTitleGravity(Gravity.CENTER);
 
         mysabad = new sabad();
 
@@ -111,7 +112,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
 
 
         colaps.setTitle(mysabad.Name);
-        colaps.setCollapsedTitleGravity(Gravity.CENTER);
+
         Textconfig.settext(txtname, "نام کالا : " + mysabad.Name);
         Textconfig.settext(txtcode, "کد کالا: " + mysabad.Id);
 
@@ -156,8 +157,6 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                     JSONArray array = new JSONArray(input);
 
                     JSONObject object = array.getJSONObject(0);
-                    mysabad.Berand = object.getString("Berand");
-                    mysabad.Dastebandi = object.getString("Dastebandi");
                     mysabad.Code = object.getString("Code");
                     mysabad.Price = object.getString("Price");
                     mysabad.OldPrice = object.getString("OldPrice");
@@ -209,6 +208,9 @@ public class ActivityAtelaatkala extends AppCompatActivity {
     private void showimage() {
 
 
+        Log.i("LOG", "Image url =" + mysabad.Image);
+
+        //
         ArrayList<Webservice.requestparameter> array1 = new ArrayList<>();
         Webservice.requestparameter object1 = new Webservice.requestparameter();
         object1.key = "Foldername";

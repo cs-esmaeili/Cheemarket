@@ -2,6 +2,7 @@ package www.cheemarket.com.javadesmaeili;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,25 +14,41 @@ import www.cheemarket.com.javadesmaeili.Structure.KalaStructure;
 public class Converts {
     //
 
-    public static KalaStructure convertinputdata(JSONObject jsonObject) {
-
-        KalaStructure kalaStructure = new KalaStructure();
-        try {
-            kalaStructure.Name1 = jsonObject.getString("Name");
-            kalaStructure.Weight1 = jsonObject.getString("Weight");
-            kalaStructure.Price1 = jsonObject.getString("Price");
-            kalaStructure.OldPrice1 = jsonObject.getString("OldPrice");
-            kalaStructure.Volume1 = jsonObject.getString("Volume");
-            kalaStructure.Image1 = jsonObject.getString("Image");
-            kalaStructure.Status1 = jsonObject.getString("Status");
-            kalaStructure.Datetime1 = jsonObject.getString("Datetime");
-            kalaStructure.Id1 = jsonObject.getString("Id");
-        } catch (JSONException e) {
-            e.printStackTrace();
+    public static void convertinputdata(JSONObject jsonObject , KalaStructure kalaStructure, boolean kalaone) {
+        
+        if(kalaone){
+            try {
+                kalaStructure.Name1 = jsonObject.getString("Name");
+                kalaStructure.Weight1 = jsonObject.getString("Weight");
+                kalaStructure.Price1 = jsonObject.getString("Price");
+                kalaStructure.OldPrice1 = jsonObject.getString("OldPrice");
+                kalaStructure.Volume1 = jsonObject.getString("Volume");
+                kalaStructure.Image1 = jsonObject.getString("Image");
+                kalaStructure.Status1 = jsonObject.getString("Status");
+                kalaStructure.Datetime1 = jsonObject.getString("Datetime");
+                kalaStructure.Id1 = jsonObject.getString("Id");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }  
+        }else{
+            try {
+                kalaStructure.Name2 = jsonObject.getString("Name");
+                kalaStructure.Weight2 = jsonObject.getString("Weight");
+                kalaStructure.Price2 = jsonObject.getString("Price");
+                kalaStructure.OldPrice2 = jsonObject.getString("OldPrice");
+                kalaStructure.Volume2 = jsonObject.getString("Volume");
+                kalaStructure.Image2 = jsonObject.getString("Image");
+                kalaStructure.Status2 = jsonObject.getString("Status");
+                kalaStructure.Datetime2 = jsonObject.getString("Datetime");
+                kalaStructure.Id2 = jsonObject.getString("Id");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
+     
 
 
-        return kalaStructure;
+       
     }
 
     public static void openactivity(ArrayList<KalaStructure> mdataset, int position, Class<? extends Activity> target) {
@@ -59,6 +76,7 @@ public class Converts {
             intent.putExtra("Volume", jsonObject.getString("Volume"));
             intent.putExtra("Image", jsonObject.getString("Image"));
             intent.putExtra("Id", jsonObject.getString("Id"));
+
             G.CurrentActivity.startActivity(intent);
         } catch (JSONException e) {
             e.printStackTrace();

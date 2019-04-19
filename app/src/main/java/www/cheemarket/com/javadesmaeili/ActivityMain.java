@@ -278,7 +278,9 @@ public class ActivityMain extends AppCompatActivity
 
                     if (jsonObject.has("Name") && jsonObject.getString("Postimage").equals("")) {
 
-                        KalaStructure kalaStructure = Converts.convertinputdata(jsonObject);
+                        KalaStructure kalaStructure = new KalaStructure();
+
+                        Converts.convertinputdata(jsonObject,kalaStructure,true);
 
                         if (jsonObject.getString("Location").equals("1")) {
                             mdatasetList1.add(kalaStructure);
@@ -293,21 +295,27 @@ public class ActivityMain extends AppCompatActivity
                         if (jsonObject.getString("Location").equals("2")) {
                             index = 0;
                             showimage(imgs[index], jsonObject);
+                            setonclicks(imgs[index], jsonObject);
                         } else if (jsonObject.getString("Location").equals("3")) {
                             index = 1;
                             showimage(imgs[index], jsonObject);
+                            setonclicks(imgs[index], jsonObject);
                         } else if (jsonObject.getString("Location").equals("4")) {
                             index = 2;
                             showimage(imgs[index], jsonObject);
+                            setonclicks(imgs[index], jsonObject);
                         } else if (jsonObject.getString("Location").equals("5")) {
                             index = 3;
                             showimage(imgs[index], jsonObject);
+                            setonclicks(imgs[index], jsonObject);
                         } else if (jsonObject.getString("Location").equals("6")) {
                             index = 4;
                             showimage(imgs[index], jsonObject);
+                            setonclicks(imgs[index], jsonObject);
                         } else if (jsonObject.getString("Location").equals("8")) {
                             index = 5;
                             showimage(imgs[index], jsonObject);
+                            setonclicks(imgs[index], jsonObject);
                         } else if (jsonObject.getString("Location").equals("10")) {
                             SliderStructure sliderStructure = new SliderStructure();
                             sliderStructure.Postimage = jsonObject.getString("Postimage");
@@ -316,7 +324,6 @@ public class ActivityMain extends AppCompatActivity
                         }
 
 
-                        setonclicks(imgs[index], jsonObject);
 
 
                     }
@@ -449,11 +456,12 @@ public class ActivityMain extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-/*
+
         if (id == R.id.category) {
-            Intent intent = new Intent(G.CurrentActivity,  Dastebandimahsolat.class);
+            Intent intent = new Intent(G.CurrentActivity, Dastebandimahsolat.class);
             startActivity(intent);
-        } else if (id == R.id.exit) {
+        }
+     /*   } else if (id == R.id.exit) {
             G.userid = -1;
             SharedPreferences.Editor editor = ActivityMain.pre.edit();
             editor.putString("Username", "");
@@ -585,7 +593,7 @@ public class ActivityMain extends AppCompatActivity
                                 G.HANDLER.post(new Runnable() {
                                     @Override
                                     public void run() {
-   /*
+
                                         try {
 
                                             Intent intent = new Intent(G.CurrentActivity, android.widget.Adapter.class);//Subdastebandi
@@ -595,7 +603,7 @@ public class ActivityMain extends AppCompatActivity
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
-     */
+
                                     }
                                 });
 
@@ -608,7 +616,7 @@ public class ActivityMain extends AppCompatActivity
                             @Override
                             public void onClick(View v) {
 
-                                Log.i("LOG", "TEST OK");
+
                                 Converts.openactivity(jsonObject, ActivityAtelaatkala.class);
 
 

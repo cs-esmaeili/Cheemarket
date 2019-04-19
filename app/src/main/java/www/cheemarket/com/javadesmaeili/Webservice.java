@@ -69,10 +69,11 @@ public class Webservice {
         Request.Builder RequestBuilder = new Request.Builder();
         RequestBuilder.url(G.Baseurl + url);
         if(requestBody != null){
-            Log.i("LOG",requestBody.toString());
+
             RequestBuilder.post(requestBody);
         }
         Request request = RequestBuilder.build();
+        Log.i("LOG",request.toString());
         getclient().newCall(request).enqueue(callback);
 
 

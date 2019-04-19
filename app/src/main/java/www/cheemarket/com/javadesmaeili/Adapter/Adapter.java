@@ -3,6 +3,7 @@ package www.cheemarket.com.javadesmaeili.Adapter;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import pl.droidsonroids.gif.GifImageView;
 import www.cheemarket.com.javadesmaeili.ActivityMain;
 import www.cheemarket.com.javadesmaeili.Converts;
 import www.cheemarket.com.javadesmaeili.G;
@@ -40,12 +42,21 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         this.layout = layout;
     }
 
-    public void changelayout(int layout, RecyclerView recyclerView, Adapter adapter, LinearLayoutManager linearLayoutManager) {
-        this.layout = layout;
+    public void changelayout(RecyclerView recyclerView, Adapter adapter, LinearLayoutManager linearLayoutManager) {
+        if(this.layout == R.layout.listtwo){
+            this.layout = R.layout.listonemid;
+        }else if (this.layout == R.layout.listonemid){
+            this.layout = R.layout.listonelarg;
+        }else if (this.layout == R.layout.listonelarg){
+            this.layout = R.layout.listtwo;
+        }
+
         int temp = linearLayoutManager.findLastCompletelyVisibleItemPosition();
         recyclerView.setAdapter(adapter);
         recyclerView.scrollToPosition(temp);
     }
+
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -59,27 +70,23 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
+        if(layout != R.layout.listtwo){
+
+        }
         if (mdataset.get(position).OldPrice1.equals("0")) {
-            holder.textoffPrice.setVisibility(View.GONE);
+            holder.textoffPriceone.setVisibility(View.GONE);
         } else {
-            holder.textoffPrice.setText(mdataset.get(position).OldPrice1 + "");
+            holder.textoffPriceone.setText(mdataset.get(position).OldPrice1 + "");
 
         }
-
-        Textconfig.settext(holder.txtname, mdataset.get(position).Name1);
-        Textconfig.settext(holder.textPrice, "" + mdataset.get(position).Price1);
-
-        if (mdataset.get(position).Weight1 != null && !mdataset.get(position).Weight1.equals("")) {
-            Textconfig.settext(holder.txtWeight, mdataset.get(position).Weight1);
-        } else {
-            holder.txtWeight.setVisibility(View.GONE);
+        if(mdataset.get(position).Status1.equals("2")){
+            holder.gifone.setVisibility(View.VISIBLE);
+        }else{
+            holder.gifone.setVisibility(View.GONE);
         }
 
-        if (mdataset.get(position).Volume1 != null && !mdataset.get(position).Volume1.equals("")) {
-            Textconfig.settext(holder.textVolume, mdataset.get(position).Volume1);
-        } else {
-            holder.textVolume.setVisibility(View.GONE);
-        }
+        Textconfig.settext(holder.txtnameone, mdataset.get(position).Name1);
+        Textconfig.settext(holder.textPriceone, "" + mdataset.get(position).Price1);
 
 
         G.HANDLER.post(new Runnable() {
@@ -89,13 +96,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
                 Picasso.get()
                         .load(G.Baseurl + "Listimages/" + mdataset.get(position).Image1 + "/" + mdataset.get(position).Image1 + ".png")
-                        .resize(G.IMAGES_HEIGHT, G.IMAGES_WIDTH)
+                        //.resize(G.IMAGES_HEIGHT, G.IMAGES_WIDTH)
                         .memoryPolicy(MemoryPolicy.NO_CACHE)
                         .networkPolicy(NetworkPolicy.NO_CACHE)
-                        .into(holder.image, new Callback() {
+                        .into(holder.imageone, new Callback() {
                             @Override
                             public void onSuccess() {
-                                MaterialImageLoading.animate(holder.image).setDuration(1000).start();
+                                MaterialImageLoading.animate(holder.imageone).setDuration(1000).start();
                             }
 
                             @Override
@@ -108,7 +115,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         });
 
 
-        holder.card.setOnClickListener(new View.OnClickListener() {
+        holder.cardone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -116,6 +123,67 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 //   ScrollingActivity.dataset = ActivityMain.class;
             }
         });
+
+
+
+        if (layout == R.layout.listtwo)
+        {
+
+
+            if (mdataset.get(position).OldPrice2.equals("0")) {
+                holder.textoffPricetwo.setVisibility(View.GONE);
+            } else {
+                holder.textoffPricetwo.setText(mdataset.get(position).OldPrice2 + "");
+
+            }
+
+            if(mdataset.get(position).Status2.equals("2")){
+                holder.giftwo.setVisibility(View.VISIBLE);
+            }else{
+                holder.giftwo.setVisibility(View.GONE);
+            }
+
+            Textconfig.settext(holder.txtnametwo, mdataset.get(position).Name2);
+            Textconfig.settext(holder.textPricetwo, "" + mdataset.get(position).Price2);
+
+
+            G.HANDLER.post(new Runnable() {
+                @Override
+                public void run() {
+
+
+                    Picasso.get()
+                            .load(G.Baseurl + "Listimages/" + mdataset.get(position).Image2 + "/" + mdataset.get(position).Image2 + ".png")
+                            //.resize(G.IMAGES_HEIGHT, G.IMAGES_WIDTH)
+                            .memoryPolicy(MemoryPolicy.NO_CACHE)
+                            .networkPolicy(NetworkPolicy.NO_CACHE)
+                            .into(holder.imagetwo, new Callback() {
+                                @Override
+                                public void onSuccess() {
+                                    MaterialImageLoading.animate(holder.imagetwo).setDuration(1000).start();
+                                }
+
+                                @Override
+                                public void onError(Exception e) {
+
+                                }
+                            });
+
+
+                }
+            });
+
+
+            holder.cardtwo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Converts.openactivity(mdataset, position, ActivityMain.class);
+                    //   ScrollingActivity.dataset = ActivityMain.class;
+                }
+            });
+
+        }
 
     }
 
@@ -126,25 +194,46 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView txtname;
-        public TextView txtWeight;
-        public TextView textPrice;
-        public Lineimage textoffPrice;
-        public TextView textVolume;
-        public ImageView image;
-        public CardView card;
+        public TextView txtnameone;
+        public TextView textPriceone;
+        public Lineimage textoffPriceone;
+        public ImageView imageone;
+        public CardView cardone;
+        public GifImageView gifone;
+
+        public TextView txtnametwo;
+        public TextView textPricetwo;
+        public Lineimage textoffPricetwo;
+        public ImageView imagetwo;
+        public CardView cardtwo;
+        public GifImageView giftwo;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
-            txtname = (TextView) itemView.findViewById(R.id.txtname);
-            txtWeight = (TextView) itemView.findViewById(R.id.txtWeight);
-            textPrice = (TextView) itemView.findViewById(R.id.textPrice);
-            textVolume = (TextView) itemView.findViewById(R.id.textVolume);
-            image = (ImageView) itemView.findViewById(R.id.image);
-            textoffPrice = (Lineimage) itemView.findViewById(R.id.textoffPrice);
-            card = (CardView) itemView.findViewById(R.id.Card);
 
+            txtnameone = (TextView) itemView.findViewById(R.id.txtnameone);
+            textPriceone = (TextView) itemView.findViewById(R.id.textPriceone);
+            imageone = (ImageView) itemView.findViewById(R.id.imageone);
+            textoffPriceone = (Lineimage) itemView.findViewById(R.id.textoffPriceone);
+            cardone = (CardView) itemView.findViewById(R.id.Cardone);
+            gifone = (GifImageView) itemView.findViewById(R.id.gifone);
+
+
+            if (layout == R.layout.listtwo) {
+                txtnametwo = (TextView) itemView.findViewById(R.id.txtnametwo);
+                textPricetwo = (TextView) itemView.findViewById(R.id.textPricetwo);
+                imagetwo = (ImageView) itemView.findViewById(R.id.imagetwo);
+                textoffPricetwo = (Lineimage) itemView.findViewById(R.id.textoffPricetwo);
+                cardtwo = (CardView) itemView.findViewById(R.id.Cardtwo);
+                giftwo = (GifImageView) itemView.findViewById(R.id.giftwo);
+            }
+
+
+        }
+    }
+    private void converarray(){
+        for (int i = 0; i < mdataset.size(); i++) {
 
         }
     }

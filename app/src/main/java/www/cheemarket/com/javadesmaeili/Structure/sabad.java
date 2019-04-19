@@ -7,8 +7,6 @@ package www.cheemarket.com.javadesmaeili.Structure;
 public class sabad {
 
     public String Name;
-    public String Berand;
-    public String Dastebandi;
     public String Code;
     public String Weight;
     public String Price;
