@@ -211,21 +211,21 @@ public class ActivityMain extends AppCompatActivity
         RecyclerViewList1.setHasFixedSize(true);
         LayoutManagerList1 = new LinearLayoutManager(G.CurrentActivity, LinearLayoutManager.HORIZONTAL, false);
         RecyclerViewList1.setLayoutManager(LayoutManagerList1);
-        AdapterList1 = new Adapter(mdatasetList1, R.layout.listone);
+        AdapterList1 = new Adapter(null,mdatasetList1, R.layout.listone);
         RecyclerViewList1.setAdapter(AdapterList1);
 
 
         RecyclerViewList4.setHasFixedSize(true);
         LayoutManagerList4 = new LinearLayoutManager(G.CurrentActivity, LinearLayoutManager.HORIZONTAL, false);
         RecyclerViewList4.setLayoutManager(LayoutManagerList4);
-        AdapterList4 = new Adapter(mdatasetList4, R.layout.listone);
+        AdapterList4 = new Adapter(null,mdatasetList4, R.layout.listone);
         RecyclerViewList4.setAdapter(AdapterList4);
 
 
         RecyclerViewList6.setHasFixedSize(true);
         LayoutManagerList6 = new LinearLayoutManager(G.CurrentActivity, LinearLayoutManager.HORIZONTAL, false);
         RecyclerViewList6.setLayoutManager(LayoutManagerList6);
-        AdapterList6 = new Adapter(mdatasetList6, R.layout.listone);
+        AdapterList6 = new Adapter(null,mdatasetList6, R.layout.listone);
         RecyclerViewList6.setAdapter(AdapterList6);
 
 

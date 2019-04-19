@@ -29,7 +29,8 @@ public class Subdastebandi extends AppCompatActivity {
 
     private String code = "";
     public static ArrayList<www.cheemarket.com.javadesmaeili.Structure.Subdastebandi> mdatasetListsubdastebandi;
-    public static ArrayList<KalaStructure> mdatasetkala;
+    public static ArrayList<KalaStructure> mdatasetkalafortwokala;
+    public static ArrayList<KalaStructure> mdatasetkalaforonekala;
     public static LinearLayoutManager layoutManager = null;
 
 
@@ -87,8 +88,8 @@ public class Subdastebandi extends AppCompatActivity {
 
     private static void clearalldata() {
         Log.i("LOG", "clearalldata");
-        if (mdatasetkala != null) {
-            mdatasetkala.clear();
+        if (mdatasetkalafortwokala != null) {
+            mdatasetkalafortwokala.clear();
         }
         if (mdatasetListsubdastebandi != null) {
             mdatasetListsubdastebandi.clear();
@@ -99,7 +100,7 @@ public class Subdastebandi extends AppCompatActivity {
 
 
         mdatasetListsubdastebandi = null;
-        mdatasetkala = null;
+        mdatasetkalafortwokala = null;
         layoutManager = null;
         AdapterListsubcategory = null;
         AdapterListkala = null;
@@ -184,8 +185,9 @@ public class Subdastebandi extends AppCompatActivity {
 
 
         layoutManager = new LinearLayoutManager(G.CurrentActivity);
-        mdatasetkala = new ArrayList<KalaStructure>();
-        AdapterListkala = new Adapter(mdatasetkala, R.layout.listtwo);
+        mdatasetkalafortwokala = new ArrayList<KalaStructure>();
+        mdatasetkalaforonekala =  new ArrayList<KalaStructure>();
+        AdapterListkala = new Adapter(mdatasetkalaforonekala, mdatasetkalafortwokala, R.layout.listtwo);
 
         List.setHasFixedSize(true);
         List.setLayoutManager(layoutManager);
@@ -217,25 +219,31 @@ public class Subdastebandi extends AppCompatActivity {
                         JSONObject object = array.getJSONObject(i);
 
                         if(i == 0) {
-                            if (mdatasetkala.size() > 0) {
+                            if (mdatasetkalafortwokala.size() > 0) {
 
-                                if (mdatasetkala.get(mdatasetkala.size() - 1).Id2 == null || mdatasetkala.get(mdatasetkala.size() - 1).Id2.equals("")) {
-                                    Converts.convertinputdata(object, mdatasetkala.get(mdatasetkala.size() - 1),false);
+                                if (mdatasetkalafortwokala.get(mdatasetkalafortwokala.size() - 1).Id2 == null || mdatasetkalafortwokala.get(mdatasetkalafortwokala.size() - 1).Id2.equals("")) {
+                                    Converts.convertinputdata(object, mdatasetkalafortwokala.get(mdatasetkalafortwokala.size() - 1),false);
                                 }
 
                             }
                         }
 
 
+                        KalaStructure temp = new KalaStructure();
+                        Converts.convertinputdata(object,temp,true);
+                        mdatasetkalaforonekala.add(temp);
+
+
                         if(kalaone){
                             kala  = new KalaStructure();
-                            Converts.convertinputdata(object,kala,true);
+                            Converts.convertinputdata(object,kala,kalaone);
                         }else {
-                            Converts.convertinputdata(object,kala,false);
-                            mdatasetkala.add(kala);
+                            Converts.convertinputdata(object,kala,kalaone);
+                            mdatasetkalafortwokala.add(kala);
                         }
                         kalaone = !kalaone;
                     }
+
 
                     G.HANDLER.post(new Runnable() {
                         @Override
@@ -275,8 +283,8 @@ public class Subdastebandi extends AppCompatActivity {
                     return;
                 }
                 TextView txtname = (TextView) view.findViewById(R.id.txtnameone);
-                if (txtname.getText().toString().equals(mdatasetkala.get(mdatasetkala.size() - 2).Name1) || txtname.getText().toString().equals(mdatasetkala.get(mdatasetkala.size() - 1).Name1)) {
-                    if (layoutManager.findLastVisibleItemPosition() == (mdatasetkala.size() - 1) - 1) {
+                if (txtname.getText().toString().equals(mdatasetkalafortwokala.get(mdatasetkalafortwokala.size() - 2).Name1) || txtname.getText().toString().equals(mdatasetkalafortwokala.get(mdatasetkalafortwokala.size() - 1).Name1)) {
+                    if (layoutManager.findLastVisibleItemPosition() == (mdatasetkalafortwokala.size() - 1) - 1) {
 
                         if (allownext == false) {
                             return;

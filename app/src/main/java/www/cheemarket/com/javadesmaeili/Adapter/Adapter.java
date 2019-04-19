@@ -4,6 +4,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,15 +35,24 @@ import www.cheemarket.com.javadesmaeili.Textconfig;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
-    private ArrayList<KalaStructure> mdataset;
+    private ArrayList<KalaStructure> datasetonekala;
+    private ArrayList<KalaStructure> datasettwokala;
+    private ArrayList<KalaStructure> finaldataset;
+    
     private int layout;
 
-    public Adapter(ArrayList<KalaStructure> mdataset, int layout) {
-        this.mdataset = mdataset;
+    public Adapter(ArrayList<KalaStructure> datasetonekala, ArrayList<KalaStructure> datasettwokala , int layout) {
+        this.datasetonekala = datasetonekala;
+        this.datasettwokala = datasettwokala;
+
+        this.finaldataset = datasettwokala;
+
         this.layout = layout;
     }
 
     public void changelayout(RecyclerView recyclerView, Adapter adapter, LinearLayoutManager linearLayoutManager) {
+
+
         if(this.layout == R.layout.listtwo){
             this.layout = R.layout.listonemid;
         }else if (this.layout == R.layout.listonemid){
@@ -50,6 +60,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         }else if (this.layout == R.layout.listonelarg){
             this.layout = R.layout.listtwo;
         }
+
+        changedataset();
 
         int temp = linearLayoutManager.findLastCompletelyVisibleItemPosition();
         recyclerView.setAdapter(adapter);
@@ -70,23 +82,21 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-        if(layout != R.layout.listtwo){
 
-        }
-        if (mdataset.get(position).OldPrice1.equals("0")) {
+        if (finaldataset.get(position).OldPrice1.equals("0")) {
             holder.textoffPriceone.setVisibility(View.GONE);
         } else {
-            holder.textoffPriceone.setText(mdataset.get(position).OldPrice1 + "");
+            holder.textoffPriceone.setText(finaldataset.get(position).OldPrice1 + "");
 
         }
-        if(mdataset.get(position).Status1.equals("2")){
+        if(finaldataset.get(position).Status1.equals("2")){
             holder.gifone.setVisibility(View.VISIBLE);
         }else{
             holder.gifone.setVisibility(View.GONE);
         }
 
-        Textconfig.settext(holder.txtnameone, mdataset.get(position).Name1);
-        Textconfig.settext(holder.textPriceone, "" + mdataset.get(position).Price1);
+        Textconfig.settext(holder.txtnameone, finaldataset.get(position).Name1);
+        Textconfig.settext(holder.textPriceone, "" + finaldataset.get(position).Price1);
 
 
         G.HANDLER.post(new Runnable() {
@@ -95,7 +105,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
 
                 Picasso.get()
-                        .load(G.Baseurl + "Listimages/" + mdataset.get(position).Image1 + "/" + mdataset.get(position).Image1 + ".png")
+                        .load(G.Baseurl + "Listimages/" + finaldataset.get(position).Image1 + "/" + finaldataset.get(position).Image1 + ".png")
                         //.resize(G.IMAGES_HEIGHT, G.IMAGES_WIDTH)
                         .memoryPolicy(MemoryPolicy.NO_CACHE)
                         .networkPolicy(NetworkPolicy.NO_CACHE)
@@ -119,7 +129,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             @Override
             public void onClick(View v) {
 
-                Converts.openactivity(mdataset, position, ActivityMain.class);
+                Converts.openactivity(finaldataset, position, ActivityMain.class);
                 //   ScrollingActivity.dataset = ActivityMain.class;
             }
         });
@@ -130,21 +140,21 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         {
 
 
-            if (mdataset.get(position).OldPrice2.equals("0")) {
+            if (finaldataset.get(position).OldPrice2.equals("0")) {
                 holder.textoffPricetwo.setVisibility(View.GONE);
             } else {
-                holder.textoffPricetwo.setText(mdataset.get(position).OldPrice2 + "");
+                holder.textoffPricetwo.setText(finaldataset.get(position).OldPrice2 + "");
 
             }
 
-            if(mdataset.get(position).Status2.equals("2")){
+            if(finaldataset.get(position).Status2.equals("2")){
                 holder.giftwo.setVisibility(View.VISIBLE);
             }else{
                 holder.giftwo.setVisibility(View.GONE);
             }
 
-            Textconfig.settext(holder.txtnametwo, mdataset.get(position).Name2);
-            Textconfig.settext(holder.textPricetwo, "" + mdataset.get(position).Price2);
+            Textconfig.settext(holder.txtnametwo, finaldataset.get(position).Name2);
+            Textconfig.settext(holder.textPricetwo, "" + finaldataset.get(position).Price2);
 
 
             G.HANDLER.post(new Runnable() {
@@ -153,7 +163,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
 
                     Picasso.get()
-                            .load(G.Baseurl + "Listimages/" + mdataset.get(position).Image2 + "/" + mdataset.get(position).Image2 + ".png")
+                            .load(G.Baseurl + "Listimages/" + finaldataset.get(position).Image2 + "/" + finaldataset.get(position).Image2 + ".png")
                             //.resize(G.IMAGES_HEIGHT, G.IMAGES_WIDTH)
                             .memoryPolicy(MemoryPolicy.NO_CACHE)
                             .networkPolicy(NetworkPolicy.NO_CACHE)
@@ -178,7 +188,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
 
-                    Converts.openactivity(mdataset, position, ActivityMain.class);
+                    Converts.openactivity(finaldataset, position, ActivityMain.class);
                     //   ScrollingActivity.dataset = ActivityMain.class;
                 }
             });
@@ -189,7 +199,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mdataset.size();
+        return finaldataset.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -232,9 +242,18 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         }
     }
-    private void converarray(){
-        for (int i = 0; i < mdataset.size(); i++) {
 
+    private void changedataset(){
+        for (int i = 0; i < datasetonekala.size(); i++) {
+            Log.i("LOG",datasetonekala.get(i).Name1 + "??" + datasetonekala.get(i).Name2);
         }
+
+        if(this.layout == R.layout.listtwo) {
+            finaldataset = datasettwokala;
+        }else {
+            finaldataset = datasetonekala;
+        }
+
     }
+   
 }
