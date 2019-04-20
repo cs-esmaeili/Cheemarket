@@ -1,5 +1,8 @@
 package www.cheemarket.com.javadesmaeili;
 
+import android.content.DialogInterface;
+import android.os.Build;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -44,6 +47,7 @@ public class Subdastebandi extends AppCompatActivity {
     static ImageButton imgbtnsort;
     private static TextView pagetitle;
     private static boolean allownext = true;
+    private static String  sort = "Nothing";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +85,38 @@ public class Subdastebandi extends AppCompatActivity {
 
                     AdapterListkala.changelayout(List,AdapterListkala,layoutManager);
                 }
+
+            }
+        });
+        imgbtnsort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                AlertDialog.Builder b = new AlertDialog.Builder(G.CurrentActivity);
+                b.setTitle("Example");
+                String[] types = {"بدون فیلتر","قیمت از کم به زیاد" , "قیمت از زیاد به کم"};
+                b.setItems(types, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                    switch (which){
+                                        case 0:
+                                            sort = "Nothing";
+                                            namayeshkalaha("4049", "are");
+                                            break;
+                                        case 1:
+                                            sort = "Ascending";
+                                            namayeshkalaha("4049", "are");
+                                            break;
+                                        case 2:
+                                            sort = "Descending";
+                                            namayeshkalaha("4049", "are");
+                                            break;
+                                    }
+                            }
+                        });
+
+                        b.show();
 
             }
         });
@@ -272,9 +308,24 @@ public class Subdastebandi extends AppCompatActivity {
         object2.key = "number";
         object2.value = Listnumber + "";
         array1.add(object2);
+        Webservice.requestparameter object3 = new Webservice.requestparameter();
+        object3.key = "sort";
+        object3.value = sort;
+        array1.add(object3);
+
         Webservice.request("Store.php?action=partofdata", mycall, array1);
+/*
 
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            List.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                    final int temp = layoutManager.findLastVisibleItemPosition();
+                    Log.i("LOG","posiition =" + temp);
+                }
+            });
+        }
+*/
         List.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
             public void onChildViewAttachedToWindow(View view) {
@@ -302,6 +353,10 @@ public class Subdastebandi extends AppCompatActivity {
                         object2.key = "number";
                         object2.value = Listnumber + "";
                         array1.add(object2);
+                        Webservice.requestparameter object3 = new Webservice.requestparameter();
+                        object3.key = "sort";
+                        object3.value = sort;
+                        array1.add(object3);
                         Webservice.request("Store.php?action=partofdata" ,mycall,array1);
 
                     }

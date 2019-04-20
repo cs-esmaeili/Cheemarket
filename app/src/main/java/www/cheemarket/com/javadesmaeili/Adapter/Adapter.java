@@ -50,22 +50,27 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         this.layout = layout;
     }
 
-    public void changelayout(RecyclerView recyclerView, Adapter adapter, LinearLayoutManager linearLayoutManager) {
+    public void changelayout(final RecyclerView recyclerView, Adapter adapter, LinearLayoutManager linearLayoutManager) {
 
+        int temp = linearLayoutManager.findLastVisibleItemPosition();
 
         if(this.layout == R.layout.listtwo){
+            temp = temp * 2 ;
             this.layout = R.layout.listonemid;
         }else if (this.layout == R.layout.listonemid){
             this.layout = R.layout.listonelarg;
         }else if (this.layout == R.layout.listonelarg){
+            temp = temp  / 2;
             this.layout = R.layout.listtwo;
         }
 
         changedataset();
 
-        int temp = linearLayoutManager.findLastCompletelyVisibleItemPosition();
+
+        Log.i("LOG","posiition =" + temp);
         recyclerView.setAdapter(adapter);
-        recyclerView.scrollToPosition(temp);
+        linearLayoutManager.scrollToPosition(temp);
+
     }
 
 
@@ -244,9 +249,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     }
 
     private void changedataset(){
-        for (int i = 0; i < datasetonekala.size(); i++) {
-            Log.i("LOG",datasetonekala.get(i).Name1 + "??" + datasetonekala.get(i).Name2);
-        }
+
 
         if(this.layout == R.layout.listtwo) {
             finaldataset = datasettwokala;
