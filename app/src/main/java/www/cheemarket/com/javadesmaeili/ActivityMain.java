@@ -596,8 +596,8 @@ public class ActivityMain extends AppCompatActivity
 
                                         try {
 
-                                            Intent intent = new Intent(G.CurrentActivity, android.widget.Adapter.class);//Subdastebandi
-                                            intent.putExtra("frommain", jsonObject.getString("Subcategori"));
+                                            Intent intent = new Intent(G.CurrentActivity, Subdastebandi.class);//Subdastebandi
+                                            intent.putExtra("subkala", jsonObject.getString("Subcategori"));
                                             G.CurrentActivity.startActivity(intent);
 
                                         } catch (JSONException e) {

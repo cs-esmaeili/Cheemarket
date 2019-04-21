@@ -17,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
 
@@ -25,6 +26,7 @@ import okhttp3.Callback;
 import okhttp3.Response;
 import www.cheemarket.com.javadesmaeili.Adapter.Adapter;
 import www.cheemarket.com.javadesmaeili.Adapter.SubdastebandiAdapter;
+import www.cheemarket.com.javadesmaeili.Customview.Dialogs;
 import www.cheemarket.com.javadesmaeili.Structure.KalaStructure;
 
 
@@ -42,12 +44,13 @@ public class Subdastebandi extends AppCompatActivity {
 
     public static RecyclerView List = null;
     public static long Listnumber = 0;
-    public static boolean showsubdastebandi = false;
+    public static boolean showsubdastebandi = true;
     static ImageButton imgbtnview;
     static ImageButton imgbtnsort;
     private static TextView pagetitle;
     private static boolean allownext = true;
-    private static String  sort = "Nothing";
+    private static String sort = "Nothing";
+    private boolean needtoclose = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,28 +65,29 @@ public class Subdastebandi extends AppCompatActivity {
         pagetitle = (TextView) findViewById(R.id.txttitle);
         clearalldata();
         Bundle extras = getIntent().getExtras();
-        /*
+
         if (extras != null) {
 
             if (extras.containsKey("subdastebandistring")) //tanagholat
-             {
-                 code = extras.getString("subdastebandistring");
-                 namayeshsubdastebandi(code);
-            }
-            else  if (extras.containsKey("subkala"))// kalahaye 400
+            {
+                code = extras.getString("subdastebandistring");
+                namayeshsubdastebandi(code);
+            } else if (extras.containsKey("subkala"))// kalahaye 400
             {
                 code = extras.getString("subkala");
-
+                needtoclose = true;
+                namayeshkalaha(code, "");
             }
         }
-*/
-        namayeshkalaha("4049", "are");
+        // namayeshkalaha("4049", "are");
+
+
         imgbtnview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(AdapterListkala !=null){
+                if (AdapterListkala != null) {
 
-                    AdapterListkala.changelayout(List,AdapterListkala,layoutManager);
+                    AdapterListkala.changelayout(List, AdapterListkala, layoutManager);
                 }
 
             }
@@ -95,35 +99,40 @@ public class Subdastebandi extends AppCompatActivity {
 
                 AlertDialog.Builder b = new AlertDialog.Builder(G.CurrentActivity);
                 b.setTitle("Example");
-                String[] types = {"بدون فیلتر","قیمت از کم به زیاد" , "قیمت از زیاد به کم"};
+                String[] types = {"بدون فیلتر", "قیمت از کم به زیاد", "قیمت از زیاد به کم"};
                 b.setItems(types, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                    switch (which){
-                                        case 0:
-                                            sort = "Nothing";
-                                            namayeshkalaha("4049", "are");
-                                            break;
-                                        case 1:
-                                            sort = "Ascending";
-                                            namayeshkalaha("4049", "are");
-                                            break;
-                                        case 2:
-                                            sort = "Descending";
-                                            namayeshkalaha("4049", "are");
-                                            break;
-                                    }
-                            }
-                        });
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                sort = "Nothing";
+                                namayeshkalaha("4049", "are");
+                                break;
+                            case 1:
+                                sort = "Ascending";
+                                namayeshkalaha("4049", "are");
+                                break;
+                            case 2:
+                                sort = "Descending";
+                                namayeshkalaha("4049", "are");
+                                break;
+                        }
+                    }
+                });
 
-                        b.show();
+                b.show();
 
             }
         });
     }
 
     private static void clearalldata() {
+
+
         Log.i("LOG", "clearalldata");
+        if (mdatasetkalaforonekala != null) {
+            mdatasetkalaforonekala.clear();
+        }
         if (mdatasetkalafortwokala != null) {
             mdatasetkalafortwokala.clear();
         }
@@ -133,10 +142,14 @@ public class Subdastebandi extends AppCompatActivity {
         if (AdapterListsubcategory != null) {
             AdapterListsubcategory.notifyDataSetChanged();
         }
+        if (AdapterListkala != null) {
+            AdapterListkala.notifyDataSetChanged();
+        }
 
 
         mdatasetListsubdastebandi = null;
         mdatasetkalafortwokala = null;
+        mdatasetkalaforonekala = null;
         layoutManager = null;
         AdapterListsubcategory = null;
         AdapterListkala = null;
@@ -171,13 +184,20 @@ public class Subdastebandi extends AppCompatActivity {
         Webservice.request("Store.php?action=getsubdastebandi", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                if (e instanceof SocketTimeoutException) {
+                    e.printStackTrace();
+                    Webservice.handelerro("timeout");
+                } else {
+                    e.printStackTrace();
+                    Webservice.handelerro(null);
+                }
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String input = response.body().string();
                 if (input.equals("[]")) {
+                    Dialogs.vizhegiayande();
                     return;
                 }
                 try {
@@ -199,7 +219,7 @@ public class Subdastebandi extends AppCompatActivity {
                         }
                     });
                 } catch (JSONException e) {
-
+                    e.printStackTrace();
                 }
 
 
@@ -222,7 +242,7 @@ public class Subdastebandi extends AppCompatActivity {
 
         layoutManager = new LinearLayoutManager(G.CurrentActivity);
         mdatasetkalafortwokala = new ArrayList<KalaStructure>();
-        mdatasetkalaforonekala =  new ArrayList<KalaStructure>();
+        mdatasetkalaforonekala = new ArrayList<KalaStructure>();
         AdapterListkala = new Adapter(mdatasetkalaforonekala, mdatasetkalafortwokala, R.layout.listtwo);
 
         List.setHasFixedSize(true);
@@ -234,7 +254,13 @@ public class Subdastebandi extends AppCompatActivity {
         final Callback mycall = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                if (e instanceof SocketTimeoutException) {
+                    e.printStackTrace();
+                    Webservice.handelerro("timeout");
+                } else {
+                    e.printStackTrace();
+                    Webservice.handelerro(null);
+                }
             }
 
             @Override
@@ -242,23 +268,26 @@ public class Subdastebandi extends AppCompatActivity {
                 String input = response.body().string();
                 allownext = false;
 
-                if(input.equals("[]")){
+                if (input.equals("[]")) {
+                    if(Listnumber == 0){
+                        Dialogs.vizhegiayande();
+                    }
                     return;
                 }
                 try {
-                    JSONArray   array = new JSONArray(input);
-                    KalaStructure kala  = new KalaStructure();
+                    JSONArray array = new JSONArray(input);
+                    KalaStructure kala = new KalaStructure();
                     boolean kalaone = true;
                     Listnumber += array.length();
 
-                    for(int i = 0 ; i < array.length(); i++) {
+                    for (int i = 0; i < array.length(); i++) {
                         JSONObject object = array.getJSONObject(i);
 
-                        if(i == 0) {
+                        if (i == 0) {
                             if (mdatasetkalafortwokala.size() > 0) {
 
                                 if (mdatasetkalafortwokala.get(mdatasetkalafortwokala.size() - 1).Id2 == null || mdatasetkalafortwokala.get(mdatasetkalafortwokala.size() - 1).Id2.equals("")) {
-                                    Converts.convertinputdata(object, mdatasetkalafortwokala.get(mdatasetkalafortwokala.size() - 1),false);
+                                    Converts.convertinputdata(object, mdatasetkalafortwokala.get(mdatasetkalafortwokala.size() - 1), false);
                                 }
 
                             }
@@ -266,15 +295,15 @@ public class Subdastebandi extends AppCompatActivity {
 
 
                         KalaStructure temp = new KalaStructure();
-                        Converts.convertinputdata(object,temp,true);
+                        Converts.convertinputdata(object, temp, true);
                         mdatasetkalaforonekala.add(temp);
 
 
-                        if(kalaone){
-                            kala  = new KalaStructure();
-                            Converts.convertinputdata(object,kala,kalaone);
-                        }else {
-                            Converts.convertinputdata(object,kala,kalaone);
+                        if (kalaone) {
+                            kala = new KalaStructure();
+                            Converts.convertinputdata(object, kala, kalaone);
+                        } else {
+                            Converts.convertinputdata(object, kala, kalaone);
                             mdatasetkalafortwokala.add(kala);
                         }
                         kalaone = !kalaone;
@@ -288,7 +317,10 @@ public class Subdastebandi extends AppCompatActivity {
                             AdapterListkala.notifyItemInserted(AdapterListkala.getItemCount() + 1);
                         }
                     });
-                    allownext  = true;
+                    allownext = true;
+
+
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -314,18 +346,8 @@ public class Subdastebandi extends AppCompatActivity {
         array1.add(object3);
 
         Webservice.request("Store.php?action=partofdata", mycall, array1);
-/*
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            List.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-                @Override
-                public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                    final int temp = layoutManager.findLastVisibleItemPosition();
-                    Log.i("LOG","posiition =" + temp);
-                }
-            });
-        }
-*/
+
         List.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
             public void onChildViewAttachedToWindow(View view) {
@@ -343,7 +365,6 @@ public class Subdastebandi extends AppCompatActivity {
                         allownext = false;
 
 
-
                         ArrayList<Webservice.requestparameter> array1 = new ArrayList<>();
                         Webservice.requestparameter object1 = new Webservice.requestparameter();
                         object1.key = "value";
@@ -357,7 +378,7 @@ public class Subdastebandi extends AppCompatActivity {
                         object3.key = "sort";
                         object3.value = sort;
                         array1.add(object3);
-                        Webservice.request("Store.php?action=partofdata" ,mycall,array1);
+                        Webservice.request("Store.php?action=partofdata", mycall, array1);
 
                     }
                 }
@@ -371,10 +392,20 @@ public class Subdastebandi extends AppCompatActivity {
             }
         });
 
-
-
-
     }
 
+    @Override
+    public void onBackPressed() {
 
+        if(needtoclose){
+            super.onBackPressed();
+            return;
+        }
+        if(showsubdastebandi == false){
+            namayeshsubdastebandi(code);
+        }else if (showsubdastebandi){
+            super.onBackPressed();
+        }
+
+    }
 }

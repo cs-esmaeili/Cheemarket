@@ -17,9 +17,11 @@ import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
 import pl.droidsonroids.gif.GifImageView;
+import www.cheemarket.com.javadesmaeili.ActivityAtelaatkala;
 import www.cheemarket.com.javadesmaeili.ActivityMain;
 import www.cheemarket.com.javadesmaeili.Converts;
 import www.cheemarket.com.javadesmaeili.G;
@@ -28,6 +30,7 @@ import www.cheemarket.com.javadesmaeili.R;
 
 import www.cheemarket.com.javadesmaeili.Structure.KalaStructure;
 import www.cheemarket.com.javadesmaeili.Textconfig;
+import www.cheemarket.com.javadesmaeili.Webservice;
 
 /**
  * Created by user on 8/21/2018.
@@ -38,10 +41,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     private ArrayList<KalaStructure> datasetonekala;
     private ArrayList<KalaStructure> datasettwokala;
     private ArrayList<KalaStructure> finaldataset;
-    
+
     private int layout;
 
-    public Adapter(ArrayList<KalaStructure> datasetonekala, ArrayList<KalaStructure> datasettwokala , int layout) {
+    public Adapter(ArrayList<KalaStructure> datasetonekala, ArrayList<KalaStructure> datasettwokala, int layout) {
         this.datasetonekala = datasetonekala;
         this.datasettwokala = datasettwokala;
 
@@ -54,25 +57,24 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         int temp = linearLayoutManager.findLastVisibleItemPosition();
 
-        if(this.layout == R.layout.listtwo){
-            temp = temp * 2 ;
+        if (this.layout == R.layout.listtwo) {
+            temp = temp * 2;
             this.layout = R.layout.listonemid;
-        }else if (this.layout == R.layout.listonemid){
+        } else if (this.layout == R.layout.listonemid) {
             this.layout = R.layout.listonelarg;
-        }else if (this.layout == R.layout.listonelarg){
-            temp = temp  / 2;
+        } else if (this.layout == R.layout.listonelarg) {
+            temp = temp / 2;
             this.layout = R.layout.listtwo;
         }
 
         changedataset();
 
 
-        Log.i("LOG","posiition =" + temp);
+        Log.i("LOG", "posiition =" + temp);
         recyclerView.setAdapter(adapter);
         linearLayoutManager.scrollToPosition(temp);
 
     }
-
 
 
     @Override
@@ -94,9 +96,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             holder.textoffPriceone.setText(finaldataset.get(position).OldPrice1 + "");
 
         }
-        if(finaldataset.get(position).Status1.equals("2")){
+        if (finaldataset.get(position).Status1.equals("2")) {
             holder.gifone.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             holder.gifone.setVisibility(View.GONE);
         }
 
@@ -104,45 +106,20 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         Textconfig.settext(holder.textPriceone, "" + finaldataset.get(position).Price1);
 
 
-        G.HANDLER.post(new Runnable() {
-            @Override
-            public void run() {
-
-
-                Picasso.get()
-                        .load(G.Baseurl + "Listimages/" + finaldataset.get(position).Image1 + "/" + finaldataset.get(position).Image1 + ".png")
-                        //.resize(G.IMAGES_HEIGHT, G.IMAGES_WIDTH)
-                        .memoryPolicy(MemoryPolicy.NO_CACHE)
-                        .networkPolicy(NetworkPolicy.NO_CACHE)
-                        .into(holder.imageone, new Callback() {
-                            @Override
-                            public void onSuccess() {
-                                MaterialImageLoading.animate(holder.imageone).setDuration(1000).start();
-                            }
-
-                            @Override
-                            public void onError(Exception e) {
-
-                            }
-                        });
-
-            }
-        });
+        showimage(G.Baseurl + "Listimages/" + finaldataset.get(position).Image1 + "/" + finaldataset.get(position).Image1 + ".png", holder.imageone, true);
 
 
         holder.cardone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Converts.openactivity(finaldataset, position, ActivityMain.class);
-                //   ScrollingActivity.dataset = ActivityMain.class;
+                Converts.openactivity(finaldataset, position, ActivityAtelaatkala.class);
+
             }
         });
 
 
-
-        if (layout == R.layout.listtwo)
-        {
+        if (layout == R.layout.listtwo) {
 
 
             if (finaldataset.get(position).OldPrice2.equals("0")) {
@@ -152,9 +129,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
             }
 
-            if(finaldataset.get(position).Status2.equals("2")){
+            if (finaldataset.get(position).Status2.equals("2")) {
                 holder.giftwo.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 holder.giftwo.setVisibility(View.GONE);
             }
 
@@ -162,39 +139,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             Textconfig.settext(holder.textPricetwo, "" + finaldataset.get(position).Price2);
 
 
-            G.HANDLER.post(new Runnable() {
-                @Override
-                public void run() {
-
-
-                    Picasso.get()
-                            .load(G.Baseurl + "Listimages/" + finaldataset.get(position).Image2 + "/" + finaldataset.get(position).Image2 + ".png")
-                            //.resize(G.IMAGES_HEIGHT, G.IMAGES_WIDTH)
-                            .memoryPolicy(MemoryPolicy.NO_CACHE)
-                            .networkPolicy(NetworkPolicy.NO_CACHE)
-                            .into(holder.imagetwo, new Callback() {
-                                @Override
-                                public void onSuccess() {
-                                    MaterialImageLoading.animate(holder.imagetwo).setDuration(1000).start();
-                                }
-
-                                @Override
-                                public void onError(Exception e) {
-
-                                }
-                            });
-
-
-                }
-            });
-
+            showimage(G.Baseurl + "Listimages/" + finaldataset.get(position).Image2 + "/" + finaldataset.get(position).Image2 + ".png", holder.imagetwo, true);
 
             holder.cardtwo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    Converts.openactivity(finaldataset, position, ActivityMain.class);
-                    //   ScrollingActivity.dataset = ActivityMain.class;
+                    Converts.openactivity(finaldataset, position, ActivityAtelaatkala.class);
                 }
             });
 
@@ -248,15 +199,48 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         }
     }
 
-    private void changedataset(){
+    private void showimage(final String loadurl, final ImageView imgview, final boolean trytoload) {
 
 
-        if(this.layout == R.layout.listtwo) {
+        G.HANDLER.post(new Runnable() {
+            @Override
+            public void run() {
+
+
+                Picasso.get()
+                        .load(loadurl)
+                        .resize(G.IMAGES_HEIGHT, G.IMAGES_WIDTH)
+                        .memoryPolicy(MemoryPolicy.NO_CACHE)
+                        .networkPolicy(NetworkPolicy.NO_CACHE)
+                        .into(imgview, new Callback() {
+                            @Override
+                            public void onSuccess() {
+                                MaterialImageLoading.animate(imgview).setDuration(1000).start();
+                            }
+
+                            @Override
+                            public void onError(Exception e) {
+                                if (trytoload) {
+                                    showimage(loadurl, imgview, false);
+                                }
+
+                            }
+                        });
+
+            }
+        });
+
+    }
+
+    private void changedataset() {
+
+
+        if (this.layout == R.layout.listtwo) {
             finaldataset = datasettwokala;
-        }else {
+        } else {
             finaldataset = datasetonekala;
         }
 
     }
-   
+
 }

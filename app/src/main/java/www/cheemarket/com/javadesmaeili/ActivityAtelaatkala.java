@@ -147,7 +147,13 @@ public class ActivityAtelaatkala extends AppCompatActivity {
         Webservice.request("Store.php?action=onekaladata", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                if (e instanceof SocketTimeoutException) {
+                    e.printStackTrace();
+                    Webservice.handelerro("timeout");
+                } else {
+                    e.printStackTrace();
+                    Webservice.handelerro(null);
+                }
             }
 
             @Override
@@ -286,7 +292,13 @@ public class ActivityAtelaatkala extends AppCompatActivity {
         Webservice.request("Store.php?action=gettime", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                if (e instanceof SocketTimeoutException) {
+                    e.printStackTrace();
+                    Webservice.handelerro("timeout");
+                } else {
+                    e.printStackTrace();
+                    Webservice.handelerro(null);
+                }
             }
 
             @Override
