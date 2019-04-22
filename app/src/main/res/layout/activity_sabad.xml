@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layoutDirection="ltr"
+    tools:context="www.cheemarket.com.SabadActivity">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtjamkharid"
+                android:layout_width="wrap_content"
+                android:layout_height="40dip"
+                android:layout_margin="4dip"
+                android:gravity="center"
+                android:textColor="#64BA68"
+
+                />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="40dip"
+                android:layout_margin="4dip"
+                android:gravity="center"
+                android:text="جمع کل خرید"
+                android:textColor="#64BA68"
+                />
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/txtpayam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignWithParentIfMissing="false"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="سبد خرید شما خالی است"
+            android:textSize="24dip"
+            android:visibility="gone"
+            />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/Listsabad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp">
+
+        </android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/btnpay"
+        android:layout_width="match_parent"
+        android:layout_height="45dip"
+        android:background="#66BB6A"
+        android:gravity="center"
+        android:text="مرحله بعدی خرید "
+        />
+
+</LinearLayout>

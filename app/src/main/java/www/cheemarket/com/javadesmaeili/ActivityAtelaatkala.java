@@ -1,5 +1,6 @@
 package www.cheemarket.com.javadesmaeili;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -72,7 +73,6 @@ public class ActivityAtelaatkala extends AppCompatActivity {
 
         CollapsingToolbarLayout colaps = (CollapsingToolbarLayout) findViewById(R.id.colaps);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         TextView txtname = (TextView) findViewById(R.id.txtname);
         TextView txtcode = (TextView) findViewById(R.id.txtcode);
         txt1 = (TextView) findViewById(R.id.txt1);
@@ -129,6 +129,23 @@ public class ActivityAtelaatkala extends AppCompatActivity {
             Textconfig.settext(txt2, "حجم کالا : " + mysabad.Volume);
         }
 
+        txtafzodan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                for (int i = 0; i < G.mdatasetsabad.size(); i++) {
+                    if(G.mdatasetsabad.get(i).Id == mysabad.Id){
+                        G.mdatasetsabad.get(i).Tedad = (Integer.parseInt( G.mdatasetsabad.get(i).Tedad) + 1) + "";
+                        Intent intent = new Intent(G.CurrentActivity,SabadActivity.class);
+                        G.CurrentActivity.startActivity(intent);
+                        return;
+                    }
+                }
+                G.mdatasetsabad.add(mysabad);
+                Intent intent = new Intent(G.CurrentActivity,SabadActivity.class);
+                G.CurrentActivity.startActivity(intent);
+            }
+        });
 
         setkaladata();
         showimage();
@@ -169,6 +186,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                     mysabad.Tozihat = object.getString("Tozihat");
                     mysabad.Ordernumber = object.getString("Ordernumber");
                     mysabad.Status = object.getString("Status");
+                    mysabad.Tedad = "1";
 
 
                     G.HANDLER.post(new Runnable() {
@@ -214,9 +232,6 @@ public class ActivityAtelaatkala extends AppCompatActivity {
     private void showimage() {
 
 
-        Log.i("LOG", "Image url =" + mysabad.Image);
-
-        //
         ArrayList<Webservice.requestparameter> array1 = new ArrayList<>();
         Webservice.requestparameter object1 = new Webservice.requestparameter();
         object1.key = "Foldername";

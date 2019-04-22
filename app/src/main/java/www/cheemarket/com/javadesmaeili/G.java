@@ -8,6 +8,10 @@ import android.net.NetworkInfo;
 import android.os.Handler;
 import android.view.View;
 
+import java.util.ArrayList;
+
+import www.cheemarket.com.javadesmaeili.Structure.sabad;
+
 /**
  * Created by user on 7/1/2018.
  */
@@ -22,7 +26,7 @@ public class G extends Application {
     public static  int IMAGES_WIDTH = 0;
     public static final Handler HANDLER = new Handler();
 
-   // public static ArrayList<sabad> mdatasetsabad = new ArrayList<sabad>();
+    public static ArrayList<sabad> mdatasetsabad = new ArrayList<sabad>();
    // public static ArrayList<Data> tempdata = new ArrayList<Data>();
     public static long userid = -1;
     public static boolean comeback = false;

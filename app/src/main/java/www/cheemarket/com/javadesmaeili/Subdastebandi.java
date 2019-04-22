@@ -98,7 +98,7 @@ public class Subdastebandi extends AppCompatActivity {
 
 
                 AlertDialog.Builder b = new AlertDialog.Builder(G.CurrentActivity);
-                b.setTitle("Example");
+                b.setTitle("فیلتر");
                 String[] types = {"بدون فیلتر", "قیمت از کم به زیاد", "قیمت از زیاد به کم"};
                 b.setItems(types, new DialogInterface.OnClickListener() {
                     @Override

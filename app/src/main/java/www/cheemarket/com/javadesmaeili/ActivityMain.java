@@ -460,6 +460,15 @@ public class ActivityMain extends AppCompatActivity
         if (id == R.id.category) {
             Intent intent = new Intent(G.CurrentActivity, Dastebandimahsolat.class);
             startActivity(intent);
+        }else if(id == R.id.sabadkharid){
+            if(G.userid == -1){
+                Intent intent = new Intent(G.CurrentActivity,  SabadActivity.class);
+                startActivity(intent);
+            }else{
+                Intent intent = new Intent(G.CurrentActivity,  SabadActivity.class);
+                startActivity(intent);
+            }
+
         }
      /*   } else if (id == R.id.exit) {
             G.userid = -1;
@@ -472,15 +481,6 @@ public class ActivityMain extends AppCompatActivity
         } else if (id == R.id.address) {
             Intent intent = new Intent(G.CurrentActivity,  Address.class);
             startActivity(intent);
-        }else if(id == R.id.sabadkharid){
-            if(G.userid == -1){
-                Intent intent = new Intent(G.CurrentActivity,  LoginActivity.class);
-                startActivity(intent);
-            }else{
-                Intent intent = new Intent(G.CurrentActivity,  SabadActivity.class);
-                startActivity(intent);
-            }
-
         }else if(id == R.id.yourorders){
             if(G.userid == -1){
                 Intent intent = new Intent(G.CurrentActivity,  LoginActivity.class);

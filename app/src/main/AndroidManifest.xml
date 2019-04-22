@@ -54,11 +54,12 @@
         <activity
             android:name=".Subdastebandi"
             android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait" />
 
-
-        </activity>
-
+        <activity
+            android:name=".SabadActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait" />
 
 
 
