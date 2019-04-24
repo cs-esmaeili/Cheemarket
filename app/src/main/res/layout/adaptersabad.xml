@@ -93,7 +93,7 @@
                             android:layout_height="match_parent"
                             android:layout_gravity="bottom|right"
                             android:gravity="bottom|right"
-                            android:text="TextView" />
+                            android:text="تعداد" />
                     </LinearLayout>
                 </LinearLayout>
 

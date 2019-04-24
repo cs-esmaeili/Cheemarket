@@ -26,6 +26,6 @@
         android:text="وارد شوید / ثبت نام کنید"
         android:textColor="@color/textcolorinAccent"
         android:textColorLink="@color/textcolorinAccent"
-        android:textSize="30dip" />
+        android:textSize="20dip" />
 
 </LinearLayout>

@@ -95,8 +95,8 @@ public class ActivityAtelaatkala extends AppCompatActivity {
         toolbar.setTitle("");
         colaps.setCollapsedTitleTextColor(Color.WHITE);
         colaps.setExpandedTitleColor(Color.TRANSPARENT);
-        colaps.setCollapsedTitleGravity(Gravity.CENTER);
-        colaps.setExpandedTitleGravity(Gravity.CENTER);
+
+
 
         mysabad = new sabad();
 

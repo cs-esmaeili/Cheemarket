@@ -3,7 +3,6 @@ package www.cheemarket.com.javadesmaeili.Adapter;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +22,7 @@ import www.cheemarket.com.javadesmaeili.G;
 import www.cheemarket.com.javadesmaeili.R;
 import www.cheemarket.com.javadesmaeili.SabadActivity;
 import www.cheemarket.com.javadesmaeili.Structure.sabad;
+import www.cheemarket.com.javadesmaeili.Textconfig;
 import www.cheemarket.com.javadesmaeili.Webservice;
 
 /**
@@ -39,7 +39,7 @@ public class SabadAdapter extends RecyclerView.Adapter<SabadAdapter.ViewHolder>{
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v =  LayoutInflater.from(parent.getContext()).inflate(R.layout.sabadadapter, parent, false);
+        View v =  LayoutInflater.from(parent.getContext()).inflate(R.layout.adaptersabad, parent, false);
 
         ViewHolder vh = new ViewHolder(v);
         return vh;
@@ -49,13 +49,30 @@ public class SabadAdapter extends RecyclerView.Adapter<SabadAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-        holder.txt1.setText("نام کالا : " +mdataset.get(position).Name);
-        holder.txt2.setText("وزن کالا : " + mdataset.get(position).Weight);
-        holder.txt3.setText("حجم کالا : " + mdataset.get(position).Volume);
-        holder.txt4.setText("قیمت کالا : " + mdataset.get(position).Price);
-        holder.txt5.setText("بارکد کالا : " + mdataset.get(position).Code);
-        holder.txt6.setText("کد کالا : " + mdataset.get(position).Id);
-        holder.edt.setText(mdataset.get(position).Tedad + "");
+        Textconfig.settext( holder.txt1, "نام کالا : " +mdataset.get(position).Name);
+        Textconfig.settext( holder.txt4, "قیمت کالا : " + mdataset.get(position).Price);
+        Textconfig.settext(holder.txt5,"بارکد کالا : " + mdataset.get(position).Code);
+        Textconfig.settext(holder.txt6, "کد کالا : " + mdataset.get(position).Id);
+        Textconfig.settext(holder.edt, mdataset.get(position).Tedad + "");
+
+
+
+
+
+
+
+        if(mdataset.get(position).Weight.equals("")){
+            holder.txt2.setVisibility(View.GONE);
+        }else {
+
+            Textconfig.settext( holder.txt2, "وزن کالا : " + mdataset.get(position).Weight);
+        }
+
+        if( mdataset.get(position).Volume.equals("")){
+            holder.txt3.setVisibility(View.GONE);
+        }else {
+            Textconfig.settext( holder.txt3, "حجم کالا : " + mdataset.get(position).Volume);
+        }
 
 
         Picasso.get()

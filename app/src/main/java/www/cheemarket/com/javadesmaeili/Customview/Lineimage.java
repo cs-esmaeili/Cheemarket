@@ -20,7 +20,7 @@ public class Lineimage extends View {
     private Paint paintline = new Paint();
     private Paint painttext = new Paint();
 
-    private String textforshow = "TEST TEXT";
+    private String textforshow = "Null";
     private float size = 50;
 
 

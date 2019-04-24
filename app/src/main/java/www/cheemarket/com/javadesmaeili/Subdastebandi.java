@@ -53,6 +53,12 @@ public class Subdastebandi extends AppCompatActivity {
     private boolean needtoclose = false;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        G.CurrentActivity = this;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subdastebandi);

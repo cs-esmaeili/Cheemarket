@@ -20,7 +20,7 @@
 
         <item
             android:id="@+id/alaghemandiha"
-            android:icon="@drawable/ic_favorite_border_black_24dp"
+            android:icon="@drawable/iconlike"
             android:title="علاقه مندی ها" />
 
 

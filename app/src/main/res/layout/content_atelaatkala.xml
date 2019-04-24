@@ -47,7 +47,7 @@
                                 android:layout_margin="3dip"
                                 android:layout_weight="1"
                                 android:scaleType="fitXY"
-                                android:src="@mipmap/share" />
+                                android:src="@drawable/iconshare" />
 
                             <ImageView
                                 android:id="@+id/imgalaghemandi"
@@ -55,7 +55,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_margin="3dip"
                                 android:layout_weight="1"
-                                android:background="@color/colorPrimary"
+                                android:background="@drawable/iconlike"
                                 android:scaleType="fitXY" />
 
                             <ImageView
@@ -65,7 +65,7 @@
                                 android:layout_margin="3dip"
                                 android:layout_weight="1"
                                 android:scaleType="fitXY"
-                                android:src="@mipmap/notification" />
+                                android:src="@drawable/icontime" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -131,11 +131,11 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
                                         android:layout_gravity="center_vertical|center_horizontal"
-                                        android:background="#007580"
                                         android:elevation="0dp"
 
                                         android:padding="3dip"
-                                        android:text="2"
+                                        android:text="0"
+                                        android:textColor="#ffffff"
                                         android:textSize="25dip" />
 
                                     <TextView
@@ -151,10 +151,10 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
                                         android:layout_gravity="center_vertical|center_horizontal"
-                                        android:background="#007580"
 
                                         android:padding="3dip"
-                                        android:text="20"
+                                        android:text="0"
+                                        android:textColor="#ffffff"
                                         android:textSize="25dip" />
 
                                     <TextView
@@ -170,10 +170,10 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
                                         android:layout_gravity="center_vertical|center_horizontal"
-                                        android:background="#007580"
 
                                         android:padding="3dip"
-                                        android:text="55"
+                                        android:text="0"
+                                        android:textColor="#ffffff"
                                         android:textSize="25dip" />
 
                                 </LinearLayout>
@@ -215,9 +215,9 @@
 
                             <ImageView
                                 android:id="@+id/imageView123"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                app:srcCompat="@android:drawable/star_big_on" />
+                                android:layout_width="40dip"
+                                android:layout_height="40dip"
+                                app:srcCompat="@drawable/iconcomment" />
 
                         </LinearLayout>
 
@@ -250,9 +250,9 @@
 
                             <ImageView
                                 android:id="@+id/imageView14"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                app:srcCompat="@android:drawable/star_big_on" />
+                                android:layout_width="40dip"
+                                android:layout_height="40dip"
+                                app:srcCompat="@drawable/iconinfo"/>
 
                         </LinearLayout>
 
