@@ -74,7 +74,7 @@
 
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
-                                android:src="@mipmap/dastebandi_tanagholat"
+                                android:src="@drawable/dastebandi_tanagholat"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
@@ -99,7 +99,7 @@
 
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
-                                android:src="@mipmap/dastebandi_konserv"
+                                android:src="@drawable/dastebandi_konserv"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
@@ -124,7 +124,7 @@
 
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
-                                android:src="@mipmap/dastebandi_noshidani"
+                                android:src="@drawable/dastebandi_noshidani"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
@@ -149,7 +149,7 @@
 
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
-                                android:src="@mipmap/dastebandi_protoein"
+                                android:src="@drawable/dastebandi_protoein"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
@@ -174,7 +174,7 @@
 
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
-                                android:src="@mipmap/dastebandi_sobhane"
+                                android:src="@drawable/dastebandi_sobhane"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
@@ -199,7 +199,7 @@
 
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
-                                android:src="@mipmap/dastebandi_kalahayeasasi"
+                                android:src="@drawable/dastebandi_kalahayeasasi"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
@@ -224,7 +224,7 @@
 
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
-                                android:src="@mipmap/dastebandi_khorma"
+                                android:src="@drawable/dastebandi_khorma"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
@@ -249,7 +249,7 @@
 
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
-                                android:src="@mipmap/dastebandi_labaniyat"
+                                android:src="@drawable/dastebandi_labaniyat"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
@@ -274,7 +274,7 @@
 
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
-                                android:src="@mipmap/datebandi_mavadshoyande"
+                                android:src="@drawable/datebandi_mavadshoyande"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
@@ -299,7 +299,7 @@
 
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
-                                android:src="@mipmap/dastebandi_shokolat"
+                                android:src="@drawable/dastebandi_shokolat"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
@@ -324,7 +324,7 @@
 
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
-                                android:src="@mipmap/dastebandi_khoshkbar"
+                                android:src="@drawable/dastebandi_khoshkbar"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
@@ -349,7 +349,7 @@
                                 android:id="@+id/profile_image"
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
-                                android:src="@mipmap/dastebandi_arayeshibehdashti"
+                                android:src="@drawable/dastebandi_arayeshibehdashti"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
@@ -382,7 +382,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="fitXY"
-                            app:srcCompat="@mipmap/pishnahadvizhtitle" />
+                            app:srcCompat="@drawable/pishnahadvizhtitle" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -502,7 +502,7 @@
                                 android:layout_marginBottom="4dip"
                                 android:layout_weight="1"
                                 android:scaleType="fitXY"
-                                android:src="@mipmap/dastebandi_kalahayeasasi" />
+                                android:src="@drawable/dastebandi_kalahayeasasi" />
 
                         </RelativeLayout>
 
@@ -520,7 +520,7 @@
                                 android:layout_margin="4dip"
                                 android:layout_weight="1"
                                 android:scaleType="fitXY"
-                                android:src="@mipmap/dastebandi_tanagholat" />
+                                android:src="@drawable/dastebandi_tanagholat" />
 
                         </RelativeLayout>
 
@@ -542,7 +542,7 @@
                             android:layout_marginBottom="5dip"
                             android:layout_weight="1"
                             android:scaleType="fitXY"
-                            android:src="@mipmap/dastebandi_konserv" />
+                            android:src="@drawable/dastebandi_konserv" />
 
                     </RelativeLayout>
 
@@ -568,7 +568,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dip"
                         android:scaleType="fitXY"
-                        app:srcCompat="@mipmap/porforoshtarinmahsolat" />
+                        app:srcCompat="@drawable/porforoshtarinmahsolat" />
 
                     <android.support.v7.widget.RecyclerView
 
@@ -603,7 +603,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="50dip"
                             android:scaleType="fitXY"
-                            app:srcCompat="@mipmap/mahbodtarinmahsolat" />
+                            app:srcCompat="@drawable/mahbodtarinmahsolat" />
 
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/List6"

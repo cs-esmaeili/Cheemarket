@@ -16,6 +16,7 @@ import com.squareup.picasso.Picasso;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
+import www.cheemarket.com.javadesmaeili.Commands;
 import www.cheemarket.com.javadesmaeili.Dastebandimahsolat;
 import www.cheemarket.com.javadesmaeili.G;
 import www.cheemarket.com.javadesmaeili.R;
@@ -52,29 +53,7 @@ public class SubdastebandiAdapter extends RecyclerView.Adapter<SubdastebandiAdap
 
 
 
-        Picasso.get()
-                .load(G.Baseurl + mdataset.get(position).Image)
-                .resize(G.IMAGES_HEIGHT, G.IMAGES_WIDTH)
-                .memoryPolicy(MemoryPolicy.NO_CACHE)
-                .networkPolicy(NetworkPolicy.NO_CACHE)
-                .into(holder.img, new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        MaterialImageLoading.animate(holder.img).setDuration(1000).start();
-                    }
-
-                    @Override
-                    public void onError(Exception e) {
-                        if (e instanceof SocketTimeoutException) {
-                            e.printStackTrace();
-                            Webservice.handelerro("timeout");
-                        } else {
-                            e.printStackTrace();
-                            Webservice.handelerro(null);
-                        }
-                    }
-                });
-
+        Commands.showimage(G.Baseurl + mdataset.get(position).Image,null,holder.img,true);
 
 
         holder.img.setOnClickListener(new View.OnClickListener() {

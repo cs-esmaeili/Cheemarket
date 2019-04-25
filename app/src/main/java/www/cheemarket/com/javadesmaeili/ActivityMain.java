@@ -24,21 +24,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
-import com.github.florent37.materialimageloading.MaterialImageLoading;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.Picasso;
-
+import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
-
 import me.relex.circleindicator.CircleIndicator;
 import okhttp3.Call;
 import okhttp3.Response;
@@ -187,7 +179,10 @@ public class ActivityMain extends AppCompatActivity
         }
 
 
+
+
     }
+
 
 
     public static void pagework() {
@@ -270,8 +265,9 @@ public class ActivityMain extends AppCompatActivity
                 mdatasetList1.clear();
                 mdatasetList4.clear();
                 mdatasetList6.clear();
-
-                JSONArray array = new JSONArray(response.body().string());
+                String input = response.body().string();
+                JSONArray array = new JSONArray(input);
+                Log.i("LOG","body =" + input);
 
                 for (int i = 0; i < array.length(); i++) {
                     final JSONObject jsonObject = array.getJSONObject(i);
@@ -280,7 +276,7 @@ public class ActivityMain extends AppCompatActivity
 
                         KalaStructure kalaStructure = new KalaStructure();
 
-                        Converts.convertinputdata(jsonObject,kalaStructure,true);
+                        Commands.convertinputdata(jsonObject,kalaStructure,true);
 
                         if (jsonObject.getString("Location").equals("1")) {
                             mdatasetList1.add(kalaStructure);
@@ -537,53 +533,26 @@ public class ActivityMain extends AppCompatActivity
 
     private static void showimage(final ImageView img, final JSONObject jsonObject) {
 
-        G.HANDLER.post(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-
-                    Picasso.get()
-                            .load(G.Baseurl + "Listimages/" + jsonObject.getString("Postimage") + "/" + jsonObject.getString("Postimage") + ".png")
-                            .resize(G.IMAGES_HEIGHT, G.IMAGES_WIDTH)
-                            .memoryPolicy(MemoryPolicy.NO_CACHE)
-                            .networkPolicy(NetworkPolicy.NO_CACHE)
-                            .into(img, new Callback() {
-                                @Override
-                                public void onSuccess() {
-                                    MaterialImageLoading.animate(img).setDuration(1000).start();
-                                }
-
-                                @Override
-                                public void onError(Exception e) {
-                                    if (e instanceof SocketTimeoutException) {
-                                        e.printStackTrace();
-                                        Webservice.handelerro("timeout");
-                                    } else {
-                                        e.printStackTrace();
-                                        Webservice.handelerro(null);
-                                    }
-                                }
-                            });
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-        });
+        try {
+            Commands.showimage(G.Baseurl + "Listimages/" + jsonObject.getString("Postimage") + "/" + jsonObject.getString("Postimage") + ".png", null, img ,true);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
 
     private static void setonclicks(final ImageView img, final JSONObject jsonObject) {
 
 
+
+
+
         G.HANDLER.post(new Runnable() {
             @Override
             public void run() {
                 try {
+
+
                     if (jsonObject.has("Subcategori") && !jsonObject.getString("Subcategori").equals("")) {
 
                         img.setOnClickListener(new View.OnClickListener() {
@@ -616,8 +585,8 @@ public class ActivityMain extends AppCompatActivity
                             @Override
                             public void onClick(View v) {
 
-
-                                Converts.openactivity(jsonObject, ActivityAtelaatkala.class);
+                                Toast.makeText(G.context,"Width =" +  img.getWidth() + " ?? Height =" +   img.getHeight(),Toast.LENGTH_LONG).show();
+                                Commands.openactivity(jsonObject, ActivityAtelaatkala.class);
 
 
                             }

@@ -46,16 +46,15 @@
                     android:text="نان حجیم"
                     android:textColor="#000000" />
 
-                <pl.droidsonroids.gif.GifImageView
+                <ImageView
                     android:id="@+id/gifone"
                     android:layout_width="match_parent"
                     android:layout_height="30dip"
                     android:layout_gravity="center"
                     android:layout_margin="4dip"
-                    android:layout_weight="0.75"
                     android:background="#ffffff"
                     android:scaleType="fitXY"
-                    android:src="@drawable/comp" />
+                    android:src="@drawable/speacial"  />
 
                 <ImageView
                     android:id="@+id/imageView6"
@@ -124,16 +123,15 @@
                     android:text="نان حجیم"
                     android:textColor="#000000" />
 
-                <pl.droidsonroids.gif.GifImageView
+                <ImageView
                     android:id="@+id/giftwo"
                     android:layout_width="match_parent"
                     android:layout_height="30dip"
                     android:layout_gravity="center"
                     android:layout_margin="4dip"
-                    android:layout_weight="0.75"
                     android:background="#ffffff"
                     android:scaleType="fitXY"
-                    android:src="@drawable/comp" />
+                    android:src="@drawable/speacial"  />
 
                 <ImageView
                     android:id="@+id/imageView2"

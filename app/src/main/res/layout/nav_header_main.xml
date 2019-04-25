@@ -16,7 +16,8 @@
         android:layout_height="100dip"
         android:layout_margin="10dip"
         android:scaleType="fitCenter"
-        app:srcCompat="@mipmap/person" />
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/person" />
 
     <TextView
         android:id="@+id/txtprofile"

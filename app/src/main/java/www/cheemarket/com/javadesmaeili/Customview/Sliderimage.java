@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.github.florent37.materialimageloading.MaterialImageLoading;
 import com.squareup.picasso.Callback;
@@ -18,6 +19,7 @@ import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
 import me.relex.circleindicator.CircleIndicator;
+import www.cheemarket.com.javadesmaeili.Commands;
 import www.cheemarket.com.javadesmaeili.G;
 import www.cheemarket.com.javadesmaeili.R;
 import www.cheemarket.com.javadesmaeili.Webservice;
@@ -29,7 +31,7 @@ public class Sliderimage {
     private Context context;
     private int layoutid;
     private int imageviewid;
-
+    private ImageView.ScaleType scaleType;
     private MyPager instantadapter = new MyPager();
     private ViewPager viewPager;
     private CircleIndicator circleIndicator;
@@ -50,30 +52,9 @@ public class Sliderimage {
         public Object instantiateItem(ViewGroup container, int position) {
             View view = LayoutInflater.from(context).inflate(layoutid, null);
             final ImageView imageView = (ImageView) view.findViewById(imageviewid);
+            imageView.setScaleType(scaleType);
 
-
-            Picasso.get()
-                    .load(imageurlandscaletype.get(position))
-                    .fit()
-                    .memoryPolicy(MemoryPolicy.NO_CACHE)
-                    .networkPolicy(NetworkPolicy.NO_CACHE)
-                    .into(imageView, new Callback() {
-                        @Override
-                        public void onSuccess() {
-                            MaterialImageLoading.animate(imageView).setDuration(1000).start();
-                        }
-
-                        @Override
-                        public void onError(Exception e) {
-                            if (e instanceof SocketTimeoutException) {
-                                e.printStackTrace();
-                                Webservice.handelerro("timeout");
-                            } else {
-                                e.printStackTrace();
-                                Webservice.handelerro(null);
-                            }
-                        }
-                    });
+            Commands.showimage(imageurlandscaletype.get(position),null,imageView,true);
 
             container.addView(view);
             return view;
@@ -107,12 +88,13 @@ public class Sliderimage {
     }
 
 
-    public Sliderimage(final Context context, final ViewPager viewPager , CircleIndicator circleIndicator, int layoutid , int imageviewid) {
+    public Sliderimage(final Context context, final ViewPager viewPager , CircleIndicator circleIndicator, int layoutid , int imageviewid , ImageView.ScaleType scaleType) {
         this.context = context;
         this.layoutid = layoutid;
         this.imageviewid = imageviewid;
         this.viewPager = viewPager;
         this.circleIndicator = circleIndicator;
+        this.scaleType = scaleType;
         instantadapter.notifyDataSetChanged();
     }
 

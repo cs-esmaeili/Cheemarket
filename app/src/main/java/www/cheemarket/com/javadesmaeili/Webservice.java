@@ -30,9 +30,9 @@ public class Webservice {
     private static OkHttpClient getclient()    {
         if (client == null) {
             client = new OkHttpClient.Builder()
-                    .connectTimeout(1,TimeUnit.SECONDS)
-                    .writeTimeout(1,TimeUnit.SECONDS)
-                    .readTimeout(1,TimeUnit.SECONDS)
+                    .connectTimeout(3,TimeUnit.SECONDS)
+                    .writeTimeout(3,TimeUnit.SECONDS)
+                    .readTimeout(3,TimeUnit.SECONDS)
                     .build();
 
         }

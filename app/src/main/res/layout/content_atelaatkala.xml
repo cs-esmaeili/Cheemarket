@@ -112,7 +112,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:scaleType="fitXY"
-                                    app:srcCompat="@mipmap/pishnahadvizhtitle" />
+                                    app:srcCompat="@drawable/pishnahadvizhtitle" />
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
@@ -132,7 +132,6 @@
                                         android:layout_height="match_parent"
                                         android:layout_gravity="center_vertical|center_horizontal"
                                         android:elevation="0dp"
-
                                         android:padding="3dip"
                                         android:text="0"
                                         android:textColor="#ffffff"
@@ -142,7 +141,6 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
                                         android:layout_gravity="center_vertical|center_horizontal"
-
                                         android:text=":"
                                         android:textSize="25dip" />
 
@@ -151,7 +149,6 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
                                         android:layout_gravity="center_vertical|center_horizontal"
-
                                         android:padding="3dip"
                                         android:text="0"
                                         android:textColor="#ffffff"
@@ -161,7 +158,6 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
                                         android:layout_gravity="center_vertical|center_horizontal"
-
                                         android:text=":"
                                         android:textSize="25dip" />
 
@@ -170,7 +166,6 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
                                         android:layout_gravity="center_vertical|center_horizontal"
-
                                         android:padding="3dip"
                                         android:text="0"
                                         android:textColor="#ffffff"

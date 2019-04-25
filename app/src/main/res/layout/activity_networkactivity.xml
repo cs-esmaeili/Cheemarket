@@ -24,15 +24,14 @@
         android:text="خطا در اتصال به اینترنت !"
         android:textColor="#000000"
         android:textSize="18dip" />
-
+    <!-- android:background="@drawable/ripple_effect" -->
     <TextView
         android:id="@+id/txttry"
         android:layout_width="210dip"
         android:layout_height="40dip"
-
-        android:background="@drawable/ripple_effect"
         android:gravity="center"
         android:text="تلاش مجدد"
         android:textColor="#ffffff"
+        android:background="@color/colorPrimary"
         android:textSize="18dip" />
 </LinearLayout>

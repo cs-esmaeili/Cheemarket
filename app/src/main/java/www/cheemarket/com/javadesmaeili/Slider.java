@@ -20,7 +20,7 @@ public class Slider {
         G.HANDLER.post(new Runnable() {
             @Override
             public void run() {
-                Sliderimage mysilder = new Sliderimage(G.context, ActivityMain.viewPager , ActivityMain.circleIndicator ,R.layout.sliderlayout,R.id.image);
+                Sliderimage mysilder = new Sliderimage(G.context, ActivityMain.viewPager , ActivityMain.circleIndicator ,R.layout.sliderlayout,R.id.image , ImageView.ScaleType.FIT_XY);
                 mysilder.removealldata();
                 for (int i = 0; i < array.size(); i++) {
 

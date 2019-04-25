@@ -259,7 +259,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
 
                     final JSONArray jsonArray = new JSONArray(input);
 
-                    final Sliderimage mysilder = new Sliderimage(G.context, ActivityAtelaatkala.viewPager, ActivityAtelaatkala.circleIndicator, R.layout.sliderlayout, R.id.image);
+                    final Sliderimage mysilder = new Sliderimage(G.context, ActivityAtelaatkala.viewPager, ActivityAtelaatkala.circleIndicator, R.layout.sliderlayout, R.id.image , ImageView.ScaleType.CENTER_CROP);
                     mysilder.removealldata();
 
                     for (int i = 0; i < jsonArray.length(); i++) {

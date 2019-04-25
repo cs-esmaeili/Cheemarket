@@ -3,7 +3,6 @@ package www.cheemarket.com.javadesmaeili.Adapter;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,20 +16,15 @@ import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
-
-import pl.droidsonroids.gif.GifImageView;
 import www.cheemarket.com.javadesmaeili.ActivityAtelaatkala;
-import www.cheemarket.com.javadesmaeili.ActivityMain;
-import www.cheemarket.com.javadesmaeili.Converts;
+import www.cheemarket.com.javadesmaeili.Commands;
 import www.cheemarket.com.javadesmaeili.G;
 import www.cheemarket.com.javadesmaeili.Customview.Lineimage;
 import www.cheemarket.com.javadesmaeili.R;
 
 import www.cheemarket.com.javadesmaeili.Structure.KalaStructure;
 import www.cheemarket.com.javadesmaeili.Textconfig;
-import www.cheemarket.com.javadesmaeili.Webservice;
 
 /**
  * Created by user on 8/21/2018.
@@ -106,14 +100,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         Textconfig.settext(holder.textPriceone, "" + finaldataset.get(position).Price1);
 
 
-        showimage(G.Baseurl + "Listimages/" + finaldataset.get(position).Image1 + "/" + finaldataset.get(position).Image1 + ".png", holder.imageone, true);
-
+        Commands.showimage(G.Baseurl + "Listimages/" + finaldataset.get(position).Image1 + "/" + finaldataset.get(position).Image1 + ".png" ,null,holder.imageone,true);
 
         holder.cardone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Converts.openactivity(finaldataset, position, ActivityAtelaatkala.class);
+                Commands.openactivity(finaldataset, position, ActivityAtelaatkala.class);
 
             }
         });
@@ -139,13 +132,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             Textconfig.settext(holder.textPricetwo, "" + finaldataset.get(position).Price2);
 
 
-            showimage(G.Baseurl + "Listimages/" + finaldataset.get(position).Image2 + "/" + finaldataset.get(position).Image2 + ".png", holder.imagetwo, true);
+
+            Commands.showimage(G.Baseurl + "Listimages/" + finaldataset.get(position).Image2 + "/" + finaldataset.get(position).Image2 + ".png", null,holder.imagetwo,true);
 
             holder.cardtwo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    Converts.openactivity(finaldataset, position, ActivityAtelaatkala.class);
+                    Commands.openactivity(finaldataset, position, ActivityAtelaatkala.class);
                 }
             });
 
@@ -165,14 +159,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         public Lineimage textoffPriceone;
         public ImageView imageone;
         public CardView cardone;
-        public GifImageView gifone;
+        public ImageView gifone;
 
         public TextView txtnametwo;
         public TextView textPricetwo;
         public Lineimage textoffPricetwo;
         public ImageView imagetwo;
         public CardView cardtwo;
-        public GifImageView giftwo;
+        public ImageView giftwo;
 
 
         public ViewHolder(View itemView) {
@@ -183,7 +177,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             imageone = (ImageView) itemView.findViewById(R.id.imageone);
             textoffPriceone = (Lineimage) itemView.findViewById(R.id.textoffPriceone);
             cardone = (CardView) itemView.findViewById(R.id.Cardone);
-            gifone = (GifImageView) itemView.findViewById(R.id.gifone);
+            gifone = (ImageView) itemView.findViewById(R.id.gifone);
 
 
             if (layout == R.layout.listtwo) {
@@ -192,45 +186,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 imagetwo = (ImageView) itemView.findViewById(R.id.imagetwo);
                 textoffPricetwo = (Lineimage) itemView.findViewById(R.id.textoffPricetwo);
                 cardtwo = (CardView) itemView.findViewById(R.id.Cardtwo);
-                giftwo = (GifImageView) itemView.findViewById(R.id.giftwo);
+                giftwo = (ImageView) itemView.findViewById(R.id.giftwo);
             }
 
 
         }
     }
 
-    private void showimage(final String loadurl, final ImageView imgview, final boolean trytoload) {
-
-
-        G.HANDLER.post(new Runnable() {
-            @Override
-            public void run() {
-
-
-                Picasso.get()
-                        .load(loadurl)
-                        .resize(G.IMAGES_HEIGHT, G.IMAGES_WIDTH)
-                        .memoryPolicy(MemoryPolicy.NO_CACHE)
-                        .networkPolicy(NetworkPolicy.NO_CACHE)
-                        .into(imgview, new Callback() {
-                            @Override
-                            public void onSuccess() {
-                                MaterialImageLoading.animate(imgview).setDuration(1000).start();
-                            }
-
-                            @Override
-                            public void onError(Exception e) {
-                                if (trytoload) {
-                                    showimage(loadurl, imgview, false);
-                                }
-
-                            }
-                        });
-
-            }
-        });
-
-    }
 
     private void changedataset() {
 

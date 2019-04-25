@@ -1,7 +1,6 @@
 package www.cheemarket.com.javadesmaeili;
 
 import android.content.DialogInterface;
-import android.os.Build;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -293,7 +292,7 @@ public class Subdastebandi extends AppCompatActivity {
                             if (mdatasetkalafortwokala.size() > 0) {
 
                                 if (mdatasetkalafortwokala.get(mdatasetkalafortwokala.size() - 1).Id2 == null || mdatasetkalafortwokala.get(mdatasetkalafortwokala.size() - 1).Id2.equals("")) {
-                                    Converts.convertinputdata(object, mdatasetkalafortwokala.get(mdatasetkalafortwokala.size() - 1), false);
+                                    Commands.convertinputdata(object, mdatasetkalafortwokala.get(mdatasetkalafortwokala.size() - 1), false);
                                 }
 
                             }
@@ -301,15 +300,15 @@ public class Subdastebandi extends AppCompatActivity {
 
 
                         KalaStructure temp = new KalaStructure();
-                        Converts.convertinputdata(object, temp, true);
+                        Commands.convertinputdata(object, temp, true);
                         mdatasetkalaforonekala.add(temp);
 
 
                         if (kalaone) {
                             kala = new KalaStructure();
-                            Converts.convertinputdata(object, kala, kalaone);
+                            Commands.convertinputdata(object, kala, kalaone);
                         } else {
-                            Converts.convertinputdata(object, kala, kalaone);
+                            Commands.convertinputdata(object, kala, kalaone);
                             mdatasetkalafortwokala.add(kala);
                         }
                         kalaone = !kalaone;

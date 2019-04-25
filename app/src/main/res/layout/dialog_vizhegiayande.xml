@@ -19,7 +19,7 @@
             android:layout_gravity="center"
             android:layout_margin="4dip"
             android:background="#ffffff"
-            android:src="@mipmap/vizhgeayande" />
+            android:src="@drawable/vizhgeayande" />
 
         <TextView
             android:id="@+id/textView3"

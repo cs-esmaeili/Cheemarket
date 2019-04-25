@@ -69,18 +69,18 @@ public class Dastebandimahsolat extends AppCompatActivity {
         Images.add((ImageView) findViewById(R.id.img12));
 
 
-        aksha.add(R.mipmap.dastebandi_tanagholat);
-        aksha.add(R.mipmap.dastebandi_khoshkbar);
-        aksha.add(R.mipmap.datebandi_mavadshoyande);
-        aksha.add(R.mipmap.dastebandi_khorma);
-        aksha.add(R.mipmap.dastebandi_labaniyat);
-        aksha.add(R.mipmap.dastebandi_sobhane);
-        aksha.add(R.mipmap.dastebandi_konserv);
-        aksha.add(R.mipmap.dastebandi_kalahayeasasi);
-        aksha.add(R.mipmap.dastebandi_noshidani);
-        aksha.add(R.mipmap.dastebandi_shokolat);
-        aksha.add(R.mipmap.dastebandi_protoein);
-        aksha.add(R.mipmap.dastebandi_arayeshibehdashti);
+        aksha.add(R.drawable.dastebandi_tanagholat);
+        aksha.add(R.drawable.dastebandi_khoshkbar);
+        aksha.add(R.drawable.datebandi_mavadshoyande);
+        aksha.add(R.drawable.dastebandi_khorma);
+        aksha.add(R.drawable.dastebandi_labaniyat);
+        aksha.add(R.drawable.dastebandi_sobhane);
+        aksha.add(R.drawable.dastebandi_konserv);
+        aksha.add(R.drawable.dastebandi_kalahayeasasi);
+        aksha.add(R.drawable.dastebandi_noshidani);
+        aksha.add(R.drawable.dastebandi_shokolat);
+        aksha.add(R.drawable.dastebandi_protoein);
+        aksha.add(R.drawable.dastebandi_arayeshibehdashti);
 
 
         layouts.get(0).setTag("dastebandi_tanagholat");
@@ -141,28 +141,9 @@ public class Dastebandimahsolat extends AppCompatActivity {
 
         for (int i = 0; i < Images.size(); i++) {
             final int finalI = i;
-            Picasso.get()
-                    .load(aksha.get(finalI))
-                    .resize(G.IMAGES_HEIGHT, G.IMAGES_WIDTH)
-                    .memoryPolicy(MemoryPolicy.NO_CACHE)
-                    .networkPolicy(NetworkPolicy.NO_CACHE)
-                    .into(Images.get(finalI), new Callback() {
-                        @Override
-                        public void onSuccess() {
-                            MaterialImageLoading.animate(Images.get(finalI)).setDuration(1000).start();
-                        }
 
-                        @Override
-                        public void onError(Exception e) {
-                            if (e instanceof SocketTimeoutException) {
-                                e.printStackTrace();
-                                Webservice.handelerro("timeout");
-                            } else {
-                                e.printStackTrace();
-                                Webservice.handelerro(null);
-                            }
-                        }
-                    });
+            Commands.showimage(null, aksha.get(finalI), Images.get(finalI),true);
+
         }
 
 
