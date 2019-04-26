@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layoutDirection="ltr"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dip"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/Cardone"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dip"
+            android:layout_marginRight="2dip"
+            android:layout_weight="0.50"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageone"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dip"
+                    android:layout_weight="0.75"
+                    android:padding="4dip"
+                    android:scaleType="centerCrop"
+                   />
+
+                <TextView
+                    android:id="@+id/txtnameone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingRight="4dip"
+                    android:text="نان حجیم"
+                    android:textColor="#000000" />
+
+                <ImageView
+                    android:id="@+id/gifone"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dip"
+                    android:layout_gravity="center"
+                    android:layout_margin="4dip"
+                    android:background="#ffffff"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/speacial"  />
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginBottom="7dip"
+                    android:layout_marginTop="3dip"
+                    android:background="#E8E8E8" />
+
+                <view
+                    android:id="@+id/textoffPriceone"
+                    class="www.cheemarket.com.javadesmaeili.Customview.Lineimage"
+                    layout_weight="0.75"
+                    layout_width="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dip"
+                    android:layout_marginLeft="8dip"
+                    android:layout_marginRight="8dip"
+                    android:layout_weight="0.75" />
+
+                <TextView
+                    android:id="@+id/textPriceone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingRight="4dip"
+                    android:paddingBottom="4dip"
+                    android:text="3,000 تومان"
+                    android:textAlignment="center"
+                    android:textColor="#66BB6A"
+                    android:textSize="18dip" />
+
+                <TextView
+                    android:id="@+id/deleteone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.75"
+                    android:background="@color/mycolorAccentprimary"
+                    android:gravity="center"
+                    android:text="حذف از لیست"
+                    android:textColor="#000000"
+                    android:textSize="20dip" />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/Cardtwo"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dip"
+            android:layout_marginRight="4dip"
+            android:layout_weight="0.50"
+            android:visibility="visible"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imagetwo"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dip"
+                    android:layout_weight="0.75"
+                    android:padding="4dip"
+                    android:scaleType="centerCrop"
+                   />
+
+                <TextView
+                    android:id="@+id/txtnametwo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingRight="4dip"
+                    android:text="نان حجیم"
+                    android:textColor="#000000" />
+
+                <ImageView
+                    android:id="@+id/giftwo"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dip"
+                    android:layout_gravity="center"
+                    android:layout_margin="4dip"
+                    android:background="#ffffff"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/speacial"  />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginBottom="7dip"
+                    android:layout_marginTop="3dip"
+                    android:background="#E8E8E8" />
+
+
+                <view
+                    android:id="@+id/textoffPricetwo"
+                    class="www.cheemarket.com.javadesmaeili.Customview.Lineimage"
+                    layout_weight="0.75"
+                    layout_width="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dip"
+                    android:layout_marginLeft="8dip"
+                    android:layout_marginRight="8dip"
+                    android:layout_weight="0.75" />
+
+                <TextView
+                    android:id="@+id/textPricetwo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingRight="4dip"
+                    android:paddingBottom="4dip"
+                    android:text="3,000 تومان"
+                    android:textAlignment="center"
+                    android:textColor="#66BB6A"
+                    android:textSize="18dip" />
+
+                <TextView
+                    android:id="@+id/deletetwo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.75"
+                    android:background="@color/mycolorAccentprimary"
+                    android:gravity="center"
+                    android:text="حذف از لیست"
+                    android:textColor="#000000"
+                    android:textSize="20dip" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+</LinearLayout>

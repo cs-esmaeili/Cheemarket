@@ -17,6 +17,7 @@ import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
 import www.cheemarket.com.javadesmaeili.ActivityAtelaatkala;
 import www.cheemarket.com.javadesmaeili.Commands;
 import www.cheemarket.com.javadesmaeili.G;
@@ -83,65 +84,104 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-
-        if (finaldataset.get(position).OldPrice1.equals("0")) {
-            holder.textoffPriceone.setVisibility(View.GONE);
+        if (finaldataset.get(position).Id1 == null) {
+            holder.cardone.setVisibility(View.GONE);
         } else {
-            holder.textoffPriceone.setText(finaldataset.get(position).OldPrice1 + "");
 
-        }
-        if (finaldataset.get(position).Status1.equals("2")) {
-            holder.gifone.setVisibility(View.VISIBLE);
-        } else {
-            holder.gifone.setVisibility(View.GONE);
-        }
-
-        Textconfig.settext(holder.txtnameone, finaldataset.get(position).Name1);
-        Textconfig.settext(holder.textPriceone, "" + finaldataset.get(position).Price1);
-
-
-        Commands.showimage(G.Baseurl + "Listimages/" + finaldataset.get(position).Image1 + "/" + finaldataset.get(position).Image1 + ".png" ,null,holder.imageone,true);
-
-        holder.cardone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Commands.openactivity(finaldataset, position, ActivityAtelaatkala.class);
-
+            if (finaldataset.get(position).OldPrice1 == null || finaldataset.get(position).OldPrice1.equals("0")) {
+                holder.textoffPriceone.setVisibility(View.GONE);
+            } else {
+                holder.textoffPriceone.setText(finaldataset.get(position).OldPrice1 + "");
             }
-        });
+            if (finaldataset.get(position).Price1 != null && !finaldataset.get(position).Price1.equals("0")) {
+                Textconfig.settext(holder.textPriceone, "" + finaldataset.get(position).Price1);
+            } else {
+                holder.textPriceone.setVisibility(View.GONE);
+            }
+
+            if (finaldataset.get(position).Status1 != null && finaldataset.get(position).Status1.equals("2")) {
+                holder.gifone.setVisibility(View.VISIBLE);
+            } else {
+                holder.gifone.setVisibility(View.GONE);
+            }
+
+            if (finaldataset.get(position).Name1 != null && !finaldataset.get(position).Name1.equals("")) {
+                Textconfig.settext(holder.txtnameone, finaldataset.get(position).Name1);
+            } else {
+                holder.txtnameone.setVisibility(View.GONE);
+            }
+
+
+
+            if (finaldataset.get(position).Image1 != null && !finaldataset.get(position).Image1.equals("")) {
+                Commands.showimage(G.Baseurl + "Listimages/" + finaldataset.get(position).Image1 + "/" + finaldataset.get(position).Image1 + ".png", null, holder.imageone, true);
+            }
+
+
+            holder.cardone.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Commands.openactivity(finaldataset, position, ActivityAtelaatkala.class);
+
+                }
+            });
+
+
+        }
 
 
         if (layout == R.layout.listtwo) {
 
 
-            if (finaldataset.get(position).OldPrice2.equals("0")) {
-                holder.textoffPricetwo.setVisibility(View.GONE);
+            if (finaldataset.get(position).Id2 == null) {
+                holder.cardtwo.setVisibility(View.GONE);
             } else {
-                holder.textoffPricetwo.setText(finaldataset.get(position).OldPrice2 + "");
-
-            }
-
-            if (finaldataset.get(position).Status2.equals("2")) {
-                holder.giftwo.setVisibility(View.VISIBLE);
-            } else {
-                holder.giftwo.setVisibility(View.GONE);
-            }
-
-            Textconfig.settext(holder.txtnametwo, finaldataset.get(position).Name2);
-            Textconfig.settext(holder.textPricetwo, "" + finaldataset.get(position).Price2);
 
 
-
-            Commands.showimage(G.Baseurl + "Listimages/" + finaldataset.get(position).Image2 + "/" + finaldataset.get(position).Image2 + ".png", null,holder.imagetwo,true);
-
-            holder.cardtwo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Commands.openactivity(finaldataset, position, ActivityAtelaatkala.class);
+                if (finaldataset.get(position).OldPrice2 == null || finaldataset.get(position).OldPrice2.equals("0")) {
+                    holder.textoffPricetwo.setVisibility(View.GONE);
+                } else {
+                    holder.textoffPricetwo.setText(finaldataset.get(position).OldPrice2 + "");
                 }
-            });
+
+                if (finaldataset.get(position).Price2 != null && !finaldataset.get(position).Price2.equals("0")) {
+                    Textconfig.settext(holder.textPricetwo, "" + finaldataset.get(position).Price2);
+                } else {
+                    holder.textPricetwo.setVisibility(View.GONE);
+                }
+
+                if (finaldataset.get(position).Status2 != null && finaldataset.get(position).Status2.equals("2")) {
+                    holder.giftwo.setVisibility(View.VISIBLE);
+                } else {
+                    holder.giftwo.setVisibility(View.GONE);
+                }
+
+                if (finaldataset.get(position).Name2 != null && !finaldataset.get(position).Name2.equals("")) {
+                    Textconfig.settext(holder.txtnametwo, finaldataset.get(position).Name2);
+                } else {
+                    holder.txtnametwo.setVisibility(View.GONE);
+                }
+
+
+
+
+                if (finaldataset.get(position).Image2 != null && !finaldataset.get(position).Image2.equals("")) {
+                    Commands.showimage(G.Baseurl + "Listimages/" + finaldataset.get(position).Image2 + "/" + finaldataset.get(position).Image2 + ".png", null, holder.imagetwo, true);
+                }
+
+
+                holder.cardtwo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Commands.openactivity(finaldataset, position, ActivityAtelaatkala.class);
+                    }
+                });
+
+
+            }
+
 
         }
 

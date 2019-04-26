@@ -171,6 +171,13 @@ public class ActivityAtelaatkala extends AppCompatActivity {
             }
         });
 
+        imgalaghemandi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Alaghemandiha.addtoalaghemandiha(mysabad.Id);
+            }
+        });
+
         Textconfig.settext(txtcode, "کد کالا: " + mysabad.Id);
 
         if (mysabad.Name != null && !mysabad.Name.equals("")) {

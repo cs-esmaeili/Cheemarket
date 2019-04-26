@@ -472,6 +472,15 @@ public class ActivityMain extends AppCompatActivity
                 startActivity(intent);
             }
 
+        }else if(id == R.id.alaghemandiha){
+            if(G.userid == -1){
+            //    Intent intent = new Intent(G.CurrentActivity,  LoginActivity.class);
+            //    startActivity(intent);
+            }else{
+                Intent intent = new Intent(G.CurrentActivity,  Alaghemandiha.class);
+                startActivity(intent);
+            }
+
         }
      /*   } else if (id == R.id.exit) {
             G.userid = -1;
@@ -490,15 +499,6 @@ public class ActivityMain extends AppCompatActivity
                 startActivity(intent);
             }else{
                 Intent intent = new Intent(G.CurrentActivity,  Orders.class);
-                startActivity(intent);
-            }
-
-        }else if(id == R.id.alaghemandiha){
-            if(G.userid == -1){
-                Intent intent = new Intent(G.CurrentActivity,  LoginActivity.class);
-                startActivity(intent);
-            }else{
-                Intent intent = new Intent(G.CurrentActivity,  alaghemandiha.class);
                 startActivity(intent);
             }
 

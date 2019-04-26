@@ -53,7 +53,10 @@ public class SubdastebandiAdapter extends RecyclerView.Adapter<SubdastebandiAdap
 
 
 
-        Commands.showimage(G.Baseurl + mdataset.get(position).Image,null,holder.img,true);
+        if(mdataset.get(position).Image != null && !mdataset.get(position).Image.equals("")){
+            Commands.showimage(G.Baseurl + mdataset.get(position).Image,null,holder.img,true);
+        }
+
 
 
         holder.img.setOnClickListener(new View.OnClickListener() {

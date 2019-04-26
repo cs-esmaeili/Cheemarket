@@ -307,6 +307,9 @@ public class Subdastebandi extends AppCompatActivity {
                         if (kalaone) {
                             kala = new KalaStructure();
                             Commands.convertinputdata(object, kala, kalaone);
+                            if(i == array.length() - 1){
+                                mdatasetkalafortwokala.add(kala);
+                            }
                         } else {
                             Commands.convertinputdata(object, kala, kalaone);
                             mdatasetkalafortwokala.add(kala);
@@ -360,32 +363,35 @@ public class Subdastebandi extends AppCompatActivity {
                 if (showsubdastebandi) {
                     return;
                 }
-                TextView txtname = (TextView) view.findViewById(R.id.txtnameone);
-                if (txtname.getText().toString().equals(mdatasetkalafortwokala.get(mdatasetkalafortwokala.size() - 2).Name1) || txtname.getText().toString().equals(mdatasetkalafortwokala.get(mdatasetkalafortwokala.size() - 1).Name1)) {
-                    if (layoutManager.findLastVisibleItemPosition() == (mdatasetkalafortwokala.size() - 1) - 1) {
+                if (mdatasetkalafortwokala.size() > 2){
+                    TextView txtname = (TextView) view.findViewById(R.id.txtnameone);
+                    if (txtname.getText().toString().equals(mdatasetkalafortwokala.get(mdatasetkalafortwokala.size() - 2).Name1) || txtname.getText().toString().equals(mdatasetkalafortwokala.get(mdatasetkalafortwokala.size() - 1).Name1)) {
+                        if (layoutManager.findLastVisibleItemPosition() == (mdatasetkalafortwokala.size() - 1) - 1) {
 
-                        if (allownext == false) {
-                            return;
+                            if (allownext == false) {
+                                return;
+                            }
+                            allownext = false;
+
+
+                            ArrayList<Webservice.requestparameter> array1 = new ArrayList<>();
+                            Webservice.requestparameter object1 = new Webservice.requestparameter();
+                            object1.key = "value";
+                            object1.value = code;
+                            array1.add(object1);
+                            Webservice.requestparameter object2 = new Webservice.requestparameter();
+                            object2.key = "number";
+                            object2.value = Listnumber + "";
+                            array1.add(object2);
+                            Webservice.requestparameter object3 = new Webservice.requestparameter();
+                            object3.key = "sort";
+                            object3.value = sort;
+                            array1.add(object3);
+                            Webservice.request("Store.php?action=partofdata", mycall, array1);
+
                         }
-                        allownext = false;
-
-
-                        ArrayList<Webservice.requestparameter> array1 = new ArrayList<>();
-                        Webservice.requestparameter object1 = new Webservice.requestparameter();
-                        object1.key = "value";
-                        object1.value = code;
-                        array1.add(object1);
-                        Webservice.requestparameter object2 = new Webservice.requestparameter();
-                        object2.key = "number";
-                        object2.value = Listnumber + "";
-                        array1.add(object2);
-                        Webservice.requestparameter object3 = new Webservice.requestparameter();
-                        object3.key = "sort";
-                        object3.value = sort;
-                        array1.add(object3);
-                        Webservice.request("Store.php?action=partofdata", mycall, array1);
-
                     }
+
                 }
 
             }

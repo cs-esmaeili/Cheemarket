@@ -37,28 +37,55 @@ public class SabadAdapter extends RecyclerView.Adapter<SabadAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-        Textconfig.settext(holder.txt1, "نام کالا : " + mdataset.get(position).Name);
-        Textconfig.settext(holder.txt4, "قیمت کالا : " + mdataset.get(position).Price);
-        Textconfig.settext(holder.txt5, "بارکد کالا : " + mdataset.get(position).Code);
-        Textconfig.settext(holder.txt6, "کد کالا : " + mdataset.get(position).Id);
-        Textconfig.settext(holder.tedad, mdataset.get(position).Tedad + "");
+        if(mdataset.get(position).Name != null && !mdataset.get(position).Name.equals("")){
+            Textconfig.settext(holder.txt1, "نام کالا : " + mdataset.get(position).Name);
+        }else{
+            holder.txt1.setVisibility(View.GONE);
+        }
+
+        if(mdataset.get(position).Price != null && !mdataset.get(position).Price.equals("0")){
+            Textconfig.settext(holder.txt4, "قیمت کالا : " + mdataset.get(position).Price);
+        }else{
+            holder.txt4.setVisibility(View.GONE);
+        }
+
+        if(mdataset.get(position).Code != null && !mdataset.get(position).Code.equals("")){
+            Textconfig.settext(holder.txt5, "بارکد کالا : " + mdataset.get(position).Code);
+        }else{
+            holder.txt5.setVisibility(View.GONE);
+        }
+
+        if(mdataset.get(position).Id != null && !mdataset.get(position).Id.equals("")){
+            Textconfig.settext(holder.txt6, "کد کالا : " + mdataset.get(position).Id);
+        }else{
+            holder.txt6.setVisibility(View.GONE);
+        }
+
+        if(mdataset.get(position).Tedad != null && !mdataset.get(position).Tedad.equals("0")){
+            Textconfig.settext(holder.tedad, mdataset.get(position).Tedad + "");
+        }else{
+            holder.tedad.setVisibility(View.GONE);
+        }
 
 
-        if (mdataset.get(position).Weight.equals("")) {
+
+
+        if (mdataset.get(position).Weight == null || mdataset.get(position).Weight.equals("")) {
             holder.txt2.setVisibility(View.GONE);
         } else {
-
             Textconfig.settext(holder.txt2, "وزن کالا : " + mdataset.get(position).Weight);
         }
 
-        if (mdataset.get(position).Volume.equals("")) {
+        if (mdataset.get(position).Volume == null || mdataset.get(position).Volume.equals("")) {
             holder.txt3.setVisibility(View.GONE);
         } else {
             Textconfig.settext(holder.txt3, "حجم کالا : " + mdataset.get(position).Volume);
         }
 
+        if(mdataset.get(position).Image != null && !mdataset.get(position).Image.equals("")){
+            Commands.showimage(G.Baseurl + "Listimages/" + mdataset.get(position).Image + "/" + mdataset.get(position).Image + ".png", null, holder.image, true);
+        }
 
-        Commands.showimage(G.Baseurl + "Listimages/" + mdataset.get(position).Image + "/" + mdataset.get(position).Image + ".png", null, holder.image, true);
 
 
         holder.imgdelete.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +101,7 @@ public class SabadAdapter extends RecyclerView.Adapter<SabadAdapter.ViewHolder> 
 
     }
 
-    Boolean loop = true;
+
     @Override
     public int getItemCount() {
         return mdataset.size();

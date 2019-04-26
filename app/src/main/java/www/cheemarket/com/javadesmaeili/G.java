@@ -28,7 +28,7 @@ public class G extends Application {
 
     public static ArrayList<sabad> mdatasetsabad = new ArrayList<sabad>();
    // public static ArrayList<Data> tempdata = new ArrayList<Data>();
-    public static long userid = -1;
+    public static long userid = 1;
     public static boolean comeback = false;
     static int result = -1;
     static String temp = "";
