@@ -54,6 +54,12 @@ public class ActivityAtelaatkala extends AppCompatActivity {
     private Lineimage txtoff;
     private ImageView imgalaghemandi;
     private LinearLayout talaei;
+    private ImageView imgsheare;
+
+    private TextView txtname;
+    private TextView txtcode;
+
+    private CollapsingToolbarLayout colaps;
 
     @Override
     protected void onResume() {
@@ -71,10 +77,10 @@ public class ActivityAtelaatkala extends AppCompatActivity {
         setContentView(R.layout.activity_atelaatkala);
         G.CurrentActivity = this;
 
-        CollapsingToolbarLayout colaps = (CollapsingToolbarLayout) findViewById(R.id.colaps);
+        colaps = (CollapsingToolbarLayout) findViewById(R.id.colaps);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        TextView txtname = (TextView) findViewById(R.id.txtname);
-        TextView txtcode = (TextView) findViewById(R.id.txtcode);
+        txtname = (TextView) findViewById(R.id.txtname);
+        txtcode = (TextView) findViewById(R.id.txtcode);
         txt1 = (TextView) findViewById(R.id.txt1);
         txt2 = (TextView) findViewById(R.id.txt2);
         txt3 = (TextView) findViewById(R.id.txt3);
@@ -84,6 +90,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
         txtoff = (Lineimage) findViewById(R.id.txtoff);
         imgalaghemandi = (ImageView) findViewById(R.id.imgalaghemandi);
         talaei = (LinearLayout) findViewById(R.id.talaei);
+        imgsheare = (ImageView) findViewById(R.id.imgsheare);
 
 
         h = (TextView) findViewById(R.id.h);
@@ -97,70 +104,109 @@ public class ActivityAtelaatkala extends AppCompatActivity {
         colaps.setExpandedTitleColor(Color.TRANSPARENT);
 
 
-
         mysabad = new sabad();
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
 
-            mysabad.Name = extras.getString("Name");
-            mysabad.Weight = extras.getString("Weight");
-            mysabad.Volume = extras.getString("Volume");
-            mysabad.Image = extras.getString("Image");
+            if (extras.containsKey("Name") && !extras.getString("Name").equals("")) {
+                mysabad.Name = extras.getString("Name");
+            }
+            if (extras.containsKey("Weight") && !extras.getString("Weight").equals("")) {
+                mysabad.Weight = extras.getString("Weight");
+            }
+            if (extras.containsKey("Volume") && !extras.getString("Volume").equals("")) {
+                mysabad.Volume = extras.getString("Volume");
+            }
+            if (extras.containsKey("Image") && !extras.getString("Image").equals("")) {
+                mysabad.Image = extras.getString("Image");
+            }
+
             mysabad.Id = extras.getString("Id");
+
         }
 
 
-        colaps.setTitle(mysabad.Name);
-
-        Textconfig.settext(txtname, "نام کالا : " + mysabad.Name);
-        Textconfig.settext(txtcode, "کد کالا: " + mysabad.Id);
-
-
-        if (mysabad.Weight.equals("")) {
-            txt1.setVisibility(View.GONE);
+        if (mysabad.Name == null || mysabad.Name.equals("")) {
+            setkaladata(true);
         } else {
-            Textconfig.settext(txt1, "وزن کالا : " + mysabad.Weight);
+            settextdata();
+            showimage();
+            setkaladata(false);
         }
 
-        if (mysabad.Volume.equals("")) {
-            txt2.setVisibility(View.GONE);
-        } else {
-            Textconfig.settext(txt2, "حجم کالا : " + mysabad.Volume);
-        }
+
+    }
+
+    private void settextdata() {
 
         txtafzodan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 for (int i = 0; i < G.mdatasetsabad.size(); i++) {
-                    if(G.mdatasetsabad.get(i).Id == mysabad.Id){
-                        G.mdatasetsabad.get(i).Tedad = (Integer.parseInt( G.mdatasetsabad.get(i).Tedad) + 1) + "";
-                        Intent intent = new Intent(G.CurrentActivity,SabadActivity.class);
+                    if (G.mdatasetsabad.get(i).Id == mysabad.Id) {
+                        G.mdatasetsabad.get(i).Tedad = (Integer.parseInt(G.mdatasetsabad.get(i).Tedad) + 1) + "";
+                        Intent intent = new Intent(G.CurrentActivity, SabadActivity.class);
                         G.CurrentActivity.startActivity(intent);
                         return;
                     }
                 }
                 G.mdatasetsabad.add(mysabad);
-                Intent intent = new Intent(G.CurrentActivity,SabadActivity.class);
+                Intent intent = new Intent(G.CurrentActivity, SabadActivity.class);
                 G.CurrentActivity.startActivity(intent);
             }
         });
 
-        setkaladata();
-        showimage();
 
+        imgsheare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String shareBody = "www.cheemarket.com/product/productid=" + mysabad.Id;
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, "Cheemarket"));
+            }
+        });
 
+        Textconfig.settext(txtcode, "کد کالا: " + mysabad.Id);
+
+        if (mysabad.Name != null && !mysabad.Name.equals("")) {
+            colaps.setTitle(mysabad.Name);
+            Textconfig.settext(txtname, "نام کالا : " + mysabad.Name);
+        }
+
+        if (mysabad.Weight == null || mysabad.Weight.equals("")) {
+            txt1.setVisibility(View.GONE);
+        } else {
+            Textconfig.settext(txt1, "وزن کالا : " + mysabad.Weight);
+        }
+
+        if (mysabad.Volume == null || mysabad.Volume.equals("")) {
+            txt2.setVisibility(View.GONE);
+        } else {
+            Textconfig.settext(txt2, "حجم کالا : " + mysabad.Volume);
+        }
 
     }
 
-    private void setkaladata() {
+    private void setkaladata(final boolean alldata) {
 
         ArrayList<Webservice.requestparameter> list = new ArrayList<>();
-        Webservice.requestparameter objectnew = new Webservice.requestparameter();
-        objectnew.key = "kalaid";
-        objectnew.value = mysabad.Id;
-        list.add(objectnew);
+        Webservice.requestparameter object1 = new Webservice.requestparameter();
+        object1.key = "kalaid";
+        object1.value = mysabad.Id;
+
+        if (alldata) {
+            Webservice.requestparameter object2 = new Webservice.requestparameter();
+            object2.key = "Alldata";
+            object2.value = "true";
+            list.add(object2);
+        }
+
+        list.add(object1);
         Webservice.request("Store.php?action=onekaladata", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -188,6 +234,12 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                     mysabad.Status = object.getString("Status");
                     mysabad.Tedad = "1";
 
+                    if (alldata) {
+                        mysabad.Name = object.getString("Name");
+                        mysabad.Weight = object.getString("Weight");
+                        mysabad.Volume = object.getString("Volume");
+                        mysabad.Image = object.getString("Image");
+                    }
 
                     G.HANDLER.post(new Runnable() {
                         @Override
@@ -213,6 +265,11 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                                 txtafzodan.setText("ناموجود");
                                 txtafzodan.setBackgroundColor(Color.RED);
                                 txtafzodan.setClickable(false);
+                            }
+
+                            if (alldata) {
+                                settextdata();
+                                showimage();
                             }
 
 
@@ -259,7 +316,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
 
                     final JSONArray jsonArray = new JSONArray(input);
 
-                    final Sliderimage mysilder = new Sliderimage(G.context, ActivityAtelaatkala.viewPager, ActivityAtelaatkala.circleIndicator, R.layout.sliderlayout, R.id.image , ImageView.ScaleType.CENTER_CROP);
+                    final Sliderimage mysilder = new Sliderimage(G.context, ActivityAtelaatkala.viewPager, ActivityAtelaatkala.circleIndicator, R.layout.sliderlayout, R.id.image, ImageView.ScaleType.CENTER_CROP);
                     mysilder.removealldata();
 
                     for (int i = 0; i < jsonArray.length(); i++) {
@@ -365,7 +422,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
 
                                     if (saat == 0 && daghighe == 0 && saniye == 0) {
 
-                                        setkaladata();
+                                        setkaladata(false);
                                         showimage();
 
                                         break;

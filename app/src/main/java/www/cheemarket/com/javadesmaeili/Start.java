@@ -1,9 +1,11 @@
 package www.cheemarket.com.javadesmaeili;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
 import org.json.JSONException;
 
@@ -17,6 +19,8 @@ import www.cheemarket.com.javadesmaeili.Customview.Dialogs;
 import www.cheemarket.com.javadesmaeili.R;
 
 public class Start extends AppCompatActivity {
+
+    public static  Uri appLinkData;
 
     @Override
     protected void onResume() {
@@ -35,6 +39,11 @@ public class Start extends AppCompatActivity {
         G.IMAGES_HEIGHT = (int) (Double.parseDouble(displayMetrics.heightPixels + "") / 1.5);
         G.IMAGES_WIDTH = (int) (Double.parseDouble(displayMetrics.widthPixels + "") / 1.5);
 
+        Intent appLinkIntent = getIntent();
+        String appLinkAction = appLinkIntent.getAction();
+        appLinkData = appLinkIntent.getData();
+
+
 
         Webservice.request("server.php", new Callback() {
             @Override
@@ -43,7 +52,7 @@ public class Start extends AppCompatActivity {
                 if (e instanceof SocketTimeoutException) {
                     e.printStackTrace();
                     Webservice.handelerro("timeout");
-                }else {
+                } else {
                     e.printStackTrace();
                     Webservice.handelerro(null);
                 }
@@ -84,6 +93,8 @@ public class Start extends AppCompatActivity {
 
         }, null);
 
+
+        // ATTENTION: This was auto-generated to handle app links.
 
     }
 }

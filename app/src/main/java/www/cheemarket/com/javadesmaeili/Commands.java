@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import www.cheemarket.com.javadesmaeili.Structure.KalaStructure;
 
 public class Commands {
-    //
+
 
     public static void convertinputdata(JSONObject jsonObject, KalaStructure kalaStructure, boolean kalaone) {
 

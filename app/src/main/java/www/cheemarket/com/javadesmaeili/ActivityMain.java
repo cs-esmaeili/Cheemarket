@@ -25,12 +25,15 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+
 import me.relex.circleindicator.CircleIndicator;
 import okhttp3.Call;
 import okhttp3.Response;
@@ -38,6 +41,8 @@ import www.cheemarket.com.javadesmaeili.Customview.Dialogs;
 import www.cheemarket.com.javadesmaeili.Adapter.Adapter;
 import www.cheemarket.com.javadesmaeili.Structure.KalaStructure;
 import www.cheemarket.com.javadesmaeili.Structure.SliderStructure;
+
+import static www.cheemarket.com.javadesmaeili.Start.appLinkData;
 
 public class ActivityMain extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -123,7 +128,8 @@ public class ActivityMain extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         View header = navigationView.getHeaderView(0);
         txtprofile = (TextView) header.findViewById(R.id.txtprofile);
-
+        ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
+        ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
 
         RecyclerViewList1 = (RecyclerView) findViewById(R.id.List1);
         RecyclerViewList4 = (RecyclerView) findViewById(R.id.List4);
@@ -154,35 +160,38 @@ public class ActivityMain extends AppCompatActivity
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
 
-        ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
 
-        shoplogo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //  Intent intent = new Intent(G.CurrentActivity,SabadActivity.class);
-                //  startActivity(intent);
-            }
-        });
 
-        ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
         searchlogo.setOnClickListener(G.onClickListener);
+
 
         if (!G.readNetworkStatus()) {
             Intent intent = new Intent(G.CurrentActivity, Networkactivity.class);
             startActivity(intent);
 
         } else {
-
             // addview.add("App");
+            applinkaction();
             pagework();
-
         }
-
-
 
 
     }
 
+    private static void applinkaction(){
+        if(appLinkData != null){
+            String productid = appLinkData.getLastPathSegment();
+            if(productid.contains("productid=")){
+                productid = productid.substring(productid.indexOf("=") + 1);
+                Log.i("LOG","productid =" + productid);
+
+                Intent intent = new Intent(G.CurrentActivity,ActivityAtelaatkala.class);
+                intent.putExtra("Id" , productid);
+                G.CurrentActivity.startActivity(intent);
+            }
+
+        }
+    }
 
 
     public static void pagework() {
@@ -206,21 +215,21 @@ public class ActivityMain extends AppCompatActivity
         RecyclerViewList1.setHasFixedSize(true);
         LayoutManagerList1 = new LinearLayoutManager(G.CurrentActivity, LinearLayoutManager.HORIZONTAL, false);
         RecyclerViewList1.setLayoutManager(LayoutManagerList1);
-        AdapterList1 = new Adapter(null,mdatasetList1, R.layout.listone);
+        AdapterList1 = new Adapter(null, mdatasetList1, R.layout.listone);
         RecyclerViewList1.setAdapter(AdapterList1);
 
 
         RecyclerViewList4.setHasFixedSize(true);
         LayoutManagerList4 = new LinearLayoutManager(G.CurrentActivity, LinearLayoutManager.HORIZONTAL, false);
         RecyclerViewList4.setLayoutManager(LayoutManagerList4);
-        AdapterList4 = new Adapter(null,mdatasetList4, R.layout.listone);
+        AdapterList4 = new Adapter(null, mdatasetList4, R.layout.listone);
         RecyclerViewList4.setAdapter(AdapterList4);
 
 
         RecyclerViewList6.setHasFixedSize(true);
         LayoutManagerList6 = new LinearLayoutManager(G.CurrentActivity, LinearLayoutManager.HORIZONTAL, false);
         RecyclerViewList6.setLayoutManager(LayoutManagerList6);
-        AdapterList6 = new Adapter(null,mdatasetList6, R.layout.listone);
+        AdapterList6 = new Adapter(null, mdatasetList6, R.layout.listone);
         RecyclerViewList6.setAdapter(AdapterList6);
 
 
@@ -267,7 +276,7 @@ public class ActivityMain extends AppCompatActivity
                 mdatasetList6.clear();
                 String input = response.body().string();
                 JSONArray array = new JSONArray(input);
-                Log.i("LOG","body =" + input);
+                Log.i("LOG", "body =" + input);
 
                 for (int i = 0; i < array.length(); i++) {
                     final JSONObject jsonObject = array.getJSONObject(i);
@@ -276,7 +285,7 @@ public class ActivityMain extends AppCompatActivity
 
                         KalaStructure kalaStructure = new KalaStructure();
 
-                        Commands.convertinputdata(jsonObject,kalaStructure,true);
+                        Commands.convertinputdata(jsonObject, kalaStructure, true);
 
                         if (jsonObject.getString("Location").equals("1")) {
                             mdatasetList1.add(kalaStructure);
@@ -318,8 +327,6 @@ public class ActivityMain extends AppCompatActivity
                             sliderStructure.Caption = "";
                             Slider.array.add(sliderStructure);
                         }
-
-
 
 
                     }
@@ -456,12 +463,12 @@ public class ActivityMain extends AppCompatActivity
         if (id == R.id.category) {
             Intent intent = new Intent(G.CurrentActivity, Dastebandimahsolat.class);
             startActivity(intent);
-        }else if(id == R.id.sabadkharid){
-            if(G.userid == -1){
-                Intent intent = new Intent(G.CurrentActivity,  SabadActivity.class);
+        } else if (id == R.id.sabadkharid) {
+            if (G.userid == -1) {
+                Intent intent = new Intent(G.CurrentActivity, SabadActivity.class);
                 startActivity(intent);
-            }else{
-                Intent intent = new Intent(G.CurrentActivity,  SabadActivity.class);
+            } else {
+                Intent intent = new Intent(G.CurrentActivity, SabadActivity.class);
                 startActivity(intent);
             }
 
@@ -534,7 +541,7 @@ public class ActivityMain extends AppCompatActivity
     private static void showimage(final ImageView img, final JSONObject jsonObject) {
 
         try {
-            Commands.showimage(G.Baseurl + "Listimages/" + jsonObject.getString("Postimage") + "/" + jsonObject.getString("Postimage") + ".png", null, img ,true);
+            Commands.showimage(G.Baseurl + "Listimages/" + jsonObject.getString("Postimage") + "/" + jsonObject.getString("Postimage") + ".png", null, img, true);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -542,9 +549,6 @@ public class ActivityMain extends AppCompatActivity
     }
 
     private static void setonclicks(final ImageView img, final JSONObject jsonObject) {
-
-
-
 
 
         G.HANDLER.post(new Runnable() {
@@ -585,7 +589,7 @@ public class ActivityMain extends AppCompatActivity
                             @Override
                             public void onClick(View v) {
 
-                                Toast.makeText(G.context,"Width =" +  img.getWidth() + " ?? Height =" +   img.getHeight(),Toast.LENGTH_LONG).show();
+                                Toast.makeText(G.context, "Width =" + img.getWidth() + " ?? Height =" + img.getHeight(), Toast.LENGTH_LONG).show();
                                 Commands.openactivity(jsonObject, ActivityAtelaatkala.class);
 
 
