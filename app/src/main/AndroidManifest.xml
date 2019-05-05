@@ -1,7 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="www.cheemarket.com.javadesmaeili">
-
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -17,10 +17,9 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
 
-
         <activity
             android:name=".Start"
-            android:configChanges="orientation|screenSize">/>
+            android:configChanges="orientation|screenSize">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,47 +33,42 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:scheme="http"
                     android:host="www.cheemarket.com"
-                    android:pathPrefix="/product/" />
+                    android:pathPrefix="/product/"
+                    android:scheme="http" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ActivityMain"
             android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait"></activity>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Networkactivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ActivityAtelaatkala"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".Dastebandimahsolat"
             android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait">
-
-        </activity>
-
-
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".Subdastebandi"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".SabadActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".Alaghemandiha"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ActivityAddress"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
 

@@ -98,7 +98,7 @@ public class ActivityMain extends AppCompatActivity
             if (!pre.getString("Username", "Error").equals("Error") && !pre.getString("Id", "Error").equals("")) {
                 //  txtprofile.setText(pre.getString("Username", "Error"));
                 Textconfig.settext(txtprofile, pre.getString("Username", "Error"));
-                G.userid = Long.parseLong(pre.getString("Id", "Error"));
+                G.Connectioncode = Long.parseLong(pre.getString("Id", "Error"));
             }
         }
 
@@ -200,7 +200,7 @@ public class ActivityMain extends AppCompatActivity
             if (!pre.getString("Username", "Error").equals("Error") && !pre.getString("Id", "Error").equals("")) {
                 txtprofile.setText(pre.getString("Username", "Error"));
                 Textconfig.settext(txtprofile, pre.getString("Username", "Error"));
-                G.userid = Long.parseLong(pre.getString("Id", "Error"));
+                G.Connectioncode = Long.parseLong(pre.getString("Id", "Error"));
             }
         }
         index = -1;
@@ -238,7 +238,7 @@ public class ActivityMain extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                if (G.userid == -1) {
+                if (G.Connectioncode == -1) {
                     //     Intent intent = new Intent(G.CurrentActivity, LoginActivity.class);
                     //   G.CurrentActivity.startActivity(intent);
                 }
@@ -464,7 +464,7 @@ public class ActivityMain extends AppCompatActivity
             Intent intent = new Intent(G.CurrentActivity, Dastebandimahsolat.class);
             startActivity(intent);
         } else if (id == R.id.sabadkharid) {
-            if (G.userid == -1) {
+            if (G.Connectioncode == -1) {
                 Intent intent = new Intent(G.CurrentActivity, SabadActivity.class);
                 startActivity(intent);
             } else {
@@ -473,7 +473,7 @@ public class ActivityMain extends AppCompatActivity
             }
 
         }else if(id == R.id.alaghemandiha){
-            if(G.userid == -1){
+            if(G.Connectioncode == -1){
             //    Intent intent = new Intent(G.CurrentActivity,  LoginActivity.class);
             //    startActivity(intent);
             }else{
@@ -481,9 +481,18 @@ public class ActivityMain extends AppCompatActivity
                 startActivity(intent);
             }
 
+        }else if(id == R.id.address){
+            if(G.Connectioncode == -1){
+              //  Intent intent = new Intent(G.CurrentActivity,  LoginActivity.class);
+              //  startActivity(intent);
+            }else{
+                Intent intent = new Intent(G.CurrentActivity,  ActivityAddress.class);
+                startActivity(intent);
+            }
+
         }
      /*   } else if (id == R.id.exit) {
-            G.userid = -1;
+            G.Connectioncode = -1;
             SharedPreferences.Editor editor = ActivityMain.pre.edit();
             editor.putString("Username", "");
             editor.putString("Id","");
@@ -493,15 +502,6 @@ public class ActivityMain extends AppCompatActivity
         } else if (id == R.id.address) {
             Intent intent = new Intent(G.CurrentActivity,  Address.class);
             startActivity(intent);
-        }else if(id == R.id.yourorders){
-            if(G.userid == -1){
-                Intent intent = new Intent(G.CurrentActivity,  LoginActivity.class);
-                startActivity(intent);
-            }else{
-                Intent intent = new Intent(G.CurrentActivity,  Orders.class);
-                startActivity(intent);
-            }
-
         }
 */
 

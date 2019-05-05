@@ -4,7 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,9 +19,7 @@ import java.util.ArrayList;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-import www.cheemarket.com.javadesmaeili.Adapter.Adapter;
 import www.cheemarket.com.javadesmaeili.Adapter.AlaghemandihaAdapter;
-import www.cheemarket.com.javadesmaeili.Customview.Dialogs;
 import www.cheemarket.com.javadesmaeili.Structure.KalaStructure;
 
 public class Alaghemandiha extends AppCompatActivity {
@@ -156,7 +153,7 @@ public class Alaghemandiha extends AppCompatActivity {
 
         Webservice.requestparameter object1 = new Webservice.requestparameter();
         object1.key = "Userid";
-        object1.value = G.userid + "";
+        object1.value = G.Connectioncode + "";
 
         Webservice.requestparameter object2 = new Webservice.requestparameter();
         object2.key = "number";
@@ -187,7 +184,7 @@ public class Alaghemandiha extends AppCompatActivity {
 
                             Webservice.requestparameter object1 = new Webservice.requestparameter();
                             object1.key = "Userid";
-                            object1.value = G.userid + "";
+                            object1.value = G.Connectioncode + "";
 
                             Webservice.requestparameter object2 = new Webservice.requestparameter();
                             object2.key = "number";
@@ -218,7 +215,7 @@ public class Alaghemandiha extends AppCompatActivity {
 
         Webservice.requestparameter object1 = new Webservice.requestparameter();
         object1.key = "Userid";
-        object1.value = G.userid + "";
+        object1.value = G.Connectioncode + "";
 
         Webservice.requestparameter object2 = new Webservice.requestparameter();
         object2.key = "Kalaid";
@@ -262,7 +259,7 @@ public class Alaghemandiha extends AppCompatActivity {
     public  static  void deletealaghemandiha(final String id){
         Webservice.requestparameter object1 = new Webservice.requestparameter();
         object1.key = "Userid";
-        object1.value = G.userid + "";
+        object1.value = G.Connectioncode + "";
 
         Webservice.requestparameter object2 = new Webservice.requestparameter();
         object2.key = "Kalaid";
