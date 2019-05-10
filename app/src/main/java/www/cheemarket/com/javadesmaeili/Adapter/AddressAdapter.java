@@ -36,13 +36,12 @@ import static www.cheemarket.com.javadesmaeili.ActivityAddress.spinershahrha;
 public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHolder> {
 
 
-
     private ArrayList<AddressStructure> mdataset;
-    private ArrayList<Integer> colors = new ArrayList<>();
+    public static ArrayList<Integer> colors = new ArrayList<>();
     public static String updateid;
 
 
-    public AddressAdapter(ArrayList<AddressStructure> mdataset , ArrayList<Integer> colors) {
+    public AddressAdapter(ArrayList<AddressStructure> mdataset, ArrayList<Integer> colors) {
         this.mdataset = mdataset;
         this.colors = colors;
 
@@ -72,8 +71,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
             @Override
             public void onClick(View v) {
                 Webservice.requestparameter param1 = new Webservice.requestparameter();
-                param1.key = "Userid";
-                param1.value = G.Connectioncode + "";
+                param1.key = "Connectioncode";
+                param1.value = G.Connectioncode;
                 Webservice.requestparameter param2 = new Webservice.requestparameter();
                 param2.key = "Id";
                 param2.value = mdataset.get(position).Id;
@@ -112,16 +111,11 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
             public void onClick(View v) {
 
 
+                if (colors.get(position).equals(Color.WHITE)) {
 
-
-
-                if(colors.get(position).equals(Color.WHITE)){
-
-                    Log.i("LOG" ,"WHITE");
-                    colors.set(position,Color.TRANSPARENT);
+                    Log.i("LOG", "WHITE");
+                    colors.set(position, Color.TRANSPARENT);
                     holder.card.setBackgroundColor(colors.get(position));
-
-
 
 
                     ActivityAddress.edtaddress.setText(mdataset.get(position).Address);
@@ -129,10 +123,13 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
                     ActivityAddress.edtname.setText(mdataset.get(position).Name);
                     ActivityAddress.edthomenumber.setText(mdataset.get(position).Homenumber);
                     ActivityAddress.edtphonenumber.setText(mdataset.get(position).Phonenumber);
+                    if(ActivityAddress.btnselect.getVisibility() == View.VISIBLE){
+                        ActivityAddress.btnselect.setBackgroundColor(Color.parseColor("#66BB6A"));
+                    }
 
                     List<String> Lines = Arrays.asList(G.context.getResources().getStringArray(R.array.ostanha));
                     for (int i = 0; i < Lines.size(); i++) {
-                        if(Lines.get(i).equals(mdataset.get(position).Ostan)){
+                        if (Lines.get(i).equals(mdataset.get(position).Ostan)) {
                             ActivityAddress.spnerostan.setSelection(i);
                             spinershahrha();
                             break;
@@ -141,16 +138,16 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
 
 
                     for (int i = 0; i < ActivityAddress.adapter.getCount(); i++) {
-                        Log.i("LOG" , ActivityAddress.adapter.getItem(i).toString());
-                        Log.i("LOG" , "shahr =" + mdataset.get(position).Shahr);
-                        if(ActivityAddress.adapter.getItem(i).toString().equals(mdataset.get(position).Shahr)){
+                        Log.i("LOG", ActivityAddress.adapter.getItem(i).toString());
+                        Log.i("LOG", "shahr =" + mdataset.get(position).Shahr);
+                        if (ActivityAddress.adapter.getItem(i).toString().equals(mdataset.get(position).Shahr)) {
                             final int finalI = i;
                             G.HANDLER.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
                                     ActivityAddress.spnershahr.setSelection(finalI);
                                 }
-                            },300);
+                            }, 300);
 
                             break;
                         }
@@ -161,14 +158,11 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
                     updateid = mdataset.get(position).Id;
 
 
-                }else if (colors.get(position).equals(Color.TRANSPARENT)){
+                } else if (colors.get(position).equals(Color.TRANSPARENT)) {
 
-                    Log.i("LOG" ,"nabod");
-                    colors.set(position,Color.WHITE);
+                    Log.i("LOG", "nabod");
+                    colors.set(position, Color.WHITE);
                     holder.card.setBackgroundColor(colors.get(position));
-
-
-
 
 
                     ActivityAddress.edtaddress.setText("");
@@ -176,6 +170,9 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
                     ActivityAddress.edtname.setText("");
                     ActivityAddress.edthomenumber.setText("");
                     ActivityAddress.edtphonenumber.setText("");
+                    if(ActivityAddress.btnselect.getVisibility() == View.VISIBLE){
+                        ActivityAddress.btnselect.setBackgroundColor(Color.parseColor("#D6D7D7"));
+                    }
 
                     ActivityAddress.spnerostan.setSelection(0);
 
@@ -188,15 +185,13 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
 
                 for (int i = 0; i < colors.size(); i++) {
 
-                    if(i == position){
+                    if (i == position) {
                         continue;
                     }
-                      colors.set(i,Color.WHITE);
+                    colors.set(i, Color.WHITE);
                 }
 
                 notifyDataSetChanged();
-
-
 
 
             }
@@ -226,7 +221,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
             txtaddress = (TextView) itemView.findViewById(R.id.txtaddress);
             imgdelete = (ImageView) itemView.findViewById(R.id.imgdelete);
             layout = (LinearLayout) itemView.findViewById(R.id.layout);
-            card =(CardView)itemView.findViewById(R.id.card);
+            card = (CardView) itemView.findViewById(R.id.card);
 
         }
     }

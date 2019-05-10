@@ -121,6 +121,13 @@
                 android:text="اضافه کردن آدرس جدید"
                 android:textSize="20dip" />
 
+            <Button
+                android:id="@+id/btnselect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="انتخاب این آدرس"
+                android:visibility="gone" />
+
 
         </LinearLayout>
     </ScrollView>

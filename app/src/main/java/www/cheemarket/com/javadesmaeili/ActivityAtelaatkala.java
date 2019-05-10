@@ -8,7 +8,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,7 +27,6 @@ import okhttp3.Callback;
 import okhttp3.Response;
 import www.cheemarket.com.javadesmaeili.Customview.Lineimage;
 import www.cheemarket.com.javadesmaeili.Customview.Sliderimage;
-import www.cheemarket.com.javadesmaeili.Structure.SliderStructure;
 import www.cheemarket.com.javadesmaeili.Structure.sabad;
 
 
@@ -109,16 +107,16 @@ public class ActivityAtelaatkala extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
 
-            if (extras.containsKey("Name") && !extras.getString("Name").equals("")) {
+            if (extras.containsKey("Name") && extras.getString("Name") != null && !extras.getString("Name").equals("")) {
                 mysabad.Name = extras.getString("Name");
             }
-            if (extras.containsKey("Weight") && !extras.getString("Weight").equals("")) {
+            if (extras.containsKey("Weight") && extras.getString("Weight") != null && !extras.getString("Weight").equals("")) {
                 mysabad.Weight = extras.getString("Weight");
             }
-            if (extras.containsKey("Volume") && !extras.getString("Volume").equals("")) {
+            if (extras.containsKey("Volume") && extras.getString("Volume") != null && !extras.getString("Volume").equals("")) {
                 mysabad.Volume = extras.getString("Volume");
             }
-            if (extras.containsKey("Image") && !extras.getString("Image").equals("")) {
+            if (extras.containsKey("Image")  && extras.getString("Image") != null && !extras.getString("Image").equals("")) {
                 mysabad.Image = extras.getString("Image");
             }
 
@@ -147,13 +145,13 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                 for (int i = 0; i < G.mdatasetsabad.size(); i++) {
                     if (G.mdatasetsabad.get(i).Id == mysabad.Id) {
                         G.mdatasetsabad.get(i).Tedad = (Integer.parseInt(G.mdatasetsabad.get(i).Tedad) + 1) + "";
-                        Intent intent = new Intent(G.CurrentActivity, SabadActivity.class);
+                        Intent intent = new Intent(G.CurrentActivity, ActivitySabad.class);
                         G.CurrentActivity.startActivity(intent);
                         return;
                     }
                 }
                 G.mdatasetsabad.add(mysabad);
-                Intent intent = new Intent(G.CurrentActivity, SabadActivity.class);
+                Intent intent = new Intent(G.CurrentActivity, ActivitySabad.class);
                 G.CurrentActivity.startActivity(intent);
             }
         });

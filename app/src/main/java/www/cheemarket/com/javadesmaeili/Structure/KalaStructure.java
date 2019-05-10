@@ -19,6 +19,7 @@ public class KalaStructure {
     public String Datetime1;
     public String Id1;
 
+
     public String Name2;
     public String Code2;
     public String Weight2;

@@ -103,7 +103,7 @@ public class Dastebandimahsolat extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 clearimages();
-                //  Intent intent = new Intent(G.CurrentActivity, SabadActivity.class);
+                //  Intent intent = new Intent(G.CurrentActivity, ActivitySabad.class);
                 //    startActivity(intent);
             }
         });

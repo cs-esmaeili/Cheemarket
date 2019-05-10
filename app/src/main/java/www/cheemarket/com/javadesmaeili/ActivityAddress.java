@@ -44,6 +44,8 @@ public class ActivityAddress extends AppCompatActivity {
     public static Spinner spnerostan;
     public static Button btnsave;
 
+
+    public static     Button btnselect;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +61,35 @@ public class ActivityAddress extends AppCompatActivity {
         btnsave = (Button) findViewById(R.id.btnsave);
         RecyclerView List = (RecyclerView) findViewById(R.id.List);
         mdatasetList = new ArrayList<AddressStructure>();
+
+        btnselect = (Button) findViewById(R.id.btnselect);
+
+
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+
+            if (extras.containsKey("Select") && extras.getString("Select") != null && extras.getString("Select").equals("True")) {
+
+
+                btnselect.setVisibility(View.VISIBLE);
+
+                btnselect.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(AddressAdapter.colors.indexOf(Color.TRANSPARENT) == -1){
+                            Toast.makeText(G.context,"لطفا آدرسی را انتخاب کنید" , Toast.LENGTH_LONG).show();
+                        }else {
+                            Paymentstep.Address = mdatasetList.get(AddressAdapter.colors.indexOf(Color.TRANSPARENT));
+                            finish();
+
+                        }
+
+                    }
+                });
+            }
+
+        }
 
 
         List.setHasFixedSize(true);
@@ -97,6 +128,7 @@ public class ActivityAddress extends AppCompatActivity {
 
 
                             btnsaveaction("-1");
+                            btnselect.setBackgroundColor(Color.parseColor("#D6D7D7"));
                         }else{
                             Toast.makeText(G.context,"اطلاعات را به صورت کامل و درست وارد کنید !" , Toast.LENGTH_LONG).show();
                         }
@@ -118,11 +150,14 @@ public class ActivityAddress extends AppCompatActivity {
 
                         ActivityAddress.btnsave.setText("اضافه کردن آدرس جدید");
                         AddressAdapter.updateid = null;
-
+                        btnselect.setBackgroundColor(Color.parseColor("#D6D7D7"));
                     }
                 } else {
+                    btnselect.setBackgroundColor(Color.parseColor("#D6D7D7"));
                     btnsaveaction(AddressAdapter.updateid);
+
                 }
+
 
 
             }
@@ -143,8 +178,8 @@ public class ActivityAddress extends AppCompatActivity {
 
 
         Webservice.requestparameter param = new Webservice.requestparameter();
-        param.key = "Userid";
-        param.value = G.Connectioncode + "";
+        param.key = "Connectioncode";
+        param.value = G.Connectioncode;
         ArrayList<Webservice.requestparameter> array = new ArrayList<>();
         array.add(param);
         Webservice.request("Store.php?action=address", new Callback() {
@@ -245,8 +280,8 @@ public class ActivityAddress extends AppCompatActivity {
         array.add(param7);
 
         Webservice.requestparameter param8 = new Webservice.requestparameter();
-        param8.key = "Userid";
-        param8.value = G.Connectioncode + "";
+        param8.key = "Connectioncode";
+        param8.value = G.Connectioncode;
         array.add(param8);
 
         if (updateid != null && !updateid.equals("-1")) {
@@ -264,7 +299,7 @@ public class ActivityAddress extends AppCompatActivity {
 
         ArrayList<Webservice.requestparameter> array = data(updateid);
 
-        Log.i("LOG", "array =" + new JSONArray(array));
+
         Webservice.request("Store.php?action=addaddress", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

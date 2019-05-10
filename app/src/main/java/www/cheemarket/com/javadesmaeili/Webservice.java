@@ -5,21 +5,15 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import okhttp3.Callback;
-import okhttp3.HttpUrl;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import www.cheemarket.com.javadesmaeili.Customview.Dialogs;
-
-import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 
 public class Webservice {
@@ -85,7 +79,7 @@ public class Webservice {
     public static void handelerro(String check) {
 
         if (!G.readNetworkStatus()) {
-            Intent intent = new Intent(G.CurrentActivity, Networkactivity.class);
+            Intent intent = new Intent(G.CurrentActivity, activityNetwork.class);
             G.CurrentActivity.startActivity(intent);
         } else if(check != null && check.equals("timeout")){
             G.HANDLER.post(new Runnable() {

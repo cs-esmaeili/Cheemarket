@@ -127,6 +127,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 }
             });
 
+            if(layout == R.layout.listone && finaldataset.get(position).Ordernumber1 != null){
+                holder.mess.setVisibility(View.VISIBLE);
+                holder.mess.setText("تعداد انتخاب شده: " + finaldataset.get(position).Ordernumber1);
+            }
 
         }
 
@@ -209,6 +213,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         public ImageView giftwo;
 
 
+        public TextView mess;
+
         public ViewHolder(View itemView) {
             super(itemView);
 
@@ -219,6 +225,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             cardone = (CardView) itemView.findViewById(R.id.Cardone);
             gifone = (ImageView) itemView.findViewById(R.id.gifone);
 
+            mess = (TextView) itemView.findViewById(R.id.mess);
 
             if (layout == R.layout.listtwo) {
                 txtnametwo = (TextView) itemView.findViewById(R.id.txtnametwo);

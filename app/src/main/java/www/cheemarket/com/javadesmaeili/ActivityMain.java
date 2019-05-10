@@ -94,11 +94,10 @@ public class ActivityMain extends AppCompatActivity
         Slider.setsliders();
 
         G.CurrentActivity = this;
-        if (pre.contains("Username") && pre.contains("Id")) {
-            if (!pre.getString("Username", "Error").equals("Error") && !pre.getString("Id", "Error").equals("")) {
-                //  txtprofile.setText(pre.getString("Username", "Error"));
+        if (pre.contains("Username") && pre.contains("Connectioncode")) {
+            if (!pre.getString("Username", "Error").equals("Error") && !pre.getString("Connectioncode", "Error").equals("")) {
                 Textconfig.settext(txtprofile, pre.getString("Username", "Error"));
-                G.Connectioncode = Long.parseLong(pre.getString("Id", "Error"));
+                G.Connectioncode = pre.getString("Connectioncode", "Error");
             }
         }
 
@@ -160,13 +159,11 @@ public class ActivityMain extends AppCompatActivity
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
 
-
-
         searchlogo.setOnClickListener(G.onClickListener);
 
 
         if (!G.readNetworkStatus()) {
-            Intent intent = new Intent(G.CurrentActivity, Networkactivity.class);
+            Intent intent = new Intent(G.CurrentActivity, activityNetwork.class);
             startActivity(intent);
 
         } else {
@@ -178,15 +175,15 @@ public class ActivityMain extends AppCompatActivity
 
     }
 
-    private static void applinkaction(){
-        if(appLinkData != null){
+    private static void applinkaction() {
+        if (appLinkData != null) {
             String productid = appLinkData.getLastPathSegment();
-            if(productid.contains("productid=")){
+            if (productid.contains("productid=")) {
                 productid = productid.substring(productid.indexOf("=") + 1);
-                Log.i("LOG","productid =" + productid);
+                Log.i("LOG", "productid =" + productid);
 
-                Intent intent = new Intent(G.CurrentActivity,ActivityAtelaatkala.class);
-                intent.putExtra("Id" , productid);
+                Intent intent = new Intent(G.CurrentActivity, ActivityAtelaatkala.class);
+                intent.putExtra("Id", productid);
                 G.CurrentActivity.startActivity(intent);
             }
 
@@ -197,10 +194,9 @@ public class ActivityMain extends AppCompatActivity
     public static void pagework() {
 
         if (pre.contains("Username") && pre.contains("Id")) {
-            if (!pre.getString("Username", "Error").equals("Error") && !pre.getString("Id", "Error").equals("")) {
-                txtprofile.setText(pre.getString("Username", "Error"));
+            if (!pre.getString("Username", "Error").equals("Error") && !pre.getString("Connectioncode", "Error").equals("")) {
                 Textconfig.settext(txtprofile, pre.getString("Username", "Error"));
-                G.Connectioncode = Long.parseLong(pre.getString("Id", "Error"));
+                G.Connectioncode = pre.getString("Connectioncode", "Error");
             }
         }
         index = -1;
@@ -238,9 +234,9 @@ public class ActivityMain extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                if (G.Connectioncode == -1) {
-                    //     Intent intent = new Intent(G.CurrentActivity, LoginActivity.class);
-                    //   G.CurrentActivity.startActivity(intent);
+                if (G.Connectioncode.equals("")) {
+                    Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
+                    G.CurrentActivity.startActivity(intent);
                 }
             }
         });
@@ -274,6 +270,8 @@ public class ActivityMain extends AppCompatActivity
                 mdatasetList1.clear();
                 mdatasetList4.clear();
                 mdatasetList6.clear();
+                Slider.array.clear();
+
                 String input = response.body().string();
                 JSONArray array = new JSONArray(input);
                 Log.i("LOG", "body =" + input);
@@ -457,53 +455,49 @@ public class ActivityMain extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+
         int id = item.getItemId();
 
         if (id == R.id.category) {
             Intent intent = new Intent(G.CurrentActivity, Dastebandimahsolat.class);
             startActivity(intent);
         } else if (id == R.id.sabadkharid) {
-            if (G.Connectioncode == -1) {
-                Intent intent = new Intent(G.CurrentActivity, SabadActivity.class);
+            if (G.Connectioncode.equals("")) {
+                Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
                 startActivity(intent);
             } else {
-                Intent intent = new Intent(G.CurrentActivity, SabadActivity.class);
+                Intent intent = new Intent(G.CurrentActivity, ActivitySabad.class);
                 startActivity(intent);
             }
 
-        }else if(id == R.id.alaghemandiha){
-            if(G.Connectioncode == -1){
-            //    Intent intent = new Intent(G.CurrentActivity,  LoginActivity.class);
-            //    startActivity(intent);
-            }else{
-                Intent intent = new Intent(G.CurrentActivity,  Alaghemandiha.class);
+        } else if (id == R.id.alaghemandiha) {
+            if (G.Connectioncode.equals("")) {
+                Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(G.CurrentActivity, Alaghemandiha.class);
                 startActivity(intent);
             }
 
-        }else if(id == R.id.address){
-            if(G.Connectioncode == -1){
-              //  Intent intent = new Intent(G.CurrentActivity,  LoginActivity.class);
-              //  startActivity(intent);
-            }else{
-                Intent intent = new Intent(G.CurrentActivity,  ActivityAddress.class);
+        } else if (id == R.id.address) {
+            if (G.Connectioncode.equals("")) {
+                Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(G.CurrentActivity, ActivityAddress.class);
                 startActivity(intent);
             }
 
-        }
-     /*   } else if (id == R.id.exit) {
-            G.Connectioncode = -1;
+        } else if (id == R.id.exit) {
+            G.Connectioncode = "";
             SharedPreferences.Editor editor = ActivityMain.pre.edit();
             editor.putString("Username", "");
-            editor.putString("Id","");
+            editor.putString("Connectioncode", "");
             editor.apply();
             txtprofile.setText("وارد شوید / ثبت نام کنید");
 
-        } else if (id == R.id.address) {
-            Intent intent = new Intent(G.CurrentActivity,  Address.class);
-            startActivity(intent);
         }
-*/
+
 
         drawer.closeDrawer(GravityCompat.END);
         return true;

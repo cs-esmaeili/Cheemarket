@@ -26,10 +26,9 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import www.cheemarket.com.javadesmaeili.Adapter.SabadAdapter;
-import www.cheemarket.com.javadesmaeili.Structure.KalaStructure;
 import www.cheemarket.com.javadesmaeili.Structure.sabad;
 
-public class SabadActivity extends AppCompatActivity {
+public class ActivitySabad extends AppCompatActivity {
 
 
     public static RecyclerView.Adapter Adapter;
@@ -82,7 +81,8 @@ public class SabadActivity extends AppCompatActivity {
 
 
                 if (G.mdatasetsabad.size() > 0) {
-                    pagework();
+                    Intent intent = new Intent(G.CurrentActivity,Paymentstep.class);
+                    G.CurrentActivity.startActivity(intent);
 
                 }
             }
@@ -134,7 +134,7 @@ public class SabadActivity extends AppCompatActivity {
         Webservice.requestparameter requestparameter = new Webservice.requestparameter();
         requestparameter.key = "jsontext";
         requestparameter.value = temp;
-        Log.i("value" , "value =" + temp);
+        Log.i("value", "value =" + temp);
         array.add(requestparameter);
         Webservice.request("Store.php?action=Checkalldata", new Callback() {
             @Override
@@ -145,8 +145,8 @@ public class SabadActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String input = response.body().string();
-                Log.i("input" , "input =" + input);
-                if(input.equals("[]") || input.equals("")){
+                Log.i("input", "input =" + input);
+                if (input.equals("[]") || input.equals("")) {
                     return;
                 }
 
@@ -157,9 +157,8 @@ public class SabadActivity extends AppCompatActivity {
                         JSONObject object = array.getJSONObject(i);
 
 
-
                         for (int j = 0; j < G.mdatasetsabad.size(); j++) {
-                            if(G.mdatasetsabad.get(j).Id.equals(object.getString("Id"))) {
+                            if (G.mdatasetsabad.get(j).Id.equals(object.getString("Id"))) {
                                 G.mdatasetsabad.get(j).Name = object.getString("Name");
                                 G.mdatasetsabad.get(j).Weight = object.getString("Weight");
                                 G.mdatasetsabad.get(j).Price = object.getString("Price");
@@ -173,24 +172,20 @@ public class SabadActivity extends AppCompatActivity {
                         }
 
 
-
-
                     }
 
                     G.HANDLER.post(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(G.context,"اطلاعات بعضی از کالا عوض شد",Toast.LENGTH_LONG).show();
+                            Toast.makeText(G.context, "اطلاعات بعضی از کالا عوض شد", Toast.LENGTH_LONG).show();
                             Adapter.notifyDataSetChanged();
                         }
                     });
 
 
-
                 } catch (JSONException e) {
 
                 }
-
 
 
             }

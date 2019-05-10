@@ -7,10 +7,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
+
+import www.cheemarket.com.javadesmaeili.ActivitySabad;
 import www.cheemarket.com.javadesmaeili.Commands;
 import www.cheemarket.com.javadesmaeili.G;
 import www.cheemarket.com.javadesmaeili.R;
-import www.cheemarket.com.javadesmaeili.SabadActivity;
 import www.cheemarket.com.javadesmaeili.Structure.sabad;
 import www.cheemarket.com.javadesmaeili.Textconfig;
 /**
@@ -92,8 +93,28 @@ public class SabadAdapter extends RecyclerView.Adapter<SabadAdapter.ViewHolder> 
             @Override
             public void onClick(View v) {
                 G.mdatasetsabad.remove(G.mdatasetsabad.get(position));
-                SabadActivity.Adapter.notifyDataSetChanged();
-                SabadActivity.pagework();
+                ActivitySabad.Adapter.notifyDataSetChanged();
+                ActivitySabad.pagework();
+                ActivitySabad.setghaymat();
+            }
+        });
+
+
+        holder.plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mdataset.get(position).Tedad = (Integer.parseInt(mdataset.get(position).Tedad)  + 1 ) + "";
+                Textconfig.settext(holder.tedad, mdataset.get(position).Tedad + "");
+                ActivitySabad.setghaymat();
+            }
+        });
+
+        holder.mynes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mdataset.get(position).Tedad = (Integer.parseInt(mdataset.get(position).Tedad)  - 1 ) + "";
+                Textconfig.settext(holder.tedad, mdataset.get(position).Tedad + "");
+                ActivitySabad.setghaymat();
             }
         });
 
@@ -138,6 +159,7 @@ public class SabadAdapter extends RecyclerView.Adapter<SabadAdapter.ViewHolder> 
 
             image = (ImageView) itemView.findViewById(R.id.img);
             imgdelete = (ImageView) itemView.findViewById(R.id.imgdelete);
+
 
 
 

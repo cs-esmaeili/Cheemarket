@@ -74,6 +74,14 @@
                 android:textAlignment="center"
                 android:textColor="#66BB6A"
                 android:textSize="18dip" />
+
+            <TextView
+                android:id="@+id/mess"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:visibility="gone" />
+
         </LinearLayout>
     </android.support.v7.widget.CardView>
 

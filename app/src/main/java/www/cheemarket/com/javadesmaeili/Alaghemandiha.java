@@ -152,8 +152,8 @@ public class Alaghemandiha extends AppCompatActivity {
 
 
         Webservice.requestparameter object1 = new Webservice.requestparameter();
-        object1.key = "Userid";
-        object1.value = G.Connectioncode + "";
+        object1.key = "Connectioncode";
+        object1.value = G.Connectioncode ;
 
         Webservice.requestparameter object2 = new Webservice.requestparameter();
         object2.key = "number";
@@ -183,8 +183,8 @@ public class Alaghemandiha extends AppCompatActivity {
 
 
                             Webservice.requestparameter object1 = new Webservice.requestparameter();
-                            object1.key = "Userid";
-                            object1.value = G.Connectioncode + "";
+                            object1.key = "Connectioncode";
+                            object1.value = G.Connectioncode ;
 
                             Webservice.requestparameter object2 = new Webservice.requestparameter();
                             object2.key = "number";
@@ -214,8 +214,8 @@ public class Alaghemandiha extends AppCompatActivity {
     public static void addtoalaghemandiha(String id) {
 
         Webservice.requestparameter object1 = new Webservice.requestparameter();
-        object1.key = "Userid";
-        object1.value = G.Connectioncode + "";
+        object1.key = "Connectioncode";
+        object1.value = G.Connectioncode;
 
         Webservice.requestparameter object2 = new Webservice.requestparameter();
         object2.key = "Kalaid";
@@ -258,8 +258,8 @@ public class Alaghemandiha extends AppCompatActivity {
 
     public  static  void deletealaghemandiha(final String id){
         Webservice.requestparameter object1 = new Webservice.requestparameter();
-        object1.key = "Userid";
-        object1.value = G.Connectioncode + "";
+        object1.key = "Connectioncode";
+        object1.value = G.Connectioncode;
 
         Webservice.requestparameter object2 = new Webservice.requestparameter();
         object2.key = "Kalaid";
