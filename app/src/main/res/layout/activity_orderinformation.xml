@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical"
+    tools:context=".Orderinformation">
+
+    <include layout="@layout/toolbarforall" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/List"
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="1"
+                android:layoutDirection="ltr">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:duplicateParentState="false" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_marginLeft="7dip"
+                android:layout_marginTop="15dip"
+                android:layout_marginRight="5dip"
+                android:layout_marginBottom="5dip"
+                android:layout_weight="1"
+                android:layoutDirection="ltr"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dip"
+                    android:layout_weight="0.125"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtname"
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_margin="4dip"
+                        android:layout_weight="0.5"
+                        android:gravity="right"
+                        android:text="TextView"
+                        android:textSize="15dip"
+                        />
+
+                    <TextView
+
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_margin="4dip"
+                        android:layout_weight="0.5"
+                        android:gravity="right"
+                        android:text="نام و نام خانوادگی"
+                        android:textSize="15dip"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dip"
+                    android:layout_weight="0.125"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtphonenumber"
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_margin="4dip"
+                        android:layout_weight="0.5"
+                        android:gravity="right"
+                        android:text="TextView"
+                        android:textSize="15dip"
+                        />
+
+                    <TextView
+
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_margin="4dip"
+                        android:layout_weight="0.5"
+                        android:gravity="right"
+                        android:text="شماره تلفن همراه"
+                        android:textSize="15dip"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dip"
+                    android:layout_weight="0.125"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txthomenumber"
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_margin="4dip"
+                        android:layout_weight="0.5"
+                        android:gravity="right"
+                        android:text="TextView"
+                        android:textSize="15dip"
+                        />
+
+                    <TextView
+
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_margin="4dip"
+                        android:layout_weight="0.5"
+                        android:gravity="right"
+                        android:text="شماره ثابت"
+                        android:textSize="15dip"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dip"
+                    android:layout_weight="0.125"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtcodeposti"
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_margin="4dip"
+                        android:layout_weight="0.5"
+                        android:gravity="right"
+                        android:text="TextView"
+                        android:textSize="15dip" />
+
+                    <TextView
+
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_margin="4dip"
+                        android:layout_weight="0.5"
+                        android:gravity="right"
+                        android:text="کد پستی"
+                        android:textSize="15dip" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dip"
+                    android:layout_weight="0.125"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtostan"
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_margin="4dip"
+                        android:layout_weight="0.5"
+                        android:gravity="right"
+                        android:text="TextView"
+                        android:textSize="15dip" />
+
+                    <TextView
+
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_margin="4dip"
+                        android:layout_weight="0.5"
+                        android:gravity="right"
+                        android:text="استان"
+                        android:textSize="15dip" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dip"
+                    android:layout_weight="0.125"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtshahr"
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_margin="4dip"
+                        android:layout_weight="0.5"
+                        android:gravity="right"
+                        android:text="TextView"
+                        android:textSize="15dip" />
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_margin="4dip"
+                        android:layout_weight="0.5"
+                        android:gravity="right"
+                        android:text="شهرستان"
+                        android:textSize="15dip" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dip"
+                    android:layout_weight="0.125"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtaddress"
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_margin="4dip"
+                        android:layout_weight="0.5"
+                        android:gravity="right"
+                        android:text="TextView"
+                        android:textSize="15dip" />
+
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_margin="4dip"
+                        android:layout_weight="0.5"
+                        android:gravity="right"
+                        android:text="آدرس"
+                        android:textSize="15dip" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <com.shuhart.stepview.StepView
+                android:id="@+id/step_view"
+                android:layout_width="match_parent"
+                android:layout_height="100dip"
+                android:padding="25dip"
+                app:sv_animationType="Line"
+                app:sv_doneCircleColor="@color/colorAccent"
+                app:sv_doneCircleRadius="12dp"
+                app:sv_doneStepLineColor="@color/colorAccent"
+                app:sv_doneStepMarkColor="@color/colorPrimary"
+                app:sv_nextStepLineColor="@color/colorAccent"
+                app:sv_nextTextColor="@color/colorAccent"
+                app:sv_selectedCircleColor="@color/colorAccent"
+                app:sv_selectedCircleRadius="12dp"
+                app:sv_selectedStepNumberColor="@color/colorPrimary"
+                app:sv_selectedTextColor="@color/colorAccent"
+                app:sv_stepLineWidth="1dp"
+                app:sv_stepNumberTextSize="12sp"
+                app:sv_stepPadding="4dp"
+                app:sv_stepViewStyle="@style/StepView" />
+
+            <!--
+                        <com.kofigyan.stateprogressbar.StateProgressBar
+                            android:id="@+id/your_state_progress_bar_id"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="10dip"
+                            android:layout_marginBottom="10dip"
+                            android:scrollbars="horizontal"
+                            app:spb_animateToCurrentProgressState="true"
+                            app:spb_checkStateCompleted="true"
+                            app:spb_currentStateDescriptionColor="#009688"
+                            app:spb_currentStateNumber="one"
+                            app:spb_enableAllStatesCompleted="false"
+                            app:spb_justifyMultilineDescription="true"
+                            app:spb_maxStateNumber="four"
+                            app:spb_stateBackgroundColor="#BDBDBD"
+                            app:spb_stateDescriptionColor="#808080"
+                            app:spb_stateForegroundColor="#009688"
+                            app:spb_stateNumberBackgroundColor="#808080"
+                            app:spb_stateNumberForegroundColor="#eeeeee"
+                            app:spb_stateNumberIsDescending="false" />
+                            -->
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

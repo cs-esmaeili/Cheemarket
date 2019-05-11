@@ -488,6 +488,14 @@ public class ActivityMain extends AppCompatActivity
                 startActivity(intent);
             }
 
+        } else if (id == R.id.yourorders) {
+            if (G.Connectioncode.equals("")) {
+                Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(G.CurrentActivity, Orders.class);
+                startActivity(intent);
+            }
         } else if (id == R.id.exit) {
             G.Connectioncode = "";
             SharedPreferences.Editor editor = ActivityMain.pre.edit();
