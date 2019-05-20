@@ -3,6 +3,7 @@ package www.cheemarket.com.javadesmaeili;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.github.florent37.materialimageloading.MaterialImageLoading;
@@ -99,11 +100,14 @@ public class Commands {
             public void run() {
 
                 if (url != null) {
+
+                    Log.i("Image", "url =" + url);
                     Picasso.get()
                             .load(url)
                             .resize(G.IMAGES_HEIGHT, G.IMAGES_WIDTH)
                             .memoryPolicy(MemoryPolicy.NO_CACHE)
                             .networkPolicy(NetworkPolicy.NO_CACHE)
+                            .error(R.drawable.brokenimage)
                             .into(img, new Callback() {
                                 @Override
                                 public void onSuccess() {
@@ -113,6 +117,7 @@ public class Commands {
                                 @Override
                                 public void onError(Exception e) {
 
+                                    /*
                                     if (trytoload) {
                                         showimage(url, src, img, false);
                                     }
@@ -121,8 +126,9 @@ public class Commands {
                                         Webservice.handelerro("timeout");
                                     } else {
                                         e.printStackTrace();
-                                        Webservice.handelerro(null);
+                                        Webservice.handelerro(null);F
                                     }
+                                    */
                                 }
                             });
 
@@ -132,6 +138,7 @@ public class Commands {
                             .resize(G.IMAGES_HEIGHT, G.IMAGES_WIDTH)
                             .memoryPolicy(MemoryPolicy.NO_CACHE)
                             .networkPolicy(NetworkPolicy.NO_CACHE)
+                            .error(R.drawable.brokenimage)
                             .into(img, new Callback() {
                                 @Override
                                 public void onSuccess() {
@@ -140,6 +147,7 @@ public class Commands {
 
                                 @Override
                                 public void onError(Exception e) {
+                                    /*
 
                                     if (trytoload) {
                                         showimage(url, src, img, false);
@@ -152,6 +160,7 @@ public class Commands {
                                         e.printStackTrace();
                                         Webservice.handelerro(null);
                                     }
+                                    */
                                 }
                             });
                 }

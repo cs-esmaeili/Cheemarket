@@ -3,6 +3,7 @@ package www.cheemarket.com.javadesmaeili;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
@@ -21,17 +22,14 @@ public class G extends Application {
     public static String Baseurl = "http://www.cheemarket.com/Store/";
     public static Activity CurrentActivity;
     public static Context context;
-    public static final int DOWNLOAD_BUFFER_SIZE = 8 * 1024;
     public static  int IMAGES_HEIGHT = 0;
     public static  int IMAGES_WIDTH = 0;
     public static final Handler HANDLER = new Handler();
 
     public static ArrayList<sabad> mdatasetsabad = new ArrayList<sabad>();
-   // public static ArrayList<Data> tempdata = new ArrayList<Data>();
     public static String Connectioncode = "";
     public static boolean comeback = false;
-    static int result = -1;
-    static String temp = "";
+
 
     @Override
     public void onCreate() {
@@ -41,13 +39,28 @@ public class G extends Application {
         Textconfig.setFontpath("vazir.ttf");
     }
 
-    public static View.OnClickListener onClickListener = new View.OnClickListener() {
+    public static View.OnClickListener onClickListenersearch = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-        //    Intent intent = new Intent(G.CurrentActivity, SearchActivity.class);
-       //     G.CurrentActivity.startActivity(intent);
+           Intent intent = new Intent(G.CurrentActivity, SearchActivity.class);
+           G.CurrentActivity.startActivity(intent);
         }
     };
+
+    public static View.OnClickListener onClickListenersabadkharid = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (G.Connectioncode.equals("")) {
+                Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
+                G.CurrentActivity.startActivity(intent);
+            }else {
+                Intent intent = new Intent(G.CurrentActivity, ActivitySabad.class);
+                G.CurrentActivity.startActivity(intent);
+            }
+
+        }
+    };
+
 
     public static boolean readNetworkStatus() {
         ConnectivityManager connectivityManager = (ConnectivityManager) G.context.getSystemService(Context.CONNECTIVITY_SERVICE);

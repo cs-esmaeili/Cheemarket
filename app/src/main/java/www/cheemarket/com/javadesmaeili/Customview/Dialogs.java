@@ -87,7 +87,7 @@ public class Dialogs extends Application{
         String[] permissions = {
                 Manifest.permission.INTERNET
                 , Manifest.permission.ACCESS_NETWORK_STATE
-                , Manifest.permission.ACCESS_WIFI_STATE
+
         };
 
 

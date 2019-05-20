@@ -98,15 +98,7 @@ public class Dastebandimahsolat extends AppCompatActivity {
 
 
         ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
-
-        shoplogo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clearimages();
-                //  Intent intent = new Intent(G.CurrentActivity, ActivitySabad.class);
-                //    startActivity(intent);
-            }
-        });
+        shoplogo.setOnClickListener(G.onClickListenersabadkharid);
 
 
         View.OnClickListener onClickListener = new View.OnClickListener() {

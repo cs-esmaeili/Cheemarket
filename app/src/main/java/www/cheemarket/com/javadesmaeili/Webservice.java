@@ -24,9 +24,9 @@ public class Webservice {
     private static OkHttpClient getclient()    {
         if (client == null) {
             client = new OkHttpClient.Builder()
-                    .connectTimeout(3,TimeUnit.SECONDS)
-                    .writeTimeout(3,TimeUnit.SECONDS)
-                    .readTimeout(3,TimeUnit.SECONDS)
+                    .connectTimeout(5,TimeUnit.SECONDS)
+                    .writeTimeout(5,TimeUnit.SECONDS)
+                    .readTimeout(5,TimeUnit.SECONDS)
                     .build();
 
         }
@@ -78,6 +78,7 @@ public class Webservice {
 
     public static void handelerro(String check) {
 
+
         if (!G.readNetworkStatus()) {
             Intent intent = new Intent(G.CurrentActivity, activityNetwork.class);
             G.CurrentActivity.startActivity(intent);
@@ -85,7 +86,7 @@ public class Webservice {
             G.HANDLER.post(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(G.CurrentActivity, "time out", Toast.LENGTH_LONG).show();
+                    Toast.makeText(G.CurrentActivity, "اینترنت شما بسیار ضعیت است !", Toast.LENGTH_LONG).show();
                 }
             });
 

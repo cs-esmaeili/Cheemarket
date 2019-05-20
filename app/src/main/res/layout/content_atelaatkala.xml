@@ -96,10 +96,9 @@
                         <LinearLayout
                             android:id="@+id/talaei"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.166"
+                            android:layout_height="50dip"
                             android:orientation="horizontal"
-                            android:visibility="gone">
+                            android:visibility="visible">
 
                             <RelativeLayout
                                 android:layout_width="match_parent"

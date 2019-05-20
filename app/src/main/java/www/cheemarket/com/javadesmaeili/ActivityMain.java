@@ -122,7 +122,7 @@ public class ActivityMain extends AppCompatActivity
         thisactivity = this;
         G.CurrentActivity = this;
 
-        pre = getSharedPreferences("Barana", MODE_PRIVATE);
+        pre = getSharedPreferences("Cheemarket", MODE_PRIVATE);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View header = navigationView.getHeaderView(0);
@@ -159,8 +159,8 @@ public class ActivityMain extends AppCompatActivity
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
 
-        searchlogo.setOnClickListener(G.onClickListener);
-
+        searchlogo.setOnClickListener(G.onClickListenersearch);
+        shoplogo.setOnClickListener(G.onClickListenersabadkharid);
 
         if (!G.readNetworkStatus()) {
             Intent intent = new Intent(G.CurrentActivity, activityNetwork.class);
