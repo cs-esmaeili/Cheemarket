@@ -85,7 +85,7 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
                 @Override
                 public void onClick(View v) {
 
-                    Commands.openactivity(mdataset, position, ActivityAtelaatkala.class);
+                    Commands.openactivity(mdataset, position,true, ActivityAtelaatkala.class);
 
                 }
             });
@@ -136,7 +136,7 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
                 @Override
                 public void onClick(View v) {
 
-                    Commands.openactivity(mdataset, position, ActivityAtelaatkala.class);
+                    Commands.openactivity(mdataset, position,false, ActivityAtelaatkala.class);
                 }
             });
 

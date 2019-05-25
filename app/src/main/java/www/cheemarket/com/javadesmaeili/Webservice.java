@@ -67,7 +67,6 @@ public class Webservice {
             RequestBuilder.post(requestBody);
         }
         Request request = RequestBuilder.build();
-        Log.i("LOG",request.toString());
         getclient().newCall(request).enqueue(callback);
 
 

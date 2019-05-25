@@ -65,7 +65,7 @@ public class Listpaymentadapter extends RecyclerView.Adapter<Listpaymentadapter.
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Commands.openactivity(mdataset, position, ActivityAtelaatkala.class);
+                Commands.openactivity(mdataset, position,true, ActivityAtelaatkala.class);
             }
         });
 

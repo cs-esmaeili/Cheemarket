@@ -104,9 +104,11 @@ public class Orderinformation extends AppCompatActivity {
             case 4:
                 stepView.go(3, true);
                 stepView.done(true);
+                ratingBar.setRating(Orders.mdatasetList.get(position).Rate);
                 break;
         }
 
+        final int finalPosition = position;
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
@@ -114,17 +116,8 @@ public class Orderinformation extends AppCompatActivity {
                 if(fromUser && stepView.getCurrentStep() != 3){
                     Toast.makeText(G.CurrentActivity,"بعد از تحویل کالا میتوانید نظر بدهید",Toast.LENGTH_LONG).show();
                     ratingBar.setRating(0.0f);
-                }
-            }
-        });
-
-        ratingBar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("LOG" ,"salam =" + stepView.getCurrentStep());
-                if(stepView.getCurrentStep() != 3){
-                    Toast.makeText(G.CurrentActivity,"بعد از تحویل کالا میتوانید نظر بدهید",Toast.LENGTH_LONG).show();
-                    ratingBar.setRating(0.0f);
+                }else{
+                    setrating(ratingBar.getRating(), finalPosition);
                 }
             }
         });
@@ -209,5 +202,46 @@ public class Orderinformation extends AppCompatActivity {
 
             }
         },array);
+    }
+
+    private void setrating(float rate,int position){
+
+        Webservice.requestparameter param1 = new Webservice.requestparameter();
+        param1.key =  "Connectioncode";
+        param1.value = G.Connectioncode;
+        Webservice.requestparameter param2 = new Webservice.requestparameter();
+        param2.key =  "Category";
+        param2.value = Orders.mdatasetList.get(position).Category +"";
+
+        Webservice.requestparameter param3 = new Webservice.requestparameter();
+        param3.key =  "rate";
+        Log.i("LOG","RATE =" + rate);
+        param3.value = rate +"";
+
+        ArrayList<Webservice.requestparameter> array = new ArrayList<>();
+        array.add(param1);
+        array.add(param2);
+        array.add(param3);
+
+        Webservice.request("Store.php?action=setrating", new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String input = response.body().string();
+                if(input.equals("Ok")){
+                    G.HANDLER.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(G.context,"امتیاز شما با موفقیت ثبت شد",Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+            }
+        },array);
+
     }
 }

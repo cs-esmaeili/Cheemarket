@@ -58,17 +58,27 @@ public class Commands {
 
     }
 
-    public static void openactivity(ArrayList<KalaStructure> mdataset, int position, Class<? extends Activity> target) {
+    public static void openactivity(ArrayList<KalaStructure> mdataset, int position, boolean one , Class<? extends Activity> target) {
 
 
         Intent intent = new Intent(G.CurrentActivity, target);
 
-        intent.putExtra("Name", mdataset.get(position).Name1);
-        intent.putExtra("Weight", mdataset.get(position).Weight1);
-        intent.putExtra("Volume", mdataset.get(position).Volume1);
-        intent.putExtra("Image", mdataset.get(position).Image1);
-        intent.putExtra("Id", mdataset.get(position).Id1);
+        if(one){
+            intent.putExtra("Name", mdataset.get(position).Name1);
+            intent.putExtra("Weight", mdataset.get(position).Weight1);
+            intent.putExtra("Volume", mdataset.get(position).Volume1);
+            intent.putExtra("Image", mdataset.get(position).Image1);
+            intent.putExtra("Id", mdataset.get(position).Id1);
+        }else {
+            intent.putExtra("Name", mdataset.get(position).Name2);
+            intent.putExtra("Weight", mdataset.get(position).Weight2);
+            intent.putExtra("Volume", mdataset.get(position).Volume2);
+            intent.putExtra("Image", mdataset.get(position).Image2);
+            intent.putExtra("Id", mdataset.get(position).Id2);
+        }
+
         G.CurrentActivity.startActivity(intent);
+
 
 
     }
@@ -105,8 +115,8 @@ public class Commands {
                     Picasso.get()
                             .load(url)
                             .resize(G.IMAGES_HEIGHT, G.IMAGES_WIDTH)
-                            .memoryPolicy(MemoryPolicy.NO_CACHE)
-                            .networkPolicy(NetworkPolicy.NO_CACHE)
+                           // .memoryPolicy(MemoryPolicy.NO_CACHE)
+                          //  .networkPolicy(NetworkPolicy.NO_CACHE)
                             .error(R.drawable.brokenimage)
                             .into(img, new Callback() {
                                 @Override
@@ -136,8 +146,8 @@ public class Commands {
                     Picasso.get()
                             .load(src)
                             .resize(G.IMAGES_HEIGHT, G.IMAGES_WIDTH)
-                            .memoryPolicy(MemoryPolicy.NO_CACHE)
-                            .networkPolicy(NetworkPolicy.NO_CACHE)
+                         //   .memoryPolicy(MemoryPolicy.NO_CACHE)
+                          //  .networkPolicy(NetworkPolicy.NO_CACHE)
                             .error(R.drawable.brokenimage)
                             .into(img, new Callback() {
                                 @Override

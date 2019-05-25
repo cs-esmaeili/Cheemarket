@@ -54,7 +54,7 @@ public class Sliderimage {
             final ImageView imageView = (ImageView) view.findViewById(imageviewid);
             imageView.setScaleType(scaleType);
 
-            Commands.showimage(imageurlandscaletype.get(position),null,imageView,true);
+            Commands.showimage(imageurlandscaletype.get(position),null,imageView,false);
 
             container.addView(view);
             return view;

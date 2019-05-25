@@ -71,6 +71,24 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     }
 
+    public void resetlayout(final RecyclerView recyclerView, Adapter adapter, LinearLayoutManager linearLayoutManager) {
+
+        int temp = linearLayoutManager.findLastVisibleItemPosition();
+
+
+        temp = temp / 2;
+        this.layout = R.layout.listtwo;
+
+
+        changedataset();
+
+
+        Log.i("LOG", "posiition =" + temp);
+        recyclerView.setAdapter(adapter);
+        linearLayoutManager.scrollToPosition(temp);
+
+    }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -112,7 +130,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             }
 
 
-
             if (finaldataset.get(position).Image1 != null && !finaldataset.get(position).Image1.equals("")) {
                 Commands.showimage(G.Baseurl + "Listimages/" + finaldataset.get(position).Image1 + "/" + finaldataset.get(position).Image1 + ".png", null, holder.imageone, true);
             }
@@ -122,12 +139,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
 
-                    Commands.openactivity(finaldataset, position, ActivityAtelaatkala.class);
+                    Commands.openactivity(finaldataset, position, true, ActivityAtelaatkala.class);
 
                 }
             });
 
-            if(layout == R.layout.listone && finaldataset.get(position).Ordernumber1 != null){
+            if (layout == R.layout.listone && finaldataset.get(position).Ordernumber1 != null) {
                 holder.mess.setVisibility(View.VISIBLE);
                 holder.mess.setText("تعداد انتخاب شده: " + finaldataset.get(position).Ordernumber1);
             }
@@ -168,8 +185,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 }
 
 
-
-
                 if (finaldataset.get(position).Image2 != null && !finaldataset.get(position).Image2.equals("")) {
                     Commands.showimage(G.Baseurl + "Listimages/" + finaldataset.get(position).Image2 + "/" + finaldataset.get(position).Image2 + ".png", null, holder.imagetwo, true);
                 }
@@ -179,7 +194,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                     @Override
                     public void onClick(View v) {
 
-                        Commands.openactivity(finaldataset, position, ActivityAtelaatkala.class);
+                        Commands.openactivity(finaldataset, position, false, ActivityAtelaatkala.class);
                     }
                 });
 

@@ -31,7 +31,6 @@
                 android:layout_centerVertical="true"
                 android:layout_gravity="right"
                 android:layout_margin="1dip"
-                android:scaleType="fitXY"
                 app:srcCompat="@drawable/logo" />
 
 

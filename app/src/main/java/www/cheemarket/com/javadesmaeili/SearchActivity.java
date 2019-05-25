@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -59,6 +60,8 @@ public class SearchActivity extends AppCompatActivity {
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 searchView.setIconified(false);
             }
         });
@@ -76,6 +79,10 @@ public class SearchActivity extends AppCompatActivity {
         imgbtnsort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+                Log.i("LOG", mdatasetkalafortwokala.get(0).Name1);
+                Log.i("LOG", mdatasetkalafortwokala.get(0).Name2);
 
 
                 AlertDialog.Builder b = new AlertDialog.Builder(G.CurrentActivity);
@@ -99,7 +106,7 @@ public class SearchActivity extends AppCompatActivity {
                                 namayeshkalaha("4049", "are");
                                 break;
                                 */
-                            
+
                         }
                     }
                 });
@@ -122,6 +129,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 error.setVisibility(View.GONE);
+                AdapterList.resetlayout(RecyclerViewList, AdapterList, LayoutManagerList);
                 if (mdatasetkalaforonekala != null) {
                     mdatasetkalaforonekala.clear();
                 }

@@ -12,15 +12,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
-
 import me.relex.circleindicator.CircleIndicator;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -107,20 +104,33 @@ public class ActivityAtelaatkala extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
 
-            if (extras.containsKey("Name") && extras.getString("Name") != null && !extras.getString("Name").equals("")) {
+            if (extras.containsKey("Name") && extras.getString("Name") != null && !extras.getString("Name").equals("")  && !extras.getString("Name").equals("null")) {
                 mysabad.Name = extras.getString("Name");
+            }else {
+                mysabad.Name = "";
             }
-            if (extras.containsKey("Weight") && extras.getString("Weight") != null && !extras.getString("Weight").equals("")) {
+            if (extras.containsKey("Weight") && extras.getString("Weight") != null && !extras.getString("Weight").equals("")  && !extras.getString("Weight").equals("null")) {
                 mysabad.Weight = extras.getString("Weight");
+            }else {
+                mysabad.Weight = "";
             }
-            if (extras.containsKey("Volume") && extras.getString("Volume") != null && !extras.getString("Volume").equals("")) {
+            if (extras.containsKey("Volume") && extras.getString("Volume") != null && !extras.getString("Volume").equals("") && !extras.getString("Volume").equals("null")) {
+                Log.i("Loggggg","" +  extras.getString("Volume"));
                 mysabad.Volume = extras.getString("Volume");
+            }else {
+                mysabad.Volume = "";
             }
-            if (extras.containsKey("Image")  && extras.getString("Image") != null && !extras.getString("Image").equals("")) {
+            if (extras.containsKey("Image")  && extras.getString("Image") != null && !extras.getString("Image").equals("")  && !extras.getString("Image").equals("null")) {
                 mysabad.Image = extras.getString("Image");
+            }else {
+                mysabad.Image = "";
             }
 
-            mysabad.Id = extras.getString("Id");
+            if (extras.containsKey("Id")  && extras.getString("Id") != null && !extras.getString("Id").equals("")    && !extras.getString("Id").equals("null")) {
+                mysabad.Id = extras.getString("Id");
+            }
+
+
 
         }
 
@@ -160,7 +170,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
         imgsheare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String shareBody = "www.cheemarket.com/product/productid=" + mysabad.Id;
+                String shareBody = "www.cheemarket.com/product/?productid=" + mysabad.Id;
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
                 sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
@@ -234,7 +244,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                     mysabad.Code = object.getString("Code");
                     mysabad.Price = object.getString("Price");
                     mysabad.OldPrice = object.getString("OldPrice");
-                    mysabad.Tozihat = object.getString("Tozihat");
+                    mysabad.Tozihat = object.getString("Tozihat").equals("null") ? "ندارد" : object.getString("Tozihat") ;
                     mysabad.Ordernumber = object.getString("Ordernumber");
                     mysabad.Status = object.getString("Status");
                     mysabad.Tedad = "1";
@@ -297,28 +307,28 @@ public class ActivityAtelaatkala extends AppCompatActivity {
         ArrayList<Webservice.requestparameter> array1 = new ArrayList<>();
         Webservice.requestparameter object1 = new Webservice.requestparameter();
         object1.key = "Foldername";
-        object1.value = mysabad.Image;
+        object1.value = mysabad.Image + "";
         array1.add(object1);
         Webservice.request("Store.php?action=images", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                if (e instanceof SocketTimeoutException) {
-                    e.printStackTrace();
-                    Webservice.handelerro("timeout");
-                } else {
-                    e.printStackTrace();
-                    Webservice.handelerro(null);
-                }
+
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                try {
+
 
                     String input = response.body().string();
-                    Log.i("LOG", "response =" + input);
+                    Log.i("eeeeeeee", "response =" + input);
 
 
+                    if(input == null || input.equals("")){
+                        return;
+                    }
+
+
+                try {
                     final JSONArray jsonArray = new JSONArray(input);
 
                     final Sliderimage mysilder = new Sliderimage(G.context, ActivityAtelaatkala.viewPager, ActivityAtelaatkala.circleIndicator, R.layout.sliderlayout, R.id.image, ImageView.ScaleType.CENTER_CROP);
@@ -344,14 +354,25 @@ public class ActivityAtelaatkala extends AppCompatActivity {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Webservice.handelerro(null);
-                } catch (SocketTimeoutException e) {
+                    G.HANDLER.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            final Sliderimage mysilder = new Sliderimage(G.context, ActivityAtelaatkala.viewPager, ActivityAtelaatkala.circleIndicator, R.layout.sliderlayout, R.id.image, ImageView.ScaleType.CENTER_CROP);
+                            mysilder.removealldata();
+                            mysilder.addsilder("www.test.com");
+
+                        }
+                    });
+
+
+                    // Webservice.handelerro(null);
+                }/* catch (SocketTimeoutException e) {
                     e.printStackTrace();
                     Webservice.handelerro("timeout");
                 } catch (IOException e) {
                     e.printStackTrace();
                     Webservice.handelerro(null);
-                }
+                }*/
 
 
             }

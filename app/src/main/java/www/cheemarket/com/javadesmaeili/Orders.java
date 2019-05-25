@@ -24,6 +24,7 @@ public class Orders extends AppCompatActivity {
         public String Category;
         public String sum;
         public String Vaziyat;
+        public Float Rate;
     }
 
 
@@ -80,6 +81,7 @@ public class Orders extends AppCompatActivity {
                         order order = new order();
                         order.Category = object.getString("Category");
                         order.sum = object.getString("sum");
+                        order.Rate = Float.parseFloat(object.getString("Rate"));
                         order.Vaziyat = object.getString("Vaziyat");
                         mdatasetList.add(order);
 
