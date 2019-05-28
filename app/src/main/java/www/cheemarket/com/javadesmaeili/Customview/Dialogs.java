@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -22,6 +23,8 @@ import www.cheemarket.com.javadesmaeili.Commands;
 import www.cheemarket.com.javadesmaeili.G;
 import www.cheemarket.com.javadesmaeili.R;
 
+import static www.cheemarket.com.javadesmaeili.Start.checkrunword;
+
 /**
  * Created by user on 7/1/2018.
  */
@@ -29,7 +32,7 @@ import www.cheemarket.com.javadesmaeili.R;
 public class Dialogs extends Application {
 
 
-    public static void message(final boolean cancansel, final String btntext, final String matn , final String Image, final String url) {
+    public static void message(final boolean cancansel, final String btntext, final String matn, final String Image, final String url) {
         G.HANDLER.post(new Runnable() {
             @Override
             public void run() {
@@ -56,15 +59,31 @@ public class Dialogs extends Application {
 
                     @Override
                     public void onClick(View arg0) {
-                        if(url.equals("")){
-                            dialog.dismiss();
-                        }else {
+
+                        if (!url.equals("")) {
                             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                             G.CurrentActivity.startActivity(browserIntent);
+                            //update
+                        } else {
+                            if(url.equals("") && cancansel==false){
+                                System.exit(0);
+                                return;
+                            }
+                            checkrunword();
                         }
 
                     }
                 });
+                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+
+                        if (url.equals("") && cancansel==true) {
+                            checkrunword();
+                        }
+                    }
+                });
+
                 dialog.show();
             }
         });

@@ -42,6 +42,7 @@ import www.cheemarket.com.javadesmaeili.Structure.KalaStructure;
 import www.cheemarket.com.javadesmaeili.Structure.SliderStructure;
 
 import static www.cheemarket.com.javadesmaeili.Start.appLinkData;
+import static www.cheemarket.com.javadesmaeili.Start.pre;
 
 public class ActivityMain extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -69,7 +70,7 @@ public class ActivityMain extends AppCompatActivity
     static ScrollView scroll;
     private static DrawerLayout drawer;
     private static TextView txtprofile;
-    public static SharedPreferences pre;
+
     NavigationView navigationView;
     public static ViewPager viewPager;
     public static CircleIndicator circleIndicator;
@@ -121,7 +122,7 @@ public class ActivityMain extends AppCompatActivity
         thisactivity = this;
         G.CurrentActivity = this;
 
-        pre = getSharedPreferences("Cheemarket", MODE_PRIVATE);
+
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View header = navigationView.getHeaderView(0);
@@ -505,7 +506,7 @@ public class ActivityMain extends AppCompatActivity
             }
         } else if (id == R.id.btn) {
             G.Connectioncode = "";
-            SharedPreferences.Editor editor = ActivityMain.pre.edit();
+            SharedPreferences.Editor editor = pre.edit();
             editor.putString("Username", "");
             editor.putString("Connectioncode", "");
             editor.apply();

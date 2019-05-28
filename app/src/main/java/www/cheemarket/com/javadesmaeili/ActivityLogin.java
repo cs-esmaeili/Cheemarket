@@ -25,6 +25,8 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
+import static www.cheemarket.com.javadesmaeili.Start.pre;
+
 
 public class ActivityLogin extends AppCompatActivity {
 
@@ -178,7 +180,7 @@ public class ActivityLogin extends AppCompatActivity {
 
                                 usernametemp = mEmailView.getText().toString();
                                 G.Connectioncode = input;
-                                SharedPreferences.Editor editor = ActivityMain.pre.edit();
+                                SharedPreferences.Editor editor = pre.edit();
                                 editor.putString("Username", usernametemp);
                                 editor.putString("Connectioncode", G.Connectioncode);
                                 editor.apply();
@@ -242,7 +244,7 @@ public class ActivityLogin extends AppCompatActivity {
                             try {
                                 usernametemp = mEmailView.getText().toString();
                                 G.Connectioncode=input;
-                                SharedPreferences.Editor editor = ActivityMain.pre.edit();
+                                SharedPreferences.Editor editor = pre.edit();
                                 editor.putString("Username", usernametemp);
                                 editor.putString("Connectioncode",  G.Connectioncode);
 

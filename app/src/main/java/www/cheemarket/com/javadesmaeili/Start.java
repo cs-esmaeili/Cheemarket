@@ -10,22 +10,17 @@ import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.net.SocketTimeoutException;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import www.cheemarket.com.javadesmaeili.Customview.Dialogs;
-import www.cheemarket.com.javadesmaeili.R;
-
-import static www.cheemarket.com.javadesmaeili.ActivityMain.pre;
 
 public class Start extends AppCompatActivity {
 
     public static Uri appLinkData;
-
+    public static SharedPreferences pre;
     @Override
     protected void onResume() {
         super.onResume();
@@ -37,7 +32,7 @@ public class Start extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
         G.CurrentActivity = this;
-
+        pre = getSharedPreferences("Cheemarket", MODE_PRIVATE);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         G.IMAGES_HEIGHT = (int) (Double.parseDouble(displayMetrics.heightPixels + "") / 1.5);
@@ -69,25 +64,53 @@ public class Start extends AppCompatActivity {
                         JSONObject object = new JSONObject(input);
 
 
-                        if (object.getString("type").endsWith("update")) {
 
-                            if(G.VERSIONNAME == object.getString("VERSIONNAME")){
+                        if(pre.contains("messageid") && !pre.getString("messageid", "Error").equals("Error") ){
+                            if(pre.getString("messageid", "Error").equals(object.getString("messageid"))){
+                                checkrunword();
                                 return;
                             }
+                        }
 
-                            if(object.getString("cancansel").endsWith("yes")){
-                                // zakhire
-                            }else  if(object.getString("cancansel").endsWith("no")) {
 
+                        if (object.getString("type").endsWith("update")) {
+                            if(G.VERSIONNAME .equals(object.getString("VERSIONNAME"))){
+                                checkrunword();
+                                return;
+                            }else {
+                                if(object.getString("cancansel").endsWith("yes")){
+
+
+                                    SharedPreferences.Editor editor = pre.edit();
+                                    editor.putString("messageid", object.getString("messageid"));
+                                    editor.apply();
+
+                                    Dialogs.message(true,object.getString("btntext"),object.getString("matn") ,object.getString("Image"),object.getString("url"));
+
+                                    //checkrunword();
+
+                                }else  if(object.getString("cancansel").endsWith("no")) {
+                                    Dialogs.message(false,object.getString("btntext"),object.getString("matn") ,object.getString("Image"),object.getString("url"));
+                                }
                             }
+
+
 
 
                         }else {
 
                             if(object.getString("cancansel").endsWith("yes")){
-                                // zakhire
-                            }else  if(object.getString("cancansel").endsWith("no")) {
 
+                                SharedPreferences.Editor editor = pre.edit();
+                                editor.putString("messageid", object.getString("messageid"));
+                                editor.apply();
+
+                                Dialogs.message(true,object.getString("btntext"),object.getString("matn") ,object.getString("Image"),object.getString("url"));
+
+                               // checkrunword();
+
+                            }else  if(object.getString("cancansel").endsWith("no")) {
+                                Dialogs.message(false,object.getString("btntext"),object.getString("matn") ,object.getString("Image"),object.getString("url"));
                             }
 
                         }
@@ -102,7 +125,7 @@ public class Start extends AppCompatActivity {
     }
 
 
-    private void checkrunword() {
+    public static void checkrunword() {
 
         Webservice.request("server.php", new Callback() {
             @Override
@@ -128,8 +151,8 @@ public class Start extends AppCompatActivity {
                                 try {
                                     Thread.sleep(300);
                                     Intent intent = new Intent(G.CurrentActivity, ActivityMain.class);
-                                    startActivity(intent);
-                                    finish();
+                                    G.CurrentActivity.startActivity(intent);
+                                    G.CurrentActivity.finish();
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
