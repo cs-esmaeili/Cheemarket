@@ -35,16 +35,16 @@
     </group>
 
     <item
-        android:id="@+id/exit"
+        android:id="@+id/btn"
         android:icon="@drawable/ic_exit_to_app_black_24dp"
         android:title="خروج از حساب کاربری" />
 
     <item android:title="ارتباط با ما">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/problems"
                 android:icon="@drawable/ic_menu_share"
-                android:title="ارسال تیکت" />
+                android:title="گزاش مشکلات نرم افزار" />
 
             <item
                 android:id="@+id/s"

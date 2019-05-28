@@ -1,6 +1,7 @@
 package www.cheemarket.com.javadesmaeili;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
@@ -18,9 +20,11 @@ import okhttp3.Response;
 import www.cheemarket.com.javadesmaeili.Customview.Dialogs;
 import www.cheemarket.com.javadesmaeili.R;
 
+import static www.cheemarket.com.javadesmaeili.ActivityMain.pre;
+
 public class Start extends AppCompatActivity {
 
-    public static  Uri appLinkData;
+    public static Uri appLinkData;
 
     @Override
     protected void onResume() {
@@ -44,6 +48,61 @@ public class Start extends AppCompatActivity {
         appLinkData = appLinkIntent.getData();
 
 
+        check_Atelae();
+
+
+    }
+
+    private void check_Atelae() {
+        Webservice.request("message.php", new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String input = response.body().string();
+
+                if (!input.equals("[]")) {
+                    try {
+                        JSONObject object = new JSONObject(input);
+
+
+                        if (object.getString("type").endsWith("update")) {
+
+                            if(G.VERSIONNAME == object.getString("VERSIONNAME")){
+                                return;
+                            }
+
+                            if(object.getString("cancansel").endsWith("yes")){
+                                // zakhire
+                            }else  if(object.getString("cancansel").endsWith("no")) {
+
+                            }
+
+
+                        }else {
+
+                            if(object.getString("cancansel").endsWith("yes")){
+                                // zakhire
+                            }else  if(object.getString("cancansel").endsWith("no")) {
+
+                            }
+
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }, null);
+
+    }
+
+
+    private void checkrunword() {
 
         Webservice.request("server.php", new Callback() {
             @Override
@@ -92,9 +151,6 @@ public class Start extends AppCompatActivity {
             }
 
         }, null);
-
-
-        // ATTENTION: This was auto-generated to handle app links.
 
     }
 }

@@ -94,7 +94,7 @@ public class SabadAdapter extends RecyclerView.Adapter<SabadAdapter.ViewHolder> 
             public void onClick(View v) {
                 G.mdatasetsabad.remove(G.mdatasetsabad.get(position));
                 ActivitySabad.Adapter.notifyDataSetChanged();
-                ActivitySabad.pagework();
+               // ActivitySabad.pagework();
                 ActivitySabad.setghaymat();
             }
         });

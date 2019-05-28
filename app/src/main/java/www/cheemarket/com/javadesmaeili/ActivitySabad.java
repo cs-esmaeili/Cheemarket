@@ -79,12 +79,12 @@ public class ActivitySabad extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-                if (G.mdatasetsabad.size() > 0) {
-                    Intent intent = new Intent(G.CurrentActivity,Paymentstep.class);
-                    G.CurrentActivity.startActivity(intent);
-
+                if(G.mdatasetsabad.size() > 0){
+                    ActivitySabad.pagework();
                 }
+
+
+
             }
         });
 
@@ -104,18 +104,17 @@ public class ActivitySabad extends AppCompatActivity {
         txt.setText(temp + " " + "تومان");
 
 
-    }
-
-    public static void pagework() {
-
-
         if (G.mdatasetsabad.size() == 0) {
             txtpyam.setVisibility(View.VISIBLE);
         } else {
             txtpyam.setVisibility(View.GONE);
         }
 
-        Webservice req = new Webservice();
+
+    }
+
+    public static void pagework() {
+
 
         Gson gson = new GsonBuilder().create();
         JsonArray myCustomArray = gson.toJsonTree(G.mdatasetsabad).getAsJsonArray();
@@ -134,8 +133,15 @@ public class ActivitySabad extends AppCompatActivity {
         Webservice.requestparameter requestparameter = new Webservice.requestparameter();
         requestparameter.key = "jsontext";
         requestparameter.value = temp;
-        Log.i("value", "value =" + temp);
+
+        Webservice.requestparameter requestparameter1 = new Webservice.requestparameter();
+        requestparameter1.key = "Connectioncode";
+        requestparameter1.value = G.Connectioncode;
+
+
+
         array.add(requestparameter);
+        array.add(requestparameter1);
         Webservice.request("Store.php?action=Checkalldata", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -147,6 +153,12 @@ public class ActivitySabad extends AppCompatActivity {
                 String input = response.body().string();
                 Log.i("input", "input =" + input);
                 if (input.equals("[]") || input.equals("")) {
+
+                    if (G.mdatasetsabad.size() > 0) {
+                        Intent intent = new Intent(G.CurrentActivity, Paymentstep.class);
+                        G.CurrentActivity.startActivity(intent);
+
+                    }
                     return;
                 }
 

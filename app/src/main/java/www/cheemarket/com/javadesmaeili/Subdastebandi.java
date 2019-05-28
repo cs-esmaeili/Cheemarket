@@ -29,9 +29,9 @@ import www.cheemarket.com.javadesmaeili.Customview.Dialogs;
 import www.cheemarket.com.javadesmaeili.Structure.KalaStructure;
 
 
-public class  Subdastebandi extends AppCompatActivity {
+public class Subdastebandi extends AppCompatActivity {
 
-    private String code = "";
+    private static String code = "";
     public static ArrayList<www.cheemarket.com.javadesmaeili.Structure.Subdastebandi> mdatasetListsubdastebandi;
     public static ArrayList<KalaStructure> mdatasetkalafortwokala;
     public static ArrayList<KalaStructure> mdatasetkalaforonekala;
@@ -50,6 +50,7 @@ public class  Subdastebandi extends AppCompatActivity {
     private static boolean allownext = true;
     private static String sort = "Nothing";
     private boolean needtoclose = false;
+    private static String toptitle = "";
 
     @Override
     protected void onResume() {
@@ -73,18 +74,17 @@ public class  Subdastebandi extends AppCompatActivity {
 
         if (extras != null) {
 
-            if (extras.containsKey("subdastebandistring")) //tanagholat
-            {
+            if (extras.containsKey("subdastebandistring")) {
                 code = extras.getString("subdastebandistring");
                 namayeshsubdastebandi(code);
-            } else if (extras.containsKey("subkala"))// kalahaye 400
-            {
+
+            } else if (extras.containsKey("subkala")) {
                 code = extras.getString("subkala");
+                toptitle =  extras.getString("NameSubcategori");
                 needtoclose = true;
-                namayeshkalaha(code, "");
+                namayeshkalaha(code, toptitle);
             }
         }
-        // namayeshkalaha("4049", "are");
 
 
         imgbtnview.setOnClickListener(new View.OnClickListener() {
@@ -111,15 +111,15 @@ public class  Subdastebandi extends AppCompatActivity {
                         switch (which) {
                             case 0:
                                 sort = "Nothing";
-                                namayeshkalaha("4049", "are");
+                                namayeshkalaha(code, toptitle);
                                 break;
                             case 1:
                                 sort = "Ascending";
-                                namayeshkalaha("4049", "are");
+                                namayeshkalaha(code, toptitle);
                                 break;
                             case 2:
                                 sort = "Descending";
-                                namayeshkalaha("4049", "are");
+                                namayeshkalaha(code, toptitle);
                                 break;
                         }
                     }
@@ -161,7 +161,7 @@ public class  Subdastebandi extends AppCompatActivity {
 
         Listnumber = 0;
         showsubdastebandi = false;
-
+        toptitle = "";
         pagetitle.setVisibility(View.GONE);
         pagetitle.setText("");
         imgbtnsort.setVisibility(View.GONE);
@@ -235,15 +235,16 @@ public class  Subdastebandi extends AppCompatActivity {
     }
 
 
-    public static void namayeshkalaha(final String code, String title) throws NullPointerException {
+    public static void namayeshkalaha(final String mycode, String title) throws NullPointerException {
+
         clearalldata();
         showsubdastebandi = false;
-        Log.i("LOG", "code =" + code + " ?? title =" + title);
+        toptitle = title;
         pagetitle.setVisibility(View.VISIBLE);
         pagetitle.setText(title);
         imgbtnsort.setVisibility(View.VISIBLE);
         imgbtnview.setVisibility(View.VISIBLE);
-
+        code = mycode;
 
         layoutManager = new LinearLayoutManager(G.CurrentActivity);
         mdatasetkalafortwokala = new ArrayList<KalaStructure>();
@@ -274,7 +275,7 @@ public class  Subdastebandi extends AppCompatActivity {
                 allownext = false;
 
                 if (input.equals("[]")) {
-                    if(Listnumber == 0){
+                    if (Listnumber == 0) {
                         Dialogs.vizhegiayande();
                     }
                     return;
@@ -307,7 +308,7 @@ public class  Subdastebandi extends AppCompatActivity {
                         if (kalaone) {
                             kala = new KalaStructure();
                             Commands.convertinputdata(object, kala, kalaone);
-                            if(i == array.length() - 1){
+                            if (i == array.length() - 1) {
                                 mdatasetkalafortwokala.add(kala);
                             }
                         } else {
@@ -326,8 +327,6 @@ public class  Subdastebandi extends AppCompatActivity {
                         }
                     });
                     allownext = true;
-
-
 
 
                 } catch (JSONException e) {
@@ -353,6 +352,11 @@ public class  Subdastebandi extends AppCompatActivity {
         object3.value = sort;
         array1.add(object3);
 
+        Log.i("Test", "value =" + code);
+        Log.i("Test", "number =" + Listnumber);
+        Log.i("Test", "sort =" + sort);
+
+
         Webservice.request("Store.php?action=partofdata", mycall, array1);
 
 
@@ -363,7 +367,7 @@ public class  Subdastebandi extends AppCompatActivity {
                 if (showsubdastebandi) {
                     return;
                 }
-                if (mdatasetkalafortwokala.size() > 2){
+                if (mdatasetkalafortwokala.size() > 2) {
                     TextView txtname = (TextView) view.findViewById(R.id.txtnameone);
                     if (txtname.getText().toString().equals(mdatasetkalafortwokala.get(mdatasetkalafortwokala.size() - 2).Name1) || txtname.getText().toString().equals(mdatasetkalafortwokala.get(mdatasetkalafortwokala.size() - 1).Name1)) {
                         if (layoutManager.findLastVisibleItemPosition() == (mdatasetkalafortwokala.size() - 1) - 1) {
@@ -408,13 +412,13 @@ public class  Subdastebandi extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        if(needtoclose){
+        if (needtoclose) {
             super.onBackPressed();
             return;
         }
-        if(showsubdastebandi == false){
+        if (showsubdastebandi == false) {
             namayeshsubdastebandi(code);
-        }else if (showsubdastebandi){
+        } else if (showsubdastebandi) {
             super.onBackPressed();
         }
 

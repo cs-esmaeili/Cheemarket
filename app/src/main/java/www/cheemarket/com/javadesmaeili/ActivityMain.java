@@ -24,7 +24,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -102,7 +101,7 @@ public class ActivityMain extends AppCompatActivity
         }
 
 
-        navigationView.getMenu().findItem(R.id.exit).setChecked(false);
+        navigationView.getMenu().findItem(R.id.btn).setChecked(false);
         navigationView.getMenu().findItem(R.id.category).setChecked(false);
         navigationView.getMenu().findItem(R.id.sabadkharid).setChecked(false);
         navigationView.getMenu().findItem(R.id.address).setChecked(false);
@@ -209,21 +208,21 @@ public class ActivityMain extends AppCompatActivity
 
 
         RecyclerViewList1.setHasFixedSize(true);
-        LayoutManagerList1 = new LinearLayoutManager(G.CurrentActivity, LinearLayoutManager.HORIZONTAL, false);
+        LayoutManagerList1 = new LinearLayoutManager(G.CurrentActivity, LinearLayoutManager.HORIZONTAL, true);
         RecyclerViewList1.setLayoutManager(LayoutManagerList1);
         AdapterList1 = new Adapter(null, mdatasetList1, R.layout.listone);
         RecyclerViewList1.setAdapter(AdapterList1);
 
 
         RecyclerViewList4.setHasFixedSize(true);
-        LayoutManagerList4 = new LinearLayoutManager(G.CurrentActivity, LinearLayoutManager.HORIZONTAL, false);
+        LayoutManagerList4 = new LinearLayoutManager(G.CurrentActivity, LinearLayoutManager.HORIZONTAL, true);
         RecyclerViewList4.setLayoutManager(LayoutManagerList4);
         AdapterList4 = new Adapter(null, mdatasetList4, R.layout.listone);
         RecyclerViewList4.setAdapter(AdapterList4);
 
 
         RecyclerViewList6.setHasFixedSize(true);
-        LayoutManagerList6 = new LinearLayoutManager(G.CurrentActivity, LinearLayoutManager.HORIZONTAL, false);
+        LayoutManagerList6 = new LinearLayoutManager(G.CurrentActivity, LinearLayoutManager.HORIZONTAL, true);
         RecyclerViewList6.setLayoutManager(LayoutManagerList6);
         AdapterList6 = new Adapter(null, mdatasetList6, R.layout.listone);
         RecyclerViewList6.setAdapter(AdapterList6);
@@ -496,7 +495,15 @@ public class ActivityMain extends AppCompatActivity
                 Intent intent = new Intent(G.CurrentActivity, Orders.class);
                 startActivity(intent);
             }
-        } else if (id == R.id.exit) {
+        } else if (id == R.id.problems) {
+            if (G.Connectioncode.equals("")) {
+                Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(G.CurrentActivity, Activityproblems.class);
+                startActivity(intent);
+            }
+        } else if (id == R.id.btn) {
             G.Connectioncode = "";
             SharedPreferences.Editor editor = ActivityMain.pre.edit();
             editor.putString("Username", "");
@@ -571,8 +578,9 @@ public class ActivityMain extends AppCompatActivity
 
                                         try {
 
-                                            Intent intent = new Intent(G.CurrentActivity, Subdastebandi.class);//Subdastebandi
+                                            Intent intent = new Intent(G.CurrentActivity, Subdastebandi.class);
                                             intent.putExtra("subkala", jsonObject.getString("Subcategori"));
+                                            intent.putExtra("NameSubcategori", jsonObject.getString("NameSubcategori"));
                                             G.CurrentActivity.startActivity(intent);
 
                                         } catch (JSONException e) {
@@ -591,7 +599,7 @@ public class ActivityMain extends AppCompatActivity
                             @Override
                             public void onClick(View v) {
 
-                                Toast.makeText(G.context, "Width =" + img.getWidth() + " ?? Height =" + img.getHeight(), Toast.LENGTH_LONG).show();
+
                                 Commands.openactivity(jsonObject, ActivityAtelaatkala.class);
 
 

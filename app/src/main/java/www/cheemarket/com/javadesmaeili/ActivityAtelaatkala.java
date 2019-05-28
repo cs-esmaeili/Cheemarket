@@ -12,12 +12,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+
 import me.relex.circleindicator.CircleIndicator;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -104,32 +107,31 @@ public class ActivityAtelaatkala extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
 
-            if (extras.containsKey("Name") && extras.getString("Name") != null && !extras.getString("Name").equals("")  && !extras.getString("Name").equals("null")) {
+            if (extras.containsKey("Name") && extras.getString("Name") != null && !extras.getString("Name").equals("") && !extras.getString("Name").equals("null")) {
                 mysabad.Name = extras.getString("Name");
-            }else {
+            } else {
                 mysabad.Name = "";
             }
-            if (extras.containsKey("Weight") && extras.getString("Weight") != null && !extras.getString("Weight").equals("")  && !extras.getString("Weight").equals("null")) {
+            if (extras.containsKey("Weight") && extras.getString("Weight") != null && !extras.getString("Weight").equals("") && !extras.getString("Weight").equals("null")) {
                 mysabad.Weight = extras.getString("Weight");
-            }else {
+            } else {
                 mysabad.Weight = "";
             }
             if (extras.containsKey("Volume") && extras.getString("Volume") != null && !extras.getString("Volume").equals("") && !extras.getString("Volume").equals("null")) {
-                Log.i("Loggggg","" +  extras.getString("Volume"));
+
                 mysabad.Volume = extras.getString("Volume");
-            }else {
+            } else {
                 mysabad.Volume = "";
             }
-            if (extras.containsKey("Image")  && extras.getString("Image") != null && !extras.getString("Image").equals("")  && !extras.getString("Image").equals("null")) {
+            if (extras.containsKey("Image") && extras.getString("Image") != null && !extras.getString("Image").equals("") && !extras.getString("Image").equals("null")) {
                 mysabad.Image = extras.getString("Image");
-            }else {
+            } else {
                 mysabad.Image = "";
             }
 
-            if (extras.containsKey("Id")  && extras.getString("Id") != null && !extras.getString("Id").equals("")    && !extras.getString("Id").equals("null")) {
+            if (extras.containsKey("Id") && extras.getString("Id") != null && !extras.getString("Id").equals("") && !extras.getString("Id").equals("null")) {
                 mysabad.Id = extras.getString("Id");
             }
-
 
 
         }
@@ -152,17 +154,23 @@ public class ActivityAtelaatkala extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                boolean temp = false;
                 for (int i = 0; i < G.mdatasetsabad.size(); i++) {
-                    if (G.mdatasetsabad.get(i).Id == mysabad.Id) {
+                    if (G.mdatasetsabad.get(i).Id.equals(mysabad.Id)) {
                         G.mdatasetsabad.get(i).Tedad = (Integer.parseInt(G.mdatasetsabad.get(i).Tedad) + 1) + "";
                         Intent intent = new Intent(G.CurrentActivity, ActivitySabad.class);
                         G.CurrentActivity.startActivity(intent);
+                        temp = true;
                         return;
                     }
                 }
-                G.mdatasetsabad.add(mysabad);
-                Intent intent = new Intent(G.CurrentActivity, ActivitySabad.class);
-                G.CurrentActivity.startActivity(intent);
+                if(temp == false){
+                    G.mdatasetsabad.add(mysabad);
+                    Log.i("LOG", mysabad.Id + " ?? " +G.mdatasetsabad.get(0).Id);
+                    Intent intent = new Intent(G.CurrentActivity, ActivitySabad.class);
+                    G.CurrentActivity.startActivity(intent);
+                }
+
             }
         });
 
@@ -244,7 +252,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                     mysabad.Code = object.getString("Code");
                     mysabad.Price = object.getString("Price");
                     mysabad.OldPrice = object.getString("OldPrice");
-                    mysabad.Tozihat = object.getString("Tozihat").equals("null") ? "ندارد" : object.getString("Tozihat") ;
+                    mysabad.Tozihat = object.getString("Tozihat").equals("null") ? "ندارد" : object.getString("Tozihat");
                     mysabad.Ordernumber = object.getString("Ordernumber");
                     mysabad.Status = object.getString("Status");
                     mysabad.Tedad = "1";
@@ -319,13 +327,12 @@ public class ActivityAtelaatkala extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
 
 
-                    String input = response.body().string();
-                    Log.i("eeeeeeee", "response =" + input);
+                String input = response.body().string();
 
 
-                    if(input == null || input.equals("")){
-                        return;
-                    }
+                if (input == null || input.equals("")) {
+                    return;
+                }
 
 
                 try {

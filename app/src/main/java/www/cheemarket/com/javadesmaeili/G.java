@@ -31,6 +31,9 @@ public class G extends Application {
     public static boolean comeback = false;
 
 
+    public static final String  VERSIONNAME = "1.0";
+
+
     @Override
     public void onCreate() {
         super.onCreate();

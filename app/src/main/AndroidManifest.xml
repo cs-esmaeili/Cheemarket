@@ -3,10 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="www.cheemarket.com.javadesmaeili">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
 
     <application
         android:name=".G"
@@ -17,11 +15,10 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-
+        <activity android:name=".Activityproblems"></activity>
         <activity
             android:name=".Start"
             android:configChanges="orientation|screenSize">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -54,7 +51,7 @@
         <activity
             android:name=".Dastebandimahsolat"
             android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Subdastebandi"
             android:configChanges="orientation|screenSize"
@@ -67,7 +64,6 @@
             android:name=".Alaghemandiha"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ActivityAddress"
             android:configChanges="orientation|screenSize"
@@ -80,27 +76,22 @@
             android:name=".Paymentstep"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ActivityWebview"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".Orders"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".Orderinformation"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".SearchActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
-
     </application>
 
 </manifest>

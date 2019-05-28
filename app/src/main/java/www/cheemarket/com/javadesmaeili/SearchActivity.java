@@ -38,6 +38,7 @@ public class SearchActivity extends AppCompatActivity {
     private static TextView error;
     static ImageButton imgbtnview;
     static ImageButton imgbtnsort;
+    private static String sort = "Nothing";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,21 +93,18 @@ public class SearchActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
-                            /*
                             case 0:
                                 sort = "Nothing";
-                                namayeshkalaha("4049", "are");
+                                namayeshkalaha(searchView.getQuery().toString());
                                 break;
                             case 1:
                                 sort = "Ascending";
-                                namayeshkalaha("4049", "are");
+                                namayeshkalaha(searchView.getQuery().toString());
                                 break;
                             case 2:
                                 sort = "Descending";
-                                namayeshkalaha("4049", "are");
+                                namayeshkalaha(searchView.getQuery().toString());
                                 break;
-                                */
-
                         }
                     }
                 });
@@ -128,16 +126,8 @@ public class SearchActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                error.setVisibility(View.GONE);
-                AdapterList.resetlayout(RecyclerViewList, AdapterList, LayoutManagerList);
-                if (mdatasetkalaforonekala != null) {
-                    mdatasetkalaforonekala.clear();
-                }
-                if (mdatasetkalafortwokala != null) {
-                    mdatasetkalafortwokala.clear();
-                }
 
-                AdapterList.notifyDataSetChanged();
+                reset();
 
                 namayeshkalaha(query);
                 return false;
@@ -153,7 +143,22 @@ public class SearchActivity extends AppCompatActivity {
     }
 
 
+    private static void reset(){
+        error.setVisibility(View.GONE);
+        AdapterList.resetlayout(RecyclerViewList, AdapterList, LayoutManagerList);
+        if (mdatasetkalaforonekala != null) {
+            mdatasetkalaforonekala.clear();
+        }
+        if (mdatasetkalafortwokala != null) {
+            mdatasetkalafortwokala.clear();
+        }
+
+        AdapterList.notifyDataSetChanged();
+
+    }
     public static void namayeshkalaha(String query) {
+
+         reset();
 
 
         final Callback mycall = new Callback() {
@@ -235,10 +240,16 @@ public class SearchActivity extends AppCompatActivity {
 
 
         ArrayList<Webservice.requestparameter> array1 = new ArrayList<>();
-        Webservice.requestparameter param = new Webservice.requestparameter();
-        param.key = "matn";
-        param.value = query;
-        array1.add(param);
+        Webservice.requestparameter param1 = new Webservice.requestparameter();
+        param1.key = "matn";
+        param1.value = query;
+
+        Webservice.requestparameter param2 = new Webservice.requestparameter();
+        param2.key = "sort";
+        param2.value = sort;
+
+        array1.add(param1);
+        array1.add(param2);
         Webservice.request("Store.php?action=search", mycall, array1);
 
 
