@@ -154,6 +154,12 @@ public class ActivityAtelaatkala extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                if (G.Connectioncode.equals("")) {
+                    Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
+                    startActivity(intent);
+                    return;
+                }
+
                 boolean temp = false;
                 for (int i = 0; i < G.mdatasetsabad.size(); i++) {
                     if (G.mdatasetsabad.get(i).Id.equals(mysabad.Id)) {

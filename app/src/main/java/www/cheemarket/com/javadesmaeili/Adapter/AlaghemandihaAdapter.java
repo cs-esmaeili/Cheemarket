@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import www.cheemarket.com.javadesmaeili.ActivityAddress;
 import www.cheemarket.com.javadesmaeili.ActivityAtelaatkala;
 import www.cheemarket.com.javadesmaeili.Alaghemandiha;
 import www.cheemarket.com.javadesmaeili.Commands;
@@ -54,6 +55,7 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
             if (mdataset.get(position).OldPrice1 == null || mdataset.get(position).OldPrice1.equals("0")) {
                 holder.textoffPriceone.setVisibility(View.GONE);
             } else {
+
                 holder.textoffPriceone.setText(mdataset.get(position).OldPrice1 + "");
             }
             if (mdataset.get(position).Price1 != null && !mdataset.get(position).Price1.equals("0")) {

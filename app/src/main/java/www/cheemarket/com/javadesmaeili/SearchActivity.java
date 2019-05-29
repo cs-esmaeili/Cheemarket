@@ -8,7 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -36,8 +36,8 @@ public class SearchActivity extends AppCompatActivity {
     private static ArrayList<KalaStructure> mdatasetkalaforonekala;
     private static ArrayList<KalaStructure> mdatasetkalafortwokala;
     private static TextView error;
-    static ImageButton imgbtnview;
-    static ImageButton imgbtnsort;
+    static Button btnview;
+    static Button btnsort;
     private static String sort = "Nothing";
 
     @Override
@@ -55,8 +55,8 @@ public class SearchActivity extends AppCompatActivity {
         searchView.setIconified(false);
         RecyclerViewList = (RecyclerView) findViewById(R.id.List);
         RecyclerViewList.setFocusable(false);
-        imgbtnview = (ImageButton) findViewById(R.id.imgbtnview);
-        imgbtnsort = (ImageButton) findViewById(R.id.imgbtnsort);
+        btnview = (Button) findViewById(R.id.btnview);
+        btnsort = (Button) findViewById(R.id.btnsort);
 
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +67,7 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        imgbtnview.setOnClickListener(new View.OnClickListener() {
+        btnview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (AdapterList != null) {
@@ -77,7 +77,7 @@ public class SearchActivity extends AppCompatActivity {
 
             }
         });
-        imgbtnsort.setOnClickListener(new View.OnClickListener() {
+        btnsort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

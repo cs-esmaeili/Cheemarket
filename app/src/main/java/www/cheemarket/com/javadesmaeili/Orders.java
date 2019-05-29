@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.ImageView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,7 +22,7 @@ import www.cheemarket.com.javadesmaeili.Adapter.Listordersadapter;
 
 public class Orders extends AppCompatActivity {
 
-    public class order{
+    public class order {
         public String Category;
         public String sum;
         public String Vaziyat;
@@ -32,6 +34,7 @@ public class Orders extends AppCompatActivity {
     private static RecyclerView.LayoutManager LayoutManagerList;
     private static RecyclerView.Adapter AdapterList;
     public static ArrayList<order> mdatasetList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,15 +52,14 @@ public class Orders extends AppCompatActivity {
         AdapterList = new Listordersadapter(mdatasetList);
         RecyclerViewList.setAdapter(AdapterList);
 
+        ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
+        ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
 
-
-
-
-
-
+        searchlogo.setOnClickListener(G.onClickListenersearch);
+        shoplogo.setOnClickListener(G.onClickListenersabadkharid);
 
         Webservice.requestparameter param1 = new Webservice.requestparameter();
-        param1.key =  "Connectioncode";
+        param1.key = "Connectioncode";
         param1.value = G.Connectioncode;
         ArrayList<Webservice.requestparameter> array = new ArrayList<>();
         array.add(param1);
@@ -76,15 +78,14 @@ public class Orders extends AppCompatActivity {
                 try {
                     JSONArray array = new JSONArray(input);
 
-                    for(int i = 0 ; i< array.length(); i++){
+                    for (int i = 0; i < array.length(); i++) {
                         JSONObject object = array.getJSONObject(i);
                         order order = new order();
                         order.Category = object.getString("Category");
                         order.sum = object.getString("sum");
-                        order.Rate = Float.parseFloat(object.getString("Rate"));
+                        order.Rate = Float.parseFloat(object.getString("Rate").equals("null") ? "0.0" : object.getString("Rate"));
                         order.Vaziyat = object.getString("Vaziyat");
                         mdatasetList.add(order);
-
 
 
                     }
@@ -94,20 +95,16 @@ public class Orders extends AppCompatActivity {
                 }
 
 
-
-
                 G.HANDLER.post(new Runnable() {
                     @Override
                     public void run() {
                         AdapterList.notifyDataSetChanged();
-                        Log.i("LOG","NOTIFY");
+                        Log.i("LOG", "NOTIFY");
                     }
                 });
 
             }
-        },array);
-
-
+        }, array);
 
 
     }

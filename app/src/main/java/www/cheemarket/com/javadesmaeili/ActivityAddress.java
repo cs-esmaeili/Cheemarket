@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -64,7 +65,11 @@ public class ActivityAddress extends AppCompatActivity {
 
         btnselect = (Button) findViewById(R.id.btnselect);
 
+        ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
+        ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
 
+        searchlogo.setOnClickListener(G.onClickListenersearch);
+        shoplogo.setOnClickListener(G.onClickListenersabadkharid);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {

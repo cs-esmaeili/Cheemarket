@@ -8,7 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -32,6 +33,7 @@ import www.cheemarket.com.javadesmaeili.Structure.KalaStructure;
 public class Subdastebandi extends AppCompatActivity {
 
     private static String code = "";
+    private static String codesubdastebandi = "";
     public static ArrayList<www.cheemarket.com.javadesmaeili.Structure.Subdastebandi> mdatasetListsubdastebandi;
     public static ArrayList<KalaStructure> mdatasetkalafortwokala;
     public static ArrayList<KalaStructure> mdatasetkalaforonekala;
@@ -44,8 +46,8 @@ public class Subdastebandi extends AppCompatActivity {
     public static RecyclerView List = null;
     public static long Listnumber = 0;
     public static boolean showsubdastebandi = true;
-    static ImageButton imgbtnview;
-    static ImageButton imgbtnsort;
+    static Button btnview;
+    static Button btnsort;
     private static TextView pagetitle;
     private static boolean allownext = true;
     private static String sort = "Nothing";
@@ -66,28 +68,35 @@ public class Subdastebandi extends AppCompatActivity {
 
 
         List = (RecyclerView) findViewById(R.id.List);
-        imgbtnview = (ImageButton) findViewById(R.id.imgbtnview);
-        imgbtnsort = (ImageButton) findViewById(R.id.imgbtnsort);
+        btnview = (Button) findViewById(R.id.btnview);
+        btnsort = (Button) findViewById(R.id.btnsort);
         pagetitle = (TextView) findViewById(R.id.txttitle);
         clearalldata();
+
+        ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
+        ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
+
+        searchlogo.setOnClickListener(G.onClickListenersearch);
+        shoplogo.setOnClickListener(G.onClickListenersabadkharid);
+
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
 
             if (extras.containsKey("subdastebandistring")) {
-                code = extras.getString("subdastebandistring");
-                namayeshsubdastebandi(code);
+                codesubdastebandi = extras.getString("subdastebandistring");
+                namayeshsubdastebandi(codesubdastebandi);
 
             } else if (extras.containsKey("subkala")) {
                 code = extras.getString("subkala");
-                toptitle =  extras.getString("NameSubcategori");
+                toptitle = extras.getString("NameSubcategori");
                 needtoclose = true;
                 namayeshkalaha(code, toptitle);
             }
         }
 
 
-        imgbtnview.setOnClickListener(new View.OnClickListener() {
+        btnview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (AdapterListkala != null) {
@@ -97,7 +106,7 @@ public class Subdastebandi extends AppCompatActivity {
 
             }
         });
-        imgbtnsort.setOnClickListener(new View.OnClickListener() {
+        btnsort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -164,8 +173,8 @@ public class Subdastebandi extends AppCompatActivity {
         toptitle = "";
         pagetitle.setVisibility(View.GONE);
         pagetitle.setText("");
-        imgbtnsort.setVisibility(View.GONE);
-        imgbtnview.setVisibility(View.GONE);
+        btnsort.setVisibility(View.GONE);
+        btnview.setVisibility(View.GONE);
     }
 
     public static void namayeshsubdastebandi(String code) throws NullPointerException {
@@ -201,6 +210,7 @@ public class Subdastebandi extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String input = response.body().string();
+                Log.i("LOG","input =" + input);
                 if (input.equals("[]")) {
                     Dialogs.vizhegiayande();
                     return;
@@ -242,8 +252,8 @@ public class Subdastebandi extends AppCompatActivity {
         toptitle = title;
         pagetitle.setVisibility(View.VISIBLE);
         pagetitle.setText(title);
-        imgbtnsort.setVisibility(View.VISIBLE);
-        imgbtnview.setVisibility(View.VISIBLE);
+        btnsort.setVisibility(View.VISIBLE);
+        btnview.setVisibility(View.VISIBLE);
         code = mycode;
 
         layoutManager = new LinearLayoutManager(G.CurrentActivity);
@@ -417,7 +427,7 @@ public class Subdastebandi extends AppCompatActivity {
             return;
         }
         if (showsubdastebandi == false) {
-            namayeshsubdastebandi(code);
+            namayeshsubdastebandi(codesubdastebandi);
         } else if (showsubdastebandi) {
             super.onBackPressed();
         }

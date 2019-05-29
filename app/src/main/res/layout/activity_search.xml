@@ -43,29 +43,20 @@
         app:layout_constraintTop_toBottomOf="@+id/cardView2"
         tools:layout_editor_absoluteX="-4dp">
 
-        <ImageButton
-            android:id="@+id/imgbtnview"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+        <Button
+            android:id="@+id/btnview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="0.50"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:text="تغییر نمایش" />
 
-        <ImageButton
-            android:id="@+id/imgbtnsort"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+        <Button
+            android:id="@+id/btnsort"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="0.50"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:text="مرتب سازی" />
+
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

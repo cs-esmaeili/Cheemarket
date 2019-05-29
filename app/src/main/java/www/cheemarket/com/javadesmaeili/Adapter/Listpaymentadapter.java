@@ -15,6 +15,7 @@ import www.cheemarket.com.javadesmaeili.Customview.Lineimage;
 import www.cheemarket.com.javadesmaeili.G;
 import www.cheemarket.com.javadesmaeili.R;
 import www.cheemarket.com.javadesmaeili.Structure.KalaStructure;
+import www.cheemarket.com.javadesmaeili.Textconfig;
 
 /**
  * Created by user on 8/21/2018.
@@ -53,11 +54,13 @@ public class Listpaymentadapter extends RecyclerView.Adapter<Listpaymentadapter.
             holder.gifone.setVisibility(View.GONE);
         }
 
-        holder.txtname.setText(mdataset.get(position).Name1);
-        holder.textPrice.setText("" + mdataset.get(position).Price1);
+        Textconfig.settext(holder.txtname, "" + mdataset.get(position).Name1);
+        Textconfig.settext(holder.textPrice, "" + mdataset.get(position).Price1);
+        Textconfig.settext(holder.mess, "تعداد انتخاب شده: " + mdataset.get(position).Ordernumber1);
+
 
         holder.mess.setVisibility(View.VISIBLE);
-        holder.mess.setText("تعداد انتخاب شده: " + mdataset.get(position).Ordernumber1);
+
 
 
         Commands.showimage(G.Baseurl + "Listimages/" + mdataset.get(position).Image1 + "/" +  mdataset.get(position).Image1 + ".png", null, holder.image, true);

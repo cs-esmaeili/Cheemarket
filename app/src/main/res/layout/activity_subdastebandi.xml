@@ -23,21 +23,21 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/imgbtnview"
+        <Button
+            android:id="@+id/btnview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:visibility="gone"
-            app:srcCompat="@drawable/ic_dehaze_black_24dp" />
+            android:text="تغییر نمایش"
+            android:visibility="visible" />
 
-        <ImageButton
-            android:id="@+id/imgbtnsort"
+        <Button
+            android:id="@+id/btnsort"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:visibility="gone"
-            app:srcCompat="@drawable/ic_dehaze_black_24dp" />
+            android:text="مرتب سازی"
+            android:visibility="visible" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

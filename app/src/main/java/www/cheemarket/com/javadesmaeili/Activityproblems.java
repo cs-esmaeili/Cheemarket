@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -23,7 +24,11 @@ public class Activityproblems extends AppCompatActivity {
 
         final EditText editText = (EditText) findViewById(R.id.editText);
         Button button = (Button)findViewById(R.id.button);
+        ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
+        ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
 
+        searchlogo.setOnClickListener(G.onClickListenersearch);
+        shoplogo.setOnClickListener(G.onClickListenersabadkharid);
 
 
         button.setOnClickListener(new View.OnClickListener() {

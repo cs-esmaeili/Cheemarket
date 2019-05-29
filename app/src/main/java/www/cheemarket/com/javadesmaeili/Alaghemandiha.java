@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +48,11 @@ public class Alaghemandiha extends AppCompatActivity {
 
         mdatasetList = new ArrayList<KalaStructure>();
 
+        ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
+        ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
+
+        searchlogo.setOnClickListener(G.onClickListenersearch);
+        shoplogo.setOnClickListener(G.onClickListenersabadkharid);
 
         RecyclerViewList.setHasFixedSize(true);
         LayoutManagerList = new LinearLayoutManager(G.CurrentActivity);

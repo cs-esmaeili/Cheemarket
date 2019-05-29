@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,6 +76,7 @@ public class ActivitySabad extends AppCompatActivity {
         Adapter.notifyDataSetChanged();
 
 
+
         btnpay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,8 +84,6 @@ public class ActivitySabad extends AppCompatActivity {
                 if(G.mdatasetsabad.size() > 0){
                     ActivitySabad.pagework();
                 }
-
-
 
             }
         });

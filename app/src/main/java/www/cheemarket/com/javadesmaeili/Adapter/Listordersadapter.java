@@ -7,20 +7,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import java.util.ArrayList;
+
 import www.cheemarket.com.javadesmaeili.G;
 import www.cheemarket.com.javadesmaeili.Orderinformation;
 import www.cheemarket.com.javadesmaeili.Orders;
 import www.cheemarket.com.javadesmaeili.R;
+import www.cheemarket.com.javadesmaeili.Textconfig;
 
 /**
  * Created by user on 8/21/2018.
  */
 
-public class Listordersadapter extends RecyclerView.Adapter<Listordersadapter.ViewHolder>{
+public class Listordersadapter extends RecyclerView.Adapter<Listordersadapter.ViewHolder> {
 
     private ArrayList<Orders.order> mdataset;
-    private ArrayList<String> status =new ArrayList<String>() {{
+    private ArrayList<String> status = new ArrayList<String>() {{
         add("ارجاع به انبار");
         add("تحویل به پیک");
         add("ارسال سفارش");
@@ -34,7 +37,7 @@ public class Listordersadapter extends RecyclerView.Adapter<Listordersadapter.Vi
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v =  LayoutInflater.from(parent.getContext()).inflate(R.layout.adapterlistorders, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapterlistorders, parent, false);
 
         ViewHolder vh = new ViewHolder(v);
         return vh;
@@ -44,12 +47,12 @@ public class Listordersadapter extends RecyclerView.Adapter<Listordersadapter.Vi
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-        holder.txtCode.setText(mdataset.get(position).Category);
-        holder.txtprice.setText(mdataset.get(position).sum);
 
 
+        Textconfig.settext(holder.txtCode, mdataset.get(position).Category + "");
+        Textconfig.settext(holder.txtprice, mdataset.get(position).sum + "");
 
-        switch (Integer.parseInt(mdataset.get(position).Vaziyat)){
+        switch (Integer.parseInt(mdataset.get(position).Vaziyat)) {
             case 1:
                 holder.txtvaziyat.setText(status.get(0));
                 break;
@@ -69,7 +72,8 @@ public class Listordersadapter extends RecyclerView.Adapter<Listordersadapter.Vi
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(G.CurrentActivity, Orderinformation.class);
-                intent.putExtra("position" , position);
+                intent.putExtra("position", position);
+                intent.putExtra("Rate", mdataset.get(position).Rate);
                 G.CurrentActivity.startActivity(intent);
             }
         });
@@ -81,7 +85,7 @@ public class Listordersadapter extends RecyclerView.Adapter<Listordersadapter.Vi
         return mdataset.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView txtCode;
         public TextView txtprice;
@@ -94,7 +98,7 @@ public class Listordersadapter extends RecyclerView.Adapter<Listordersadapter.Vi
             txtCode = (TextView) itemView.findViewById(R.id.txtCode);
             txtprice = (TextView) itemView.findViewById(R.id.txtprice);
             txtvaziyat = (TextView) itemView.findViewById(R.id.txtvaziyat);
-            Card = (CardView)itemView.findViewById(R.id.Card);
+            Card = (CardView) itemView.findViewById(R.id.Card);
 
 
         }

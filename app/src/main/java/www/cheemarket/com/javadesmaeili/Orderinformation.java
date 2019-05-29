@@ -8,11 +8,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shuhart.stepview.StepView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,8 +29,6 @@ import www.cheemarket.com.javadesmaeili.Adapter.Listpaymentadapter;
 import www.cheemarket.com.javadesmaeili.Structure.KalaStructure;
 
 public class Orderinformation extends AppCompatActivity {
-
-
 
 
     private static RecyclerView.Adapter AdapterList1;
@@ -51,9 +51,13 @@ public class Orderinformation extends AppCompatActivity {
         final TextView txtostan = (TextView) findViewById(R.id.txtostan);
         final TextView txtshahr = (TextView) findViewById(R.id.txtshahr);
         RecyclerViewList1 = (RecyclerView) findViewById(R.id.List);
-        final StepView stepView = (StepView)findViewById(R.id.step_view);
-        final RatingBar ratingBar  = (RatingBar)findViewById(R.id.ratingBar);
+        final StepView stepView = (StepView) findViewById(R.id.step_view);
+        final RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
+        ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
 
+        searchlogo.setOnClickListener(G.onClickListenersearch);
+        shoplogo.setOnClickListener(G.onClickListenersabadkharid);
         stepView.getState()
                 .selectedTextColor(ContextCompat.getColor(G.CurrentActivity, R.color.colorAccent))
                 .animationType(StepView.ANIMATION_CIRCLE)
@@ -79,19 +83,22 @@ public class Orderinformation extends AppCompatActivity {
                 .commit();
 
 
-
         int position = -1;
-
+        float Rate = 0.0f;
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
 
             position = extras.getInt("position");
+            Rate = extras.getFloat("Rate");
 
 
         }
-
+        ratingBar.setRating(Rate);
+        if (Rate > 0.0) {
+            ratingBar.setEnabled(false);
+        }
         int currentvaziyat = Integer.parseInt(Orders.mdatasetList.get(position).Vaziyat);
-        switch (currentvaziyat){
+        switch (currentvaziyat) {
             case 1:
                 stepView.go(0, true);
                 break;
@@ -109,15 +116,17 @@ public class Orderinformation extends AppCompatActivity {
         }
 
         final int finalPosition = position;
+        final float finalRate = Rate;
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                Log.i("LOG" ,"salam =" + fromUser);
-                if(fromUser && stepView.getCurrentStep() != 3){
-                    Toast.makeText(G.CurrentActivity,"بعد از تحویل کالا میتوانید نظر بدهید",Toast.LENGTH_LONG).show();
-                    ratingBar.setRating(0.0f);
-                }else{
+                Log.i("LOG", "salam =" + fromUser);
+                if (fromUser && stepView.getCurrentStep() != 3) {
+                    Toast.makeText(G.CurrentActivity, "بعد از تحویل کالا میتوانید نظر بدهید", Toast.LENGTH_LONG).show();
+                    ratingBar.setRating(finalRate);
+                } else if (fromUser) {
                     setrating(ratingBar.getRating(), finalPosition);
+                    ratingBar.setEnabled(false);
                 }
             }
         });
@@ -134,16 +143,12 @@ public class Orderinformation extends AppCompatActivity {
         AdapterList1.notifyDataSetChanged();
 
 
-
-
-
-
         Webservice.requestparameter param1 = new Webservice.requestparameter();
-        param1.key =  "Connectioncode";
+        param1.key = "Connectioncode";
         param1.value = G.Connectioncode;
         Webservice.requestparameter param2 = new Webservice.requestparameter();
-        param2.key =  "Category";
-        param2.value = Orders.mdatasetList.get(position).Category +"";
+        param2.key = "Category";
+        param2.value = Orders.mdatasetList.get(position).Category + "";
         ArrayList<Webservice.requestparameter> array = new ArrayList<>();
         array.add(param1);
         array.add(param2);
@@ -159,15 +164,15 @@ public class Orderinformation extends AppCompatActivity {
 
 
                 try {
-                    JSONArray array =new JSONArray(input);
+                    JSONArray array = new JSONArray(input);
 
-                    for(int i = 0 ; i<array.length(); i++){
+                    for (int i = 0; i < array.length(); i++) {
                         JSONObject object = array.getJSONObject(i);
 
                         KalaStructure kalaStructure = new KalaStructure();
 
                         Commands.convertinputdata(object, kalaStructure, true);
-                        kalaStructure.Ordernumber1 =  object.getString("Tedad");
+                        kalaStructure.Ordernumber1 = object.getString("Tedad");
 
                         mdatasetList1.add(kalaStructure);
 
@@ -199,24 +204,23 @@ public class Orderinformation extends AppCompatActivity {
                 }
 
 
-
             }
-        },array);
+        }, array);
     }
 
-    private void setrating(float rate,int position){
+    private void setrating(float rate, int position) {
 
         Webservice.requestparameter param1 = new Webservice.requestparameter();
-        param1.key =  "Connectioncode";
+        param1.key = "Connectioncode";
         param1.value = G.Connectioncode;
         Webservice.requestparameter param2 = new Webservice.requestparameter();
-        param2.key =  "Category";
-        param2.value = Orders.mdatasetList.get(position).Category +"";
+        param2.key = "Category";
+        param2.value = Orders.mdatasetList.get(position).Category + "";
 
         Webservice.requestparameter param3 = new Webservice.requestparameter();
-        param3.key =  "rate";
-        Log.i("LOG","RATE =" + rate);
-        param3.value = rate +"";
+        param3.key = "rate";
+        Log.i("LOG", "RATE =" + rate);
+        param3.value = rate + "";
 
         ArrayList<Webservice.requestparameter> array = new ArrayList<>();
         array.add(param1);
@@ -232,16 +236,16 @@ public class Orderinformation extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String input = response.body().string();
-                if(input.equals("Ok")){
+                if (input.equals("Ok")) {
                     G.HANDLER.post(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(G.context,"امتیاز شما با موفقیت ثبت شد",Toast.LENGTH_LONG).show();
+                            Toast.makeText(G.context, "امتیاز شما با موفقیت ثبت شد", Toast.LENGTH_LONG).show();
                         }
                     });
                 }
             }
-        },array);
+        }, array);
 
     }
 }

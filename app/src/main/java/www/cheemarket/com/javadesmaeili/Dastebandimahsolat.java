@@ -98,8 +98,10 @@ public class Dastebandimahsolat extends AppCompatActivity {
 
 
         ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
-        shoplogo.setOnClickListener(G.onClickListenersabadkharid);
+        ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
 
+        searchlogo.setOnClickListener(G.onClickListenersearch);
+        shoplogo.setOnClickListener(G.onClickListenersabadkharid);
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override

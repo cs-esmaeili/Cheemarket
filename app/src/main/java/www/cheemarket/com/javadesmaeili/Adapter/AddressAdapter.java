@@ -25,6 +25,7 @@ import www.cheemarket.com.javadesmaeili.ActivityAddress;
 import www.cheemarket.com.javadesmaeili.G;
 import www.cheemarket.com.javadesmaeili.R;
 import www.cheemarket.com.javadesmaeili.Structure.AddressStructure;
+import www.cheemarket.com.javadesmaeili.Textconfig;
 import www.cheemarket.com.javadesmaeili.Webservice;
 
 import static www.cheemarket.com.javadesmaeili.ActivityAddress.spinershahrha;
@@ -62,9 +63,13 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
         holder.card.setBackgroundColor(colors.get(position));
 
         holder.layout.setBackgroundColor(colors.get(position));
-        holder.txtname.setText(mdataset.get(position).Name);
-        holder.txtphonenumber.setText(mdataset.get(position).Phonenumber);
-        holder.txtaddress.setText(mdataset.get(position).Address);
+
+        Textconfig.settext(holder.txtname, "" +mdataset.get(position).Name);
+//        Textconfig.settext(holder.txtphonenumber, "" +mdataset.get(position).Phonenumber);
+        holder.txtphonenumber.setText("" +mdataset.get(position).Phonenumber);
+        Textconfig.settext(holder.txtaddress, "" +mdataset.get(position).Address);
+
+
         holder.card.setBackgroundColor(colors.get(position));
 
         holder.imgdelete.setOnClickListener(new View.OnClickListener() {
@@ -118,11 +123,16 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
                     holder.card.setBackgroundColor(colors.get(position));
 
 
-                    ActivityAddress.edtaddress.setText(mdataset.get(position).Address);
-                    ActivityAddress.edtcodeposti.setText(mdataset.get(position).Codeposti);
-                    ActivityAddress.edtname.setText(mdataset.get(position).Name);
-                    ActivityAddress.edthomenumber.setText(mdataset.get(position).Homenumber);
-                    ActivityAddress.edtphonenumber.setText(mdataset.get(position).Phonenumber);
+
+                    Textconfig.settext( ActivityAddress.edtaddress, "" +mdataset.get(position).Address);
+                    Textconfig.settext( ActivityAddress.edtcodeposti, "" +mdataset.get(position).Codeposti);
+                    Textconfig.settext( ActivityAddress.edtname, "" +mdataset.get(position).Name);
+                    Textconfig.settext( ActivityAddress.edthomenumber, "" +mdataset.get(position).Homenumber);
+                    Textconfig.settext( ActivityAddress.edtphonenumber, "" +mdataset.get(position).Phonenumber);
+
+
+
+
                     if(ActivityAddress.btnselect.getVisibility() == View.VISIBLE){
                         ActivityAddress.btnselect.setBackgroundColor(Color.parseColor("#66BB6A"));
                     }

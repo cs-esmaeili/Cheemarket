@@ -1,5 +1,8 @@
 package www.cheemarket.com.javadesmaeili;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,7 +27,7 @@ import java.util.List;
 public class ActivityWebview extends AppCompatActivity {
 
     WebView webView = null;
-
+    String refcode = "";
     class OrderStructure{
         public String PersonName;
         public String Homenumber;
@@ -52,18 +55,32 @@ public class ActivityWebview extends AppCompatActivity {
 
         webView = (WebView) findViewById(R.id.webview);
         final TextView txt = (TextView) findViewById(R.id.txt);
+        final TextView ref = (TextView) findViewById(R.id.ref);
 
 
 
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
+
          WebViewClient mdWebViewClient = new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
-                if(url.equals(G.Baseurl+"successful.html")){
+                Log.i("LOG", url);
+                if(url.contains(G.Baseurl+"successful.html")){
                     webView.setVisibility(View.GONE);
                     txt.setVisibility(View.VISIBLE);
+                    ref.setVisibility(View.VISIBLE);
+                    refcode = url.substring(url.indexOf("=") + 1 );
+                    ref.setText("شماره تراکنش شما : " + refcode);
+
+
+                    ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData clip = ClipData.newPlainText("RefCode", refcode);
+                    clipboard.setPrimaryClip(clip);
+
+                    Toast.makeText(G.context,"شماره تراکنش کپی شد" , Toast.LENGTH_LONG).show();
+
                 }else if(url.equals(G.Baseurl+"unsuccessful.html")){
                     webView.setVisibility(View.GONE);
                     txt.setText("پرداخت موفقیت آمیز نبود");
@@ -75,7 +92,18 @@ public class ActivityWebview extends AppCompatActivity {
 
 
         };
+        ref.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(ref.getVisibility() == View.VISIBLE){
+                    ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData clip = ClipData.newPlainText("RefCode", refcode);
+                    clipboard.setPrimaryClip(clip);
 
+                    Toast.makeText(G.context,"شماره تراکنش کپی شد" , Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
         webView.setWebViewClient(mdWebViewClient);
 
