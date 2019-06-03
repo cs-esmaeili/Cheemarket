@@ -31,7 +31,7 @@ public class G extends Application {
     public static boolean comeback = false;
 
 
-    public static final String  VERSIONNAME = "1.0";
+    public static final String  VERSIONNAME = "3.0";
 
 
     @Override

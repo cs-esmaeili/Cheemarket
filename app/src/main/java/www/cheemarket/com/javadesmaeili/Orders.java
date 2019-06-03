@@ -78,7 +78,7 @@ public class Orders extends AppCompatActivity {
                 try {
                     JSONArray array = new JSONArray(input);
 
-                    for (int i = 0; i < array.length(); i++) {
+                    for (int i = array.length() - 1; i >= 0 ; i--) {
                         JSONObject object = array.getJSONObject(i);
                         order order = new order();
                         order.Category = object.getString("Category");

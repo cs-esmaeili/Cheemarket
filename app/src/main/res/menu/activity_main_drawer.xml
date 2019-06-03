@@ -6,28 +6,33 @@
         <item
             android:id="@+id/category"
             android:icon="@drawable/ic_book_black_24dp"
-            android:title="دسته بندی محصولات" />
+            android:title="دسته بندی محصولات"
+            android:fontFamily="@font/vazir"/>
 
         <item
             android:id="@+id/sabadkharid"
             android:icon="@drawable/ic_shopping_cart_black_24dp"
-            android:title="سبد خرید" />
+            android:title="سبد خرید"
+            android:fontFamily="@font/vazir"/>
 
         <item
             android:id="@+id/address"
             android:icon="@drawable/ic_location_on_black_24dp"
-            android:title="آدرس های شما" />
+            android:title="آدرس های شما"
+            android:fontFamily="@font/vazir"/>
 
         <item
             android:id="@+id/alaghemandiha"
             android:icon="@drawable/iconlike"
+            android:fontFamily="@font/vazir"
             android:title="علاقه مندی ها" />
 
 
         <item
             android:id="@+id/yourorders"
             android:icon="@drawable/ic_location_on_black_24dp"
-            android:title="سفارش های شما" />
+            android:title="سفارش های شما"
+            android:fontFamily="@font/vazir"/>
 
 
 
@@ -37,18 +42,21 @@
     <item
         android:id="@+id/btn"
         android:icon="@drawable/ic_exit_to_app_black_24dp"
-        android:title="خروج از حساب کاربری" />
+        android:title="خروج از حساب کاربری"
+        android:fontFamily="@font/vazir"/>
 
     <item android:title="ارتباط با ما">
         <menu>
             <item
                 android:id="@+id/problems"
                 android:icon="@drawable/ic_menu_share"
+                android:fontFamily="@font/vazir"
                 android:title="گزاش مشکلات نرم افزار" />
 
             <item
                 android:id="@+id/s"
                 android:icon="@drawable/ic_menu_share"
+                android:fontFamily="@font/vazir"
                 android:title="درباره ما" />
 
         </menu>

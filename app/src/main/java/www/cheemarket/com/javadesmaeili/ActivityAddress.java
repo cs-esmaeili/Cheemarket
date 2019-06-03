@@ -47,6 +47,9 @@ public class ActivityAddress extends AppCompatActivity {
 
 
     public static     Button btnselect;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

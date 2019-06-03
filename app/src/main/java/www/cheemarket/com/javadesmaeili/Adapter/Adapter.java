@@ -3,6 +3,7 @@ package www.cheemarket.com.javadesmaeili.Adapter;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +39,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     private ArrayList<KalaStructure> finaldataset;
 
     private int layout;
+    private ImageView.ScaleType scaleType = ImageView.ScaleType.FIT_XY;
 
     public Adapter(ArrayList<KalaStructure> datasetonekala, ArrayList<KalaStructure> datasettwokala, int layout) {
         this.datasetonekala = datasetonekala;
@@ -149,6 +151,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 holder.mess.setText("تعداد انتخاب شده: " + finaldataset.get(position).Ordernumber1);
             }
 
+            if(layout == R.layout.listonemid){
+                holder.imageone.setScaleType(scaleType);
+            }
         }
 
 

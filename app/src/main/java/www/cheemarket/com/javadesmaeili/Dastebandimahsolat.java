@@ -68,33 +68,33 @@ public class Dastebandimahsolat extends AppCompatActivity {
         Images.add((ImageView) findViewById(R.id.img11));
         Images.add((ImageView) findViewById(R.id.img12));
 
-
-        aksha.add(R.drawable.dastebandi_tanagholat);
+        aksha.add(R.drawable.dastebandi_kalahayeasasi);
         aksha.add(R.drawable.dastebandi_khoshkbar);
         aksha.add(R.drawable.datebandi_mavadshoyande);
         aksha.add(R.drawable.dastebandi_khorma);
         aksha.add(R.drawable.dastebandi_labaniyat);
         aksha.add(R.drawable.dastebandi_sobhane);
         aksha.add(R.drawable.dastebandi_konserv);
-        aksha.add(R.drawable.dastebandi_kalahayeasasi);
+        aksha.add(R.drawable.dastebandi_tanagholat);
         aksha.add(R.drawable.dastebandi_noshidani);
         aksha.add(R.drawable.dastebandi_shokolat);
         aksha.add(R.drawable.dastebandi_protoein);
         aksha.add(R.drawable.dastebandi_arayeshibehdashti);
 
 
-        layouts.get(0).setTag("dastebandi_tanagholat");
+     //   layouts.get(0).setTag("dastebandi_tanagholat");
+
+     //   layouts.get(2).setTag("datebandi_mavadshoyande");
+    //    layouts.get(3).setTag("dastebandi_khorma");
+     //   layouts.get(4).setTag("dastebandi_labaniyat");
+     //   layouts.get(5).setTag("dastebandi_sobhane");
+      //  layouts.get(6).setTag("dastebandi_konserv");
+        layouts.get(0).setTag("dastebandi_kalahayeasasi");
         layouts.get(1).setTag("dastebandi_khoshkbar");
-        layouts.get(2).setTag("datebandi_mavadshoyande");
-        layouts.get(3).setTag("dastebandi_khorma");
-        layouts.get(4).setTag("dastebandi_labaniyat");
-        layouts.get(5).setTag("dastebandi_sobhane");
-        layouts.get(6).setTag("dastebandi_konserv");
-        layouts.get(7).setTag("dastebandi_kalahayeasasi");
-        layouts.get(8).setTag("dastebandi_noshidani");
-        layouts.get(9).setTag("dastebandi_shokolat");
-        layouts.get(10).setTag("dastebandi_protoein");
-        layouts.get(11).setTag("dastebandi_arayeshibehdashti");
+      //  layouts.get(8).setTag("dastebandi_noshidani");
+      //  layouts.get(9).setTag("dastebandi_shokolat");
+      //  layouts.get(10).setTag("dastebandi_protoein");
+      //  layouts.get(11).setTag("dastebandi_arayeshibehdashti");
 
 
         ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);

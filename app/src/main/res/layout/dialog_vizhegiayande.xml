@@ -14,7 +14,7 @@
 
         <ImageView
             android:id="@+id/img"
-            android:layout_width="125dip"
+            android:layout_width="match_parent"
             android:layout_height="125dip"
             android:layout_gravity="center"
             android:layout_margin="4dip"

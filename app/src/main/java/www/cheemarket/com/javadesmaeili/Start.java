@@ -52,7 +52,13 @@ public class Start extends AppCompatActivity {
         Webservice.request("message.php", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                if (e instanceof SocketTimeoutException) {
+                    e.printStackTrace();
+                    Webservice.handelerro("timeout");
+                } else {
+                    e.printStackTrace();
+                    Webservice.handelerro(null);
+                }
             }
 
             @Override
@@ -80,10 +86,12 @@ public class Start extends AppCompatActivity {
                             }else {
                                 if(object.getString("cancansel").endsWith("yes")){
 
+                                    if(object.getString("save").endsWith("yes")){
+                                        SharedPreferences.Editor editor = pre.edit();
+                                        editor.putString("messageid", object.getString("messageid"));
+                                        editor.apply();
+                                    }
 
-                                    SharedPreferences.Editor editor = pre.edit();
-                                    editor.putString("messageid", object.getString("messageid"));
-                                    editor.apply();
 
                                     Dialogs.message(true,object.getString("btntext"),object.getString("matn") ,object.getString("Image"),object.getString("url"));
 
@@ -101,9 +109,11 @@ public class Start extends AppCompatActivity {
 
                             if(object.getString("cancansel").endsWith("yes")){
 
-                                SharedPreferences.Editor editor = pre.edit();
-                                editor.putString("messageid", object.getString("messageid"));
-                                editor.apply();
+                                if(object.getString("save").endsWith("yes")) {
+                                    SharedPreferences.Editor editor = pre.edit();
+                                    editor.putString("messageid", object.getString("messageid"));
+                                    editor.apply();
+                                }
 
                                 Dialogs.message(true,object.getString("btntext"),object.getString("matn") ,object.getString("Image"),object.getString("url"));
 

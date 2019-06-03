@@ -41,6 +41,12 @@ public class SearchActivity extends AppCompatActivity {
     private static String sort = "Nothing";
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        G.CurrentActivity = this;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
@@ -82,8 +88,7 @@ public class SearchActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                Log.i("LOG", mdatasetkalafortwokala.get(0).Name1);
-                Log.i("LOG", mdatasetkalafortwokala.get(0).Name2);
+
 
 
                 AlertDialog.Builder b = new AlertDialog.Builder(G.CurrentActivity);

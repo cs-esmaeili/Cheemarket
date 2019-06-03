@@ -89,7 +89,7 @@
                         android:layout_alignParentBottom="true"
                         android:background="#84ffffff"
                         android:gravity="center"
-                        android:text="تنقلات"
+                        android:text="اساسی و خوار وبار"
                         android:textColor="#614e4e"
                         android:textSize="20dip"
                         android:textStyle="bold"
@@ -323,9 +323,14 @@
                         android:id="@+id/img8"
                         android:layout_width="match_parent"
                         android:layout_height="170dip"
-                        android:layout_margin="4dip"
+                        android:layout_marginStart="4dip"
+                        android:layout_marginLeft="4dip"
+                        android:layout_marginTop="4dip"
+                        android:layout_marginEnd="4dip"
+                        android:layout_marginRight="4dip"
+                        android:layout_marginBottom="4dip"
                         android:layout_weight="1"
-                       />
+                        android:scaleType="centerCrop" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -336,7 +341,7 @@
                         android:background="#84ffffff"
 
                         android:gravity="center"
-                        android:text=" اساسی و خوار وبار"
+                        android:text="تنقلات"
                         android:textColor="#614e4e"
                         android:textSize="20dip"
                         android:textStyle="bold" />

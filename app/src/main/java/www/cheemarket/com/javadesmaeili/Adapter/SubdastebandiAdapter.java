@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
+
 import com.github.florent37.materialimageloading.MaterialImageLoading;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.MemoryPolicy;
@@ -62,6 +64,7 @@ public class SubdastebandiAdapter extends RecyclerView.Adapter<SubdastebandiAdap
         holder.img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+             //   Toast.makeText(G.context, "Width =" + holder.img.getWidth() + " ?? Height =" + holder.img.getHeight(), Toast.LENGTH_LONG).show();
 
                www.cheemarket.com.javadesmaeili.Subdastebandi.namayeshkalaha(mdataset.get(position).Subdastebandi , mdataset.get(position).Title);
             }

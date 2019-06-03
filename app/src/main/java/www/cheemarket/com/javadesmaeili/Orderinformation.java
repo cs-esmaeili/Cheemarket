@@ -68,10 +68,10 @@ public class Orderinformation extends AppCompatActivity {
                 // You should specify only stepsNumber or steps array of strings.
                 // In case you specify both steps array is chosen.
                 .steps(new ArrayList<String>() {{
-                    add("ارجاع به انبار");
-                    add("تحویل به پیک");
-                    add("ارسال سفارش");
-                    add("تحویل سفارش");
+                    add("          پردازش");
+                    add("        ارج به انبار");
+                    add("    تحول به پیک ");
+                    add(" تحویل سفارش ");
                 }})
                 // You should specify only steps number or steps array of strings.
                 // In case you specify both steps array is chosen.

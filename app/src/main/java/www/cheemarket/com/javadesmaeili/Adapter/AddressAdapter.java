@@ -123,15 +123,19 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
                     holder.card.setBackgroundColor(colors.get(position));
 
 
-
+/*
                     Textconfig.settext( ActivityAddress.edtaddress, "" +mdataset.get(position).Address);
                     Textconfig.settext( ActivityAddress.edtcodeposti, "" +mdataset.get(position).Codeposti);
                     Textconfig.settext( ActivityAddress.edtname, "" +mdataset.get(position).Name);
                     Textconfig.settext( ActivityAddress.edthomenumber, "" +mdataset.get(position).Homenumber);
                     Textconfig.settext( ActivityAddress.edtphonenumber, "" +mdataset.get(position).Phonenumber);
 
-
-
+*/
+                    ActivityAddress.edtaddress.setText( "" +mdataset.get(position).Address);
+                    ActivityAddress.edtcodeposti.setText( "" +mdataset.get(position).Codeposti);
+                    ActivityAddress.edtname.setText( "" +mdataset.get(position).Name);
+                    ActivityAddress.edthomenumber.setText( "" +mdataset.get(position).Homenumber);
+                    ActivityAddress.edtphonenumber.setText( "" +mdataset.get(position).Phonenumber);
 
                     if(ActivityAddress.btnselect.getVisibility() == View.VISIBLE){
                         ActivityAddress.btnselect.setBackgroundColor(Color.parseColor("#66BB6A"));

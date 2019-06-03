@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import www.cheemarket.com.javadesmaeili.Commands;
 import www.cheemarket.com.javadesmaeili.G;
@@ -54,6 +55,7 @@ public class Dialogs extends Application {
                 btnOk.setText(btntext);
                 txt.setText(matn);
                 Commands.showimage(Image, null, img, true);
+
 
                 btnOk.setOnClickListener(new View.OnClickListener() {
 

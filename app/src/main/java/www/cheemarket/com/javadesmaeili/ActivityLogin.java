@@ -1,14 +1,13 @@
 package www.cheemarket.com.javadesmaeili;
 
-import android.Manifest;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.TelephonyManager;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,6 +33,7 @@ public class ActivityLogin extends AppCompatActivity {
     private EditText mPasswordView;
     private TextView resetpass;
     private TextView sabtname;
+    private TextView message;
     private boolean s = false;
 
 
@@ -49,6 +49,7 @@ public class ActivityLogin extends AppCompatActivity {
 
         resetpass = (TextView) findViewById(R.id.resetpass);
         sabtname = (TextView) findViewById(R.id.sabtname);
+        message = (TextView) findViewById(R.id.message);
 
 
         final TextView mEmailSignInButton = (TextView) findViewById(R.id.email_sign_in_button);
@@ -76,13 +77,13 @@ public class ActivityLogin extends AppCompatActivity {
         sabtname.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!s){
+                if (!s) {
                     sabtname.setText("ورود به چی مارکت");
                     sabtname.setTextColor(Color.parseColor("#1E88E5"));
                     mEmailSignInButton.setText("ثبت نام در چی مارکت");
                     mEmailSignInButton.setBackgroundColor(Color.parseColor("#66BB6A"));
 
-                }else {
+                } else {
                     sabtname.setText("ثبت نام در چی مارکت");
                     sabtname.setTextColor(Color.parseColor("#66BB6A"));
                     mEmailSignInButton.setText("ورود به چی مارکت");
@@ -93,11 +94,89 @@ public class ActivityLogin extends AppCompatActivity {
 
             }
         });
+        TextWatcher watcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                message.setText("");
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                message.setText("");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                message.setText("");
+            }
+        };
+        mEmailView.addTextChangedListener(watcher);
+        mPasswordView.addTextChangedListener(watcher);
+
+        resetpass.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (mEmailView.getText().toString().contains("@gmail.com") || mEmailView.getText().toString().contains("@yahoo.com")) {
+                    message.setText("");
+                    recovery(mEmailView.getText().toString() , "recoveryemail");
+
+                } else if (mEmailView.getText().toString().contains("09") && mEmailView.getText().toString().length() == 11){
+
+                    recovery(mEmailView.getText().toString() , "recoveryphone");
+                }else {
+                    message.setText(getString(R.string.error_invalid_email));
+                }
+            }
+        });
+    }
+
+    private void recovery(String username, final String action) {
+
+        ArrayList<Webservice.requestparameter> array = new ArrayList<>();
+
+        Webservice.requestparameter param1 = new Webservice.requestparameter();
+        param1.key = "username";
+        param1.value = username;
+        array.add(param1);
+
+        Webservice.request("recovery.php?action=" + action, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String input = response.body().string();
+                Log.i("LOGggg", input);
+                G.HANDLER.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (input.equals("Ok")) {
+                            if(action.equals("recoveryemail")){
+                                message.setText("لینک بازیابی پسورد به ایمیل شما ارسال شد");
+                            }else {
+                                message.setText("لینک بازیابی پسورد به شماره همراه شما ارسال شد");
+                            }
+
+                        } else if (input.equals("needActivate")) {
+                            message.setText("این نام کاربری فعال نیست لینک فعال سازی برای شما ارسال شده است");
+                        }else  if (input.equals("activesend")){
+                            message.setText("این نام کاربری فعال نیست لینک فعال سازی برای شما ارسال شد");
+                        } else  {
+                            message.setText("این نام کاربری وجود ندارد");
+                        }
+                    }
+                });
+
+            }
+        }, array);
 
     }
 
     String usernametemp = "";
+
     private void attemptLogin() {
 
         // Reset errors.
@@ -113,18 +192,31 @@ public class ActivityLogin extends AppCompatActivity {
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
+            message.setText(getString(R.string.error_invalid_password));
+            //  mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
+            cancel = true;
+        }else if (TextUtils.isEmpty(password)) {
+
+            if(!message.getText().toString().contains(  "\n"  + "قسمت رمز ورود خالی است"))
+            message.setText(message.getText().toString() +  "\n"  + "قسمت رمز ورود خالی است");
+            //mEmailView.setError(getString(R.string.error_field_required));
+            focusView = mEmailView;
             cancel = true;
         }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
+
+            if(!message.getText().toString().contains("\n" +  getString(R.string.error_field_required)))
+            message.setText(message.getText().toString() +  "\n" +  getString(R.string.error_field_required));
+            //mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
             cancel = true;
         } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
+            if(!message.getText().toString().contains(  "\n" + getString(R.string.error_invalid_email)))
+            message.setText(message.getText().toString() +  "\n" + getString(R.string.error_invalid_email));
+            // mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;
         }
@@ -137,8 +229,6 @@ public class ActivityLogin extends AppCompatActivity {
             if (s) {
 
 
-
-
                 Webservice.requestparameter param1 = new Webservice.requestparameter();
                 param1.key = "username";
                 param1.value = mEmailView.getText().toString();
@@ -147,11 +237,26 @@ public class ActivityLogin extends AppCompatActivity {
                 param2.key = "password";
                 param2.value = mPasswordView.getText().toString();
 
-
-
                 ArrayList<Webservice.requestparameter> array = new ArrayList<>();
                 array.add(param1);
                 array.add(param2);
+                if(mEmailView.getText().toString().contains("@gmail.com") || mEmailView.getText().toString().contains("@yahoo.com")){
+                    Webservice.requestparameter param3 = new Webservice.requestparameter();
+                    param3.key = "type";
+                    param3.value = "email";
+                    array.add(param3);
+
+                }else if (mEmailView.getText().toString().contains("09") && mEmailView.getText().toString().length() == 11){
+                    Webservice.requestparameter param3 = new Webservice.requestparameter();
+                    param3.key = "type";
+                    param3.value = "phonenumber";
+                    array.add(param3);
+
+                }
+
+                
+
+
 
 
                 Webservice.request("Store.php?action=adduser", new Callback() {
@@ -164,20 +269,47 @@ public class ActivityLogin extends AppCompatActivity {
                     public void onResponse(Call call, Response response) throws IOException {
                         String input = response.body().string();
 
-                        if (input.equals("not")) {
+                        if(input.equals("needActivate")){
                             G.HANDLER.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    mEmailView.setError("این نام کاربری وجود دارد");
 
+                                    message.setText("لینک تایید برای شما ارسال شده است");
                                 }
                             });
 
-                        } else {
+
+                        }else if (input.equals("not")) {
+                            G.HANDLER.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    // mEmailView.setError("این نام کاربری وجود دارد");
+                                    message.setText("این نام کاربری وجود دارد");
+                                }
+                            });
+
+                        } else if (input.equals("Ok")){
 
 
                             try {
 
+                                G.HANDLER.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        message.setText("لینک تایید برای شما ارسال شد");
+
+
+                                    }
+                                });
+
+                                G.HANDLER.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        message.setText("");
+                                        sabtname.performClick();
+                                    }
+                                },2000);
+                                /*
                                 usernametemp = mEmailView.getText().toString();
                                 G.Connectioncode = input;
                                 SharedPreferences.Editor editor = pre.edit();
@@ -186,12 +318,14 @@ public class ActivityLogin extends AppCompatActivity {
                                 editor.apply();
 
                                 G.CurrentActivity.finish();
+                                */
+
 
                             } catch (NumberFormatException e) {
                                 G.HANDLER.post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        mEmailView.setError("مشکلی در ساخت اکانت به وجود آمد لطفا دوباره سعی کنید");
+                                        message.setText("مشکلی در ساخت اکانت به وجود آمد لطفا دوباره سعی کنید");
                                     }
                                 });
 
@@ -202,10 +336,9 @@ public class ActivityLogin extends AppCompatActivity {
                         }
 
                     }
-                },array);
+                }, array);
 
-            }else{
-
+            } else {
 
 
                 Webservice.requestparameter param1 = new Webservice.requestparameter();
@@ -220,6 +353,20 @@ public class ActivityLogin extends AppCompatActivity {
                 array.add(param1);
                 array.add(param2);
 
+                if(mEmailView.getText().toString().contains("@gmail.com") || mEmailView.getText().toString().contains("@yahoo.com")){
+                    Webservice.requestparameter param3 = new Webservice.requestparameter();
+                    param3.key = "type";
+                    param3.value = "email";
+                    array.add(param3);
+
+                }else if (mEmailView.getText().toString().contains("09") && mEmailView.getText().toString().length() == 11){
+                    Webservice.requestparameter param3 = new Webservice.requestparameter();
+                    param3.key = "type";
+                    param3.value = "phonenumber";
+                    array.add(param3);
+
+                }
+
 
                 Webservice.request("Store.php?action=checkuser", new Callback() {
                     @Override
@@ -231,33 +378,49 @@ public class ActivityLogin extends AppCompatActivity {
                     public void onResponse(Call call, Response response) throws IOException {
                         String input = response.body().string();
 
-
-                        if(input.equals("not")){
+                        Log.i("LOG", "input =" + input);
+                        if (input.equals("not")) {
                             G.HANDLER.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    mEmailView.setError("نام کاربری یا رمز عبور اشتباه است");
+                                    //     mEmailView.setError("نام کاربری یا رمز عبور اشتباه است");
+                                    message.setText("نام کاربری یا رمز عبور اشتباه است");
                                 }
                             });
 
-                        }else {
+                        } else if (input.equals("needActivate")) {
+                              G.HANDLER.post(new Runnable() {
+                                  @Override
+                                  public void run() {
+                                      message.setText("لینک تایید برای شما ارسال شده است");
+                                  }
+                              });
+                        }else if (input.equals("Activesend")) {
+                            G.HANDLER.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    message.setText("لینک تایید برای شما ارسال شد");
+                                }
+                            });
+                        } else {
                             try {
                                 usernametemp = mEmailView.getText().toString();
-                                G.Connectioncode=input;
+                                G.Connectioncode = input;
                                 SharedPreferences.Editor editor = pre.edit();
                                 editor.putString("Username", usernametemp);
-                                editor.putString("Connectioncode",  G.Connectioncode);
+                                editor.putString("Connectioncode", G.Connectioncode);
 
                                 editor.apply();
 
                                 G.CurrentActivity.finish();
 
-                            }catch (NumberFormatException e){
+                            } catch (NumberFormatException e) {
                                 e.printStackTrace();
                                 G.HANDLER.post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        mEmailView.setError("مشکلی در ارتباط به وجود امد دوباره سعی کنید");
+                                        //  mEmailView.setError("مشکلی در ارتباط به وجود امد دوباره سعی کنید");
+                                        message.setText("مشکلی در ارتباط به وجود امد دوباره سعی کنید");
                                     }
                                 });
 
@@ -267,7 +430,7 @@ public class ActivityLogin extends AppCompatActivity {
 
 
                     }
-                },array);
+                }, array);
 
 
             }
@@ -276,22 +439,20 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
 
-
     private boolean isEmailValid(String email) {
-       if(email.contains("09")){
-           return true;
-       }else if(email.contains("@") && email.contains(".com")){
-           return true;
-       }else {
-           return false;
-       }
+        if (email.contains("09") && email.length() == 11) {
+            return true;
+        } else if (email.contains("@gmail.com") || email.contains("@yahoo.com")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
         return password.length() > 3;
     }
-
 
 
 }

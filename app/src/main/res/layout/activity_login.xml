@@ -103,11 +103,20 @@
     </ScrollView>
 
     <TextView
+        android:id="@+id/message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dip"
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18dip" />
+
+    <TextView
         android:id="@+id/resetpass"
         android:layout_width="match_parent"
         android:layout_height="35dip"
         android:layout_gravity="center"
-        android:layout_marginTop="40dip"
         android:gravity="center"
         android:text="رمز ورود را فراموش کرده ام!"
         android:textSize="18dip" />

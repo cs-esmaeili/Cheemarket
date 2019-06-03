@@ -46,7 +46,7 @@ public class Textconfig {
 
         if (TextUtils.isDigitsOnly(text) && !text.equals("")){
             DecimalFormat formatter = new DecimalFormat("#,###,###");
-            return formatter.format(Integer.parseInt(text));
+            return formatter.format(Long.parseLong(text));
         }
 
         return text;

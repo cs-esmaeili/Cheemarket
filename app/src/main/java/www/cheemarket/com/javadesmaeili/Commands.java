@@ -101,7 +101,6 @@ public class Commands {
 
 
     }
-
     public static void showimage(@Nullable final String url, @Nullable final Integer src, final ImageView img, final boolean trytoload) {
 
 
@@ -115,8 +114,8 @@ public class Commands {
                     Picasso.get()
                             .load(url)
                             .resize(G.IMAGES_HEIGHT, G.IMAGES_WIDTH)
-                           // .memoryPolicy(MemoryPolicy.NO_CACHE)
-                          //  .networkPolicy(NetworkPolicy.NO_CACHE)
+                            // .memoryPolicy(MemoryPolicy.NO_CACHE)
+                            //  .networkPolicy(NetworkPolicy.NO_CACHE)
                             .error(R.drawable.brokenimage)
                             .into(img, new Callback() {
                                 @Override
@@ -146,8 +145,8 @@ public class Commands {
                     Picasso.get()
                             .load(src)
                             .resize(G.IMAGES_HEIGHT, G.IMAGES_WIDTH)
-                         //   .memoryPolicy(MemoryPolicy.NO_CACHE)
-                          //  .networkPolicy(NetworkPolicy.NO_CACHE)
+                            //   .memoryPolicy(MemoryPolicy.NO_CACHE)
+                            //  .networkPolicy(NetworkPolicy.NO_CACHE)
                             .error(R.drawable.brokenimage)
                             .into(img, new Callback() {
                                 @Override
@@ -158,11 +157,9 @@ public class Commands {
                                 @Override
                                 public void onError(Exception e) {
                                     /*
-
                                     if (trytoload) {
                                         showimage(url, src, img, false);
                                     }
-
                                     if (e instanceof SocketTimeoutException) {
                                         e.printStackTrace();
                                         Webservice.handelerro("timeout");

@@ -96,7 +96,8 @@ public class ActivityMain extends AppCompatActivity
         G.CurrentActivity = this;
         if (pre.contains("Username") && pre.contains("Connectioncode")) {
             if (!pre.getString("Username", "Error").equals("Error") && !pre.getString("Connectioncode", "Error").equals("")) {
-                Textconfig.settext(txtprofile, pre.getString("Username", "Error"));
+               // Textconfig.settext(txtprofile, pre.getString("Username", "Error"));
+                txtprofile.setText(pre.getString("Username", "Error"));
                 G.Connectioncode = pre.getString("Connectioncode", "Error");
             }
         }
