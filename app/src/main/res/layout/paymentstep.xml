@@ -159,7 +159,7 @@
                             android:gravity="center"
                             android:orientation="horizontal">
 
-                            <www.cheemarket.com.javadesmaeili.Customview.Lineimage
+                            <com.cheemarket.JavadEsmaeili.Customview.Lineimage
                                 android:id="@+id/lineimage"
 
                                 android:layout_width="0dip"

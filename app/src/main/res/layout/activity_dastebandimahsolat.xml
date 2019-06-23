@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="ltr"
-    tools:context="www.cheemarket.com.javadesmaeili.Dastebandimahsolat">
+    tools:context="com.cheemarket.JavadEsmaeili.Dastebandimahsolat">
 
 
     <include layout="@layout/toolbarforall"
@@ -66,35 +66,40 @@
                 android:orientation="horizontal">
 
                 <RelativeLayout
-                    android:id="@+id/cat1"
+                    android:id="@+id/cat13"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="5dip"
                     android:layout_weight="1">
 
                     <ImageView
-                        android:id="@+id/img1"
+                        android:id="@+id/img13"
                         android:layout_width="match_parent"
                         android:layout_height="170dip"
-                        android:layout_margin="4dip"
+                        android:layout_marginStart="4dip"
+                        android:layout_marginLeft="4dip"
+                        android:layout_marginTop="4dip"
+                        android:layout_marginEnd="4dip"
+                        android:layout_marginRight="4dip"
+                        android:layout_marginBottom="4dip"
                         android:layout_weight="1"
-                        android:scaleType="centerCrop"
-                        />
+                        android:scaleType="centerCrop" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="45dip"
                         android:layout_alignParentStart="true"
-                        android:layout_alignParentLeft="false"
+                        android:layout_alignParentLeft="true"
                         android:layout_alignParentBottom="true"
                         android:background="#84ffffff"
+
                         android:gravity="center"
-                        android:text="اساسی و خوار وبار"
+                        android:text="صیفیجات"
                         android:textColor="#614e4e"
                         android:textSize="20dip"
-                        android:textStyle="bold"
-                        />
+                        android:textStyle="bold" />
                 </RelativeLayout>
+
 
                 <RelativeLayout
                     android:id="@+id/cat2"
@@ -109,8 +114,7 @@
                         android:layout_height="170dip"
                         android:layout_margin="4dip"
                         android:layout_weight="1"
-                        android:scaleType="centerCrop"
-                     />
+                        android:scaleType="centerCrop" />
 
                     <TextView
                         android:id="@+id/textView11"
@@ -124,8 +128,7 @@
                         android:text="خشک بار و شیرینی"
                         android:textColor="#614e4e"
                         android:textSize="20dip"
-                        android:textStyle="bold"
-                        />
+                        android:textStyle="bold" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -134,7 +137,149 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="horizontal">
+                <RelativeLayout
 
+                    android:id="@+id/cat14"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dip"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/img14"
+                        android:layout_width="match_parent"
+                        android:layout_height="170dip"
+                        android:layout_margin="4dip"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="45dip"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentBottom="true"
+                        android:background="#84ffffff"
+
+                        android:gravity="center"
+                        android:text="سبزیجات"
+                        android:textColor="#614e4e"
+                        android:textSize="20dip"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/cat15"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dip"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/img15"
+                        android:layout_width="match_parent"
+                        android:layout_height="170dip"
+                        android:layout_marginStart="4dip"
+                        android:layout_marginLeft="4dip"
+                        android:layout_marginTop="4dip"
+                        android:layout_marginEnd="4dip"
+                        android:layout_marginRight="4dip"
+                        android:layout_marginBottom="4dip"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="45dip"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentBottom="true"
+                        android:background="#84ffffff"
+
+                        android:gravity="center"
+                        android:text="چای و دمنوش"
+                        android:textColor="#614e4e"
+                        android:textSize="20dip"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+
+                    android:id="@+id/cat4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dip"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/img4"
+                        android:layout_width="match_parent"
+                        android:layout_height="170dip"
+                        android:layout_margin="4dip"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="45dip"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentBottom="true"
+                        android:background="#84ffffff"
+
+                        android:gravity="center"
+                        android:text="خرما"
+                        android:textColor="#614e4e"
+                        android:textSize="20dip"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <RelativeLayout
+
+                    android:id="@+id/cat16"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dip"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/img16"
+                        android:layout_width="match_parent"
+                        android:layout_height="170dip"
+                        android:layout_margin="4dip"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="45dip"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentBottom="true"
+                        android:background="#84ffffff"
+
+                        android:gravity="center"
+                        android:text="عسل"
+                        android:textColor="#614e4e"
+                        android:textSize="20dip"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
                 <RelativeLayout
                     android:id="@+id/cat3"
                     android:layout_width="match_parent"
@@ -153,8 +298,7 @@
                         android:layout_marginRight="4dip"
                         android:layout_marginBottom="4dip"
                         android:layout_weight="1"
-                        android:scaleType="centerCrop"
-                  />
+                        android:scaleType="centerCrop" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -170,38 +314,36 @@
                         android:textSize="20dip"
                         android:textStyle="bold" />
                 </RelativeLayout>
-
                 <RelativeLayout
-
-                    android:id="@+id/cat4"
+                    android:id="@+id/cat1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="5dip"
                     android:layout_weight="1">
 
                     <ImageView
-                        android:id="@+id/img4"
+                        android:id="@+id/img1"
                         android:layout_width="match_parent"
                         android:layout_height="170dip"
                         android:layout_margin="4dip"
                         android:layout_weight="1"
-                        android:scaleType="centerCrop"
-                   />
+                        android:scaleType="centerCrop" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="45dip"
                         android:layout_alignParentStart="true"
-                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentLeft="false"
                         android:layout_alignParentBottom="true"
                         android:background="#84ffffff"
-
                         android:gravity="center"
-                        android:text="خرما"
+                        android:text="اساسی و خوار وبار"
                         android:textColor="#614e4e"
                         android:textSize="20dip"
                         android:textStyle="bold" />
                 </RelativeLayout>
+
+
             </LinearLayout>
 
             <LinearLayout

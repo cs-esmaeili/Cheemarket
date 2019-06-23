@@ -19,7 +19,8 @@
             android:layout_gravity="center"
             android:layout_margin="4dip"
             android:background="#ffffff"
-            android:src="@drawable/vizhgeayande" />
+            android:scaleType="fitXY"
+            android:src="@drawable/bezodi" />
 
         <TextView
             android:id="@+id/txt"

@@ -65,7 +65,7 @@
 
                 <view
                     android:id="@+id/textoffPriceone"
-                    class="www.cheemarket.com.javadesmaeili.Customview.Lineimage"
+                    class="com.cheemarket.JavadEsmaeili.Customview.Lineimage"
                     layout_weight="0.75"
                     layout_width="match_parent"
                     android:layout_width="match_parent"
