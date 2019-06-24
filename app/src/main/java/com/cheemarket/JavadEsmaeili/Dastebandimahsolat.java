@@ -3,24 +3,57 @@ package com.cheemarket.JavadEsmaeili;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-
+import org.json.JSONArray;
+import org.json.JSONException;
+import java.io.IOException;
 import java.util.ArrayList;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class Dastebandimahsolat extends AppCompatActivity {
 
 
-    ArrayList<RelativeLayout> layouts = new ArrayList<>();
-    ArrayList<ImageView> Images = new ArrayList<>();
-    ArrayList<Integer> aksha = new ArrayList<>();
+    ArrayList<dastebandi_sakhtar> data = new ArrayList<>();
+
+
+    class dastebandi_sakhtar {
+        private RelativeLayout layout;
+        private ImageView imgview;
+        private String url;
+        private String tag;
+
+        public dastebandi_sakhtar setLayout(RelativeLayout layout) {
+            this.layout = layout;
+            return this;
+        }
+
+        public dastebandi_sakhtar setImgview(ImageView imgview) {
+            this.imgview = imgview;
+            return this;
+        }
+
+        public dastebandi_sakhtar setUrl(String url) {
+            this.url = url;
+            return this;
+        }
+
+        public dastebandi_sakhtar setTag(String tag) {
+            this.tag = tag;
+            return this;
+        }
+    }
+
 
     @Override
     protected void onResume() {
         super.onResume();
         G.CurrentActivity = this;
-        if (Images.get(0) != null) {
+        if (data.get(0).imgview != null) {
             setimages();
         }
     }
@@ -32,73 +65,23 @@ public class Dastebandimahsolat extends AppCompatActivity {
 
         G.CurrentActivity = this;
 
-        layouts.add((RelativeLayout) findViewById(R.id.cat1));
-        layouts.add((RelativeLayout) findViewById(R.id.cat2));
-        layouts.add((RelativeLayout) findViewById(R.id.cat3));
-        layouts.add((RelativeLayout) findViewById(R.id.cat4));
-        layouts.add((RelativeLayout) findViewById(R.id.cat5));
-        layouts.add((RelativeLayout) findViewById(R.id.cat6));
-        layouts.add((RelativeLayout) findViewById(R.id.cat7));
-        layouts.add((RelativeLayout) findViewById(R.id.cat8));
-        layouts.add((RelativeLayout) findViewById(R.id.cat9));
-        layouts.add((RelativeLayout) findViewById(R.id.cat10));
-        layouts.add((RelativeLayout) findViewById(R.id.cat11));
-        layouts.add((RelativeLayout) findViewById(R.id.cat12));
-        layouts.add((RelativeLayout) findViewById(R.id.cat13));
-        layouts.add((RelativeLayout) findViewById(R.id.cat14));
-        layouts.add((RelativeLayout) findViewById(R.id.cat15));
-        layouts.add((RelativeLayout) findViewById(R.id.cat16));
 
-
-        Images.add((ImageView) findViewById(R.id.img1));
-        Images.add((ImageView) findViewById(R.id.img2));
-        Images.add((ImageView) findViewById(R.id.img3));
-        Images.add((ImageView) findViewById(R.id.img4));
-        Images.add((ImageView) findViewById(R.id.img5));
-        Images.add((ImageView) findViewById(R.id.img6));
-        Images.add((ImageView) findViewById(R.id.img7));
-        Images.add((ImageView) findViewById(R.id.img8));
-        Images.add((ImageView) findViewById(R.id.img9));
-        Images.add((ImageView) findViewById(R.id.img10));
-        Images.add((ImageView) findViewById(R.id.img11));
-        Images.add((ImageView) findViewById(R.id.img12));
-
-        Images.add((ImageView) findViewById(R.id.img13));
-        Images.add((ImageView) findViewById(R.id.img14));
-        Images.add((ImageView) findViewById(R.id.img15));
-        Images.add((ImageView) findViewById(R.id.img16));
-
-        aksha.add(R.drawable.dastebandi_kalahayeasasi);
-        aksha.add(R.drawable.dastebandi_khoshkbar);
-        aksha.add(R.drawable.datebandi_mavadshoyande);
-        aksha.add(R.drawable.dastebandi_khorma);
-        aksha.add(R.drawable.dastebandi_labaniyat);
-        aksha.add(R.drawable.dastebandi_sobhane);
-        aksha.add(R.drawable.dastebandi_konserv);
-        aksha.add(R.drawable.dastebandi_tanagholat);
-        aksha.add(R.drawable.dastebandi_noshidani);
-        aksha.add(R.drawable.dastebandi_shokolat);
-        aksha.add(R.drawable.dastebandi_protoein);
-        aksha.add(R.drawable.dastebandi_arayeshibehdashti);
-        aksha.add(R.drawable.dastebandi_seyfijat);
-        aksha.add(R.drawable.dastebandi_sabzijat);
-        aksha.add(R.drawable.dastebandi_chaei);
-        aksha.add(R.drawable.dastebandi_asal);
-
-
-     //   layouts.get(0).setTag("dastebandi_tanagholat");
-
-     //   layouts.get(2).setTag("datebandi_mavadshoyande");
-    //    layouts.get(3).setTag("dastebandi_khorma");
-     //   layouts.get(4).setTag("dastebandi_labaniyat");
-     //   layouts.get(5).setTag("dastebandi_sobhane");
-      //  layouts.get(6).setTag("dastebandi_konserv");
-        layouts.get(0).setTag("dastebandi_kalahayeasasi");
-        layouts.get(1).setTag("dastebandi_khoshkbar");
-      //  layouts.get(8).setTag("dastebandi_noshidani");
-      //  layouts.get(9).setTag("dastebandi_shokolat");
-      //  layouts.get(10).setTag("dastebandi_protoein");
-      //  layouts.get(11).setTag("dastebandi_arayeshibehdashti");
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img1)).setLayout((RelativeLayout) findViewById(R.id.cat1)).setUrl("").setTag("dastebandi_kalahayeasasi"));
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img2)).setLayout((RelativeLayout) findViewById(R.id.cat2)).setUrl("").setTag("dastebandi_khoshkbar"));
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img3)).setLayout((RelativeLayout) findViewById(R.id.cat3)).setUrl("").setTag(""));
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img4)).setLayout((RelativeLayout) findViewById(R.id.cat4)).setUrl("").setTag(""));
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img5)).setLayout((RelativeLayout) findViewById(R.id.cat5)).setUrl("").setTag(""));
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img6)).setLayout((RelativeLayout) findViewById(R.id.cat6)).setUrl("").setTag(""));
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img7)).setLayout((RelativeLayout) findViewById(R.id.cat7)).setUrl("").setTag(""));
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img8)).setLayout((RelativeLayout) findViewById(R.id.cat8)).setUrl("").setTag(""));
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img9)).setLayout((RelativeLayout) findViewById(R.id.cat9)).setUrl("").setTag(""));
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img10)).setLayout((RelativeLayout) findViewById(R.id.cat10)).setUrl("").setTag(""));
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img11)).setLayout((RelativeLayout) findViewById(R.id.cat11)).setUrl("").setTag(""));
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img12)).setLayout((RelativeLayout) findViewById(R.id.cat12)).setUrl("").setTag(""));
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img13)).setLayout((RelativeLayout) findViewById(R.id.cat13)).setUrl("").setTag(""));
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img14)).setLayout((RelativeLayout) findViewById(R.id.cat14)).setUrl("").setTag(""));
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img15)).setLayout((RelativeLayout) findViewById(R.id.cat15)).setUrl("").setTag(""));
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img16)).setLayout((RelativeLayout) findViewById(R.id.cat16)).setUrl("").setTag(""));
 
 
         ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
@@ -119,31 +102,74 @@ public class Dastebandimahsolat extends AppCompatActivity {
         };
 
 
-        for (RelativeLayout layout : layouts) {
-            layout.setOnClickListener(onClickListener);
+        for (dastebandi_sakhtar onedata : data) {
+            onedata.layout.setOnClickListener(onClickListener);
+            onedata.layout.setTag(onedata.tag);
         }
 
 
-        setimages();
+        getimageurls();
 
     }
 
+    private void getimageurls() {
+
+        Webservice.request("Dastebandi_Images/indexs.php", new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String input = response.body().string();
+
+                if (input != "") {
+                    try {
+                        JSONArray array = new JSONArray(input);
+                        for (int i = 0; i < array.length(); i++) {
+                            if (data.size() == i) {
+                                return;
+                            } else {
+                                data.get(i).url = array.get(i).toString();
+                            }
+
+                        }
+
+                        G.HANDLER.post(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                setimages();
+                            }
+                        });
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }, null);
+    }
+
     private void clearimages() {
-        for (ImageView img : Images) {
-            img.setImageResource(0);
+
+        for (dastebandi_sakhtar img : data) {
+            img.imgview.setImageResource(0);
         }
     }
 
     private void setimages() {
 
 
-        for (int i = 0; i < Images.size(); i++) {
+        for (int i = 0; i < data.size(); i++) {
             final int finalI = i;
-
-            Commands.showimage(null, aksha.get(finalI), Images.get(finalI),true);
+            if(data.get(finalI).url == "" || data.get(finalI).url == null){
+                continue;
+            }
+            Commands.showimage(data.get(finalI).url, null, data.get(finalI).imgview, true);
 
         }
-
 
     }
 

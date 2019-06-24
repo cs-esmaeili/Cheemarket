@@ -22,8 +22,6 @@ public class Lineimage extends android.support.v7.widget.AppCompatTextView {
     private String textforshow = "Null";
 
 
-
-
     private void init() {
 
         paintline.setColor(Color.RED);
@@ -33,8 +31,6 @@ public class Lineimage extends android.support.v7.widget.AppCompatTextView {
         painttext.setTextAlign(Paint.Align.CENTER);
 
     }
-
-
 
 
     public void setText(String Text) {
@@ -59,11 +55,8 @@ public class Lineimage extends android.support.v7.widget.AppCompatTextView {
     }
 
 
-
     @Override
     public void onDraw(Canvas canvas) {
-
-
 
 
         Rect bounds = new Rect();
@@ -79,41 +72,19 @@ public class Lineimage extends android.support.v7.widget.AppCompatTextView {
         painttext.setTypeface(Textconfig.gettypeface());
 
 
-
-        painttext.getTextBounds(Textconfig.formattext(textforshow) , 0 ,  Textconfig.formattext(textforshow).length(), bounds);
-
+        painttext.getTextBounds(Textconfig.formattext(textforshow), 0, Textconfig.formattext(textforshow).length(), bounds);
 
 
-
-       // bounds.offset(0, -bounds.top);
-
+        // bounds.offset(0, -bounds.top);
 
 
-
-        canvas.drawText(Textconfig.formattext(textforshow), this.getWidth() / 2 , this.getHeight() / 2, painttext);
-
-
-        Log.i("LOG" , "bounds.left = " + bounds.left);
-        Log.i("LOG" , "bounds.right = " + bounds.right);
-        Log.i("LOG" , "bounds.bottom() = " + bounds.bottom);
-        Log.i("LOG" , "bounds.top() = " + bounds.top);
-        Log.i("LOG" , "bounds.centerY() = " + bounds.centerY());
-        Log.i("LOG" , "bounds.height() = " + bounds.height());
-        Log.i("LOG" , "bounds.width() = " + bounds.width());
-        Log.i("LOG" , "bounds.exactCenterX() = " + bounds.exactCenterX());
-        Log.i("LOG" , "bounds.exactCenterY() = " + bounds.exactCenterY());
-
-     //   paintline.getTextBounds(textforshow , 0 , textforshow.length(), bounds);
+        canvas.drawText(Textconfig.formattext(textforshow), this.getWidth() / 2, this.getHeight() / 2, painttext);
 
 
+        //   paintline.getTextBounds(textforshow , 0 , textforshow.length(), bounds);
 
 
-
-
-        canvas.drawLine( ((this.getWidth() / 2 ) - (bounds.width() / 2) ), (this.getHeight() / 2 ) - (bounds.height() / 2) + 6, ((this.getWidth() / 2 ) + (bounds.width() / 2) ) , (this.getHeight() / 2 ) -  (bounds.height() / 2) + 6 ,paintline);
-
-
-
+        canvas.drawLine(((this.getWidth() / 2) - (bounds.width() / 2)), (this.getHeight() / 2) - (bounds.height() / 2) + 6, ((this.getWidth() / 2) + (bounds.width() / 2)), (this.getHeight() / 2) - (bounds.height() / 2) + 6, paintline);
 
 
     }

@@ -74,7 +74,7 @@
 
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
-                                android:src="@drawable/dastebandi_tanagholat"
+                                android:src="@drawable/brokenimage"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
@@ -99,7 +99,7 @@
 
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
-                                android:src="@drawable/dastebandi_konserv"
+                                android:src="@drawable/brokenimage"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
@@ -124,7 +124,7 @@
 
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
-                                android:src="@drawable/dastebandi_noshidani"
+                                android:src="@drawable/brokenimage"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
@@ -149,7 +149,7 @@
 
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
-                                android:src="@drawable/dastebandi_protoein"
+                                android:src="@drawable/brokenimage"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
@@ -174,7 +174,7 @@
 
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
-                                android:src="@drawable/dastebandi_sobhane"
+                                android:src="@drawable/brokenimage"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
@@ -199,7 +199,7 @@
 
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
-                                android:src="@drawable/dastebandi_kalahayeasasi"
+                                android:src="@drawable/brokenimage"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
@@ -224,7 +224,7 @@
 
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
-                                android:src="@drawable/dastebandi_khorma"
+                                android:src="@drawable/brokenimage"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
@@ -249,7 +249,7 @@
 
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
-                                android:src="@drawable/dastebandi_labaniyat"
+                                android:src="@drawable/brokenimage"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
@@ -274,7 +274,7 @@
 
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
-                                android:src="@drawable/datebandi_mavadshoyande"
+                                android:src="@drawable/brokenimage"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
@@ -299,7 +299,7 @@
 
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
-                                android:src="@drawable/dastebandi_shokolat"
+                                android:src="@drawable/brokenimage"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
@@ -324,7 +324,7 @@
 
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
-                                android:src="@drawable/dastebandi_khoshkbar"
+                                android:src="@drawable/brokenimage"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
@@ -349,7 +349,7 @@
                                 android:id="@+id/profile_image"
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
-                                android:src="@drawable/dastebandi_arayeshibehdashti"
+                                android:src="@drawable/brokenimage"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
@@ -502,7 +502,7 @@
                                 android:layout_marginBottom="4dip"
                                 android:layout_weight="1"
                                 android:scaleType="fitXY"
-                                android:src="@drawable/dastebandi_kalahayeasasi" />
+                                android:src="@drawable/brokenimage" />
 
                         </RelativeLayout>
 
@@ -520,7 +520,7 @@
                                 android:layout_margin="4dip"
                                 android:layout_weight="1"
                                 android:scaleType="fitXY"
-                                android:src="@drawable/dastebandi_tanagholat" />
+                                android:src="@drawable/brokenimage" />
 
                         </RelativeLayout>
 
@@ -542,7 +542,7 @@
                             android:layout_marginBottom="5dip"
                             android:layout_weight="1"
                             android:scaleType="fitXY"
-                            android:src="@drawable/dastebandi_konserv" />
+                            android:src="@drawable/brokenimage" />
 
                     </RelativeLayout>
 
