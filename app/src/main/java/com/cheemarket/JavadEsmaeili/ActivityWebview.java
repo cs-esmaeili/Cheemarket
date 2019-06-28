@@ -129,7 +129,7 @@ public class ActivityWebview extends AppCompatActivity {
             array.add(orderStructure);
         }
 
-
+        Paymentstep.Address = null;
 
 
         Gson gson = new Gson();

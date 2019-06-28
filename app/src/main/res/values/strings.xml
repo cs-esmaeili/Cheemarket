@@ -102,8 +102,8 @@
     </string-array>
 
     <string-array name="esfahan">
-        <item>اردستان</item>
         <item>اصفهان</item>
+        <item>اردستان</item>
         <item>آران وبیدگل</item>
         <item>برخوار</item>
         <item>بو یین و میاندشت</item>

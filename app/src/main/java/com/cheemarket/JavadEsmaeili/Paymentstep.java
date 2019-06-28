@@ -52,6 +52,7 @@ public class Paymentstep extends AppCompatActivity {
         Lineimage txtwhitoutoff = (Lineimage) findViewById(R.id.lineimage);
         TextView finalprice = (TextView) findViewById(R.id.finalprice);
         TextView txtoff = (TextView) findViewById(R.id.txtoff);
+        TextView paykperice = (TextView) findViewById(R.id.paykperice);
         btnpay = (TextView) findViewById(R.id.btnpay);
         Button selectaddress = (Button) findViewById(R.id.selectaddress);
 
@@ -71,6 +72,7 @@ public class Paymentstep extends AppCompatActivity {
                 if (Address == null){
                     Toast.makeText(G.context,"آدرس را انتخاب کنید", Toast.LENGTH_LONG).show();
                 }else {
+
                     Intent intent = new Intent(Paymentstep.this, ActivityWebview.class);
                     startActivity(intent);
                     G.CurrentActivity.finish();
@@ -128,9 +130,21 @@ public class Paymentstep extends AppCompatActivity {
             temp2 = temp2.add(sumoff);
         }
         temp3 = temp2.subtract(temp1);
-        finalprice.setText(temp1 + " " + "تومان");
+     //   finalprice.setText(temp1 + " " + "تومان");
         txtwhitoutoff.setText(temp2 + " " + "تومان");
         txtoff.setText(temp3 + " " + "تومان");
+
+        BigInteger multi = BigInteger.valueOf(100000);
+        if(temp1.compareTo(multi)== 1 || temp1.compareTo(multi)== 0){
+            paykperice.setText("رایگان");
+            paykperice.setBackgroundColor(Color.parseColor("#66BB6A"));
+            finalprice.setText(temp1 + " " + "تومان");
+        }else {
+            paykperice.setText("3000"+" تومان");
+            multi = BigInteger.valueOf(3000);
+            temp1 = temp1.add(multi);
+            finalprice.setText(temp1 + " " + "تومان");
+        }
 
 
     }

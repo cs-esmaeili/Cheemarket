@@ -133,6 +133,7 @@ public class ActivitySabad extends AppCompatActivity {
         requestparameter.key = "jsontext";
         requestparameter.value = temp;
 
+        Log.i("LOG","output =" + temp);
         Webservice.requestparameter requestparameter1 = new Webservice.requestparameter();
         requestparameter1.key = "Connectioncode";
         requestparameter1.value = G.Connectioncode;
@@ -151,6 +152,7 @@ public class ActivitySabad extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 String input = response.body().string();
                 Log.i("input", "input =" + input);
+
                 if (input.equals("[]") || input.equals("")) {
 
                     if (G.mdatasetsabad.size() > 0) {
@@ -161,21 +163,38 @@ public class ActivitySabad extends AppCompatActivity {
                     return;
                 }
 
-
                 try {
                     JSONArray array = new JSONArray(input);
+                    String text = "";
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject object = array.getJSONObject(i);
 
 
                         for (int j = 0; j < G.mdatasetsabad.size(); j++) {
+
+                            if(object.has("delete") && G.mdatasetsabad.get(j).Id.equals(object.getString("Id"))){
+                                G.mdatasetsabad.remove(j);
+                                text = "بعضی از کالاها به دلیل عدم موجودی پاک شدند";
+                            }
+
+
                             if (G.mdatasetsabad.get(j).Id.equals(object.getString("Id"))) {
+                                if(!text.contains("عوض")){
+                                    text += "\n" + "اطلاعات بعضی از کالا ها عوض شد";
+                                }
+
                                 G.mdatasetsabad.get(j).Name = object.getString("Name");
                                 G.mdatasetsabad.get(j).Weight = object.getString("Weight");
                                 G.mdatasetsabad.get(j).Price = object.getString("Price");
                                 G.mdatasetsabad.get(j).Volume = object.getString("Volume");
                                 G.mdatasetsabad.get(j).Image = object.getString("Image");
                                 G.mdatasetsabad.get(j).Ordernumber = object.getString("Ordernumber");
+
+                                if(Integer.parseInt(G.mdatasetsabad.get(j).Tedad) >= Integer.parseInt(G.mdatasetsabad.get(j).Ordernumber) ){
+                                    G.mdatasetsabad.get(j).Tedad = G.mdatasetsabad.get(j).Ordernumber;
+                                }else if(Integer.parseInt(G.mdatasetsabad.get(j).Tedad) == 0 && Integer.parseInt(G.mdatasetsabad.get(j).Ordernumber) != 0){
+                                    G.mdatasetsabad.get(j).Tedad = G.mdatasetsabad.get(j).Ordernumber;
+                                }
                                 G.mdatasetsabad.get(j).Status = object.getString("Status");
                             }
 
@@ -185,10 +204,12 @@ public class ActivitySabad extends AppCompatActivity {
 
                     }
 
+                    final String finalText = text;
                     G.HANDLER.post(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(G.context, "اطلاعات بعضی از کالا عوض شد", Toast.LENGTH_LONG).show();
+
+                            Toast.makeText(G.context, finalText, Toast.LENGTH_LONG).show();
                             Adapter.notifyDataSetChanged();
                         }
                     });

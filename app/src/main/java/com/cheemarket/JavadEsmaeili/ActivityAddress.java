@@ -74,6 +74,10 @@ public class ActivityAddress extends AppCompatActivity {
         searchlogo.setOnClickListener(G.onClickListenersearch);
         shoplogo.setOnClickListener(G.onClickListenersabadkharid);
 
+        spnershahr.setEnabled(false);
+        spnershahr.setClickable(false);
+        spnerostan.setEnabled(false);
+        spnerostan.setClickable(false);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
 
@@ -131,9 +135,11 @@ public class ActivityAddress extends AppCompatActivity {
                 if (btnsave.getText().toString().equals("اضافه کردن آدرس جدید")) {
                     if(mdatasetList.size() < 5) {
                         if(edtname.getText().toString().length() > 0 && edthomenumber.getText().toString().length() > 0
-                        && edtphonenumber.getText().toString().length() > 0 && edtcodeposti.getText().toString().length() > 0
-                                && edtaddress.getText().toString().length() > 0){
+                        && edtphonenumber.getText().toString().length() > 0 && edtaddress.getText().toString().length() > 0){
 
+                            if(edtcodeposti.getText().toString().length() == 0){
+                                edtcodeposti.setText("0");
+                            }
 
                             btnsaveaction("-1");
                             btnselect.setBackgroundColor(Color.parseColor("#D6D7D7"));

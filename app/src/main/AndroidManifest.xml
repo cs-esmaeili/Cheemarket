@@ -24,7 +24,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activityproblems"></activity>
+
+
         <activity
             android:name=".Start"
             android:configChanges="orientation|screenSize">
@@ -45,6 +46,14 @@
                     android:scheme="http" />
             </intent-filter>
         </activity>
+
+
+        <activity
+            android:name=".Activityproblems"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"/>
+
         <activity
             android:name=".ActivityMain"
             android:configChanges="orientation|screenSize"
@@ -76,11 +85,13 @@
         <activity
             android:name=".ActivityAddress"
             android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".ActivityLogin"
             android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".Paymentstep"
             android:configChanges="orientation|screenSize"

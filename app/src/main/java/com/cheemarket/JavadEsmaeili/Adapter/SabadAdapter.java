@@ -1,6 +1,7 @@
 package com.cheemarket.JavadEsmaeili.Adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,8 +63,10 @@ public class SabadAdapter extends RecyclerView.Adapter<SabadAdapter.ViewHolder> 
             holder.txt6.setVisibility(View.GONE);
         }
 
-        if(mdataset.get(position).Tedad != null && !mdataset.get(position).Tedad.equals("0")){
+        Log.i("LOG","salam =" + mdataset.get(position).Tedad);
+        if(mdataset.get(position).Tedad != null && !mdataset.get(position).Tedad.equals("0") && mdataset.get(position).Ordernumber != null && !mdataset.get(position).Ordernumber.equals("0") ){
             Textconfig.settext(holder.tedad, mdataset.get(position).Tedad + "");
+            holder.tedad.setVisibility(View.VISIBLE);
         }else{
             holder.tedad.setVisibility(View.GONE);
         }
@@ -103,18 +106,24 @@ public class SabadAdapter extends RecyclerView.Adapter<SabadAdapter.ViewHolder> 
         holder.plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mdataset.get(position).Tedad = (Integer.parseInt(mdataset.get(position).Tedad)  + 1 ) + "";
-                Textconfig.settext(holder.tedad, mdataset.get(position).Tedad + "");
-                ActivitySabad.setghaymat();
+                if((Integer.parseInt(mdataset.get(position).Tedad)  + 1 ) <= Integer.parseInt(mdataset.get(position).Ordernumber)){
+                    mdataset.get(position).Tedad = (Integer.parseInt(mdataset.get(position).Tedad)  + 1 ) + "";
+                    Textconfig.settext(holder.tedad, mdataset.get(position).Tedad + "");
+                    ActivitySabad.setghaymat();
+                }
+
             }
         });
 
         holder.mynes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mdataset.get(position).Tedad = (Integer.parseInt(mdataset.get(position).Tedad)  - 1 ) + "";
-                Textconfig.settext(holder.tedad, mdataset.get(position).Tedad + "");
-                ActivitySabad.setghaymat();
+                if((Integer.parseInt(mdataset.get(position).Tedad)  - 1 ) <= Integer.parseInt(mdataset.get(position).Ordernumber) && (Integer.parseInt(mdataset.get(position).Tedad)  - 1 ) != 0) {
+                    mdataset.get(position).Tedad = (Integer.parseInt(mdataset.get(position).Tedad)  - 1 ) + "";
+                    Textconfig.settext(holder.tedad, mdataset.get(position).Tedad + "");
+                    ActivitySabad.setghaymat();
+                }
+
             }
         });
 

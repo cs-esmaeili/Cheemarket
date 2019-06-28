@@ -74,7 +74,7 @@
                     android:layout_margin="5dip"
                     android:focusable="auto"
                     android:gravity="right"
-                    android:hint="کد پستی"
+                    android:hint="کد پستی (اختیاری)"
                     android:inputType="number"
                     android:maxLength="25" />
 
@@ -87,7 +87,12 @@
                         android:id="@+id/spnershahr"
                         android:layout_width="0dip"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5" />
+                        android:layout_weight="0.5"
+                        android:hapticFeedbackEnabled="false"
+                        android:saveEnabled="false"
+                        android:soundEffectsEnabled="false"
+                        android:clickable="false"
+                        android:enabled="false"/>
 
 
                     <Spinner
@@ -95,7 +100,12 @@
                         android:layout_width="0dip"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
-                        android:entries="@array/ostanha" />
+                        android:clickable="false"
+                        android:entries="@array/ostanha"
+                        android:hapticFeedbackEnabled="false"
+                        android:saveEnabled="false"
+                        android:soundEffectsEnabled="false"
+                        android:enabled="false"/>
                 </LinearLayout>
 
                 <EditText
@@ -108,7 +118,8 @@
                     android:focusable="auto"
                     android:hint="آدرس"
                     android:inputType="textMultiLine"
-                    android:maxLength="100" />
+                    android:maxLength="100"
+                    />
 
             </LinearLayout>
 

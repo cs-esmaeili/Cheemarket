@@ -163,7 +163,18 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                 boolean temp = false;
                 for (int i = 0; i < G.mdatasetsabad.size(); i++) {
                     if (G.mdatasetsabad.get(i).Id.equals(mysabad.Id)) {
-                        G.mdatasetsabad.get(i).Tedad = (Integer.parseInt(G.mdatasetsabad.get(i).Tedad) + 1) + "";
+
+                        G.mdatasetsabad.get(i).Ordernumber = mysabad.Ordernumber;
+                        if(Integer.parseInt(G.mdatasetsabad.get(i).Tedad)>  Integer.parseInt(mysabad.Ordernumber)){
+                           G.mdatasetsabad.set(i , mysabad);
+                        }
+
+                        if((Integer.parseInt(G.mdatasetsabad.get(i).Tedad) + 1) <= Integer.parseInt(G.mdatasetsabad.get(i).Ordernumber)){
+                            G.mdatasetsabad.get(i).Tedad = (Integer.parseInt(G.mdatasetsabad.get(i).Tedad) + 1) + "";
+                        }
+
+
+
                         Intent intent = new Intent(G.CurrentActivity, ActivitySabad.class);
                         G.CurrentActivity.startActivity(intent);
                         temp = true;
@@ -172,7 +183,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                 }
                 if(temp == false){
                     G.mdatasetsabad.add(mysabad);
-                    Log.i("LOG", mysabad.Id + " ?? " +G.mdatasetsabad.get(0).Id);
+                    Log.i("LOG", mysabad.Id + " ?? " + G.mdatasetsabad.get(0).Id);
                     Intent intent = new Intent(G.CurrentActivity, ActivitySabad.class);
                     G.CurrentActivity.startActivity(intent);
                 }
@@ -236,6 +247,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
         }
 
         list.add(object1);
+        Log.i("Test","are");
         Webservice.request("Store.php?action=onekaladata", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -491,5 +503,11 @@ public class ActivityAtelaatkala extends AppCompatActivity {
             }
         }, array2);
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        mysabad = null;
+        super.onDestroy();
     }
 }
