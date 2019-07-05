@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -33,8 +34,10 @@ import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import me.relex.circleindicator.CircleIndicator;
 import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.Response;
 
 import com.cheemarket.JavadEsmaeili.Adapter.Adapter;
@@ -88,6 +91,21 @@ public class ActivityMain extends AppCompatActivity
     static int daghighe = 0;
     static int saniye = 0;
 
+    private static CircleImageView imgkhoshbar;
+    private static CircleImageView imgsayfijat;
+    private static CircleImageView imgchaei;
+    private static CircleImageView imgkhorma;
+    private static CircleImageView imgasal;
+    private static CircleImageView imgsabzijat;
+    private static CircleImageView imgasasi;
+
+    private static LinearLayout khoshbar;
+    private static LinearLayout sayfijat;
+    private static LinearLayout chaei;
+    private static LinearLayout khorma;
+    private static LinearLayout asal;
+    private static LinearLayout sabzijat;
+    private static LinearLayout asasi;
 
     @Override
     protected void onResume() {
@@ -98,7 +116,7 @@ public class ActivityMain extends AppCompatActivity
         G.CurrentActivity = this;
         if (pre.contains("Username") && pre.contains("Connectioncode")) {
             if (!pre.getString("Username", "Error").equals("Error") && !pre.getString("Connectioncode", "Error").equals("")) {
-               // Textconfig.settext(txtprofile, pre.getString("Username", "Error"));
+                // Textconfig.settext(txtprofile, pre.getString("Username", "Error"));
                 txtprofile.setText(pre.getString("Username", "Error"));
                 G.Connectioncode = pre.getString("Connectioncode", "Error");
             }
@@ -155,6 +173,23 @@ public class ActivityMain extends AppCompatActivity
         s = (TextView) findViewById(R.id.s);
 
 
+        imgkhoshbar = (CircleImageView) findViewById(R.id.imgkhoshbar);
+        imgsayfijat = (CircleImageView) findViewById(R.id.imgsayfijat);
+        imgchaei = (CircleImageView) findViewById(R.id.imgchaei);
+        imgkhorma = (CircleImageView) findViewById(R.id.imgkhorma);
+        imgasal = (CircleImageView) findViewById(R.id.imgasal);
+        imgasasi = (CircleImageView) findViewById(R.id.imgasasi);
+        imgsabzijat = (CircleImageView) findViewById(R.id.imgsabzijat);
+
+
+        khoshbar = (LinearLayout) findViewById(R.id.khoshbar);
+        sayfijat = (LinearLayout) findViewById(R.id.sayfijat);
+        chaei = (LinearLayout) findViewById(R.id.chaei);
+        khorma = (LinearLayout) findViewById(R.id.khorma);
+        asal = (LinearLayout) findViewById(R.id.asal);
+        asasi = (LinearLayout) findViewById(R.id.asasi);
+        sabzijat = (LinearLayout) findViewById(R.id.sabzijat);
+
         scroll = (ScrollView) findViewById(R.id.scroll);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -165,6 +200,35 @@ public class ActivityMain extends AppCompatActivity
         searchlogo.setOnClickListener(G.onClickListenersearch);
         shoplogo.setOnClickListener(G.onClickListenersabadkharid);
 
+
+
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(G.CurrentActivity, Subdastebandi.class);
+                intent.putExtra("subdastebandistring", "" + v.getTag());
+                startActivity(intent);
+            }
+        };
+
+
+        khoshbar.setTag("dastebandi_khoshkbar");
+        sayfijat.setTag("");
+        chaei.setTag("");
+        khorma.setTag("");
+        asal.setTag("");
+        asasi.setTag("dastebandi_kalahayeasasi");
+        sabzijat.setTag("");
+        
+        khoshbar.setOnClickListener(onClickListener);
+        sayfijat.setOnClickListener(onClickListener);
+        chaei.setOnClickListener(onClickListener);
+        khorma.setOnClickListener(onClickListener);
+        asal.setOnClickListener(onClickListener);
+        asasi.setOnClickListener(onClickListener);
+        sabzijat.setOnClickListener(onClickListener);
+        
+
         if (!G.readNetworkStatus()) {
             Intent intent = new Intent(G.CurrentActivity, activityNetwork.class);
             startActivity(intent);
@@ -172,6 +236,7 @@ public class ActivityMain extends AppCompatActivity
         } else {
             // addview.add("App");
             applinkaction();
+            getimageurls();
             pagework();
         }
 
@@ -554,7 +619,7 @@ public class ActivityMain extends AppCompatActivity
     private static void showimage(final ImageView img, final JSONObject jsonObject) {
 
         try {
-            Commands.showimage(G.Baseurl + "Listimages/" + jsonObject.getString("Postimage") + "/" + jsonObject.getString("Postimage") + ".png", null, img, true);
+            Commands.showimage(G.Baseurl + "Listimages/" + jsonObject.getString("Postimage") + "/" + jsonObject.getString("Postimage") + ".jpg", null, img, true);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -615,6 +680,76 @@ public class ActivityMain extends AppCompatActivity
                 }
             }
         });
+
+    }
+
+
+    private void getimageurls() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                final ImageView[] imageViews = new ImageView[]{imgasasi, imgkhoshbar, imgkhorma, imgsayfijat, imgsabzijat, imgchaei, imgasal};
+                Webservice.request("Dastebandi_Images/indexs.php", new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        String input = response.body().string();
+
+                        if (input != "") {
+                            try {
+                                final JSONArray array = new JSONArray(input);
+                                int temp = 0;
+                                for (int i = 0; i < 7; i++) {
+
+
+                                    if (i == 1) {
+                                        temp = 1;
+                                    } else if (i == 2) {
+                                        temp = 3;
+                                    } else if (i == 3) {
+                                        temp = 12;
+                                    } else if (i == 4) {
+                                        temp = 13;
+                                    } else if (i == 5) {
+                                        temp = 14;
+                                    } else if (i == 6) {
+                                        temp = 15;
+                                    }
+
+
+                                    final int finalTemp = temp;
+                                    final int finalI = i;
+                                    G.HANDLER.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+
+                                            try {
+                                                Commands.showimage(array.get(finalTemp).toString(), null, imageViews[finalI], true);
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+
+                                        }
+                                    });
+
+
+                                }
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }, null);
+
+            }
+        }).start();
 
     }
 }

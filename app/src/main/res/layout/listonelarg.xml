@@ -41,7 +41,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
+                    android:maxLines="1"
                     android:paddingRight="4dip"
+                    android:singleLine="true"
                     android:text="نان حجیم"
                     android:textColor="#000000" />
 

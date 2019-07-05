@@ -73,7 +73,7 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
             }
 
             if (mdataset.get(position).Image1 != null && !mdataset.get(position).Image1.equals("")) {
-                Commands.showimage(G.Baseurl + "Listimages/" + mdataset.get(position).Image1 + "/" + mdataset.get(position).Image1 + ".png", null, holder.imageone, true);
+                Commands.showimage(G.Baseurl + "Listimages/" + mdataset.get(position).Image1 + "/" + mdataset.get(position).Image1 + ".jpg", null, holder.imageone, true);
             }
 
 
@@ -126,7 +126,7 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
 
 
             if (mdataset.get(position).Image2 != null && !mdataset.get(position).Image2.equals("")) {
-                Commands.showimage(G.Baseurl + "Listimages/" + mdataset.get(position).Image2 + "/" + mdataset.get(position).Image2 + ".png", null, holder.imagetwo, true);
+                Commands.showimage(G.Baseurl + "Listimages/" + mdataset.get(position).Image2 + "/" + mdataset.get(position).Image2 + ".jpg", null, holder.imagetwo, true);
             }
 
 

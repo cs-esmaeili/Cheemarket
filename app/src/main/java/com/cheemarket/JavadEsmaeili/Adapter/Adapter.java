@@ -104,9 +104,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             if (finaldataset.get(position).OldPrice1 == null || finaldataset.get(position).OldPrice1.equals("0")) {
                 holder.textoffPriceone.setVisibility(View.GONE);
             } else {
+                holder.textoffPriceone.setVisibility(View.VISIBLE);
                 holder.textoffPriceone.setText(finaldataset.get(position).OldPrice1 + "تومان");
             }
             if (finaldataset.get(position).Price1 != null && !finaldataset.get(position).Price1.equals("0")) {
+                holder.textPriceone.setVisibility(View.VISIBLE);
                 Textconfig.settext(holder.textPriceone,  finaldataset.get(position).Price1 + "تومان" );
             } else {
                 holder.textPriceone.setVisibility(View.GONE);
@@ -119,6 +121,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             }
 
             if (finaldataset.get(position).Name1 != null && !finaldataset.get(position).Name1.equals("")) {
+                holder.txtnameone.setVisibility(View.VISIBLE);
                 Textconfig.settext(holder.txtnameone, finaldataset.get(position).Name1);
             } else {
                 holder.txtnameone.setVisibility(View.GONE);
@@ -126,7 +129,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
 
             if (finaldataset.get(position).Image1 != null && !finaldataset.get(position).Image1.equals("")) {
-                Commands.showimage(G.Baseurl + "Listimages/" + finaldataset.get(position).Image1 + "/" + finaldataset.get(position).Image1 + ".png", null, holder.imageone, true);
+                Commands.showimage(G.Baseurl + "Listimages/" + finaldataset.get(position).Image1 + "/" + finaldataset.get(position).Image1 + ".jpg", null, holder.imageone, true);
             }
 
 
@@ -161,10 +164,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 if (finaldataset.get(position).OldPrice2 == null || finaldataset.get(position).OldPrice2.equals("0")) {
                     holder.textoffPricetwo.setVisibility(View.GONE);
                 } else {
+                    holder.textoffPricetwo.setVisibility(View.VISIBLE);
                     holder.textoffPricetwo.setText(finaldataset.get(position).OldPrice2 + "تومان");
                 }
 
                 if (finaldataset.get(position).Price2 != null && !finaldataset.get(position).Price2.equals("0")) {
+                    holder.textPricetwo.setVisibility(View.VISIBLE);
                     Textconfig.settext(holder.textPricetwo,  finaldataset.get(position).Price2 + "تومان");
                 } else {
                     holder.textPricetwo.setVisibility(View.GONE);
@@ -177,6 +182,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 }
 
                 if (finaldataset.get(position).Name2 != null && !finaldataset.get(position).Name2.equals("")) {
+                    holder.txtnametwo.setVisibility(View.VISIBLE);
                     Textconfig.settext(holder.txtnametwo, finaldataset.get(position).Name2);
                 } else {
                     holder.txtnametwo.setVisibility(View.GONE);
@@ -184,7 +190,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
 
                 if (finaldataset.get(position).Image2 != null && !finaldataset.get(position).Image2.equals("")) {
-                    Commands.showimage(G.Baseurl + "Listimages/" + finaldataset.get(position).Image2 + "/" + finaldataset.get(position).Image2 + ".png", null, holder.imagetwo, true);
+                    Commands.showimage(G.Baseurl + "Listimages/" + finaldataset.get(position).Image2 + "/" + finaldataset.get(position).Image2 + ".jpg", null, holder.imagetwo, true);
                 }
 
 

@@ -63,7 +63,7 @@ public class Listpaymentadapter extends RecyclerView.Adapter<Listpaymentadapter.
 
 
 
-        Commands.showimage(G.Baseurl + "Listimages/" + mdataset.get(position).Image1 + "/" +  mdataset.get(position).Image1 + ".png", null, holder.image, true);
+        Commands.showimage(G.Baseurl + "Listimages/" + mdataset.get(position).Image1 + "/" +  mdataset.get(position).Image1 + ".jpg", null, holder.image, true);
 
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -87,7 +87,7 @@ public class SabadAdapter extends RecyclerView.Adapter<SabadAdapter.ViewHolder> 
         }
 
         if(mdataset.get(position).Image != null && !mdataset.get(position).Image.equals("")){
-            Commands.showimage(G.Baseurl + "Listimages/" + mdataset.get(position).Image + "/" + mdataset.get(position).Image + ".png", null, holder.image, true);
+            Commands.showimage(G.Baseurl + "Listimages/" + mdataset.get(position).Image + "/" + mdataset.get(position).Image + ".jpg", null, holder.image, true);
         }
 
 

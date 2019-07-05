@@ -64,14 +64,16 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
+                            android:id="@+id/khoshbar"
                             android:layout_width="80dip"
                             android:layout_height="wrap_content"
                             android:layout_margin="2dip"
                             android:orientation="vertical">
 
 
-                            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                xmlns:app="http://schemas.android.com/apk/res-auto"
+                                android:id="@+id/imgkhoshbar"
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
                                 android:src="@drawable/brokenimage"
@@ -83,20 +85,21 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-
                                 android:gravity="center"
-                                android:text="تنقلات" />
+                                android:text="خشک بار و شیرینی" />
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/sayfijat"
                             android:layout_width="80dip"
                             android:layout_height="wrap_content"
                             android:layout_margin="2dip"
                             android:orientation="vertical">
 
 
-                            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                xmlns:app="http://schemas.android.com/apk/res-auto"
+                                android:id="@+id/imgsayfijat"
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
                                 android:src="@drawable/brokenimage"
@@ -108,20 +111,21 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-
                                 android:gravity="center"
-                                android:text="غذای آماده" />
+                                android:text="صیفیجات" />
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/chaei"
                             android:layout_width="80dip"
                             android:layout_height="wrap_content"
                             android:layout_margin="2dip"
                             android:orientation="vertical">
 
 
-                            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/imgchaei"
+                                xmlns:app="http://schemas.android.com/apk/res-auto"
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
                                 android:src="@drawable/brokenimage"
@@ -133,20 +137,21 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-
                                 android:gravity="center"
-                                android:text="نوشیدنی" />
+                                android:text="چای و دمنوش" />
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/sabzijat"
                             android:layout_width="80dip"
                             android:layout_height="wrap_content"
                             android:layout_margin="2dip"
                             android:orientation="vertical">
 
 
-                            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/imgsabzijat"
+                                xmlns:app="http://schemas.android.com/apk/res-auto"
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
                                 android:src="@drawable/brokenimage"
@@ -158,20 +163,21 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-
                                 android:gravity="center"
-                                android:text="پروتین" />
+                                android:text="سبزیجات" />
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/khorma"
                             android:layout_width="80dip"
                             android:layout_height="wrap_content"
                             android:layout_margin="2dip"
                             android:orientation="vertical">
 
 
-                            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                xmlns:app="http://schemas.android.com/apk/res-auto"
+                                android:id="@+id/imgkhorma"
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
                                 android:src="@drawable/brokenimage"
@@ -183,70 +189,21 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-
-                                android:gravity="center"
-                                android:text="صبحانه" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="80dip"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="2dip"
-                            android:orientation="vertical">
-
-
-                            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-
-                                android:layout_width="wrap_content"
-                                android:layout_height="100dip"
-                                android:src="@drawable/brokenimage"
-                                app:civ_border_color="#FF000000"
-                                app:civ_border_width="2dp" />
-
-                            <TextView
-
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-
-                                android:gravity="center"
-                                android:text="اساسی " />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="80dip"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="2dip"
-                            android:orientation="vertical">
-
-
-                            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-
-                                android:layout_width="wrap_content"
-                                android:layout_height="100dip"
-                                android:src="@drawable/brokenimage"
-                                app:civ_border_color="#FF000000"
-                                app:civ_border_width="2dp" />
-
-                            <TextView
-
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-
                                 android:gravity="center"
                                 android:text="خرما" />
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/asal"
                             android:layout_width="80dip"
                             android:layout_height="wrap_content"
                             android:layout_margin="2dip"
                             android:orientation="vertical">
 
 
-                            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                xmlns:app="http://schemas.android.com/apk/res-auto"
+                                android:id="@+id/imgasal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
                                 android:src="@drawable/brokenimage"
@@ -258,20 +215,21 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-
                                 android:gravity="center"
-                                android:text="لبنیات" />
+                                android:text="عسل" />
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/asasi"
                             android:layout_width="80dip"
                             android:layout_height="wrap_content"
                             android:layout_margin="2dip"
                             android:orientation="vertical">
 
 
-                            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                xmlns:app="http://schemas.android.com/apk/res-auto"
+                                android:id="@+id/imgasasi"
                                 android:layout_width="wrap_content"
                                 android:layout_height="100dip"
                                 android:src="@drawable/brokenimage"
@@ -279,89 +237,15 @@
                                 app:civ_border_width="2dp" />
 
                             <TextView
-
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-
                                 android:gravity="center"
-                                android:text="مواد شوینده" />
+                                android:text="اساسی و خواروبار" />
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="80dip"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="2dip"
-                            android:orientation="vertical">
 
 
-                            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-
-                                android:layout_width="wrap_content"
-                                android:layout_height="100dip"
-                                android:src="@drawable/brokenimage"
-                                app:civ_border_color="#FF000000"
-                                app:civ_border_width="2dp" />
-
-                            <TextView
-
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-
-                                android:gravity="center"
-                                android:text="شکلات" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="80dip"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="2dip"
-                            android:orientation="vertical">
-
-
-                            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-
-                                android:layout_width="wrap_content"
-                                android:layout_height="100dip"
-                                android:src="@drawable/brokenimage"
-                                app:civ_border_color="#FF000000"
-                                app:civ_border_width="2dp" />
-
-                            <TextView
-
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-
-                                android:gravity="center"
-                                android:text="خشک بار" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="80dip"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="2dip"
-                            android:orientation="vertical">
-
-
-                            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                                android:id="@+id/profile_image"
-                                android:layout_width="wrap_content"
-                                android:layout_height="100dip"
-                                android:src="@drawable/brokenimage"
-                                app:civ_border_color="#FF000000"
-                                app:civ_border_width="2dp" />
-
-                            <TextView
-                                android:id="@+id/textView5"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-
-                                android:gravity="center"
-                                android:text="بهداشتی" />
-                        </LinearLayout>
 
                     </LinearLayout>
                 </HorizontalScrollView>
