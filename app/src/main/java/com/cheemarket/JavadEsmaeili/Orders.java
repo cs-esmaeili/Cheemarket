@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,6 +36,7 @@ public class Orders extends AppCompatActivity {
     private static RecyclerView.LayoutManager LayoutManagerList;
     private static RecyclerView.Adapter AdapterList;
     public static ArrayList<order> mdatasetList;
+    public static TextView txtempty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,7 @@ public class Orders extends AppCompatActivity {
         setContentView(R.layout.activity_orders);
 
         RecyclerViewList = (RecyclerView) findViewById(R.id.List);
+        txtempty = (TextView) findViewById(R.id.txtempty);
         G.CurrentActivity = this;
 
         mdatasetList = new ArrayList<order>();
@@ -73,7 +77,16 @@ public class Orders extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
 
                 String input = response.body().string();
+                if(input.equals("[]")){
+                    G.HANDLER.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            txtempty.setVisibility(View.VISIBLE);
+                        }
+                    });
 
+                    return;
+                }
 
                 try {
                     JSONArray array = new JSONArray(input);

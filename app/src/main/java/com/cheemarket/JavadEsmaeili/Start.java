@@ -33,7 +33,6 @@ public class Start extends AppCompatActivity {
         G.CurrentActivity = this;
 
 
-
         pre = getSharedPreferences("Cheemarket", MODE_PRIVATE);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);

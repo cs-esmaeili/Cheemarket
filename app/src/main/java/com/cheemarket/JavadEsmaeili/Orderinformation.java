@@ -68,7 +68,7 @@ public class Orderinformation extends AppCompatActivity {
                 // In case you specify both steps array is chosen.
                 .steps(new ArrayList<String>() {{
                     add("          پردازش");
-                    add("        ارج به انبار");
+                    add("      ارجاع به انبار");
                     add("    تحول به پیک ");
                     add(" تحویل سفارش ");
                 }})

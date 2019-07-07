@@ -106,6 +106,7 @@ public class ActivityMain extends AppCompatActivity
     private static LinearLayout asal;
     private static LinearLayout sabzijat;
     private static LinearLayout asasi;
+    private static LinearLayout layoutprofile;
 
     @Override
     protected void onResume() {
@@ -140,6 +141,7 @@ public class ActivityMain extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
 
+
         thisactivity = this;
         G.CurrentActivity = this;
 
@@ -147,6 +149,7 @@ public class ActivityMain extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View header = navigationView.getHeaderView(0);
+        layoutprofile = (LinearLayout) header.findViewById(R.id.layoutprofile);
         txtprofile = (TextView) header.findViewById(R.id.txtprofile);
         ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
         ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
@@ -190,6 +193,7 @@ public class ActivityMain extends AppCompatActivity
         asasi = (LinearLayout) findViewById(R.id.asasi);
         sabzijat = (LinearLayout) findViewById(R.id.sabzijat);
 
+
         scroll = (ScrollView) findViewById(R.id.scroll);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -212,6 +216,8 @@ public class ActivityMain extends AppCompatActivity
         };
 
 
+
+
         khoshbar.setTag("dastebandi_khoshkbar");
         sayfijat.setTag("");
         chaei.setTag("");
@@ -227,7 +233,19 @@ public class ActivityMain extends AppCompatActivity
         asal.setOnClickListener(onClickListener);
         asasi.setOnClickListener(onClickListener);
         sabzijat.setOnClickListener(onClickListener);
-        
+
+
+        layoutprofile.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                if (G.Connectioncode.equals("")) {
+                    Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
+                    G.CurrentActivity.startActivity(intent);
+                }
+            }
+        });
 
         if (!G.readNetworkStatus()) {
             Intent intent = new Intent(G.CurrentActivity, activityNetwork.class);
@@ -297,17 +315,7 @@ public class ActivityMain extends AppCompatActivity
         RecyclerViewList6.setAdapter(AdapterList6);
 
 
-        txtprofile.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-
-                if (G.Connectioncode.equals("")) {
-                    Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
-                    G.CurrentActivity.startActivity(intent);
-                }
-            }
-        });
 
 
         Webservice.request("Store.php?action=Firstpagedata", callback, null);

@@ -1,8 +1,5 @@
 package com.cheemarket.JavadEsmaeili;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -17,7 +14,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -25,31 +21,25 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-import static com.cheemarket.JavadEsmaeili.Start.pre;
 
-
-public class ActivityLogin extends AppCompatActivity {
+public class ActivitySabtnam extends AppCompatActivity {
 
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
-    private TextView resetpass;
-    private TextView sabtname;
     private TextView message;
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_sabtnam);
         G.CurrentActivity = this;
 
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
 
-        resetpass = (TextView) findViewById(R.id.resetpass);
-        sabtname = (TextView) findViewById(R.id.sabtname);
+
         message = (TextView) findViewById(R.id.message);
 
 
@@ -75,14 +65,6 @@ public class ActivityLogin extends AppCompatActivity {
             }
         });
 
-        sabtname.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(G.CurrentActivity,ActivitySabtnam.class);
-                G.CurrentActivity.startActivity(intent);
-                finish();
-            }
-        });
         TextWatcher watcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -102,22 +84,7 @@ public class ActivityLogin extends AppCompatActivity {
         mEmailView.addTextChangedListener(watcher);
         mPasswordView.addTextChangedListener(watcher);
 
-        resetpass.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                message.setText("");
-                if (mEmailView.getText().toString().contains("@gmail.com") || mEmailView.getText().toString().contains("@yahoo.com")) {
-                    message.setText("");
-                    recovery(mEmailView.getText().toString() , "recoveryemail");
 
-                } else if (mEmailView.getText().toString().contains("09") && mEmailView.getText().toString().length() == 11){
-
-                    recovery(mEmailView.getText().toString() , "recoveryphone");
-                }else {
-                    message.setText(getString(R.string.error_invalid_email));
-                }
-            }
-        });
     }
 
     private void recovery(String username, final String action) {
@@ -143,17 +110,17 @@ public class ActivityLogin extends AppCompatActivity {
                     @Override
                     public void run() {
                         if (input.equals("Ok")) {
-                            if(action.equals("recoveryemail")){
+                            if (action.equals("recoveryemail")) {
                                 message.setText("لینک بازیابی پسورد به ایمیل شما ارسال شد");
-                            }else {
+                            } else {
                                 message.setText("لینک بازیابی پسورد به شماره همراه شما ارسال شد");
                             }
 
                         } else if (input.equals("needActivate")) {
                             message.setText("این نام کاربری فعال نیست لینک فعال سازی برای شما ارسال شده است");
-                        }else  if (input.equals("activesend")){
+                        } else if (input.equals("activesend")) {
                             message.setText("این نام کاربری فعال نیست لینک فعال سازی برای شما ارسال شد");
-                        } else  {
+                        } else {
                             message.setText("این نام کاربری وجود ندارد");
                         }
                     }
@@ -180,38 +147,35 @@ public class ActivityLogin extends AppCompatActivity {
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-
-
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
-
-            if(!message.getText().toString().contains("\n" +  getString(R.string.error_field_required)))
-            message.setText(message.getText().toString() +  "\n" +  getString(R.string.error_field_required));
-            //mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
-            cancel = true;
-        } else if (!isEmailValid(email)) {
-            if(!message.getText().toString().contains(  "\n" + getString(R.string.error_invalid_email)))
-            message.setText(message.getText().toString() +  "\n" + getString(R.string.error_invalid_email));
-            // mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
-            cancel = true;
-        }
-
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             message.setText(getString(R.string.error_invalid_password));
             //  mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
-        }else if (TextUtils.isEmpty(password)) {
+        } else if (TextUtils.isEmpty(password)) {
 
-            if(!message.getText().toString().contains(  "\n"  + "قسمت رمز ورود خالی است"))
-                message.setText(message.getText().toString() +  "\n"  + "قسمت رمز ورود خالی است");
+            if (!message.getText().toString().contains("\n" + "قسمت رمز ورود خالی است"))
+                message.setText(message.getText().toString() + "\n" + "قسمت رمز ورود خالی است");
             //mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
             cancel = true;
         }
 
+        // Check for a valid email address.
+        if (TextUtils.isEmpty(email)) {
+
+            if (!message.getText().toString().contains("\n" + getString(R.string.error_field_required)))
+                message.setText(message.getText().toString() + "\n" + getString(R.string.error_field_required));
+            //mEmailView.setError(getString(R.string.error_field_required));
+            focusView = mEmailView;
+            cancel = true;
+        } else if (!isEmailValid(email)) {
+            if (!message.getText().toString().contains("\n" + getString(R.string.error_invalid_email)))
+                message.setText(message.getText().toString() + "\n" + getString(R.string.error_invalid_email));
+            // mEmailView.setError(getString(R.string.error_invalid_email));
+            focusView = mEmailView;
+            cancel = true;
+        }
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
@@ -219,98 +183,110 @@ public class ActivityLogin extends AppCompatActivity {
             focusView.requestFocus();
         } else {
 
-                Webservice.requestparameter param1 = new Webservice.requestparameter();
-                param1.key = "username";
-                param1.value = mEmailView.getText().toString();
 
-                Webservice.requestparameter param2 = new Webservice.requestparameter();
-                param2.key = "password";
-                param2.value = mPasswordView.getText().toString();
+            Webservice.requestparameter param1 = new Webservice.requestparameter();
+            param1.key = "username";
+            param1.value = mEmailView.getText().toString();
 
-                ArrayList<Webservice.requestparameter> array = new ArrayList<>();
-                array.add(param1);
-                array.add(param2);
+            Webservice.requestparameter param2 = new Webservice.requestparameter();
+            param2.key = "password";
+            param2.value = mPasswordView.getText().toString();
 
-                if(mEmailView.getText().toString().contains("@gmail.com") || mEmailView.getText().toString().contains("@yahoo.com")){
-                    Webservice.requestparameter param3 = new Webservice.requestparameter();
-                    param3.key = "type";
-                    param3.value = "email";
-                    array.add(param3);
+            ArrayList<Webservice.requestparameter> array = new ArrayList<>();
+            array.add(param1);
+            array.add(param2);
+            if (mEmailView.getText().toString().contains("@gmail.com") || mEmailView.getText().toString().contains("@yahoo.com")) {
+                Webservice.requestparameter param3 = new Webservice.requestparameter();
+                param3.key = "type";
+                param3.value = "email";
+                array.add(param3);
 
-                }else if (mEmailView.getText().toString().contains("09") && mEmailView.getText().toString().length() == 11){
-                    Webservice.requestparameter param3 = new Webservice.requestparameter();
-                    param3.key = "type";
-                    param3.value = "phonenumber";
-                    array.add(param3);
+            } else if (mEmailView.getText().toString().contains("09") && mEmailView.getText().toString().length() == 11) {
+                Webservice.requestparameter param3 = new Webservice.requestparameter();
+                param3.key = "type";
+                param3.value = "phonenumber";
+                array.add(param3);
+
+            }
+
+
+            Webservice.request("Store.php?action=adduser", new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
 
                 }
 
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String input = response.body().string();
 
-                Webservice.request("Store.php?action=checkuser", new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
+                    if (input.equals("needActivate")) {
+                        G.HANDLER.post(new Runnable() {
+                            @Override
+                            public void run() {
 
-                    }
+                                message.setText("لینک تایید برای شما ارسال شده است");
+                            }
+                        });
 
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        String input = response.body().string();
 
-                        Log.i("LOG", "input =" + input);
-                        if (input.equals("not")) {
-                            G.HANDLER.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    //     mEmailView.setError("نام کاربری یا رمز عبور اشتباه است");
-                                    message.setText("نام کاربری یا رمز عبور اشتباه است");
-                                }
-                            });
+                    } else if (input.equals("not")) {
+                        G.HANDLER.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                // mEmailView.setError("این نام کاربری وجود دارد");
+                                message.setText("این نام کاربری وجود دارد");
+                            }
+                        });
 
-                        } else if (input.equals("needActivate")) {
-                              G.HANDLER.post(new Runnable() {
-                                  @Override
-                                  public void run() {
-                                      message.setText("لینک تایید برای شما ارسال شده است");
-                                  }
-                              });
-                        }else if (input.equals("Activesend")) {
+                    } else if (input.equals("Ok")) {
+
+
+                        try {
+
                             G.HANDLER.post(new Runnable() {
                                 @Override
                                 public void run() {
                                     message.setText("لینک تایید برای شما ارسال شد");
+
+
                                 }
                             });
-                        } else {
-                            try {
+
+                            G.HANDLER.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    message.setText("");
+                                }
+                            }, 2000);
+                                /*
                                 usernametemp = mEmailView.getText().toString();
                                 G.Connectioncode = input;
                                 SharedPreferences.Editor editor = pre.edit();
                                 editor.putString("Username", usernametemp);
                                 editor.putString("Connectioncode", G.Connectioncode);
-
                                 editor.apply();
 
                                 G.CurrentActivity.finish();
+                                */
 
-                            } catch (NumberFormatException e) {
-                                e.printStackTrace();
-                                G.HANDLER.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        //  mEmailView.setError("مشکلی در ارتباط به وجود امد دوباره سعی کنید");
-                                        message.setText("مشکلی در ارتباط به وجود امد دوباره سعی کنید");
-                                    }
-                                });
 
-                            }
+                        } catch (NumberFormatException e) {
+                            G.HANDLER.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    message.setText("مشکلی در ساخت اکانت به وجود آمد لطفا دوباره سعی کنید");
+                                }
+                            });
 
+                            e.printStackTrace();
                         }
 
 
                     }
-                }, array);
 
-
+                }
+            }, array);
 
 
         }

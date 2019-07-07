@@ -20,6 +20,7 @@ import java.util.List;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+
 import com.cheemarket.JavadEsmaeili.ActivityAddress;
 import com.cheemarket.JavadEsmaeili.G;
 import com.cheemarket.JavadEsmaeili.R;
@@ -63,10 +64,10 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
 
         holder.layout.setBackgroundColor(colors.get(position));
 
-        Textconfig.settext(holder.txtname, "" +mdataset.get(position).Name);
+        Textconfig.settext(holder.txtname, "" + mdataset.get(position).Name);
 //        Textconfig.settext(holder.txtphonenumber, "" +mdataset.get(position).Phonenumber);
-        holder.txtphonenumber.setText("" +mdataset.get(position).Phonenumber);
-        Textconfig.settext(holder.txtaddress, "" +mdataset.get(position).Address);
+        holder.txtphonenumber.setText("" + mdataset.get(position).Phonenumber);
+        Textconfig.settext(holder.txtaddress, "" + mdataset.get(position).Address);
 
 
         holder.card.setBackgroundColor(colors.get(position));
@@ -130,13 +131,13 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
                     Textconfig.settext( ActivityAddress.edtphonenumber, "" +mdataset.get(position).Phonenumber);
 
 */
-                    ActivityAddress.edtaddress.setText( "" +mdataset.get(position).Address);
-                    ActivityAddress.edtcodeposti.setText( "" +mdataset.get(position).Codeposti);
-                    ActivityAddress.edtname.setText( "" +mdataset.get(position).Name);
-                    ActivityAddress.edthomenumber.setText( "" +mdataset.get(position).Homenumber);
-                    ActivityAddress.edtphonenumber.setText( "" +mdataset.get(position).Phonenumber);
+                    ActivityAddress.edtaddress.setText("" + mdataset.get(position).Address);
+                    ActivityAddress.edtcodeposti.setText("" + mdataset.get(position).Codeposti);
+                    ActivityAddress.edtname.setText("" + mdataset.get(position).Name);
+                    ActivityAddress.edthomenumber.setText("" + mdataset.get(position).Homenumber);
+                    ActivityAddress.edtphonenumber.setText("" + mdataset.get(position).Phonenumber);
 
-                    if(ActivityAddress.btnselect.getVisibility() == View.VISIBLE){
+                    if (ActivityAddress.btnselect.getVisibility() == View.VISIBLE) {
                         ActivityAddress.btnselect.setBackgroundColor(Color.parseColor("#66BB6A"));
                     }
 
@@ -171,6 +172,9 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
                     updateid = mdataset.get(position).Id;
 
 
+                    ActivityAddress.btnselect.clearFocus();
+                    ActivityAddress.btnselect.setFocusableInTouchMode(true);
+                    ActivityAddress.btnselect.requestFocus();
                 } else if (colors.get(position).equals(Color.TRANSPARENT)) {
 
                     Log.i("LOG", "nabod");
@@ -183,7 +187,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
                     ActivityAddress.edtname.setText("");
                     ActivityAddress.edthomenumber.setText("");
                     ActivityAddress.edtphonenumber.setText("");
-                    if(ActivityAddress.btnselect.getVisibility() == View.VISIBLE){
+                    if (ActivityAddress.btnselect.getVisibility() == View.VISIBLE) {
                         ActivityAddress.btnselect.setBackgroundColor(Color.parseColor("#D6D7D7"));
                     }
 
@@ -209,6 +213,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
 
             }
         });
+
 
     }
 

@@ -112,6 +112,11 @@
             android:name=".SearchActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ActivitySabtnam"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

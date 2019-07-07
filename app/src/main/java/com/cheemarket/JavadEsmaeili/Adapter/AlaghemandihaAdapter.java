@@ -46,10 +46,10 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
         if(mdataset.get(position).Id1 == null){
-            holder.cardone.setVisibility(View.GONE);
+            holder.cardone.setVisibility(View.INVISIBLE);
         }else{
             if (mdataset.get(position).OldPrice1 == null || mdataset.get(position).OldPrice1.equals("0")) {
-                holder.textoffPriceone.setVisibility(View.GONE);
+                holder.textoffPriceone.setVisibility(View.INVISIBLE);
             } else {
 
                 holder.textoffPriceone.setText(mdataset.get(position).OldPrice1 + "");
@@ -57,7 +57,7 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
             if (mdataset.get(position).Price1 != null && !mdataset.get(position).Price1.equals("0")) {
                 Textconfig.settext(holder.textPriceone, "" + mdataset.get(position).Price1);
             } else {
-                holder.textPriceone.setVisibility(View.GONE);
+                holder.textPriceone.setVisibility(View.INVISIBLE);
             }
 
             if (mdataset.get(position).Status1 != null && mdataset.get(position).Status1.equals("2")) {
@@ -69,7 +69,7 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
             if (mdataset.get(position).Name1 != null && !mdataset.get(position).Name1.equals("")) {
                 Textconfig.settext(holder.txtnameone, mdataset.get(position).Name1);
             } else {
-                holder.txtnameone.setVisibility(View.GONE);
+                holder.txtnameone.setVisibility(View.INVISIBLE);
             }
 
             if (mdataset.get(position).Image1 != null && !mdataset.get(position).Image1.equals("")) {
@@ -99,11 +99,11 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
 
 
         if(mdataset.get(position).Id2 == null){
-            holder.cardtwo.setVisibility(View.GONE);
+            holder.cardtwo.setVisibility(View.INVISIBLE);
         }else{
 
             if (mdataset.get(position).OldPrice2 == null || mdataset.get(position).OldPrice2.equals("0")) {
-                holder.textoffPricetwo.setVisibility(View.GONE);
+                holder.textoffPricetwo.setVisibility(View.INVISIBLE);
             } else {
                 holder.textoffPricetwo.setText(mdataset.get(position).OldPrice2 + "");
             }
@@ -116,12 +116,12 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
             if (mdataset.get(position).Name2 != null && !mdataset.get(position).Name2.equals("")) {
                 Textconfig.settext(holder.txtnametwo, mdataset.get(position).Name2);
             } else {
-                holder.txtnametwo.setVisibility(View.GONE);
+                holder.txtnametwo.setVisibility(View.INVISIBLE);
             }
             if (mdataset.get(position).Price2 != null && !mdataset.get(position).Price2.equals("0")) {
                 Textconfig.settext(holder.textPricetwo, "" + mdataset.get(position).Price2);
             } else {
-                holder.textPricetwo.setVisibility(View.GONE);
+                holder.textPricetwo.setVisibility(View.INVISIBLE);
             }
 
 

@@ -43,7 +43,7 @@ public class Listpaymentadapter extends RecyclerView.Adapter<Listpaymentadapter.
 
 
         if(mdataset.get(position).OldPrice1.equals("0")){
-            holder.textoffPrice.setVisibility(View.GONE);
+            holder.textoffPrice.setVisibility(View.INVISIBLE);
         }else {
             holder.textoffPrice.setText(mdataset.get(position).OldPrice1 + "");
         }

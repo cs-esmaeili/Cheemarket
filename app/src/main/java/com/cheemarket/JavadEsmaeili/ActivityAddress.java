@@ -85,7 +85,9 @@ public class ActivityAddress extends AppCompatActivity {
 
 
                 btnselect.setVisibility(View.VISIBLE);
-
+                btnselect.clearFocus();
+                btnselect.setFocusableInTouchMode(true);
+                btnselect.requestFocus();
                 btnselect.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

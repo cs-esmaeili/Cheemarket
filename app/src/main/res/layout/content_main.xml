@@ -352,8 +352,7 @@
                     android:id="@+id/post2"
                     android:layout_width="match_parent"
                     android:layout_height="180dip"
-                    android:layout_marginTop="5dip"
-                    android:layout_marginBottom="5dip"
+                    android:layout_margin="5dip"
                     android:scaleType="fitXY" />
 
                 <LinearLayout
@@ -371,19 +370,13 @@
 
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_margin="5dip"
                             android:layout_weight="1">
 
                             <ImageView
                                 android:id="@+id/post3"
                                 android:layout_width="match_parent"
                                 android:layout_height="170dip"
-                                android:layout_marginStart="4dip"
-                                android:layout_marginLeft="4dip"
-                                android:layout_marginTop="4dip"
-                                android:layout_marginEnd="4dip"
-                                android:layout_marginRight="4dip"
-                                android:layout_marginBottom="4dip"
+                                android:layout_margin="5dip"
                                 android:layout_weight="1"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/brokenimage" />
@@ -394,14 +387,13 @@
 
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_margin="5dip"
                             android:layout_weight="1">
 
                             <ImageView
                                 android:id="@+id/post4"
                                 android:layout_width="match_parent"
                                 android:layout_height="170dip"
-                                android:layout_margin="4dip"
+                                android:layout_margin="5dip"
                                 android:layout_weight="1"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/brokenimage" />
@@ -413,17 +405,18 @@
                     <RelativeLayout
 
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dip"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1">
 
                         <ImageView
                             android:id="@+id/post5"
                             android:layout_width="match_parent"
                             android:layout_height="180dip"
-                            android:layout_margin="4dip"
-                            android:layout_marginTop="5dip"
-                            android:layout_marginBottom="5dip"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_margin="5dip"
                             android:layout_weight="1"
                             android:scaleType="fitXY"
                             android:src="@drawable/brokenimage" />
@@ -436,10 +429,8 @@
                     android:id="@+id/post6"
                     android:layout_width="match_parent"
                     android:layout_height="180dip"
-                    android:layout_marginTop="5dip"
-                    android:layout_marginBottom="2dip"
-                    android:scaleType="fitXY"
-                    />
+                    android:layout_margin="5dip"
+                    android:scaleType="fitXY" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -467,7 +458,7 @@
                     android:id="@+id/post8"
                     android:layout_width="match_parent"
                     android:layout_height="180dip"
-                    android:layout_marginTop="5dip"
+                    android:layout_margin="5dip"
                     android:scaleType="fitXY" />
 
                 <LinearLayout

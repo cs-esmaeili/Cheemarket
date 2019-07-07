@@ -132,6 +132,7 @@ public class ActivityWebview extends AppCompatActivity {
         Paymentstep.Address = null;
 
 
+
         Gson gson = new Gson();
         JsonElement element = gson.toJsonTree(array, new TypeToken<List<OrderStructure>>() {}.getType());
 
