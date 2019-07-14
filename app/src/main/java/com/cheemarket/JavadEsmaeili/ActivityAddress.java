@@ -325,7 +325,7 @@ public class ActivityAddress extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String input = response.body().string();
-                Log.i("LOG", "input =" + input);
+
                 if (input != null && !input.equals("[]")) {
                     if (input.equals("Ok")) {
 

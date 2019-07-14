@@ -118,7 +118,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
 
                 if (colors.get(position).equals(Color.WHITE)) {
 
-                    Log.i("LOG", "WHITE");
+
                     colors.set(position, Color.TRANSPARENT);
                     holder.card.setBackgroundColor(colors.get(position));
 
@@ -152,8 +152,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
 
 
                     for (int i = 0; i < ActivityAddress.adapter.getCount(); i++) {
-                        Log.i("LOG", ActivityAddress.adapter.getItem(i).toString());
-                        Log.i("LOG", "shahr =" + mdataset.get(position).Shahr);
+
                         if (ActivityAddress.adapter.getItem(i).toString().equals(mdataset.get(position).Shahr)) {
                             final int finalI = i;
                             G.HANDLER.postDelayed(new Runnable() {
@@ -177,7 +176,6 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
                     ActivityAddress.btnselect.requestFocus();
                 } else if (colors.get(position).equals(Color.TRANSPARENT)) {
 
-                    Log.i("LOG", "nabod");
                     colors.set(position, Color.WHITE);
                     holder.card.setBackgroundColor(colors.get(position));
 

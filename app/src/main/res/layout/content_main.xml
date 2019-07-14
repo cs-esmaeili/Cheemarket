@@ -52,6 +52,7 @@
                 android:orientation="vertical">
 
                 <HorizontalScrollView
+                    android:layoutDirection="rtl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dip"
@@ -65,51 +66,53 @@
 
                         <LinearLayout
                             android:id="@+id/khoshbar"
-                            android:layout_width="80dip"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="2dip"
                             android:orientation="vertical">
 
 
-                            <de.hdodenhof.circleimageview.CircleImageView
-                                xmlns:app="http://schemas.android.com/apk/res-auto"
+                            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                                 android:id="@+id/imgkhoshbar"
-                                android:layout_width="wrap_content"
+                                android:layout_width="100dip"
                                 android:layout_height="100dip"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
                                 android:src="@drawable/brokenimage"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
                             <TextView
 
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_gravity="center"
                                 android:gravity="center"
                                 android:text="خشک بار و شیرینی" />
                         </LinearLayout>
 
                         <LinearLayout
                             android:id="@+id/sayfijat"
-                            android:layout_width="80dip"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="2dip"
                             android:orientation="vertical">
 
 
-                            <de.hdodenhof.circleimageview.CircleImageView
-                                xmlns:app="http://schemas.android.com/apk/res-auto"
+                            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                                 android:id="@+id/imgsayfijat"
-                                android:layout_width="wrap_content"
+                                android:layout_width="100dip"
                                 android:layout_height="100dip"
+                                android:layout_gravity="center"
                                 android:src="@drawable/brokenimage"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
                             <TextView
 
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="صیفیجات" />
@@ -117,25 +120,26 @@
 
                         <LinearLayout
                             android:id="@+id/chaei"
-                            android:layout_width="80dip"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="2dip"
                             android:orientation="vertical">
 
 
-                            <de.hdodenhof.circleimageview.CircleImageView
+                            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                                 android:id="@+id/imgchaei"
-                                xmlns:app="http://schemas.android.com/apk/res-auto"
-                                android:layout_width="wrap_content"
+                                android:layout_width="100dip"
                                 android:layout_height="100dip"
+                                android:layout_gravity="center"
                                 android:src="@drawable/brokenimage"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
                             <TextView
 
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="چای و دمنوش" />
@@ -143,25 +147,26 @@
 
                         <LinearLayout
                             android:id="@+id/sabzijat"
-                            android:layout_width="80dip"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="2dip"
                             android:orientation="vertical">
 
 
-                            <de.hdodenhof.circleimageview.CircleImageView
+                            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                                 android:id="@+id/imgsabzijat"
-                                xmlns:app="http://schemas.android.com/apk/res-auto"
-                                android:layout_width="wrap_content"
+                                android:layout_width="100dip"
                                 android:layout_height="100dip"
+                                android:layout_gravity="center"
                                 android:src="@drawable/brokenimage"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
                             <TextView
 
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="سبزیجات" />
@@ -169,25 +174,26 @@
 
                         <LinearLayout
                             android:id="@+id/khorma"
-                            android:layout_width="80dip"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="2dip"
                             android:orientation="vertical">
 
 
-                            <de.hdodenhof.circleimageview.CircleImageView
-                                xmlns:app="http://schemas.android.com/apk/res-auto"
+                            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                                 android:id="@+id/imgkhorma"
-                                android:layout_width="wrap_content"
+                                android:layout_width="100dip"
                                 android:layout_height="100dip"
+                                android:layout_gravity="center"
                                 android:src="@drawable/brokenimage"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
                             <TextView
 
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="خرما" />
@@ -195,25 +201,26 @@
 
                         <LinearLayout
                             android:id="@+id/asal"
-                            android:layout_width="80dip"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="2dip"
                             android:orientation="vertical">
 
 
-                            <de.hdodenhof.circleimageview.CircleImageView
-                                xmlns:app="http://schemas.android.com/apk/res-auto"
+                            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                                 android:id="@+id/imgasal"
-                                android:layout_width="wrap_content"
+                                android:layout_width="100dip"
                                 android:layout_height="100dip"
+                                android:layout_gravity="center"
                                 android:src="@drawable/brokenimage"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
                             <TextView
 
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:text="عسل" />
@@ -221,27 +228,28 @@
 
                         <LinearLayout
                             android:id="@+id/asasi"
-                            android:layout_width="80dip"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="2dip"
                             android:orientation="vertical">
 
 
-                            <de.hdodenhof.circleimageview.CircleImageView
-                                xmlns:app="http://schemas.android.com/apk/res-auto"
+                            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                                 android:id="@+id/imgasasi"
-                                android:layout_width="wrap_content"
+                                android:layout_width="100dip"
                                 android:layout_height="100dip"
+                                android:layout_gravity="center"
                                 android:src="@drawable/brokenimage"
                                 app:civ_border_color="#FF000000"
                                 app:civ_border_width="2dp" />
 
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="اساسی و خواروبار" />
+                                android:text="کالاهای اساسی و خواروبار" />
                         </LinearLayout>
 
 

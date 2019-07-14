@@ -54,7 +54,7 @@
                 android:title="گزاش مشکلات نرم افزار" />
 
             <item
-                android:id="@+id/s"
+                android:id="@+id/darbareyema"
                 android:icon="@drawable/ic_menu_share"
                 android:fontFamily="@font/vazir"
                 android:title="درباره ما" />

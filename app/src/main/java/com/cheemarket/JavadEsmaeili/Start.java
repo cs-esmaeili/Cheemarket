@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,7 +45,12 @@ public class Start extends AppCompatActivity {
         appLinkData = appLinkIntent.getData();
 
 
-        check_Atelae();
+
+
+
+
+
+         check_Atelae();
 
 
     }
@@ -60,6 +66,7 @@ public class Start extends AppCompatActivity {
                     e.printStackTrace();
                     Webservice.handelerro(null);
                 }
+                check_Atelae();
             }
 
             @Override
@@ -149,6 +156,7 @@ public class Start extends AppCompatActivity {
                     e.printStackTrace();
                     Webservice.handelerro(null);
                 }
+                checkrunword();
             }
 
             @Override
@@ -174,9 +182,6 @@ public class Start extends AppCompatActivity {
                         Dialogs.ShowRepairDialog();
                     }
 
-                } catch (SocketTimeoutException e) {
-                    e.printStackTrace();
-                    Webservice.handelerro("timeout");
                 } catch (IOException e) {
                     e.printStackTrace();
                     Webservice.handelerro(null);

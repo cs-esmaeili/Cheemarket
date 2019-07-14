@@ -6,7 +6,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
-
 import okhttp3.Callback;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -23,9 +22,9 @@ public class Webservice {
     private static OkHttpClient getclient()    {
         if (client == null) {
             client = new OkHttpClient.Builder()
-                    .connectTimeout(5,TimeUnit.SECONDS)
-                    .writeTimeout(5,TimeUnit.SECONDS)
-                    .readTimeout(5,TimeUnit.SECONDS)
+                    .connectTimeout(10,TimeUnit.SECONDS)
+                    .writeTimeout(10,TimeUnit.SECONDS)
+                    .readTimeout(10,TimeUnit.SECONDS)
                     .build();
 
         }

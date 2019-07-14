@@ -105,7 +105,7 @@ public class ActivitySabtnam extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String input = response.body().string();
-                Log.i("LOGggg", input);
+
                 G.HANDLER.post(new Runnable() {
                     @Override
                     public void run() {

@@ -60,7 +60,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         changedataset();
 
 
-        Log.i("LOG", "posiition =" + temp);
+
         recyclerView.setAdapter(adapter);
         linearLayoutManager.scrollToPosition(temp);
 
@@ -78,7 +78,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         changedataset();
 
 
-        Log.i("LOG", "posiition =" + temp);
+
         recyclerView.setAdapter(adapter);
         linearLayoutManager.scrollToPosition(temp);
 

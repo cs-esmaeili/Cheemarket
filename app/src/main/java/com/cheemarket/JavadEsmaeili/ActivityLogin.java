@@ -138,7 +138,7 @@ public class ActivityLogin extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String input = response.body().string();
-                Log.i("LOGggg", input);
+
                 G.HANDLER.post(new Runnable() {
                     @Override
                     public void run() {
@@ -256,7 +256,7 @@ public class ActivityLogin extends AppCompatActivity {
                     public void onResponse(Call call, Response response) throws IOException {
                         String input = response.body().string();
 
-                        Log.i("LOG", "input =" + input);
+
                         if (input.equals("not")) {
                             G.HANDLER.post(new Runnable() {
                                 @Override

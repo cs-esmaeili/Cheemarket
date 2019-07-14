@@ -119,7 +119,7 @@ public class Orderinformation extends AppCompatActivity {
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                Log.i("LOG", "salam =" + fromUser);
+
                 if (fromUser && stepView.getCurrentStep() != 3) {
                     Toast.makeText(G.CurrentActivity, "بعد از تحویل کالا میتوانید نظر بدهید", Toast.LENGTH_LONG).show();
                     ratingBar.setRating(finalRate);
@@ -218,7 +218,7 @@ public class Orderinformation extends AppCompatActivity {
 
         Webservice.requestparameter param3 = new Webservice.requestparameter();
         param3.key = "rate";
-        Log.i("LOG", "RATE =" + rate);
+
         param3.value = rate + "";
 
         ArrayList<Webservice.requestparameter> array = new ArrayList<>();

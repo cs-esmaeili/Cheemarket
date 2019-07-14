@@ -107,7 +107,7 @@ public class Commands {
 
                 if (url != null) {
 
-                    Log.i("Image", "url =" + url);
+
                     Picasso.get()
                             .load(url)
                             .resize(G.IMAGES_HEIGHT, G.IMAGES_WIDTH)
@@ -123,18 +123,12 @@ public class Commands {
                                 @Override
                                 public void onError(Exception e) {
 
-                                    /*
+
                                     if (trytoload) {
-                                        showimage(url, src, img, false);
+                                    //    showimage(url, src, img, false);
                                     }
-                                    if (e instanceof SocketTimeoutException) {
-                                        e.printStackTrace();
-                                        Webservice.handelerro("timeout");
-                                    } else {
-                                        e.printStackTrace();
-                                        Webservice.handelerro(null);F
-                                    }
-                                    */
+
+
                                 }
                             });
 
@@ -153,18 +147,11 @@ public class Commands {
 
                                 @Override
                                 public void onError(Exception e) {
-                                    /*
+
                                     if (trytoload) {
-                                        showimage(url, src, img, false);
+                                     //   showimage(url, src, img, false);
                                     }
-                                    if (e instanceof SocketTimeoutException) {
-                                        e.printStackTrace();
-                                        Webservice.handelerro("timeout");
-                                    } else {
-                                        e.printStackTrace();
-                                        Webservice.handelerro(null);
-                                    }
-                                    */
+
                                 }
                             });
                 }

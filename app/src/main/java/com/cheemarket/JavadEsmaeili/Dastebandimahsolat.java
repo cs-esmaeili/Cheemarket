@@ -68,20 +68,20 @@ public class Dastebandimahsolat extends AppCompatActivity {
 
         data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img1)).setLayout((RelativeLayout) findViewById(R.id.cat1)).setUrl("").setTag("dastebandi_kalahayeasasi"));
         data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img2)).setLayout((RelativeLayout) findViewById(R.id.cat2)).setUrl("").setTag("dastebandi_khoshkbar"));
-        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img3)).setLayout((RelativeLayout) findViewById(R.id.cat3)).setUrl("").setTag(""));
-        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img4)).setLayout((RelativeLayout) findViewById(R.id.cat4)).setUrl("").setTag(""));
-        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img5)).setLayout((RelativeLayout) findViewById(R.id.cat5)).setUrl("").setTag(""));
-        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img6)).setLayout((RelativeLayout) findViewById(R.id.cat6)).setUrl("").setTag(""));
-        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img7)).setLayout((RelativeLayout) findViewById(R.id.cat7)).setUrl("").setTag(""));
-        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img8)).setLayout((RelativeLayout) findViewById(R.id.cat8)).setUrl("").setTag(""));
-        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img9)).setLayout((RelativeLayout) findViewById(R.id.cat9)).setUrl("").setTag(""));
-        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img10)).setLayout((RelativeLayout) findViewById(R.id.cat10)).setUrl("").setTag(""));
-        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img11)).setLayout((RelativeLayout) findViewById(R.id.cat11)).setUrl("").setTag(""));
-        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img12)).setLayout((RelativeLayout) findViewById(R.id.cat12)).setUrl("").setTag(""));
-        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img13)).setLayout((RelativeLayout) findViewById(R.id.cat13)).setUrl("").setTag(""));
-        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img14)).setLayout((RelativeLayout) findViewById(R.id.cat14)).setUrl("").setTag(""));
-        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img15)).setLayout((RelativeLayout) findViewById(R.id.cat15)).setUrl("").setTag(""));
-        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img16)).setLayout((RelativeLayout) findViewById(R.id.cat16)).setUrl("").setTag(""));
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img3)).setLayout((RelativeLayout) findViewById(R.id.cat3)).setUrl("").setTag("dastebandi_shoyande"));
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img4)).setLayout((RelativeLayout) findViewById(R.id.cat4)).setUrl("").setTag("dastebandi_khorma"));
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img5)).setLayout((RelativeLayout) findViewById(R.id.cat5)).setUrl("").setTag("dastebandi_labaniyat"));
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img6)).setLayout((RelativeLayout) findViewById(R.id.cat6)).setUrl("").setTag("dastebandi_sobhane"));
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img7)).setLayout((RelativeLayout) findViewById(R.id.cat7)).setUrl("").setTag("dastebandi_konserv"));
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img8)).setLayout((RelativeLayout) findViewById(R.id.cat8)).setUrl("").setTag("dastebandi_tanagholat"));
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img9)).setLayout((RelativeLayout) findViewById(R.id.cat9)).setUrl("").setTag("dastebandi_noshidani"));
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img10)).setLayout((RelativeLayout) findViewById(R.id.cat10)).setUrl("").setTag("dastebandi_shokolat"));
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img11)).setLayout((RelativeLayout) findViewById(R.id.cat11)).setUrl("").setTag("dastebandi_protoein"));
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img12)).setLayout((RelativeLayout) findViewById(R.id.cat12)).setUrl("").setTag("dastebandi_arayeshi"));
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img13)).setLayout((RelativeLayout) findViewById(R.id.cat13)).setUrl("").setTag("dastebandi_seyfijat"));
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img14)).setLayout((RelativeLayout) findViewById(R.id.cat14)).setUrl("").setTag("dastebandi_sabzijat"));
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img15)).setLayout((RelativeLayout) findViewById(R.id.cat15)).setUrl("").setTag("dastebandi_chay"));
+        data.add(new dastebandi_sakhtar().setImgview((ImageView) findViewById(R.id.img16)).setLayout((RelativeLayout) findViewById(R.id.cat16)).setUrl("").setTag("dastebandi_asal"));
 
 
         ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);

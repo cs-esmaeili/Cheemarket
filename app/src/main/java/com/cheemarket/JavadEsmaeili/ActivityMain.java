@@ -128,6 +128,10 @@ public class ActivityMain extends AppCompatActivity
         navigationView.getMenu().findItem(R.id.category).setChecked(false);
         navigationView.getMenu().findItem(R.id.sabadkharid).setChecked(false);
         navigationView.getMenu().findItem(R.id.address).setChecked(false);
+        navigationView.getMenu().findItem(R.id.alaghemandiha).setChecked(false);
+        navigationView.getMenu().findItem(R.id.yourorders).setChecked(false);
+        navigationView.getMenu().findItem(R.id.problems).setChecked(false);
+        navigationView.getMenu().findItem(R.id.darbareyema).setChecked(false);
 
         if (needpagework) {
             needpagework = false;
@@ -219,12 +223,12 @@ public class ActivityMain extends AppCompatActivity
 
 
         khoshbar.setTag("dastebandi_khoshkbar");
-        sayfijat.setTag("");
-        chaei.setTag("");
-        khorma.setTag("");
-        asal.setTag("");
+        sayfijat.setTag("dastebandi_seyfijat");
+        chaei.setTag("dastebandi_chay");
+        khorma.setTag("dastebandi_khorma");
+        asal.setTag("dastebandi_asal");
         asasi.setTag("dastebandi_kalahayeasasi");
-        sabzijat.setTag("");
+        sabzijat.setTag("dastebandi_sabzijat");
         
         khoshbar.setOnClickListener(onClickListener);
         sayfijat.setOnClickListener(onClickListener);
@@ -262,18 +266,18 @@ public class ActivityMain extends AppCompatActivity
     }
 
     private static void applinkaction() {
-        if (appLinkData != null) {
-            String productid = appLinkData.getLastPathSegment();
-            if (productid.contains("productid=")) {
+        if(appLinkData != null){
+            String productid = appLinkData.toString();
+
+            if(productid.contains("productid=")){
                 productid = productid.substring(productid.indexOf("=") + 1);
-                Log.i("LOG", "productid =" + productid);
 
-                Intent intent = new Intent(G.CurrentActivity, ActivityAtelaatkala.class);
-                intent.putExtra("Id", productid);
-                G.CurrentActivity.startActivity(intent);
             }
-
+            Intent intent = new Intent(G.CurrentActivity,ActivityAtelaatkala.class);
+            intent.putExtra("Id" , productid);
+            G.CurrentActivity.startActivity(intent);
         }
+
     }
 
 
@@ -336,6 +340,8 @@ public class ActivityMain extends AppCompatActivity
                 Webservice.handelerro(null);
             }
 
+            Webservice.request("Store.php?action=Firstpagedata", callback, null);
+
         }
 
         @Override
@@ -350,7 +356,7 @@ public class ActivityMain extends AppCompatActivity
 
                 String input = response.body().string();
                 JSONArray array = new JSONArray(input);
-                Log.i("LOG", "body =" + input);
+
 
                 for (int i = 0; i < array.length(); i++) {
                     final JSONObject jsonObject = array.getJSONObject(i);
@@ -433,7 +439,7 @@ public class ActivityMain extends AppCompatActivity
 
                     return;
                 }
-                Log.i("LOG", "Date =" + Datetimeserver);
+
                 int roz = Integer.parseInt(Datetimeserver.substring(Datetimeserver.lastIndexOf("-") + 1, Datetimeserver.lastIndexOf("-") + 3).trim());
                 roz = roz * 24;
                 saat = roz + Integer.parseInt(Datetimeserver.substring(Datetimeserver.indexOf(" ") + 1, Datetimeserver.indexOf(" ") + 3).replace(":", ""));///
@@ -441,7 +447,7 @@ public class ActivityMain extends AppCompatActivity
 
                 saniye = Integer.parseInt(Datetimeserver.substring(Datetimeserver.lastIndexOf(":") + 1, Datetimeserver.length()));
 
-                Log.i("LOG", "saat =" + saat + "//daghighe =" + daghighe + "//" + saniye);
+
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -486,13 +492,6 @@ public class ActivityMain extends AppCompatActivity
                 }).start();
             } catch (JSONException e) {
                 e.printStackTrace();
-                Webservice.handelerro(null);
-            } catch (SocketTimeoutException e) {
-                e.printStackTrace();
-                Webservice.handelerro("timeout");
-            } catch (IOException e) {
-                e.printStackTrace();
-                Webservice.handelerro(null);
             }
         }
     };
@@ -580,6 +579,9 @@ public class ActivityMain extends AppCompatActivity
                 Intent intent = new Intent(G.CurrentActivity, Activityproblems.class);
                 startActivity(intent);
             }
+        }else if (id == R.id.darbareyema) {
+                Intent intent = new Intent(G.CurrentActivity, ActivityDarbareyema.class);
+                startActivity(intent);
         } else if (id == R.id.btn) {
             G.Connectioncode = "";
             SharedPreferences.Editor editor = pre.edit();

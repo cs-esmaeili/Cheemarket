@@ -183,7 +183,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                 }
                 if(temp == false){
                     G.mdatasetsabad.add(mysabad);
-                    Log.i("LOG", mysabad.Id + " ?? " + G.mdatasetsabad.get(0).Id);
+
                     Intent intent = new Intent(G.CurrentActivity, ActivitySabad.class);
                     G.CurrentActivity.startActivity(intent);
                 }
@@ -195,7 +195,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
         imgsheare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String shareBody = "www.cheemarket.com/product/?productid=" + mysabad.Id;
+                String shareBody = "http://www.cheemarket.com/product/?productid=" + mysabad.Id;
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
                 sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
@@ -247,7 +247,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
         }
 
         list.add(object1);
-        Log.i("Test","are");
+
         Webservice.request("Store.php?action=onekaladata", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -445,7 +445,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
 
                 } else {
 
-                    Log.i("LOG", "Date =" + Datetimeserver);
+
                     int roz = Integer.parseInt(Datetimeserver.substring(Datetimeserver.lastIndexOf("-") + 1, Datetimeserver.lastIndexOf("-") + 3).trim());
                     roz = roz * 24;
                     saat = roz + Integer.parseInt(Datetimeserver.substring(Datetimeserver.indexOf(" ") + 1, Datetimeserver.indexOf(" ") + 3).replace(":", ""));///
@@ -453,7 +453,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
 
                     saniye = Integer.parseInt(Datetimeserver.substring(Datetimeserver.lastIndexOf(":") + 1, Datetimeserver.length()));
 
-                    Log.i("LOG", "saat =" + saat + "//daghighe =" + daghighe + "//" + saniye);
+
                     new Thread(new Runnable() {
                         @Override
                         public void run() {

@@ -143,7 +143,7 @@ public class Subdastebandi extends AppCompatActivity {
     private static void clearalldata() {
 
 
-        Log.i("LOG", "clearalldata");
+
         if (mdatasetkalaforonekala != null) {
             mdatasetkalaforonekala.clear();
         }
@@ -193,7 +193,7 @@ public class Subdastebandi extends AppCompatActivity {
         Webservice.requestparameter object1 = new Webservice.requestparameter();
         object1.key = "title";
         object1.value = code;
-        Log.i("LOG", "CODE =" + code);
+
         array1.add(object1);
         Webservice.request("Store.php?action=getsubdastebandi", new Callback() {
             @Override
@@ -210,7 +210,7 @@ public class Subdastebandi extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String input = response.body().string();
-                Log.i("LOG","input =" + input);
+
                 if (input.equals("[]")) {
                     Dialogs.vizhegiayande();
                     return;
@@ -362,9 +362,6 @@ public class Subdastebandi extends AppCompatActivity {
         object3.value = sort;
         array1.add(object3);
 
-        Log.i("Test", "value =" + code);
-        Log.i("Test", "number =" + Listnumber);
-        Log.i("Test", "sort =" + sort);
 
 
         Webservice.request("Store.php?action=partofdata", mycall, array1);
@@ -431,6 +428,16 @@ public class Subdastebandi extends AppCompatActivity {
         } else if (showsubdastebandi) {
             super.onBackPressed();
         }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i("log" ,"empty");
+
+      clearalldata();
+
 
     }
 }

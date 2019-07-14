@@ -112,7 +112,7 @@ public class Orders extends AppCompatActivity {
                     @Override
                     public void run() {
                         AdapterList.notifyDataSetChanged();
-                        Log.i("LOG", "NOTIFY");
+
                     }
                 });
 

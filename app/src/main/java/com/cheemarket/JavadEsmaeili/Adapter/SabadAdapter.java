@@ -63,7 +63,7 @@ public class SabadAdapter extends RecyclerView.Adapter<SabadAdapter.ViewHolder> 
             holder.txt6.setVisibility(View.GONE);
         }
 
-        Log.i("LOG","salam =" + mdataset.get(position).Tedad);
+
         if(mdataset.get(position).Tedad != null && !mdataset.get(position).Tedad.equals("0") && mdataset.get(position).Ordernumber != null && !mdataset.get(position).Ordernumber.equals("0") ){
             Textconfig.settext(holder.tedad, mdataset.get(position).Tedad + "");
             holder.tedad.setVisibility(View.VISIBLE);

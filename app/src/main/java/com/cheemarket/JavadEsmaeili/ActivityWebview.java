@@ -66,7 +66,7 @@ public class ActivityWebview extends AppCompatActivity {
          WebViewClient mdWebViewClient = new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
-                Log.i("LOG", url);
+
                 if(url.contains(G.Baseurl+"successful.html")){
                     webView.setVisibility(View.GONE);
                     txt.setVisibility(View.VISIBLE);
@@ -142,7 +142,7 @@ public class ActivityWebview extends AppCompatActivity {
 
         JsonArray jsonArray = element.getAsJsonArray();
 
-        Log.e("Array", jsonArray.toString());
+
         String postData = null;
         try {
 
@@ -155,7 +155,7 @@ public class ActivityWebview extends AppCompatActivity {
          webView.bringToFront();
          webView.setVisibility(View.VISIBLE);
          txt.setVisibility(View.GONE);
-         Log.i("LOG","postData=" + jsonArray.toString());
+
 
          webView.postUrl(G.Baseurl + "Request.php", postData.getBytes());
 

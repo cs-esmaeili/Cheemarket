@@ -57,13 +57,12 @@
                     <TextView
                         android:id="@+id/txtname"
                         android:layout_width="0dip"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_margin="4dip"
                         android:layout_weight="0.5"
                         android:gravity="right"
                         android:text="TextView"
-                        android:textSize="15dip"
-                        />
+                        android:textSize="15dip" />
 
                     <TextView
 
@@ -86,13 +85,12 @@
                     <TextView
                         android:id="@+id/txtphonenumber"
                         android:layout_width="0dip"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_margin="4dip"
                         android:layout_weight="0.5"
                         android:gravity="right"
                         android:text="TextView"
-                        android:textSize="15dip"
-                        />
+                        android:textSize="15dip" />
 
                     <TextView
 
@@ -115,13 +113,12 @@
                     <TextView
                         android:id="@+id/txthomenumber"
                         android:layout_width="0dip"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_margin="4dip"
                         android:layout_weight="0.5"
                         android:gravity="right"
                         android:text="TextView"
-                        android:textSize="15dip"
-                        />
+                        android:textSize="15dip" />
 
                     <TextView
 
@@ -144,7 +141,7 @@
                     <TextView
                         android:id="@+id/txtcodeposti"
                         android:layout_width="0dip"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_margin="4dip"
                         android:layout_weight="0.5"
                         android:gravity="right"
@@ -171,7 +168,7 @@
                     <TextView
                         android:id="@+id/txtostan"
                         android:layout_width="0dip"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_margin="4dip"
                         android:layout_weight="0.5"
                         android:gravity="right"
@@ -198,7 +195,7 @@
                     <TextView
                         android:id="@+id/txtshahr"
                         android:layout_width="0dip"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_margin="4dip"
                         android:layout_weight="0.5"
                         android:gravity="right"
@@ -225,7 +222,7 @@
                     <TextView
                         android:id="@+id/txtaddress"
                         android:layout_width="0dip"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_margin="4dip"
                         android:layout_weight="0.5"
                         android:gravity="right"

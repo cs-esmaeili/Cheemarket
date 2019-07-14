@@ -133,7 +133,7 @@ public class ActivitySabad extends AppCompatActivity {
         requestparameter.key = "jsontext";
         requestparameter.value = temp;
 
-        Log.i("LOG","output =" + temp);
+
         Webservice.requestparameter requestparameter1 = new Webservice.requestparameter();
         requestparameter1.key = "Connectioncode";
         requestparameter1.value = G.Connectioncode;
@@ -151,7 +151,7 @@ public class ActivitySabad extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String input = response.body().string();
-                Log.i("input", "input =" + input);
+
 
                 if (input.equals("[]") || input.equals("")) {
 

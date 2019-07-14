@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActivityDarbareyema">
+
+    <include layout="@layout/toolbarforall" android:id="@+id/spe" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spe">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:padding="8dip"
+                android:text=" چی مارکت مرجع ارائه خدمات مختلف در گروه های متنوع همچون محصولات مواد غذایی ، پوشاک ، لوازم دیجیتال ، لوازم تخصصی ، لوازم تزئینی ...... می باشد . سیاست اصلی ما در چی مارکت دسترسی اسان و سریع مخاطبین با نازلترین قیمتها به محصولات مورد نیازشان می باشد . همواره یکی از اولویت‌های چی مارکت، تولید و ارائه محتوای فنی مورد نیاز کاربران با بالاترین استانداردها، برای تسهیل در فرایند پیش از خرید آنهاست. برای چی مارکت بسیار مهم است که کاربران آن، کالای تخصصی مورد نیاز خود را به درستی و با دقت بالا و بیشترین سهولت انتخاب کنند. چی مارکت از هرگونه تلاشی برای بالاتر بردن کیفیت خرید مشتریان خود دریغ نمی‏‌کند و همواره تلاش می‏‌کند تا در طول فرآیند خرید یعنی پیش، حین و پس از خرید، بیشترین ارزش را برای کاربران و مشتریان خود خلق کند. "
+                android:textSize="18sp"
+                app:fontFamily="@font/vazir" />
+
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dip"
+                android:text="چی مارکت با درک اهمیت این موضوع برای مشتریان خود و با بکارگیری نهایت توان و ابزارهای در دسترس در تعاملات خود با تامین‏ کنندگان، می‏‏‌کوشد امکان ارائه پایین‏‏‌ترین قیمت‏‏‌ها و بهترین خدمات را فراهم آورد. طرح‏‏‌های مشوق خرید همواره مورد توجه مشتریان بوده و چی مارکت نیز به منظور قدردانی از مشتریان وفادار خود همواره تخفیف‏‌های قابل توجهی را در قالب طرح‌های مختلف مشوق خرید برای آنان در نظر می‏‏‌گیرد. کیفیت و سهولت استفاده از وب‏ سایت چی مارکت و خدمات ارائه شده در آن، همواره یکی از مهم‏‌ترین و با اولویت‌ترین موضوعات در چی مارکت بوده است و همه کارکنان فنی و تخصصی آن نهایت تلاش خود را به عمل می‌آورند تا با ارائه با‏کیفیت‏‌ترین و به‏‌روز‏ترین سرویس‏‌های مبتنی بر وب و تسهیل تمامی فرآیندهای بررسی، انتخاب و خرید کالا در وب سایت چی مارکت، خدماتی شایسته و تجربه‌ای خوشایند را برای مخاطبان خود به ارمغان بیاورند. "
+                android:textSize="18sp"
+                app:fontFamily="@font/vazir" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</android.support.constraint.ConstraintLayout>
