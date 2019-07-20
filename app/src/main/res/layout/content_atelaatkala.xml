@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.cheemarket.JavadEsmaeili.ActivityAtelaatkala"
+    tools:context="com.cheemarket.ActivityAtelaatkala"
     android:layoutDirection="ltr"
     tools:showIn="@layout/activity_atelaatkala">
 
@@ -312,7 +312,7 @@
 
                             <view
                                 android:id="@+id/txtoff"
-                                class="com.cheemarket.JavadEsmaeili.Customview.Lineimage"
+                                class="com.cheemarket.Customview.Lineimage"
                                 id="@+id/view"
                                 layout_weight="0.75"
                                 layout_width="match_parent"

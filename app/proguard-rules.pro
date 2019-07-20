@@ -21,4 +21,4 @@
 
 
 
--keep class com.cheemarket.JavadEsmaeili.ActivityWebview$OrderStructure { *; }
+-keep class com.cheemarket.ActivityWebview$OrderStructure { *; }

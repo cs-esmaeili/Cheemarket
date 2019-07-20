@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:layoutDirection="ltr"
-    tools:context="com.cheemarket.JavadEsmaeili.Start">
+    tools:context="com.cheemarket.Start">
 
     <ProgressBar
         android:id="@+id/progressBar3"

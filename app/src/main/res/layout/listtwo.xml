@@ -68,7 +68,7 @@
 
                 <view
                     android:id="@+id/textoffPriceone"
-                    class="com.cheemarket.JavadEsmaeili.Customview.Lineimage"
+                    class="com.cheemarket.Customview.Lineimage"
                     layout_weight="0.75"
                     layout_width="match_parent"
                     android:layout_width="match_parent"
@@ -148,7 +148,7 @@
 
                 <view
                     android:id="@+id/textoffPricetwo"
-                    class="com.cheemarket.JavadEsmaeili.Customview.Lineimage"
+                    class="com.cheemarket.Customview.Lineimage"
                     layout_weight="0.75"
                     layout_width="match_parent"
                     android:layout_width="match_parent"
