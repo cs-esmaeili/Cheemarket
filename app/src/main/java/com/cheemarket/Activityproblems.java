@@ -56,9 +56,10 @@ public class Activityproblems extends AppCompatActivity {
                             G.HANDLER.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(G.context,"در ثبت پیام شما مشکلی پیش آمد دوباره تلاش کنید",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(G.context,"مشکلی در ارتیاط با سرور پیش آمد دوباره سعی کنید", Toast.LENGTH_LONG).show();
                                 }
                             });
+
                         }
 
                         @Override
@@ -70,6 +71,13 @@ public class Activityproblems extends AppCompatActivity {
                                     public void run() {
                                         editText.setText("");
                                         Toast.makeText(G.context,"پیام شما ثبت شد متشکریم برای کمک شما به بهبود عملکر برنامه",Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                            }else {
+                                G.HANDLER.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(G.context,"در ثبت پیام شما مشکلی پیش آمد دوباره تلاش کنید",Toast.LENGTH_LONG).show();
                                     }
                                 });
                             }

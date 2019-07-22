@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,6 +16,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -70,7 +72,18 @@ public class Orders extends AppCompatActivity {
         Webservice.request("Store.php?action=listorders", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                Webservice.handelerro(e, new Callable<Void>() {
+                    @Override
+                    public Void call() throws Exception {
+                        G.HANDLER.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(G.context,"مشکلی در ارتیاط با سرور پیش آمد دوباره سعی کنید", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        return null;
+                    }
+                });
             }
 
             @Override

@@ -20,6 +20,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -34,7 +35,7 @@ public class Orderinformation extends AppCompatActivity {
     private static ArrayList<KalaStructure> mdatasetList1;
     private static RecyclerView RecyclerViewList1;
     private static RecyclerView.LayoutManager LayoutManagerList1;
-
+    private static RatingBar ratingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,7 @@ public class Orderinformation extends AppCompatActivity {
         final TextView txtshahr = (TextView) findViewById(R.id.txtshahr);
         RecyclerViewList1 = (RecyclerView) findViewById(R.id.List);
         final StepView stepView = (StepView) findViewById(R.id.step_view);
-        final RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
         ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
 
@@ -154,7 +155,18 @@ public class Orderinformation extends AppCompatActivity {
         Webservice.request("Store.php?action=informationorders", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                Webservice.handelerro(e, new Callable<Void>() {
+                    @Override
+                    public Void call() throws Exception {
+                        G.HANDLER.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(G.context,"مشکلی در ارتیاط با سرور پیش آمد دوباره سعی کنید", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        return null;
+                    }
+                });
             }
 
             @Override
@@ -207,7 +219,7 @@ public class Orderinformation extends AppCompatActivity {
         }, array);
     }
 
-    private void setrating(float rate, int position) {
+    private void setrating(final float rate, final int position) {
 
         Webservice.requestparameter param1 = new Webservice.requestparameter();
         param1.key = "Connectioncode";
@@ -229,7 +241,20 @@ public class Orderinformation extends AppCompatActivity {
         Webservice.request("Store.php?action=setrating", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                Webservice.handelerro(e, new Callable<Void>() {
+                    @Override
+                    public Void call() throws Exception {
+                        G.HANDLER.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(G.context,"مشکلی در ارتیاط با سرور پیش آمد دوباره سعی کنید", Toast.LENGTH_LONG).show();
+                                ratingBar.setRating(0.0f);
+                                ratingBar.setEnabled(true);
+                            }
+                        });
+                        return null;
+                    }
+                });
             }
 
             @Override

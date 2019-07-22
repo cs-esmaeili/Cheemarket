@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -120,7 +121,7 @@ public class ActivityLogin extends AppCompatActivity {
         });
     }
 
-    private void recovery(String username, final String action) {
+    private void recovery(final String username, final String action) {
 
         ArrayList<Webservice.requestparameter> array = new ArrayList<>();
 
@@ -132,7 +133,13 @@ public class ActivityLogin extends AppCompatActivity {
         Webservice.request("recovery.php?action=" + action, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                Webservice.handelerro(e, new Callable<Void>() {
+                    @Override
+                    public Void call() throws Exception {
+                        recovery(username,action);
+                        return null;
+                    }
+                });
             }
 
             @Override
@@ -249,7 +256,13 @@ public class ActivityLogin extends AppCompatActivity {
                 Webservice.request("Store.php?action=checkuser", new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-
+                        Webservice.handelerro(e, new Callable<Void>() {
+                            @Override
+                            public Void call() throws Exception {
+                                attemptLogin();
+                                return null;
+                            }
+                        });
                     }
 
                     @Override

@@ -33,6 +33,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.relex.circleindicator.CircleIndicator;
@@ -332,15 +333,14 @@ public class ActivityMain extends AppCompatActivity
     static okhttp3.Callback callback = new okhttp3.Callback() {
         @Override
         public void onFailure(Call call, IOException e) {
-            if (e instanceof SocketTimeoutException) {
-                e.printStackTrace();
-                Webservice.handelerro("timeout");
-            } else {
-                e.printStackTrace();
-                Webservice.handelerro(null);
-            }
+            Webservice.handelerro(e, new Callable<Void>() {
+                @Override
+                public Void call() throws Exception {
+                    Webservice.request("Store.php?action=Firstpagedata", callback, null);
+                    return null;
+                }
+            });
 
-            Webservice.request("Store.php?action=Firstpagedata", callback, null);
 
         }
 
@@ -703,6 +703,14 @@ public class ActivityMain extends AppCompatActivity
                 Webservice.request("Dastebandi_Images/indexs.php", new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
+
+                        Webservice.handelerro(e, new Callable<Void>() {
+                            @Override
+                            public Void call() throws Exception {
+                                getimageurls();
+                                return null;
+                            }
+                        });
 
                     }
 

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,6 +19,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -160,7 +162,7 @@ public class SearchActivity extends AppCompatActivity {
         AdapterList.notifyDataSetChanged();
 
     }
-    public static void namayeshkalaha(String query) {
+    public static void namayeshkalaha(final String query) {
 
          reset();
 
@@ -168,7 +170,18 @@ public class SearchActivity extends AppCompatActivity {
         final Callback mycall = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                Webservice.handelerro(e, new Callable<Void>() {
+                    @Override
+                    public Void call() throws Exception {
+                        G.HANDLER.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(G.context,"مشکلی در ارتیاط با سرور پیش آمد دوباره سعی کنید", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        return null;
+                    }
+                });
 
             }
 

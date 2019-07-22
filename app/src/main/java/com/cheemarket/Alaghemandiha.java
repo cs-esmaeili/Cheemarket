@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -65,7 +66,7 @@ public class Alaghemandiha extends AppCompatActivity {
 
 
     }
-
+    static Callback mycall;
     private static void pagework(){
 
           mdatasetList.clear();
@@ -73,16 +74,30 @@ public class Alaghemandiha extends AppCompatActivity {
           Listnumber = 0;
           allownext = false;
 
-        final Callback mycall = new Callback() {
+
+        Webservice.requestparameter object1 = new Webservice.requestparameter();
+        object1.key = "Connectioncode";
+        object1.value = G.Connectioncode ;
+
+        Webservice.requestparameter object2 = new Webservice.requestparameter();
+        object2.key = "number";
+        object2.value = Listnumber + "";
+
+        final ArrayList<Webservice.requestparameter> array = new ArrayList<>();
+        array.add(object1);
+        array.add(object2);
+
+
+        mycall = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                if (e instanceof SocketTimeoutException) {
-                    e.printStackTrace();
-                    Webservice.handelerro("timeout");
-                } else {
-                    e.printStackTrace();
-                    Webservice.handelerro(null);
-                }
+                Webservice.handelerro(e, new Callable<Void>() {
+                    @Override
+                    public Void call() throws Exception {
+                        Webservice.request("Store.php?action=Listalaghemandiha", mycall, array);
+                        return null;
+                    }
+                });
             }
 
             @Override
@@ -157,17 +172,6 @@ public class Alaghemandiha extends AppCompatActivity {
         };
 
 
-        Webservice.requestparameter object1 = new Webservice.requestparameter();
-        object1.key = "Connectioncode";
-        object1.value = G.Connectioncode ;
-
-        Webservice.requestparameter object2 = new Webservice.requestparameter();
-        object2.key = "number";
-        object2.value = Listnumber + "";
-
-        ArrayList<Webservice.requestparameter> array = new ArrayList<>();
-        array.add(object1);
-        array.add(object2);
 
         Webservice.request("Store.php?action=Listalaghemandiha", mycall, array);
 
@@ -235,7 +239,18 @@ public class Alaghemandiha extends AppCompatActivity {
         Webservice.request("Store.php?action=addtolistalaghemandiha", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                Webservice.handelerro(e, new Callable<Void>() {
+                    @Override
+                    public Void call() throws Exception {
+                        G.HANDLER.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(G.context,"مشکلی در ارتیاط با سرور پیش آمد دوباره سعی کنید", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        return null;
+                    }
+                });
             }
 
             @Override
@@ -279,7 +294,18 @@ public class Alaghemandiha extends AppCompatActivity {
         Webservice.request("Store.php?action=deletefromlistalaghemandiha", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                Webservice.handelerro(e, new Callable<Void>() {
+                    @Override
+                    public Void call() throws Exception {
+                        G.HANDLER.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(G.context,"مشکلی در ارتیاط با سرور پیش آمد دوباره سعی کنید", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        return null;
+                    }
+                });
             }
 
             @Override

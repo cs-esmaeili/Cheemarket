@@ -10,17 +10,23 @@ import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.net.SocketTimeoutException;
+import java.util.concurrent.Callable;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+
 import com.cheemarket.Customview.Dialogs;
 
 public class Start extends AppCompatActivity {
 
     public static Uri appLinkData;
     public static SharedPreferences pre;
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -45,12 +51,7 @@ public class Start extends AppCompatActivity {
         appLinkData = appLinkIntent.getData();
 
 
-
-
-
-
-
-         check_Atelae();
+        check_Atelae();
 
 
     }
@@ -59,14 +60,16 @@ public class Start extends AppCompatActivity {
         Webservice.request("message.php", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                if (e instanceof SocketTimeoutException) {
-                    e.printStackTrace();
-                    Webservice.handelerro("timeout");
-                } else {
-                    e.printStackTrace();
-                    Webservice.handelerro(null);
-                }
-                check_Atelae();
+
+                Webservice.handelerro(e, new Callable<Void>() {
+                    @Override
+                    public Void call() throws Exception {
+                        check_Atelae();
+                        return null;
+                    }
+                });
+
+
             }
 
             @Override
@@ -78,9 +81,8 @@ public class Start extends AppCompatActivity {
                         JSONObject object = new JSONObject(input);
 
 
-
-                        if(pre.contains("messageid") && !pre.getString("messageid", "Error").equals("Error") ){
-                            if(pre.getString("messageid", "Error").equals(object.getString("messageid"))){
+                        if (pre.contains("messageid") && !pre.getString("messageid", "Error").equals("Error")) {
+                            if (pre.getString("messageid", "Error").equals(object.getString("messageid"))) {
                                 checkrunword();
                                 return;
                             }
@@ -88,47 +90,45 @@ public class Start extends AppCompatActivity {
 
 
                         if (object.getString("type").endsWith("update")) {
-                            if(G.VERSIONNAME .equals(object.getString("VERSIONNAME"))){
+                            if (G.VERSIONNAME.equals(object.getString("VERSIONNAME"))) {
                                 checkrunword();
                                 return;
-                            }else {
-                                if(object.getString("cancansel").endsWith("yes")){
+                            } else {
+                                if (object.getString("cancansel").endsWith("yes")) {
 
-                                    if(object.getString("save").endsWith("yes")){
+                                    if (object.getString("save").endsWith("yes")) {
                                         SharedPreferences.Editor editor = pre.edit();
                                         editor.putString("messageid", object.getString("messageid"));
                                         editor.apply();
                                     }
 
 
-                                    Dialogs.message(true,object.getString("btntext"),object.getString("matn") ,object.getString("Image"),object.getString("url"));
+                                    Dialogs.message(true, object.getString("btntext"), object.getString("matn"), object.getString("Image"), object.getString("url"));
 
                                     //checkrunword();
 
-                                }else  if(object.getString("cancansel").endsWith("no")) {
-                                    Dialogs.message(false,object.getString("btntext"),object.getString("matn") ,object.getString("Image"),object.getString("url"));
+                                } else if (object.getString("cancansel").endsWith("no")) {
+                                    Dialogs.message(false, object.getString("btntext"), object.getString("matn"), object.getString("Image"), object.getString("url"));
                                 }
                             }
 
 
+                        } else {
 
+                            if (object.getString("cancansel").endsWith("yes")) {
 
-                        }else {
-
-                            if(object.getString("cancansel").endsWith("yes")){
-
-                                if(object.getString("save").endsWith("yes")) {
+                                if (object.getString("save").endsWith("yes")) {
                                     SharedPreferences.Editor editor = pre.edit();
                                     editor.putString("messageid", object.getString("messageid"));
                                     editor.apply();
                                 }
 
-                                Dialogs.message(true,object.getString("btntext"),object.getString("matn") ,object.getString("Image"),object.getString("url"));
+                                Dialogs.message(true, object.getString("btntext"), object.getString("matn"), object.getString("Image"), object.getString("url"));
 
-                               // checkrunword();
+                                // checkrunword();
 
-                            }else  if(object.getString("cancansel").endsWith("no")) {
-                                Dialogs.message(false,object.getString("btntext"),object.getString("matn") ,object.getString("Image"),object.getString("url"));
+                            } else if (object.getString("cancansel").endsWith("no")) {
+                                Dialogs.message(false, object.getString("btntext"), object.getString("matn"), object.getString("Image"), object.getString("url"));
                             }
 
                         }
@@ -149,14 +149,14 @@ public class Start extends AppCompatActivity {
             @Override
             public void onFailure(Call call, IOException e) {
 
-                if (e instanceof SocketTimeoutException) {
-                    e.printStackTrace();
-                    Webservice.handelerro("timeout");
-                } else {
-                    e.printStackTrace();
-                    Webservice.handelerro(null);
-                }
-                checkrunword();
+                Webservice.handelerro(e, new Callable<Void>() {
+                    @Override
+                    public Void call() throws Exception {
+                        checkrunword();
+                        return null;
+                    }
+                });
+
             }
 
             @Override
@@ -184,7 +184,6 @@ public class Start extends AppCompatActivity {
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Webservice.handelerro(null);
                 }
 
             }

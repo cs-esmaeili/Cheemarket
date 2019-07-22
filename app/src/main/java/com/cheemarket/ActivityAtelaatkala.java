@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
 
 import me.relex.circleindicator.CircleIndicator;
 import okhttp3.Call;
@@ -251,13 +252,13 @@ public class ActivityAtelaatkala extends AppCompatActivity {
         Webservice.request("Store.php?action=onekaladata", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                if (e instanceof SocketTimeoutException) {
-                    e.printStackTrace();
-                    Webservice.handelerro("timeout");
-                } else {
-                    e.printStackTrace();
-                    Webservice.handelerro(null);
-                }
+                Webservice.handelerro(e, new Callable<Void>() {
+                    @Override
+                    public Void call() throws Exception {
+
+                        return null;
+                    }
+                });
             }
 
             @Override
@@ -338,7 +339,13 @@ public class ActivityAtelaatkala extends AppCompatActivity {
         Webservice.request("Store.php?action=images", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                Webservice.handelerro(e, new Callable<Void>() {
+                    @Override
+                    public Void call() throws Exception {
 
+                        return null;
+                    }
+                });
             }
 
             @Override
@@ -415,13 +422,13 @@ public class ActivityAtelaatkala extends AppCompatActivity {
         Webservice.request("Store.php?action=gettime", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                if (e instanceof SocketTimeoutException) {
-                    e.printStackTrace();
-                    Webservice.handelerro("timeout");
-                } else {
-                    e.printStackTrace();
-                    Webservice.handelerro(null);
-                }
+                Webservice.handelerro(e, new Callable<Void>() {
+                    @Override
+                    public Void call() throws Exception {
+
+                        return null;
+                    }
+                });
             }
 
             @Override

@@ -11,6 +11,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -117,7 +119,13 @@ public class Dastebandimahsolat extends AppCompatActivity {
         Webservice.request("Dastebandi_Images/indexs.php", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                Webservice.handelerro(e, new Callable<Void>() {
+                    @Override
+                    public Void call() throws Exception {
+                        getimageurls();
+                        return null;
+                    }
+                });
             }
 
             @Override

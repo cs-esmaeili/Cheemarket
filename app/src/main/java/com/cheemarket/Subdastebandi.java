@@ -19,6 +19,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
 
 
 import okhttp3.Call;
@@ -177,7 +178,7 @@ public class Subdastebandi extends AppCompatActivity {
         btnview.setVisibility(View.GONE);
     }
 
-    public static void namayeshsubdastebandi(String code) throws NullPointerException {
+    public static void namayeshsubdastebandi(final String code) throws NullPointerException {
 
         clearalldata();
         showsubdastebandi = true;
@@ -198,13 +199,13 @@ public class Subdastebandi extends AppCompatActivity {
         Webservice.request("Store.php?action=getsubdastebandi", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                if (e instanceof SocketTimeoutException) {
-                    e.printStackTrace();
-                    Webservice.handelerro("timeout");
-                } else {
-                    e.printStackTrace();
-                    Webservice.handelerro(null);
-                }
+                Webservice.handelerro(e, new Callable<Void>() {
+                    @Override
+                    public Void call() throws Exception {
+                        namayeshsubdastebandi(code);
+                        return null;
+                    }
+                });
             }
 
             @Override
@@ -244,7 +245,7 @@ public class Subdastebandi extends AppCompatActivity {
 
     }
 
-
+    static Callback mycall;
     public static void namayeshkalaha(final String mycode, String title) throws NullPointerException {
 
         clearalldata();
@@ -267,16 +268,29 @@ public class Subdastebandi extends AppCompatActivity {
         List.setNestedScrollingEnabled(false);
 
 
-        final Callback mycall = new Callback() {
+        mycall  = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                if (e instanceof SocketTimeoutException) {
-                    e.printStackTrace();
-                    Webservice.handelerro("timeout");
-                } else {
-                    e.printStackTrace();
-                    Webservice.handelerro(null);
-                }
+                Webservice.handelerro(e, new Callable<Void>() {
+                    @Override
+                    public Void call() throws Exception {
+                        ArrayList<Webservice.requestparameter> array1 = new ArrayList<>();
+                        Webservice.requestparameter object1 = new Webservice.requestparameter();
+                        object1.key = "value";
+                        object1.value = code;
+                        array1.add(object1);
+                        Webservice.requestparameter object2 = new Webservice.requestparameter();
+                        object2.key = "number";
+                        object2.value = Listnumber + "";
+                        array1.add(object2);
+                        Webservice.requestparameter object3 = new Webservice.requestparameter();
+                        object3.key = "sort";
+                        object3.value = sort;
+                        array1.add(object3);
+                        Webservice.request("Store.php?action=partofdata", mycall, array1);
+                        return null;
+                    }
+                });
             }
 
             @Override
