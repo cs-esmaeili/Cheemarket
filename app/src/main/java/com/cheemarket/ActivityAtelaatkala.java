@@ -2,6 +2,7 @@ package com.cheemarket;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.ViewPager;
@@ -29,6 +30,8 @@ import okhttp3.Response;
 import com.cheemarket.Customview.Lineimage;
 import com.cheemarket.Customview.Sliderimage;
 import com.cheemarket.Structure.sabad;
+
+import static android.text.Layout.JUSTIFICATION_MODE_INTER_WORD;
 
 
 public class ActivityAtelaatkala extends AppCompatActivity {
@@ -291,6 +294,10 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                             Textconfig.settext(txtprice, "" + mysabad.Price);
                             txtoff.setText("" + mysabad.OldPrice);
 
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                txttozihat.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+                            }
+
                             if (mysabad.OldPrice.equals("0")) {
                                 txtoff.setVisibility(View.GONE);
                             }
@@ -298,7 +305,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
 
                             if (mysabad.Status.equals("1")) {
                                 talaei.setVisibility(View.GONE);
-                                txtafzodan.setClickable(true);
+                                txtafzodan.setEnabled(true);
                             } else if (mysabad.Status.equals("2")) {
                                 talaei.setVisibility(View.VISIBLE);
                                 setdateandtime();
@@ -306,7 +313,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                                 talaei.setVisibility(View.GONE);
                                 txtafzodan.setText("ناموجود");
                                 txtafzodan.setBackgroundColor(Color.RED);
-                                txtafzodan.setClickable(false);
+                                txtafzodan.setEnabled(false);
                             }
 
                             if (alldata) {
@@ -438,7 +445,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                 G.HANDLER.post(new Runnable() {
                     @Override
                     public void run() {
-                        txtafzodan.setClickable(true);
+                        txtafzodan.setEnabled(true);
                     }
                 });
 

@@ -21,4 +21,4 @@
 
 
 
--keep class com.cheemarket.ActivityWebview$OrderStructure { *; }
+-keep class com.cheemarket.Payment$OrderStructure { *; }

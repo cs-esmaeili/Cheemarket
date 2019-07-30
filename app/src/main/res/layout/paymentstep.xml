@@ -307,7 +307,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dip"
                 android:gravity="center"
-                android:text="هزینه پیک برای خرید های بالای 100 تومان رایگان است"
+                android:text="هزینه پیک برای خرید های بالای 100 هزار تومان رایگان است"
                 android:textColor="#10e610"
                 android:textSize="18dip" />
 

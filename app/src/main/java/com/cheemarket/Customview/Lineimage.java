@@ -19,7 +19,7 @@ public class Lineimage extends android.support.v7.widget.AppCompatTextView {
     private Paint paintline = new Paint();
     private Paint painttext = new Paint();
 
-    private String textforshow = "Null";
+    private String textforshow = "";
 
 
     private void init() {

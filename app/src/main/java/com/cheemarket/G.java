@@ -19,7 +19,7 @@ import com.cheemarket.Structure.sabad;
 
 public class G extends Application {
 
-    public static String Baseurl = "https://www.cheemarket.com/Store/";
+    public static String Baseurl = "http://www.cheemarket.com/Store/";
     public static Activity CurrentActivity;
     public static Context context;
     public static  int IMAGES_HEIGHT = 0;

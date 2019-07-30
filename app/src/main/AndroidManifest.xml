@@ -41,6 +41,8 @@
                     android:host="www.cheemarket.com"
                     android:pathPrefix="/product/"
                     android:scheme="http" />
+
+
             </intent-filter>
         </activity>
         <activity
@@ -51,7 +53,19 @@
         <activity
             android:name=".ActivityMain"
             android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="payment"
+                    android:scheme="cheemarket" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".activityNetwork"
             android:configChanges="orientation|screenSize"
@@ -88,10 +102,6 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".Paymentstep"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ActivityWebview"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
         <activity

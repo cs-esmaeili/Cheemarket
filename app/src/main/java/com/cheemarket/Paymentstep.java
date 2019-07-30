@@ -34,6 +34,12 @@ public class Paymentstep extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        if( Paymentstep.Address == null && G.mdatasetsabad.size()==0 ){
+            Intent intent = new Intent(getApplicationContext(), ActivityMain.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
         if (Address != null) {
             btnpay.setBackgroundColor(Color.parseColor("#66BB6A"));
         } else {
@@ -73,9 +79,9 @@ public class Paymentstep extends AppCompatActivity {
                     Toast.makeText(G.context,"آدرس را انتخاب کنید", Toast.LENGTH_LONG).show();
                 }else {
 
-                    Intent intent = new Intent(Paymentstep.this, ActivityWebview.class);
-                    startActivity(intent);
-                    G.CurrentActivity.finish();
+                    Payment.openpaymentgate();
+
+
                 }
 
             }
