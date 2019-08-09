@@ -47,15 +47,16 @@
                     android:text="نان حجیم"
                     android:textColor="#000000" />
 
-                <ImageView
-                    android:id="@+id/gifone"
+                <TextView
+                    android:id="@+id/specialsellone"
                     android:layout_width="match_parent"
                     android:layout_height="30dip"
                     android:layout_gravity="center"
                     android:layout_margin="4dip"
-                    android:background="#ffffff"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/speacial"  />
+                    android:layout_weight="0.75"
+                    android:gravity="center"
+                    android:text="پیشنهاد طلایی"
+                    android:textColor="@color/colorPrimary" />
 
                 <ImageView
                     android:id="@+id/imageView6"

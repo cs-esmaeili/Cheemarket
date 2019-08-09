@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.cheemarket.Customview.badgelogo;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -16,6 +18,14 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 public class Activityproblems extends AppCompatActivity {
+
+    private  badgelogo  badge;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        G.CurrentActivity = this;
+        Commands.setbadgenumber(badge);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +37,11 @@ public class Activityproblems extends AppCompatActivity {
         ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
         ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
 
-        searchlogo.setOnClickListener(G.onClickListenersearch);
-        shoplogo.setOnClickListener(G.onClickListenersabadkharid);
+        searchlogo.setOnClickListener(Commands.onClickListenersearch);
+        shoplogo.setOnClickListener(Commands.onClickListenersabadkharid);
 
+        badge = (badgelogo) findViewById(R.id.badgelogo);
+        Commands.setbadgenumber(badge);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

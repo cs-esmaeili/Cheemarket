@@ -478,9 +478,14 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                                     G.HANDLER.post(new Runnable() {
                                         @Override
                                         public void run() {
+                                            h.setTypeface(Textconfig.gettypeface());
+                                            m.setTypeface(Textconfig.gettypeface());
+                                            s.setTypeface(Textconfig.gettypeface());
                                             h.setText(saat + "");
                                             m.setText(daghighe + "");
                                             s.setText(saniye + "");
+
+
 
                                         }
                                     });

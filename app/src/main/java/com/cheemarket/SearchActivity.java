@@ -25,6 +25,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import com.cheemarket.Adapter.Adapter;
+import com.cheemarket.Customview.badgelogo;
 import com.cheemarket.Structure.KalaStructure;
 
 
@@ -40,11 +41,12 @@ public class SearchActivity extends AppCompatActivity {
     static Button btnview;
     static Button btnsort;
     private static String sort = "Nothing";
-
+    private badgelogo badge;
     @Override
     protected void onResume() {
         super.onResume();
         G.CurrentActivity = this;
+        Commands.setbadgenumber(badge);
     }
 
     @Override
@@ -56,6 +58,10 @@ public class SearchActivity extends AppCompatActivity {
         error = (TextView) findViewById(R.id.error);
         ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
         ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
+        badge = (badgelogo) findViewById(R.id.badgelogo);
+        Commands.setbadgenumber(badge);
+        searchlogo.setVisibility(View.GONE);
+
         shoplogo.setVisibility(View.GONE);
         searchlogo.setVisibility(View.GONE);
         final SearchView searchView = (SearchView) findViewById(R.id.searchView);

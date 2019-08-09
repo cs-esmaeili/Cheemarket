@@ -28,6 +28,7 @@ import okhttp3.Response;
 import com.cheemarket.Adapter.Adapter;
 import com.cheemarket.Adapter.SubdastebandiAdapter;
 import com.cheemarket.Customview.Dialogs;
+import com.cheemarket.Customview.badgelogo;
 import com.cheemarket.Structure.KalaStructure;
 
 
@@ -54,11 +55,12 @@ public class Subdastebandi extends AppCompatActivity {
     private static String sort = "Nothing";
     private boolean needtoclose = false;
     private static String toptitle = "";
-
+    private badgelogo badge;
     @Override
     protected void onResume() {
         super.onResume();
         G.CurrentActivity = this;
+        Commands.setbadgenumber(badge);
     }
 
     @Override
@@ -76,9 +78,11 @@ public class Subdastebandi extends AppCompatActivity {
 
         ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
         ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
+        badge = (badgelogo) findViewById(R.id.badgelogo);
+        Commands.setbadgenumber(badge);
 
-        searchlogo.setOnClickListener(G.onClickListenersearch);
-        shoplogo.setOnClickListener(G.onClickListenersabadkharid);
+        searchlogo.setOnClickListener(Commands.onClickListenersearch);
+        shoplogo.setOnClickListener(Commands.onClickListenersabadkharid);
 
         Bundle extras = getIntent().getExtras();
 

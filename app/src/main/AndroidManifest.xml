@@ -21,8 +21,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ActivityDarbareyema"></activity>
-        <activity android:name=".Activityprogrammer" />
+
+
         <activity
             android:name=".Start"
             android:configChanges="orientation|screenSize">
@@ -41,15 +41,8 @@
                     android:host="www.cheemarket.com"
                     android:pathPrefix="/product/"
                     android:scheme="http" />
-
-
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Activityproblems"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ActivityMain"
             android:configChanges="orientation|screenSize"
@@ -64,8 +57,14 @@
                     android:host="payment"
                     android:scheme="cheemarket" />
             </intent-filter>
-
         </activity>
+        <activity android:name=".ActivityDarbareyema" />
+        <activity android:name=".Activityprogrammer" />
+        <activity
+            android:name=".Activityproblems"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activityNetwork"
             android:configChanges="orientation|screenSize"

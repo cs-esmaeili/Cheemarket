@@ -78,7 +78,7 @@ public class Webservice {
 
     public static void handelerro(Exception e, final Callable<Void> Method) {
 
-        if (!G.readNetworkStatus()) {
+        if (!Commands.readNetworkStatus()) {
             Intent intent = new Intent(G.CurrentActivity, activityNetwork.class);
             G.CurrentActivity.startActivity(intent);
             return;
@@ -90,7 +90,7 @@ public class Webservice {
             G.HANDLER.post(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(G.CurrentActivity, "اینترنت شما بسیار ضعیت است !", Toast.LENGTH_LONG).show();
+                 //   Toast.makeText(G.CurrentActivity, "اینترنت شما بسیار ضعیت است !", Toast.LENGTH_LONG).show();
                     try {
                         Method.call();
                     } catch (Exception e1) {

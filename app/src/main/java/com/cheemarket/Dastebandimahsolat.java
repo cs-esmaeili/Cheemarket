@@ -7,6 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
+import com.cheemarket.Customview.badgelogo;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import java.io.IOException;
@@ -50,11 +53,13 @@ public class Dastebandimahsolat extends AppCompatActivity {
         }
     }
 
+    private badgelogo badge;
 
     @Override
     protected void onResume() {
         super.onResume();
         G.CurrentActivity = this;
+        Commands.setbadgenumber(badge);
         if (data.get(0).imgview != null) {
             setimages();
         }
@@ -89,8 +94,11 @@ public class Dastebandimahsolat extends AppCompatActivity {
         ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
         ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
 
-        searchlogo.setOnClickListener(G.onClickListenersearch);
-        shoplogo.setOnClickListener(G.onClickListenersabadkharid);
+        searchlogo.setOnClickListener(Commands.onClickListenersearch);
+        shoplogo.setOnClickListener(Commands.onClickListenersabadkharid);
+
+        badge = (badgelogo) findViewById(R.id.badgelogo);
+        Commands.setbadgenumber(badge);
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override

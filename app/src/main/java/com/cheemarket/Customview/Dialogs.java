@@ -31,7 +31,7 @@ import static com.cheemarket.Start.checkrunword;
 public class Dialogs extends Application {
 
 
-    public static void message(final boolean cancansel, final String btntext, final String matn, final String Image, final String url) {
+    public static void message(final boolean cancansel, final String btntext , final String canseltext , final String btnvisi , final String canselvisi , final String matn, final String Image, final String url) {
         G.HANDLER.post(new Runnable() {
             @Override
             public void run() {
@@ -47,10 +47,16 @@ public class Dialogs extends Application {
                 dialog.setCancelable(cancansel);
 
                 Button btnOk = (Button) dialog.findViewById(R.id.btn);
+                Button btncansel = (Button) dialog.findViewById(R.id.cansel);
                 ImageView img = (ImageView) dialog.findViewById(R.id.img);
                 TextView txt = (TextView) dialog.findViewById(R.id.txt);
 
                 btnOk.setText(btntext);
+                btncansel.setText(canseltext);
+
+                btnOk.setVisibility( (btnvisi.equals("yes")? View.VISIBLE :  View.GONE) );
+                btncansel.setVisibility( (canselvisi.equals("yes")? View.VISIBLE :  View.GONE) );
+
                 txt.setText(matn);
                 Commands.showimage(Image, null, img, true);
 
@@ -74,13 +80,22 @@ public class Dialogs extends Application {
 
                     }
                 });
+
+
+                btncansel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        checkrunword();
+                    }
+                });
+
                 dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
 
-                        if (url.equals("") && cancansel==true) {
+
                             checkrunword();
-                        }
+
                     }
                 });
 

@@ -26,6 +26,8 @@ import java.util.concurrent.Callable;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+
+import com.cheemarket.Customview.badgelogo;
 import com.cheemarket.R;
 
 import com.cheemarket.Adapter.AddressAdapter;
@@ -45,11 +47,16 @@ public class ActivityAddress extends AppCompatActivity {
     public static Spinner spnershahr;
     public static Spinner spnerostan;
     public static Button btnsave;
-
+    private static badgelogo badge;
 
     public static     Button btnselect;
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        G.CurrentActivity = this;
+        Commands.setbadgenumber(badge);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +79,11 @@ public class ActivityAddress extends AppCompatActivity {
         ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
         ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
 
-        searchlogo.setOnClickListener(G.onClickListenersearch);
-        shoplogo.setOnClickListener(G.onClickListenersabadkharid);
+        searchlogo.setOnClickListener(Commands.onClickListenersearch);
+        shoplogo.setOnClickListener(Commands.onClickListenersabadkharid);
+
+        badge = (badgelogo) findViewById(R.id.badgelogo);
+        Commands.setbadgenumber(badge);
 
         spnershahr.setEnabled(false);
         spnershahr.setClickable(false);

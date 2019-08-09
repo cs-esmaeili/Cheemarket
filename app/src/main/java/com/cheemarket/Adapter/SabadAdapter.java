@@ -65,7 +65,9 @@ public class SabadAdapter extends RecyclerView.Adapter<SabadAdapter.ViewHolder> 
 
 
         if(mdataset.get(position).Tedad != null && !mdataset.get(position).Tedad.equals("0") && mdataset.get(position).Ordernumber != null && !mdataset.get(position).Ordernumber.equals("0") ){
-            Textconfig.settext(holder.tedad, mdataset.get(position).Tedad + "");
+            holder.tedad.setTypeface(Textconfig.gettypeface());
+            holder.tedad.setText(mdataset.get(position).Tedad + "");
+
             holder.tedad.setVisibility(View.VISIBLE);
         }else{
             holder.tedad.setVisibility(View.GONE);
@@ -108,7 +110,8 @@ public class SabadAdapter extends RecyclerView.Adapter<SabadAdapter.ViewHolder> 
             public void onClick(View v) {
                 if((Integer.parseInt(mdataset.get(position).Tedad)  + 1 ) <= Integer.parseInt(mdataset.get(position).Ordernumber)){
                     mdataset.get(position).Tedad = (Integer.parseInt(mdataset.get(position).Tedad)  + 1 ) + "";
-                    Textconfig.settext(holder.tedad, mdataset.get(position).Tedad + "");
+                    holder.tedad.setTypeface(Textconfig.gettypeface());
+                    holder.tedad.setText(mdataset.get(position).Tedad + "");
                     ActivitySabad.setghaymat();
                 }
 
@@ -120,7 +123,8 @@ public class SabadAdapter extends RecyclerView.Adapter<SabadAdapter.ViewHolder> 
             public void onClick(View v) {
                 if((Integer.parseInt(mdataset.get(position).Tedad)  - 1 ) <= Integer.parseInt(mdataset.get(position).Ordernumber) && (Integer.parseInt(mdataset.get(position).Tedad)  - 1 ) != 0) {
                     mdataset.get(position).Tedad = (Integer.parseInt(mdataset.get(position).Tedad)  - 1 ) + "";
-                    Textconfig.settext(holder.tedad, mdataset.get(position).Tedad + "");
+                    holder.tedad.setTypeface(Textconfig.gettypeface());
+                    holder.tedad.setText(mdataset.get(position).Tedad + "");
                     ActivitySabad.setghaymat();
                 }
 

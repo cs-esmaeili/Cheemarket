@@ -49,9 +49,9 @@ public class Listpaymentadapter extends RecyclerView.Adapter<Listpaymentadapter.
         }
 
         if (mdataset.get(position).Status1 != null && mdataset.get(position).Status1.equals("2")) {
-            holder.gifone.setVisibility(View.VISIBLE);
+            holder.specialsellone.setVisibility(View.VISIBLE);
         } else {
-            holder.gifone.setVisibility(View.GONE);
+            holder.specialsellone.setVisibility(View.GONE);
         }
 
         Textconfig.settext(holder.txtname, "" + mdataset.get(position).Name1);
@@ -91,7 +91,7 @@ public class Listpaymentadapter extends RecyclerView.Adapter<Listpaymentadapter.
         public Lineimage textoffPrice;
         public ImageView image;
         public CardView card;
-        public ImageView gifone;
+        public TextView specialsellone;
         public TextView mess;
 
         public ViewHolder(View itemView) {
@@ -101,7 +101,7 @@ public class Listpaymentadapter extends RecyclerView.Adapter<Listpaymentadapter.
             image =(ImageView) itemView.findViewById(R.id.imageone);
             textoffPrice = (Lineimage) itemView.findViewById(R.id.textoffPriceone);
             card = (CardView)itemView.findViewById(R.id.Cardone);
-            gifone = (ImageView) itemView.findViewById(R.id.gifone);
+            specialsellone = (TextView) itemView.findViewById(R.id.specialsellone);
             mess = (TextView) itemView.findViewById(R.id.mess);
         }
     }

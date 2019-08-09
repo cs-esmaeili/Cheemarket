@@ -61,9 +61,9 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
             }
 
             if (mdataset.get(position).Status1 != null && mdataset.get(position).Status1.equals("2")) {
-                holder.gifone.setVisibility(View.VISIBLE);
+                holder.specialsellone.setVisibility(View.VISIBLE);
             } else {
-                holder.gifone.setVisibility(View.GONE);
+                holder.specialsellone.setVisibility(View.GONE);
             }
 
             if (mdataset.get(position).Name1 != null && !mdataset.get(position).Name1.equals("")) {
@@ -109,9 +109,9 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
             }
 
             if (mdataset.get(position).Status2 != null && mdataset.get(position).Status2.equals("2")) {
-                holder.giftwo.setVisibility(View.VISIBLE);
+                holder.specialselltwo.setVisibility(View.VISIBLE);
             } else {
-                holder.giftwo.setVisibility(View.GONE);
+                holder.specialselltwo.setVisibility(View.GONE);
             }
             if (mdataset.get(position).Name2 != null && !mdataset.get(position).Name2.equals("")) {
                 Textconfig.settext(holder.txtnametwo, mdataset.get(position).Name2);
@@ -165,7 +165,7 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
         public Lineimage textoffPriceone;
         public ImageView imageone;
         public CardView cardone;
-        public ImageView gifone;
+        public TextView specialsellone;
         public TextView deleteone;
 
 
@@ -174,7 +174,7 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
         public Lineimage textoffPricetwo;
         public ImageView imagetwo;
         public CardView cardtwo;
-        public ImageView giftwo;
+        public TextView specialselltwo;
         public TextView deletetwo;
 
         public ViewHolder(View itemView) {
@@ -185,7 +185,7 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
             imageone = (ImageView) itemView.findViewById(R.id.imageone);
             textoffPriceone = (Lineimage) itemView.findViewById(R.id.textoffPriceone);
             cardone = (CardView) itemView.findViewById(R.id.Cardone);
-            gifone = (ImageView) itemView.findViewById(R.id.gifone);
+            specialsellone = (TextView) itemView.findViewById(R.id.specialsellone);
             deleteone = (TextView) itemView.findViewById(R.id.deleteone);
 
             txtnametwo = (TextView) itemView.findViewById(R.id.txtnametwo);
@@ -193,7 +193,7 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
             imagetwo = (ImageView) itemView.findViewById(R.id.imagetwo);
             textoffPricetwo = (Lineimage) itemView.findViewById(R.id.textoffPricetwo);
             cardtwo = (CardView) itemView.findViewById(R.id.Cardtwo);
-            giftwo = (ImageView) itemView.findViewById(R.id.giftwo);
+            specialselltwo = (TextView) itemView.findViewById(R.id.specialselltwo);
             deletetwo = (TextView) itemView.findViewById(R.id.deletetwo);
 
         }

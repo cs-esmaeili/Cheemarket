@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 
 import com.cheemarket.Adapter.Adapter;
 import com.cheemarket.Customview.Lineimage;
+import com.cheemarket.Customview.badgelogo;
 import com.cheemarket.Structure.AddressStructure;
 import com.cheemarket.Structure.KalaStructure;
 import com.cheemarket.Structure.sabad;
@@ -31,9 +33,14 @@ public class Paymentstep extends AppCompatActivity {
     private TextView btnpay;
 
 
+    private badgelogo badge;
+
     @Override
     protected void onResume() {
         super.onResume();
+
+        G.CurrentActivity = this;
+        Commands.setbadgenumber(badge);
 
         if( Paymentstep.Address == null && G.mdatasetsabad.size()==0 ){
             Intent intent = new Intent(getApplicationContext(), ActivityMain.class);
@@ -70,6 +77,15 @@ public class Paymentstep extends AppCompatActivity {
                 G.CurrentActivity.startActivity(intent);
             }
         });
+
+        ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
+        ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
+
+        searchlogo.setOnClickListener(Commands.onClickListenersearch);
+        shoplogo.setOnClickListener(Commands.onClickListenersabadkharid);
+
+        badge = (badgelogo) findViewById(R.id.badgelogo);
+        Commands.setbadgenumber(badge);
 
 
         btnpay.setOnClickListener(new View.OnClickListener() {

@@ -1,11 +1,16 @@
 package com.cheemarket;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
+import com.cheemarket.Customview.badgelogo;
 import com.github.florent37.materialimageloading.MaterialImageLoading;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -55,18 +60,18 @@ public class Commands {
 
     }
 
-    public static void openactivity(ArrayList<KalaStructure> mdataset, int position, boolean one , Class<? extends Activity> target) {
+    public static void openactivity(ArrayList<KalaStructure> mdataset, int position, boolean one, Class<? extends Activity> target) {
 
 
         Intent intent = new Intent(G.CurrentActivity, target);
 
-        if(one){
+        if (one) {
             intent.putExtra("Name", mdataset.get(position).Name1);
             intent.putExtra("Weight", mdataset.get(position).Weight1);
             intent.putExtra("Volume", mdataset.get(position).Volume1);
             intent.putExtra("Image", mdataset.get(position).Image1);
             intent.putExtra("Id", mdataset.get(position).Id1);
-        }else {
+        } else {
             intent.putExtra("Name", mdataset.get(position).Name2);
             intent.putExtra("Weight", mdataset.get(position).Weight2);
             intent.putExtra("Volume", mdataset.get(position).Volume2);
@@ -75,7 +80,6 @@ public class Commands {
         }
 
         G.CurrentActivity.startActivity(intent);
-
 
 
     }
@@ -98,6 +102,7 @@ public class Commands {
 
 
     }
+
     public static void showimage(@Nullable final String url, @Nullable final Integer src, final ImageView img, final boolean trytoload) {
 
 
@@ -125,7 +130,7 @@ public class Commands {
 
 
                                     if (trytoload) {
-                                    //    showimage(url, src, img, false);
+                                        //    showimage(url, src, img, false);
                                     }
 
 
@@ -149,7 +154,7 @@ public class Commands {
                                 public void onError(Exception e) {
 
                                     if (trytoload) {
-                                     //   showimage(url, src, img, false);
+                                        //   showimage(url, src, img, false);
                                     }
 
                                 }
@@ -159,6 +164,54 @@ public class Commands {
 
             }
         });
+    }
+
+    public static View.OnClickListener onClickListenersearch = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(G.CurrentActivity, SearchActivity.class);
+            G.CurrentActivity.startActivity(intent);
+        }
+    };
+
+    public static View.OnClickListener onClickListenersabadkharid = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (G.Connectioncode.equals("")) {
+                Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
+                G.CurrentActivity.startActivity(intent);
+            } else {
+                Intent intent = new Intent(G.CurrentActivity, ActivitySabad.class);
+                G.CurrentActivity.startActivity(intent);
+            }
+
+        }
+    };
+
+
+    public static boolean readNetworkStatus() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) G.context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if (networkInfo == null) {
+            return false;
+        }
+
+        boolean isConnected = networkInfo.isConnected();
+
+
+        if (isConnected) {
+            return true;
+
+        } else {
+            return false;
+        }
+
+
+    }
+
+    public static void setbadgenumber(badgelogo badge) {
+        badge.setNumber(G.mdatasetsabad.size());
     }
 
 }

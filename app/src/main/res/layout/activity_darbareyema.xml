@@ -13,7 +13,6 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spe">
 
@@ -23,15 +22,22 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView19"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="8dip"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="18sp"
-                app:fontFamily="@font/vazir"
-                tools:text="سرویس دهی چی مارکت فعلا شهر اصفهان" />
+                android:visibility="visible"
+                android:text="سرویس دهی چی مارکت فعلا شهر اصفهان"
+                app:fontFamily="@font/vazir" />
+
+            <ImageView
+                android:id="@+id/img"
+                android:padding="20dip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/textView9"
@@ -43,20 +49,10 @@
                 android:textSize="18sp"
                 app:fontFamily="@font/vazir" />
 
-            <ImageView
-                android:id="@+id/img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimary" />
 
-            <TextView
-                android:id="@+id/textView15"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dip"
-                android:text="چی مارکت با درک اهمیت این موضوع برای مشتریان خود و با بکارگیری نهایت توان و ابزارهای در دسترس در تعاملات خود با تامین‏ کنندگان، می‏‏‌کوشد امکان ارائه پایین‏‏‌ترین قیمت‏‏‌ها و بهترین خدمات را فراهم آورد. طرح‏‏‌های مشوق خرید همواره مورد توجه مشتریان بوده و چی مارکت نیز به منظور قدردانی از مشتریان وفادار خود همواره تخفیف‏‌های قابل توجهی را در قالب طرح‌های مختلف مشوق خرید برای آنان در نظر می‏‏‌گیرد. کیفیت و سهولت استفاده از وب‏ سایت چی مارکت و خدمات ارائه شده در آن، همواره یکی از مهم‏‌ترین و با اولویت‌ترین موضوعات در چی مارکت بوده است و همه کارکنان فنی و تخصصی آن نهایت تلاش خود را به عمل می‌آورند تا با ارائه با‏کیفیت‏‌ترین و به‏‌روز‏ترین سرویس‏‌های مبتنی بر وب و تسهیل تمامی فرآیندهای بررسی، انتخاب و خرید کالا در وب سایت چی مارکت، خدماتی شایسته و تجربه‌ای خوشایند را برای مخاطبان خود به ارمغان بیاورند. "
-                android:textSize="18sp"
-                app:fontFamily="@font/vazir" />
+
+
+
         </LinearLayout>
     </ScrollView>
 

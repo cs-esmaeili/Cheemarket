@@ -671,4 +671,5 @@
         completions."
     </string>
     <string name="textview">TextView</string>
+    <string name="com_cheemarket_customview_shoplogoo">com.cheemarket.Customview.shoplogoo</string>
 </resources>

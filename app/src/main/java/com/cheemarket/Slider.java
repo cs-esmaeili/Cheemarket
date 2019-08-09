@@ -16,7 +16,7 @@ public class Slider {
     static ArrayList<SliderStructure> array = new  ArrayList<SliderStructure>() ;
 
     public static void setsliders() {
-
+        ActivityMain.viewPager.setOffscreenPageLimit(1);
         G.HANDLER.post(new Runnable() {
             @Override
             public void run() {

@@ -22,6 +22,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import com.cheemarket.Adapter.Listordersadapter;
+import com.cheemarket.Customview.badgelogo;
 
 
 public class Orders extends AppCompatActivity {
@@ -39,6 +40,14 @@ public class Orders extends AppCompatActivity {
     private static RecyclerView.Adapter AdapterList;
     public static ArrayList<order> mdatasetList;
     public static TextView txtempty;
+
+    private badgelogo badge;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        G.CurrentActivity = this;
+        Commands.setbadgenumber(badge);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +70,11 @@ public class Orders extends AppCompatActivity {
         ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
         ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
 
-        searchlogo.setOnClickListener(G.onClickListenersearch);
-        shoplogo.setOnClickListener(G.onClickListenersabadkharid);
+        searchlogo.setOnClickListener(Commands.onClickListenersearch);
+        shoplogo.setOnClickListener(Commands.onClickListenersabadkharid);
+
+        badge = (badgelogo) findViewById(R.id.badgelogo);
+        Commands.setbadgenumber(badge);
 
         Webservice.requestparameter param1 = new Webservice.requestparameter();
         param1.key = "Connectioncode";

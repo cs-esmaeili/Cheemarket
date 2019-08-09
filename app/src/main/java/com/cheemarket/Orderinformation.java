@@ -12,6 +12,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cheemarket.Customview.badgelogo;
 import com.shuhart.stepview.StepView;
 
 import org.json.JSONArray;
@@ -37,6 +38,14 @@ public class Orderinformation extends AppCompatActivity {
     private static RecyclerView.LayoutManager LayoutManagerList1;
     private static RatingBar ratingBar;
 
+    private badgelogo badge;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        G.CurrentActivity = this;
+        Commands.setbadgenumber(badge);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +65,12 @@ public class Orderinformation extends AppCompatActivity {
         ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
         ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
 
-        searchlogo.setOnClickListener(G.onClickListenersearch);
-        shoplogo.setOnClickListener(G.onClickListenersabadkharid);
+        searchlogo.setOnClickListener(Commands.onClickListenersearch);
+        shoplogo.setOnClickListener(Commands.onClickListenersabadkharid);
+
+        badge = (badgelogo) findViewById(R.id.badgelogo);
+        Commands.setbadgenumber(badge);
+
         stepView.getState()
                 .selectedTextColor(ContextCompat.getColor(G.CurrentActivity, R.color.colorAccent))
                 .animationType(StepView.ANIMATION_CIRCLE)

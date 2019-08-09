@@ -43,6 +43,7 @@ import okhttp3.Response;
 
 import com.cheemarket.Adapter.Adapter;
 import com.cheemarket.Customview.Dialogs;
+import com.cheemarket.Customview.badgelogo;
 import com.cheemarket.Structure.KalaStructure;
 import com.cheemarket.Structure.SliderStructure;
 
@@ -108,6 +109,7 @@ public class ActivityMain extends AppCompatActivity
     private static LinearLayout sabzijat;
     private static LinearLayout asasi;
     private static LinearLayout layoutprofile;
+    private static badgelogo badge;
 
     @Override
     protected void onResume() {
@@ -133,7 +135,7 @@ public class ActivityMain extends AppCompatActivity
         navigationView.getMenu().findItem(R.id.yourorders).setChecked(false);
         navigationView.getMenu().findItem(R.id.problems).setChecked(false);
         navigationView.getMenu().findItem(R.id.darbareyema).setChecked(false);
-
+        Commands.setbadgenumber(badge);
         if (needpagework) {
             needpagework = false;
             pagework();
@@ -158,6 +160,11 @@ public class ActivityMain extends AppCompatActivity
         txtprofile = (TextView) header.findViewById(R.id.txtprofile);
         ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
         ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
+        badge = (badgelogo) findViewById(R.id.badgelogo);
+
+
+        Commands.setbadgenumber(badge);
+
 
         RecyclerViewList1 = (RecyclerView) findViewById(R.id.List1);
         RecyclerViewList4 = (RecyclerView) findViewById(R.id.List4);
@@ -165,6 +172,8 @@ public class ActivityMain extends AppCompatActivity
         RecyclerViewList1.setFocusable(false);
         RecyclerViewList4.setFocusable(false);
         RecyclerViewList6.setFocusable(false);
+
+
 
         imgs[0] = (ImageView) findViewById(R.id.post2);
         imgs[1] = (ImageView) findViewById(R.id.post3);
@@ -206,8 +215,8 @@ public class ActivityMain extends AppCompatActivity
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
 
-        searchlogo.setOnClickListener(G.onClickListenersearch);
-        shoplogo.setOnClickListener(G.onClickListenersabadkharid);
+        searchlogo.setOnClickListener(Commands.onClickListenersearch);
+        shoplogo.setOnClickListener(Commands.onClickListenersabadkharid);
 
 
 
@@ -252,7 +261,7 @@ public class ActivityMain extends AppCompatActivity
             }
         });
 
-        if (!G.readNetworkStatus()) {
+        if (!Commands.readNetworkStatus()) {
             Intent intent = new Intent(G.CurrentActivity, activityNetwork.class);
             startActivity(intent);
 
@@ -430,9 +439,13 @@ public class ActivityMain extends AppCompatActivity
                     G.HANDLER.post(new Runnable() {
                         @Override
                         public void run() {
-                            Textconfig.settext(h, saat + "");
-                            Textconfig.settext(m, daghighe + "");
-                            Textconfig.settext(s, saniye + "");
+                            h.setTypeface(Textconfig.gettypeface());
+                            m.setTypeface(Textconfig.gettypeface());
+                            s.setTypeface(Textconfig.gettypeface());
+                            h.setText(saat + "");
+                            m.setText(daghighe + "");
+                            s.setText(saniye + "");
+
 
                         }
                     });
@@ -459,9 +472,13 @@ public class ActivityMain extends AppCompatActivity
                                     @Override
                                     public void run() {
 
-                                        Textconfig.settext(h, saat + "");
-                                        Textconfig.settext(m, daghighe + "");
-                                        Textconfig.settext(s, saniye + "");
+                                        h.setTypeface(Textconfig.gettypeface());
+                                        m.setTypeface(Textconfig.gettypeface());
+                                        s.setTypeface(Textconfig.gettypeface());
+                                        h.setText(saat + "");
+                                        m.setText(daghighe + "");
+                                        s.setText(saniye + "");
+
 
                                     }
                                 });

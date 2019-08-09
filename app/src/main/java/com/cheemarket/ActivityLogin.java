@@ -15,8 +15,11 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+
+import com.cheemarket.Customview.badgelogo;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,12 +41,26 @@ public class ActivityLogin extends AppCompatActivity {
     private TextView message;
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        G.CurrentActivity = this;
+
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         G.CurrentActivity = this;
+
+        ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
+        ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
+
+        searchlogo.setVisibility(View.GONE);
+        shoplogo.setVisibility(View.GONE);
 
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);

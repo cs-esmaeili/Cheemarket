@@ -115,9 +115,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             }
 
             if (finaldataset.get(position).Status1 != null && finaldataset.get(position).Status1.equals("2")) {
-                holder.gifone.setVisibility(View.VISIBLE);
+                holder.specialsellone.setVisibility(View.VISIBLE);
             } else {
-                holder.gifone.setVisibility(View.GONE);
+                holder.specialsellone.setVisibility(View.GONE);
             }
 
             if (finaldataset.get(position).Name1 != null && !finaldataset.get(position).Name1.equals("")) {
@@ -176,9 +176,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 }
 
                 if (finaldataset.get(position).Status2 != null && finaldataset.get(position).Status2.equals("2")) {
-                    holder.giftwo.setVisibility(View.VISIBLE);
+                    holder.specialselltwo.setVisibility(View.VISIBLE);
                 } else {
-                    holder.giftwo.setVisibility(View.GONE);
+                    holder.specialselltwo.setVisibility(View.GONE);
                 }
 
                 if (finaldataset.get(position).Name2 != null && !finaldataset.get(position).Name2.equals("")) {
@@ -222,14 +222,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         public Lineimage textoffPriceone;
         public ImageView imageone;
         public CardView cardone;
-        public ImageView gifone;
+        public TextView specialsellone;
 
         public TextView txtnametwo;
         public TextView textPricetwo;
         public Lineimage textoffPricetwo;
         public ImageView imagetwo;
         public CardView cardtwo;
-        public ImageView giftwo;
+        public TextView specialselltwo;
 
 
         public TextView mess;
@@ -242,7 +242,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             imageone = (ImageView) itemView.findViewById(R.id.imageone);
             textoffPriceone = (Lineimage) itemView.findViewById(R.id.textoffPriceone);
             cardone = (CardView) itemView.findViewById(R.id.Cardone);
-            gifone = (ImageView) itemView.findViewById(R.id.gifone);
+            specialsellone = (TextView) itemView.findViewById(R.id.specialsellone);
 
             mess = (TextView) itemView.findViewById(R.id.mess);
 
@@ -252,7 +252,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 imagetwo = (ImageView) itemView.findViewById(R.id.imagetwo);
                 textoffPricetwo = (Lineimage) itemView.findViewById(R.id.textoffPricetwo);
                 cardtwo = (CardView) itemView.findViewById(R.id.Cardtwo);
-                giftwo = (ImageView) itemView.findViewById(R.id.giftwo);
+                specialselltwo = (TextView) itemView.findViewById(R.id.specialselltwo);
             }
 
 

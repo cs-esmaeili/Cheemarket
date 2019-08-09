@@ -22,6 +22,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import com.cheemarket.Adapter.AlaghemandihaAdapter;
+import com.cheemarket.Customview.badgelogo;
 import com.cheemarket.Structure.KalaStructure;
 
 public class Alaghemandiha extends AppCompatActivity {
@@ -35,6 +36,14 @@ public class Alaghemandiha extends AppCompatActivity {
 
     static long Listnumber = 0;
     static boolean allownext = false;
+
+    private badgelogo badge;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        G.CurrentActivity = this;
+        Commands.setbadgenumber(badge);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +61,11 @@ public class Alaghemandiha extends AppCompatActivity {
         ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
         ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
 
-        searchlogo.setOnClickListener(G.onClickListenersearch);
-        shoplogo.setOnClickListener(G.onClickListenersabadkharid);
+        searchlogo.setOnClickListener(Commands.onClickListenersearch);
+        shoplogo.setOnClickListener(Commands.onClickListenersabadkharid);
+
+        badge = (badgelogo) findViewById(R.id.badgelogo);
+        Commands.setbadgenumber(badge);
 
         RecyclerViewList.setHasFixedSize(true);
         LayoutManagerList = new LinearLayoutManager(G.CurrentActivity);

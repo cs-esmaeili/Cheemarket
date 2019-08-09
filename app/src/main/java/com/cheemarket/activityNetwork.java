@@ -6,8 +6,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.cheemarket.Customview.badgelogo;
+
 public class activityNetwork extends AppCompatActivity {
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        G.CurrentActivity = this;
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +31,7 @@ public class activityNetwork extends AppCompatActivity {
         txttry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(G.readNetworkStatus() == true){
+                if(Commands.readNetworkStatus() == true){
                     Intent intent = new Intent(G.CurrentActivity, ActivityMain.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     G.CurrentActivity.startActivity(intent);
