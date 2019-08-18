@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 
+import com.cheemarket.ActivitySubdastebandi;
 import com.cheemarket.Commands;
 import com.cheemarket.G;
 import com.cheemarket.R;
@@ -51,7 +52,7 @@ public class SubdastebandiAdapter extends RecyclerView.Adapter<SubdastebandiAdap
             public void onClick(View v) {
              //   Toast.makeText(G.context, "Width =" + holder.img.getWidth() + " ?? Height =" + holder.img.getHeight(), Toast.LENGTH_LONG).show();
 
-               com.cheemarket.Subdastebandi.namayeshkalaha(mdataset.get(position).Subdastebandi , mdataset.get(position).Title);
+               ActivitySubdastebandi.namayeshkalaha(mdataset.get(position).Subdastebandi , mdataset.get(position).Title);
             }
         });
 

@@ -11,7 +11,6 @@ public class KalaStructure {
     public String Weight1;
     public String Price1;
     public String OldPrice1;
-    public String Volume1;
     public String Image1;
     public String Tozihat1;
     public String Ordernumber1;
@@ -25,7 +24,6 @@ public class KalaStructure {
     public String Weight2;
     public String Price2;
     public String OldPrice2;
-    public String Volume2;
     public String Image2;
     public String Tozihat2;
     public String Ordernumber2;

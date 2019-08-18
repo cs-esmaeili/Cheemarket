@@ -11,7 +11,6 @@ public class sabad {
     public String Weight;
     public String Price;
     public String OldPrice;
-    public String Volume;
     public String Image;
     public String Tozihat;
     public String Ordernumber;

@@ -25,7 +25,7 @@ import com.cheemarket.Adapter.Listordersadapter;
 import com.cheemarket.Customview.badgelogo;
 
 
-public class Orders extends AppCompatActivity {
+public class ActivityOrders extends AppCompatActivity {
 
     public class order {
         public String Category;

@@ -17,7 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,7 +31,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
@@ -47,8 +46,8 @@ import com.cheemarket.Customview.badgelogo;
 import com.cheemarket.Structure.KalaStructure;
 import com.cheemarket.Structure.SliderStructure;
 
+import static com.cheemarket.G.pre;
 import static com.cheemarket.Start.appLinkData;
-import static com.cheemarket.Start.pre;
 
 
 public class ActivityMain extends AppCompatActivity
@@ -118,6 +117,7 @@ public class ActivityMain extends AppCompatActivity
         Slider.setsliders();
 
         G.CurrentActivity = this;
+
         if (pre.contains("Username") && pre.contains("Connectioncode")) {
             if (!pre.getString("Username", "Error").equals("Error") && !pre.getString("Connectioncode", "Error").equals("")) {
                 // Textconfig.settext(txtprofile, pre.getString("Username", "Error"));
@@ -151,6 +151,11 @@ public class ActivityMain extends AppCompatActivity
 
         thisactivity = this;
         G.CurrentActivity = this;
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        G.IMAGES_HEIGHT = (int) (Double.parseDouble(displayMetrics.heightPixels + "") / 2);
+        G.IMAGES_WIDTH = (int) (Double.parseDouble(displayMetrics.widthPixels + "") / 2);
 
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -223,7 +228,7 @@ public class ActivityMain extends AppCompatActivity
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(G.CurrentActivity, Subdastebandi.class);
+                Intent intent = new Intent(G.CurrentActivity, ActivitySubdastebandi.class);
                 intent.putExtra("subdastebandistring", "" + v.getTag());
                 startActivity(intent);
             }
@@ -262,7 +267,7 @@ public class ActivityMain extends AppCompatActivity
         });
 
         if (!Commands.readNetworkStatus()) {
-            Intent intent = new Intent(G.CurrentActivity, activityNetwork.class);
+            Intent intent = new Intent(G.CurrentActivity, ActivityNetwork.class);
             startActivity(intent);
 
         } else {
@@ -333,13 +338,14 @@ public class ActivityMain extends AppCompatActivity
 
 
         Webservice.request("Store.php?action=Firstpagedata", callback, null);
+        Commands.addview("صفحه اصلی");
 
     }
 
     static int index = -1;
 
 
-    static okhttp3.Callback callback = new okhttp3.Callback() {
+    static Callback callback = new Callback() {
         @Override
         public void onFailure(Call call, IOException e) {
             Webservice.handelerro(e, new Callable<Void>() {
@@ -551,7 +557,7 @@ public class ActivityMain extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.category) {
-            Intent intent = new Intent(G.CurrentActivity, Dastebandimahsolat.class);
+            Intent intent = new Intent(G.CurrentActivity, ActivityDastebandimahsolat.class);
             startActivity(intent);
         } else if (id == R.id.sabadkharid) {
             if (G.Connectioncode.equals("")) {
@@ -567,7 +573,7 @@ public class ActivityMain extends AppCompatActivity
                 Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
                 startActivity(intent);
             } else {
-                Intent intent = new Intent(G.CurrentActivity, Alaghemandiha.class);
+                Intent intent = new Intent(G.CurrentActivity, ActivityAlaghemandiha.class);
                 startActivity(intent);
             }
 
@@ -585,7 +591,7 @@ public class ActivityMain extends AppCompatActivity
                 Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
                 startActivity(intent);
             } else {
-                Intent intent = new Intent(G.CurrentActivity, Orders.class);
+                Intent intent = new Intent(G.CurrentActivity, ActivityOrders.class);
                 startActivity(intent);
             }
         } else if (id == R.id.problems) {
@@ -674,7 +680,7 @@ public class ActivityMain extends AppCompatActivity
 
                                         try {
 
-                                            Intent intent = new Intent(G.CurrentActivity, Subdastebandi.class);
+                                            Intent intent = new Intent(G.CurrentActivity, ActivitySubdastebandi.class);
                                             intent.putExtra("subkala", jsonObject.getString("Subcategori"));
                                             intent.putExtra("NameSubcategori", jsonObject.getString("NameSubcategori"));
                                             G.CurrentActivity.startActivity(intent);

@@ -82,11 +82,7 @@ public class SabadAdapter extends RecyclerView.Adapter<SabadAdapter.ViewHolder> 
             Textconfig.settext(holder.txt2, "وزن کالا : " + mdataset.get(position).Weight);
         }
 
-        if (mdataset.get(position).Volume == null || mdataset.get(position).Volume.equals("")) {
-            holder.txt3.setVisibility(View.GONE);
-        } else {
-            Textconfig.settext(holder.txt3, "حجم کالا : " + mdataset.get(position).Volume);
-        }
+
 
         if(mdataset.get(position).Image != null && !mdataset.get(position).Image.equals("")){
             Commands.showimage(G.Baseurl + "Listimages/" + mdataset.get(position).Image + "/" + mdataset.get(position).Image + ".jpg", null, holder.image, true);
@@ -145,7 +141,6 @@ public class SabadAdapter extends RecyclerView.Adapter<SabadAdapter.ViewHolder> 
 
         public TextView txt1;
         public TextView txt2;
-        public TextView txt3;
         public TextView txt4;
         public TextView txt5;
         public TextView txt6;
@@ -161,7 +156,6 @@ public class SabadAdapter extends RecyclerView.Adapter<SabadAdapter.ViewHolder> 
             super(itemView);
             txt1 = (TextView) itemView.findViewById(R.id.txt1);
             txt2 = (TextView) itemView.findViewById(R.id.txt2);
-            txt3 = (TextView) itemView.findViewById(R.id.txt3);
             txt4 = (TextView) itemView.findViewById(R.id.txt4);
             txt5 = (TextView) itemView.findViewById(R.id.txt5);
             txt6 = (TextView) itemView.findViewById(R.id.txt6);

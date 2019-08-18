@@ -112,7 +112,6 @@ public class Paymentstep extends AppCompatActivity {
             kalaStructure.Code1 = a.Code;
             kalaStructure.Weight1 = a.Weight;
             kalaStructure.Price1 = a.Price;
-            kalaStructure.Volume1 = a.Volume;
             kalaStructure.Image1 = a.Image;
             kalaStructure.Tozihat1 = a.Tozihat;
             kalaStructure.Datetime1 = a.Datetime;

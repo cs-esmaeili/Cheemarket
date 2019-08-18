@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.cheemarket.ActivityMain;
 import com.cheemarket.Commands;
 import com.cheemarket.G;
 import com.cheemarket.R;
@@ -69,13 +70,16 @@ public class Dialogs extends Application {
                         if (!url.equals("")) {
                             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                             G.CurrentActivity.startActivity(browserIntent);
-                            //update
+
                         } else {
                             if(url.equals("") && cancansel==false){
                                 System.exit(0);
                                 return;
                             }
-                            checkrunword();
+                            Intent intent = new Intent(G.CurrentActivity, ActivityMain.class);
+                            G.CurrentActivity.startActivity(intent);
+                            G.CurrentActivity.finish();
+
                         }
 
                     }
@@ -85,7 +89,10 @@ public class Dialogs extends Application {
                 btncansel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        checkrunword();
+                        Intent intent = new Intent(G.CurrentActivity, ActivityMain.class);
+                        G.CurrentActivity.startActivity(intent);
+                        G.CurrentActivity.finish();
+
                     }
                 });
 
@@ -94,7 +101,10 @@ public class Dialogs extends Application {
                     public void onDismiss(DialogInterface dialog) {
 
 
-                            checkrunword();
+                        Intent intent = new Intent(G.CurrentActivity, ActivityMain.class);
+                        G.CurrentActivity.startActivity(intent);
+                        G.CurrentActivity.finish();
+
 
                     }
                 });

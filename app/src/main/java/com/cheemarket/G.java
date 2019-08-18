@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
@@ -29,7 +30,7 @@ public class G extends Application {
     public static ArrayList<sabad> mdatasetsabad = new ArrayList<sabad>();
     public static String Connectioncode = "";
     public static boolean comeback = false;
-
+    public static SharedPreferences pre;
 
     public static final String  VERSIONNAME = "2.0.1";
 
@@ -40,6 +41,8 @@ public class G extends Application {
         context = getApplicationContext();
         Textconfig.setAssetManager(getAssets());
         Textconfig.setFontpath("vazir.ttf");
+
+        pre = getSharedPreferences("Cheemarket", MODE_PRIVATE);
     }
 
 

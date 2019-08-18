@@ -29,7 +29,7 @@ import com.cheemarket.Customview.badgelogo;
 import com.cheemarket.Structure.KalaStructure;
 
 
-public class SearchActivity extends AppCompatActivity {
+public class ActivitySearch extends AppCompatActivity {
 
 
     private static RecyclerView RecyclerViewList;
@@ -94,10 +94,6 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-
-
-
                 AlertDialog.Builder b = new AlertDialog.Builder(G.CurrentActivity);
                 b.setTitle("فیلتر");
                 String[] types = {"بدون فیلتر", "قیمت از کم به زیاد", "قیمت از زیاد به کم"};
@@ -142,6 +138,7 @@ public class SearchActivity extends AppCompatActivity {
                 reset();
 
                 namayeshkalaha(query);
+                Commands.addview(query + " سرچ شد");
                 return false;
             }
 

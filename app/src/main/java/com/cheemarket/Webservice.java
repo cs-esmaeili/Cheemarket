@@ -2,10 +2,7 @@ package com.cheemarket;
 
 
 import android.content.Intent;
-import android.widget.Toast;
 
-import java.io.IOException;
-import java.lang.reflect.Method;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
@@ -17,7 +14,6 @@ import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import okio.Timeout;
 
 import com.cheemarket.Customview.Dialogs;
 
@@ -79,7 +75,7 @@ public class Webservice {
     public static void handelerro(Exception e, final Callable<Void> Method) {
 
         if (!Commands.readNetworkStatus()) {
-            Intent intent = new Intent(G.CurrentActivity, activityNetwork.class);
+            Intent intent = new Intent(G.CurrentActivity, ActivityNetwork.class);
             G.CurrentActivity.startActivity(intent);
             return;
         }

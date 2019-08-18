@@ -32,7 +32,7 @@ import com.cheemarket.Customview.badgelogo;
 import com.cheemarket.Structure.KalaStructure;
 
 
-public class Subdastebandi extends AppCompatActivity {
+public class ActivitySubdastebandi extends AppCompatActivity {
 
     private static String code = "";
     private static String codesubdastebandi = "";
@@ -92,11 +92,15 @@ public class Subdastebandi extends AppCompatActivity {
                 codesubdastebandi = extras.getString("subdastebandistring");
                 namayeshsubdastebandi(codesubdastebandi);
 
+                Commands.addview("دسته بندی " + codesubdastebandi +  " بازدید شد");
+
             } else if (extras.containsKey("subkala")) {
                 code = extras.getString("subkala");
                 toptitle = extras.getString("NameSubcategori");
                 needtoclose = true;
                 namayeshkalaha(code, toptitle);
+
+
             }
         }
 
@@ -271,6 +275,7 @@ public class Subdastebandi extends AppCompatActivity {
         List.setAdapter(AdapterListkala);
         List.setNestedScrollingEnabled(false);
 
+        Commands.addview("زیر دسته بندی " + code + " بازدید شد");
 
         mycall  = new Callback() {
             @Override
@@ -454,7 +459,7 @@ public class Subdastebandi extends AppCompatActivity {
         super.onDestroy();
         Log.i("log" ,"empty");
 
-      clearalldata();
+        clearalldata();
 
 
     }

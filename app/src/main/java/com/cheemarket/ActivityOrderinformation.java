@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -29,7 +28,7 @@ import okhttp3.Response;
 import com.cheemarket.Adapter.Listpaymentadapter;
 import com.cheemarket.Structure.KalaStructure;
 
-public class Orderinformation extends AppCompatActivity {
+public class ActivityOrderinformation extends AppCompatActivity {
 
 
     private static RecyclerView.Adapter AdapterList1;
@@ -110,7 +109,7 @@ public class Orderinformation extends AppCompatActivity {
         if (Rate > 0.0) {
             ratingBar.setEnabled(false);
         }
-        int currentvaziyat = Integer.parseInt(Orders.mdatasetList.get(position).Vaziyat);
+        int currentvaziyat = Integer.parseInt(ActivityOrders.mdatasetList.get(position).Vaziyat);
         switch (currentvaziyat) {
             case 1:
                 stepView.go(0, true);
@@ -124,7 +123,7 @@ public class Orderinformation extends AppCompatActivity {
             case 4:
                 stepView.go(3, true);
                 stepView.done(true);
-                ratingBar.setRating(Orders.mdatasetList.get(position).Rate);
+                ratingBar.setRating(ActivityOrders.mdatasetList.get(position).Rate);
                 break;
         }
 
@@ -161,7 +160,7 @@ public class Orderinformation extends AppCompatActivity {
         param1.value = G.Connectioncode;
         Webservice.requestparameter param2 = new Webservice.requestparameter();
         param2.key = "Category";
-        param2.value = Orders.mdatasetList.get(position).Category + "";
+        param2.value = ActivityOrders.mdatasetList.get(position).Category + "";
         ArrayList<Webservice.requestparameter> array = new ArrayList<>();
         array.add(param1);
         array.add(param2);
@@ -239,7 +238,7 @@ public class Orderinformation extends AppCompatActivity {
         param1.value = G.Connectioncode;
         Webservice.requestparameter param2 = new Webservice.requestparameter();
         param2.key = "Category";
-        param2.value = Orders.mdatasetList.get(position).Category + "";
+        param2.value = ActivityOrders.mdatasetList.get(position).Category + "";
 
         Webservice.requestparameter param3 = new Webservice.requestparameter();
         param3.key = "rate";

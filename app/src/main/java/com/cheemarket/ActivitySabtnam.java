@@ -1,5 +1,6 @@
 package com.cheemarket;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -79,6 +80,7 @@ public class ActivitySabtnam extends AppCompatActivity {
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                message.setText("");
                 attemptLogin();
             }
         });
@@ -105,57 +107,6 @@ public class ActivitySabtnam extends AppCompatActivity {
 
     }
 
-    private void recovery(final String username, final String action) {
-
-        ArrayList<Webservice.requestparameter> array = new ArrayList<>();
-
-        Webservice.requestparameter param1 = new Webservice.requestparameter();
-        param1.key = "username";
-        param1.value = username;
-        array.add(param1);
-
-        Webservice.request("recovery.php?action=" + action, new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Webservice.handelerro(e, new Callable<Void>() {
-                    @Override
-                    public Void call() throws Exception {
-                        recovery(username,action);
-                        return null;
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                final String input = response.body().string();
-
-                G.HANDLER.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (input.equals("Ok")) {
-                            if (action.equals("recoveryemail")) {
-                                message.setText("لینک بازیابی پسورد به ایمیل شما ارسال شد");
-                            } else {
-                                message.setText("لینک بازیابی پسورد به شماره همراه شما ارسال شد");
-                            }
-
-                        } else if (input.equals("needActivate")) {
-                            message.setText("این نام کاربری فعال نیست لینک فعال سازی برای شما ارسال شده است");
-                        } else if (input.equals("activesend")) {
-                            message.setText("این نام کاربری فعال نیست لینک فعال سازی برای شما ارسال شد");
-                        } else {
-                            message.setText("این نام کاربری وجود ندارد");
-                        }
-                    }
-                });
-
-            }
-        }, array);
-
-    }
-
-    String usernametemp = "";
 
     private void attemptLogin() {
 
@@ -234,7 +185,7 @@ public class ActivitySabtnam extends AppCompatActivity {
             }
 
 
-            Webservice.request("Store.php?action=adduser", new Callback() {
+            Webservice.request("AccountManagement.php?action=adduser", new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     Webservice.handelerro(e, new Callable<Void>() {
@@ -250,68 +201,31 @@ public class ActivitySabtnam extends AppCompatActivity {
                 public void onResponse(Call call, Response response) throws IOException {
                     String input = response.body().string();
 
-                    if (input.equals("needActivate")) {
-                        G.HANDLER.post(new Runnable() {
-                            @Override
-                            public void run() {
-
-                                message.setText("لینک تایید برای شما ارسال شده است");
-                            }
-                        });
-
-
-                    } else if (input.equals("not")) {
-                        G.HANDLER.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                // mEmailView.setError("این نام کاربری وجود دارد");
-                                message.setText("این نام کاربری وجود دارد");
-                            }
-                        });
-
-                    } else if (input.equals("Ok")) {
-
-
-                        try {
+                   if (input.equals("send")) {
 
                             G.HANDLER.post(new Runnable() {
                                 @Override
                                 public void run() {
                                     message.setText("لینک تایید برای شما ارسال شد");
-
-
                                 }
                             });
 
                             G.HANDLER.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    message.setText("");
+                                    Intent intent = new Intent(G.CurrentActivity,ActivityLogin.class);
+                                    G.CurrentActivity.startActivity(intent);
+                                   G.CurrentActivity.finish();
                                 }
-                            }, 2000);
-                                /*
-                                usernametemp = mEmailView.getText().toString();
-                                G.Connectioncode = input;
-                                SharedPreferences.Editor editor = pre.edit();
-                                editor.putString("Username", usernametemp);
-                                editor.putString("Connectioncode", G.Connectioncode);
-                                editor.apply();
+                            }, 5000);
 
-                                G.CurrentActivity.finish();
-                                */
-
-
-                        } catch (NumberFormatException e) {
-                            G.HANDLER.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    message.setText("مشکلی در ساخت اکانت به وجود آمد لطفا دوباره سعی کنید");
-                                }
-                            });
-
-                            e.printStackTrace();
-                        }
-
+                    } else if (input.equals("not")) {
+                        G.HANDLER.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                message.setText("این نام کاربری وجود دارد");
+                            }
+                        });
 
                     }
 

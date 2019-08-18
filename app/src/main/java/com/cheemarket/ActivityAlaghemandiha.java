@@ -1,31 +1,32 @@
 package com.cheemarket;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.cheemarket.Adapter.AlaghemandihaAdapter;
+import com.cheemarket.Customview.badgelogo;
+import com.cheemarket.Structure.KalaStructure;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-import com.cheemarket.Adapter.AlaghemandihaAdapter;
-import com.cheemarket.Customview.badgelogo;
-import com.cheemarket.Structure.KalaStructure;
 
-public class Alaghemandiha extends AppCompatActivity {
+public class ActivityAlaghemandiha extends AppCompatActivity {
 
     private static RecyclerView RecyclerViewList;
 
@@ -38,6 +39,7 @@ public class Alaghemandiha extends AppCompatActivity {
     static boolean allownext = false;
 
     private badgelogo badge;
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -78,18 +80,20 @@ public class Alaghemandiha extends AppCompatActivity {
 
 
     }
-    static Callback mycall;
-    private static void pagework(){
 
-          mdatasetList.clear();
-          AdapterList.notifyDataSetChanged();
-          Listnumber = 0;
-          allownext = false;
+    static Callback mycall;
+
+    private static void pagework() {
+
+        mdatasetList.clear();
+        AdapterList.notifyDataSetChanged();
+        Listnumber = 0;
+        allownext = false;
 
 
         Webservice.requestparameter object1 = new Webservice.requestparameter();
         object1.key = "Connectioncode";
-        object1.value = G.Connectioncode ;
+        object1.value = G.Connectioncode;
 
         Webservice.requestparameter object2 = new Webservice.requestparameter();
         object2.key = "number";
@@ -184,7 +188,6 @@ public class Alaghemandiha extends AppCompatActivity {
         };
 
 
-
         Webservice.request("Store.php?action=Listalaghemandiha", mycall, array);
 
 
@@ -206,7 +209,7 @@ public class Alaghemandiha extends AppCompatActivity {
 
                             Webservice.requestparameter object1 = new Webservice.requestparameter();
                             object1.key = "Connectioncode";
-                            object1.value = G.Connectioncode ;
+                            object1.value = G.Connectioncode;
 
                             Webservice.requestparameter object2 = new Webservice.requestparameter();
                             object2.key = "number";
@@ -257,7 +260,7 @@ public class Alaghemandiha extends AppCompatActivity {
                         G.HANDLER.post(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(G.context,"مشکلی در ارتیاط با سرور پیش آمد دوباره سعی کنید", Toast.LENGTH_LONG).show();
+                                Toast.makeText(G.context, "مشکلی در ارتیاط با سرور پیش آمد دوباره سعی کنید", Toast.LENGTH_LONG).show();
                             }
                         });
                         return null;
@@ -289,7 +292,7 @@ public class Alaghemandiha extends AppCompatActivity {
 
     }
 
-    public  static  void deletealaghemandiha(final String id){
+    public static void deletealaghemandiha(final String id) {
         Webservice.requestparameter object1 = new Webservice.requestparameter();
         object1.key = "Connectioncode";
         object1.value = G.Connectioncode;
@@ -312,7 +315,7 @@ public class Alaghemandiha extends AppCompatActivity {
                         G.HANDLER.post(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(G.context,"مشکلی در ارتیاط با سرور پیش آمد دوباره سعی کنید", Toast.LENGTH_LONG).show();
+                                Toast.makeText(G.context, "مشکلی در ارتیاط با سرور پیش آمد دوباره سعی کنید", Toast.LENGTH_LONG).show();
                             }
                         });
                         return null;
@@ -328,33 +331,93 @@ public class Alaghemandiha extends AppCompatActivity {
                     G.HANDLER.post(new Runnable() {
                         @Override
                         public void run() {
+                            boolean find = false;
                             for (int i = 0; i < mdatasetList.size(); i++) {
-                                if(mdatasetList.get(i).Id1 == id){
+
+
+                                if (!find && mdatasetList.get(i).Id1.equals(id)) {
+
                                     mdatasetList.get(i).Id1 = null;
-                                    AdapterList.notifyItemRemoved(i);
-                                    break;
-                                }else if(mdatasetList.get(i).Id2 == id){
+                                    find = true;
+
+                                    if (mdatasetList.get(i).Id2 == null) {
+                                        mdatasetList.remove(i);
+                                        continue;
+                                    }
+
+                                } else if (!find && mdatasetList.get(i).Id2.equals(id)) {
+
                                     mdatasetList.get(i).Id2 = null;
-                                    AdapterList.notifyItemRemoved(i);
-                                    break;
+                                    find = true;
+
+
+                                }
+                                // 3
+
+                                if (find) {
+                                    if (mdatasetList.get(i).Id1 == null) {
+
+                                        if (mdatasetList.get(i).Id2 == null) {
+                                            break;
+                                        }
+                                        mdatasetList.get(i).Id1 = mdatasetList.get(i).Id2;
+
+                                        mdatasetList.get(i).Name1 = mdatasetList.get(i).Name2;
+                                        mdatasetList.get(i).Code1 = mdatasetList.get(i).Code2;
+                                        mdatasetList.get(i).Weight1 = mdatasetList.get(i).Weight2;
+                                        mdatasetList.get(i).Price1 = mdatasetList.get(i).Price2;
+                                        mdatasetList.get(i).OldPrice1 = mdatasetList.get(i).OldPrice2;
+                                        mdatasetList.get(i).Image1 = mdatasetList.get(i).Image2;
+                                        mdatasetList.get(i).Tozihat1 = mdatasetList.get(i).Tozihat2;
+                                        mdatasetList.get(i).Ordernumber1 = mdatasetList.get(i).Ordernumber2;
+                                        mdatasetList.get(i).Status1 = mdatasetList.get(i).Status2;
+                                        mdatasetList.get(i).Datetime1 = mdatasetList.get(i).Datetime2;
+
+
+                                        mdatasetList.get(i).Id2 = null;
+
+
+                                    }
+                                    if (mdatasetList.get(i).Id2 == null) {
+                                        if ((i + 1) < mdatasetList.size()) {
+
+                                            if (mdatasetList.get(i + 1).Id1 == null) {
+                                                break;
+                                            }
+
+                                            mdatasetList.get(i).Id2 = mdatasetList.get(i + 1).Id1;
+                                            mdatasetList.get(i).Name2 = mdatasetList.get(i + 1).Name1;
+                                            mdatasetList.get(i).Code2 = mdatasetList.get(i + 1).Code1;
+                                            mdatasetList.get(i).Weight2 = mdatasetList.get(i + 1).Weight1;
+                                            mdatasetList.get(i).Price2 = mdatasetList.get(i + 1).Price1;
+                                            mdatasetList.get(i).OldPrice2 = mdatasetList.get(i + 1).OldPrice1;
+                                            mdatasetList.get(i).Image2 = mdatasetList.get(i + 1).Image1;
+                                            mdatasetList.get(i).Tozihat2 = mdatasetList.get(i + 1).Tozihat1;
+                                            mdatasetList.get(i).Ordernumber2 = mdatasetList.get(i + 1).Ordernumber1;
+                                            mdatasetList.get(i).Status2 = mdatasetList.get(i + 1).Status1;
+                                            mdatasetList.get(i).Datetime2 = mdatasetList.get(i + 1).Datetime1;
+
+                                            mdatasetList.get(i + 1).Id1 = null;
+
+                                            if (mdatasetList.get(i + 1).Id2 == null) {
+                                                mdatasetList.remove(i + 1);
+                                            }
+                                        } else {
+                                            break;
+                                        }
+
+                                    }
+
+
                                 }
 
+
                             }
-                            boolean temp = true;
-                            for (int i = 0; i < mdatasetList.size(); i++) {
-                                if(mdatasetList.get(i).Id1 != null){
-                                    temp = false;
-                                    break;
-                                }
-                                if(mdatasetList.get(i).Id2 != null){
-                                    temp = false;
-                                    break;
-                                }
-                            }
-                            if(temp){
+
+                            AdapterList.notifyDataSetChanged();
+                            if (mdatasetList.size() == 0) {
                                 txtempty.setVisibility(View.VISIBLE);
                             }
-
 
 
                         }

@@ -22,10 +22,12 @@ import okhttp3.Response;
 import com.cheemarket.Customview.Dialogs;
 import com.cheemarket.Structure.IntromanegmentStructure;
 
+import static com.cheemarket.G.pre;
+
 public class Start extends AppCompatActivity {
 
     public static Uri appLinkData;
-    public static SharedPreferences pre;
+
 
     @Override
     protected void onResume() {
@@ -40,7 +42,7 @@ public class Start extends AppCompatActivity {
         G.CurrentActivity = this;
 
 
-        pre = getSharedPreferences("Cheemarket", MODE_PRIVATE);
+
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         G.IMAGES_HEIGHT = (int) (Double.parseDouble(displayMetrics.heightPixels + "") / 2);
@@ -51,12 +53,12 @@ public class Start extends AppCompatActivity {
         appLinkData = appLinkIntent.getData();
 
 
-        check_Atelae();
 
+        checkrunword();
 
     }
 
-    private void check_Atelae() {
+    private static void check_Atelae() {
         ArrayList<Webservice.requestparameter> params = new ArrayList<>();
 
         Webservice.requestparameter param1 = new Webservice.requestparameter();
@@ -103,7 +105,13 @@ public class Start extends AppCompatActivity {
                             SharedPreferences.Editor editor = pre.edit();
                             editor.putString("messageid" , object.getString("messageid"));
                             editor.apply();
-                            checkrunword();
+
+
+                            Intent intent = new Intent(G.CurrentActivity, ActivityMain.class);
+                            G.CurrentActivity.startActivity(intent);
+                            G.CurrentActivity.finish();
+
+
                             return;
                         }
 
@@ -150,7 +158,10 @@ public class Start extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }else {
-                    checkrunword();
+                    Intent intent = new Intent(G.CurrentActivity, ActivityMain.class);
+                    G.CurrentActivity.startActivity(intent);
+                    G.CurrentActivity.finish();
+
                 }
             }
         }, params);
@@ -182,14 +193,11 @@ public class Start extends AppCompatActivity {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                try {
-                                    Thread.sleep(300);
-                                    Intent intent = new Intent(G.CurrentActivity, ActivityMain.class);
-                                    G.CurrentActivity.startActivity(intent);
-                                    G.CurrentActivity.finish();
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
+
+
+
+                                    check_Atelae();
+
                             }
                         }).start();
                     } else {

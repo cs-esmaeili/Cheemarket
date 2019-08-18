@@ -11,8 +11,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import com.cheemarket.G;
-import com.cheemarket.Orderinformation;
-import com.cheemarket.Orders;
+import com.cheemarket.ActivityOrderinformation;
+import com.cheemarket.ActivityOrders;
 import com.cheemarket.R;
 import com.cheemarket.Textconfig;
 
@@ -22,7 +22,7 @@ import com.cheemarket.Textconfig;
 
 public class Listordersadapter extends RecyclerView.Adapter<Listordersadapter.ViewHolder> {
 
-    private ArrayList<Orders.order> mdataset;
+    private ArrayList<ActivityOrders.order> mdataset;
     private ArrayList<String> status = new ArrayList<String>() {{
         add("ارجاع به انبار");
         add("تحویل به پیک");
@@ -31,7 +31,7 @@ public class Listordersadapter extends RecyclerView.Adapter<Listordersadapter.Vi
     }};
 
 
-    public Listordersadapter(ArrayList<Orders.order> mdataset) {
+    public Listordersadapter(ArrayList<ActivityOrders.order> mdataset) {
         this.mdataset = mdataset;
     }
 
@@ -71,7 +71,7 @@ public class Listordersadapter extends RecyclerView.Adapter<Listordersadapter.Vi
         holder.Card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(G.CurrentActivity, Orderinformation.class);
+                Intent intent = new Intent(G.CurrentActivity, ActivityOrderinformation.class);
                 intent.putExtra("position", position);
                 intent.putExtra("Rate", mdataset.get(position).Rate);
                 G.CurrentActivity.startActivity(intent);

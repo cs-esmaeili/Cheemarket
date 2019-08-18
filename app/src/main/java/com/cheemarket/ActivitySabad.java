@@ -134,7 +134,7 @@ public class ActivitySabad extends AppCompatActivity {
         requestparameter.key = "jsontext";
         requestparameter.value = temp;
 
-
+        Log.i("LOG" , "text =" + temp);
         Webservice.requestparameter requestparameter1 = new Webservice.requestparameter();
         requestparameter1.key = "Connectioncode";
         requestparameter1.value = G.Connectioncode;
@@ -163,6 +163,8 @@ public class ActivitySabad extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String input = response.body().string();
+
+                Log.i("LOG" ,"kala = " + input);
 
 
                 if (input.equals("[]") || input.equals("")) {
@@ -198,16 +200,22 @@ public class ActivitySabad extends AppCompatActivity {
                                 G.mdatasetsabad.get(j).Name = object.getString("Name");
                                 G.mdatasetsabad.get(j).Weight = object.getString("Weight");
                                 G.mdatasetsabad.get(j).Price = object.getString("Price");
-                                G.mdatasetsabad.get(j).Volume = object.getString("Volume");
                                 G.mdatasetsabad.get(j).Image = object.getString("Image");
                                 G.mdatasetsabad.get(j).Ordernumber = object.getString("Ordernumber");
 
-                                if(Integer.parseInt(G.mdatasetsabad.get(j).Tedad) >= Integer.parseInt(G.mdatasetsabad.get(j).Ordernumber) ){
+                              //  G.mdatasetsabad.get(j).Tedad = object.getString("Tedad");
+
+                                if(Integer.parseInt(G.mdatasetsabad.get(j).Ordernumber) < Integer.parseInt( G.mdatasetsabad.get(j).Tedad)){
                                     G.mdatasetsabad.get(j).Tedad = G.mdatasetsabad.get(j).Ordernumber;
-                                }else if(Integer.parseInt(G.mdatasetsabad.get(j).Tedad) == 0 && Integer.parseInt(G.mdatasetsabad.get(j).Ordernumber) != 0){
-                                    G.mdatasetsabad.get(j).Tedad = G.mdatasetsabad.get(j).Ordernumber;
+
                                 }
-                                G.mdatasetsabad.get(j).Status = object.getString("Status");
+                                if(Integer.parseInt(object.getString("Tedad")) < Integer.parseInt(G.mdatasetsabad.get(j).Tedad) ){
+                                    G.mdatasetsabad.get(j).Tedad = object.getString("Tedad");
+                                }
+
+
+
+
                             }
 
 

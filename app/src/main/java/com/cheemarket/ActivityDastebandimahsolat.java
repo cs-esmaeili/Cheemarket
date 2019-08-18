@@ -3,7 +3,6 @@ package com.cheemarket;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -20,7 +19,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class Dastebandimahsolat extends AppCompatActivity {
+public class ActivityDastebandimahsolat extends AppCompatActivity {
 
 
     ArrayList<dastebandi_sakhtar> data = new ArrayList<>();
@@ -105,7 +104,7 @@ public class Dastebandimahsolat extends AppCompatActivity {
             public void onClick(View v) {
 
                 clearimages();
-                Intent intent = new Intent(G.CurrentActivity, Subdastebandi.class);
+                Intent intent = new Intent(G.CurrentActivity, ActivitySubdastebandi.class);
                 intent.putExtra("subdastebandistring", "" + v.getTag());
                 startActivity(intent);
             }

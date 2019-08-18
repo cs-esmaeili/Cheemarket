@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.cheemarket.Customview.badgelogo;
 
-public class activityNetwork extends AppCompatActivity {
+public class ActivityNetwork extends AppCompatActivity {
 
 
     @Override

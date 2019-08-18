@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -18,9 +17,13 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.cheemarket.Structure.KalaStructure;
+
+import okhttp3.Call;
+import okhttp3.Response;
 
 public class Commands {
 
@@ -33,7 +36,6 @@ public class Commands {
                 kalaStructure.Weight1 = jsonObject.getString("Weight");
                 kalaStructure.Price1 = jsonObject.getString("Price");
                 kalaStructure.OldPrice1 = jsonObject.getString("OldPrice");
-                kalaStructure.Volume1 = jsonObject.getString("Volume");
                 kalaStructure.Image1 = jsonObject.getString("Image");
                 kalaStructure.Status1 = jsonObject.getString("Status");
                 kalaStructure.Datetime1 = jsonObject.getString("Datetime");
@@ -47,7 +49,6 @@ public class Commands {
                 kalaStructure.Weight2 = jsonObject.getString("Weight");
                 kalaStructure.Price2 = jsonObject.getString("Price");
                 kalaStructure.OldPrice2 = jsonObject.getString("OldPrice");
-                kalaStructure.Volume2 = jsonObject.getString("Volume");
                 kalaStructure.Image2 = jsonObject.getString("Image");
                 kalaStructure.Status2 = jsonObject.getString("Status");
                 kalaStructure.Datetime2 = jsonObject.getString("Datetime");
@@ -68,13 +69,11 @@ public class Commands {
         if (one) {
             intent.putExtra("Name", mdataset.get(position).Name1);
             intent.putExtra("Weight", mdataset.get(position).Weight1);
-            intent.putExtra("Volume", mdataset.get(position).Volume1);
             intent.putExtra("Image", mdataset.get(position).Image1);
             intent.putExtra("Id", mdataset.get(position).Id1);
         } else {
             intent.putExtra("Name", mdataset.get(position).Name2);
             intent.putExtra("Weight", mdataset.get(position).Weight2);
-            intent.putExtra("Volume", mdataset.get(position).Volume2);
             intent.putExtra("Image", mdataset.get(position).Image2);
             intent.putExtra("Id", mdataset.get(position).Id2);
         }
@@ -169,7 +168,7 @@ public class Commands {
     public static View.OnClickListener onClickListenersearch = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(G.CurrentActivity, SearchActivity.class);
+            Intent intent = new Intent(G.CurrentActivity, ActivitySearch.class);
             G.CurrentActivity.startActivity(intent);
         }
     };
@@ -212,6 +211,31 @@ public class Commands {
 
     public static void setbadgenumber(badgelogo badge) {
         badge.setNumber(G.mdatasetsabad.size());
+    }
+
+    public static  void addview(String location){
+
+
+        ArrayList<Webservice.requestparameter> array = new ArrayList<>();
+        Webservice.requestparameter object1 = new Webservice.requestparameter();
+        object1.key = "location";
+        object1.value = location;
+
+        array.add(object1);
+
+
+        Webservice.request("Store.php?action=view", new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+            }
+        },array);
+
     }
 
 }

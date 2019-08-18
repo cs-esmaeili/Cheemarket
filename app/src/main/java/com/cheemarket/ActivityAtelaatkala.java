@@ -8,7 +8,6 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,7 +18,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
@@ -48,7 +46,6 @@ public class ActivityAtelaatkala extends AppCompatActivity {
     public static CircleIndicator circleIndicator;
 
     private TextView txt1;
-    private TextView txt2;
     private TextView txt3;
     private TextView txttozihat;
     private TextView txtafzodan;
@@ -84,7 +81,6 @@ public class ActivityAtelaatkala extends AppCompatActivity {
         txtname = (TextView) findViewById(R.id.txtname);
         txtcode = (TextView) findViewById(R.id.txtcode);
         txt1 = (TextView) findViewById(R.id.txt1);
-        txt2 = (TextView) findViewById(R.id.txt2);
         txt3 = (TextView) findViewById(R.id.txt3);
         txttozihat = (TextView) findViewById(R.id.txttozihat);
         txtafzodan = (TextView) findViewById(R.id.txtafzodan);
@@ -106,6 +102,8 @@ public class ActivityAtelaatkala extends AppCompatActivity {
         colaps.setExpandedTitleColor(Color.TRANSPARENT);
 
 
+
+
         mysabad = new sabad();
 
         Bundle extras = getIntent().getExtras();
@@ -121,12 +119,6 @@ public class ActivityAtelaatkala extends AppCompatActivity {
             } else {
                 mysabad.Weight = "";
             }
-            if (extras.containsKey("Volume") && extras.getString("Volume") != null && !extras.getString("Volume").equals("") && !extras.getString("Volume").equals("null")) {
-
-                mysabad.Volume = extras.getString("Volume");
-            } else {
-                mysabad.Volume = "";
-            }
             if (extras.containsKey("Image") && extras.getString("Image") != null && !extras.getString("Image").equals("") && !extras.getString("Image").equals("null")) {
                 mysabad.Image = extras.getString("Image");
             } else {
@@ -139,6 +131,8 @@ public class ActivityAtelaatkala extends AppCompatActivity {
 
 
         }
+
+        Commands.addview("کالای " + mysabad.Id   + " بازدید شد");
 
 
         if (mysabad.Name == null || mysabad.Name.equals("")) {
@@ -200,10 +194,10 @@ public class ActivityAtelaatkala extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String shareBody = "http://www.cheemarket.com/product/?productid=" + mysabad.Id;
-                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject Here");
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(sharingIntent, "Cheemarket"));
             }
         });
@@ -211,7 +205,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
         imgalaghemandi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Alaghemandiha.addtoalaghemandiha(mysabad.Id);
+                ActivityAlaghemandiha.addtoalaghemandiha(mysabad.Id);
             }
         });
 
@@ -228,11 +222,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
             Textconfig.settext(txt1, "وزن کالا : " + mysabad.Weight);
         }
 
-        if (mysabad.Volume == null || mysabad.Volume.equals("")) {
-            txt2.setVisibility(View.GONE);
-        } else {
-            Textconfig.settext(txt2, "حجم کالا : " + mysabad.Volume);
-        }
+
 
     }
 
@@ -282,7 +272,6 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                     if (alldata) {
                         mysabad.Name = object.getString("Name");
                         mysabad.Weight = object.getString("Weight");
-                        mysabad.Volume = object.getString("Volume");
                         mysabad.Image = object.getString("Image");
                     }
 

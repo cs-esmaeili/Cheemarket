@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import com.cheemarket.ActivityAtelaatkala;
-import com.cheemarket.Alaghemandiha;
+import com.cheemarket.ActivityAlaghemandiha;
 import com.cheemarket.Commands;
 import com.cheemarket.Customview.Lineimage;
 import com.cheemarket.G;
@@ -91,7 +91,7 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
             holder.deleteone.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Alaghemandiha.deletealaghemandiha(mdataset.get(position).Id1);
+                    ActivityAlaghemandiha.deletealaghemandiha(mdataset.get(position).Id1);
                 }
             });
         }
@@ -141,7 +141,7 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
             holder.deletetwo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Alaghemandiha.deletealaghemandiha(mdataset.get(position).Id2);
+                    ActivityAlaghemandiha.deletealaghemandiha(mdataset.get(position).Id2);
                 }
             });
 

@@ -49,7 +49,7 @@ public class ActivityAddress extends AppCompatActivity {
     public static Button btnsave;
     private static badgelogo badge;
 
-    public static     Button btnselect;
+    public static Button btnselect;
 
     @Override
     protected void onResume() {
@@ -102,9 +102,9 @@ public class ActivityAddress extends AppCompatActivity {
                 btnselect.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(AddressAdapter.colors.indexOf(Color.TRANSPARENT) == -1){
-                            Toast.makeText(G.context,"لطفا آدرسی را انتخاب کنید" , Toast.LENGTH_LONG).show();
-                        }else {
+                        if (AddressAdapter.colors.indexOf(Color.TRANSPARENT) == -1) {
+                            Toast.makeText(G.context, "لطفا آدرسی را انتخاب کنید", Toast.LENGTH_LONG).show();
+                        } else {
                             Paymentstep.Address = mdatasetList.get(AddressAdapter.colors.indexOf(Color.TRANSPARENT));
                             finish();
 
@@ -120,10 +120,10 @@ public class ActivityAddress extends AppCompatActivity {
         List.setHasFixedSize(true);
         RecyclerView.LayoutManager LayoutManagerList = new LinearLayoutManager(G.CurrentActivity, LinearLayoutManager.HORIZONTAL, false);
         List.setLayoutManager(LayoutManagerList);
-        AdapterList = new AddressAdapter(mdatasetList , colors);
+        AdapterList = new AddressAdapter(mdatasetList, colors);
         List.setAdapter(AdapterList);
 
-        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.ostanha, android.R.layout.simple_spinner_item);
+        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.ostanha, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnerostan.setAdapter(adapter);
 
@@ -146,23 +146,23 @@ public class ActivityAddress extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (btnsave.getText().toString().equals("اضافه کردن آدرس جدید")) {
-                    if(mdatasetList.size() < 5) {
-                        if(edtname.getText().toString().length() > 0 && edthomenumber.getText().toString().length() > 0
-                        && edtphonenumber.getText().toString().length() > 0 && edtaddress.getText().toString().length() > 0){
+                    if (mdatasetList.size() < 5) {
+                        if (edtname.getText().toString().length() > 0 && edthomenumber.getText().toString().length() > 0
+                                && edtphonenumber.getText().toString().length() > 0 && edtaddress.getText().toString().length() > 0) {
 
-                            if(edtcodeposti.getText().toString().length() == 0){
+                            if (edtcodeposti.getText().toString().length() == 0) {
                                 edtcodeposti.setText("0");
                             }
 
                             btnsaveaction("-1");
                             btnselect.setBackgroundColor(Color.parseColor("#D6D7D7"));
-                        }else{
-                            Toast.makeText(G.context,"اطلاعات را به صورت کامل و درست وارد کنید !" , Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(G.context, "اطلاعات را به صورت کامل و درست وارد کنید !", Toast.LENGTH_LONG).show();
                         }
 
 
-                    }else{
-                        Toast.makeText(G.context,"حداکثر تعداد آدرس 5 عدد میباشد" , Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(G.context, "حداکثر تعداد آدرس 5 عدد میباشد", Toast.LENGTH_LONG).show();
 
 
                         ActivityAddress.edtaddress.setText("");
@@ -184,7 +184,6 @@ public class ActivityAddress extends AppCompatActivity {
                     btnsaveaction(AddressAdapter.updateid);
 
                 }
-
 
 
             }
@@ -342,7 +341,7 @@ public class ActivityAddress extends AppCompatActivity {
                         G.HANDLER.post(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(G.context,"مشکلی در ارتیاط با سرور پیش آمد دوباره سعی کنید", Toast.LENGTH_LONG).show();
+                                Toast.makeText(G.context, "مشکلی در ارتیاط با سرور پیش آمد دوباره سعی کنید", Toast.LENGTH_LONG).show();
                             }
                         });
                         return null;
@@ -382,8 +381,10 @@ public class ActivityAddress extends AppCompatActivity {
 
 
     }
+
     public static ArrayAdapter<CharSequence> adapter;
-    public static void spinershahrha(){
+
+    public static void spinershahrha() {
         String text = spnerostan.getSelectedItem().toString();
 
 
@@ -392,125 +393,125 @@ public class ActivityAddress extends AppCompatActivity {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
         } else if (text.equals("آذربایجان\u200Cشرقی")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.azarbaijansharghi, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.azarbaijansharghi, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
         } else if (text.equals("آذربایجان\u200Cغربی")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.azarbaijangharbi, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.azarbaijangharbi, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
         } else if (text.equals("اردبیل")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.ardebil, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.ardebil, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
         } else if (text.equals("البرز")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.alborz, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.alborz, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
         } else if (text.equals("ایلام")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.eilam, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.eilam, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
         } else if (text.equals("بوشهر")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.boshehr, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.boshehr, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
         } else if (text.equals("تهران")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.tehran, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.tehran, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
         } else if (text.equals("چهارمحال\u200Cو\u200Cبختیاری")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.charmahalbakhtiyari, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.charmahalbakhtiyari, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
         } else if (text.equals("خراسان\u200Cجنوبی")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.khorasanjonobi, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.khorasanjonobi, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
         } else if (text.equals("خراسان\u200Cرضوی")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.khorasanrazavi, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.khorasanrazavi, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
         } else if (text.equals("خراسان\u200Cشمالی")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.khorasanshomali, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.khorasanshomali, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
         } else if (text.equals("خوزستان")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.khozestan, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.khozestan, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
         } else if (text.equals("زنجان")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.zanjan, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.zanjan, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
         } else if (text.equals("سمنان")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.semnan, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.semnan, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
         } else if (text.equals("سیستان\u200Cو\u200Cبلوچستان")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.sistanvabalochestan, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.sistanvabalochestan, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
         } else if (text.equals("فارس")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.fars, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.fars, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
         } else if (text.equals("قزوین")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.ghazvin, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.ghazvin, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
         } else if (text.equals("قم")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.ghom, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.ghom, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
         } else if (text.equals("كردستان")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.kordestan, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.kordestan, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
         } else if (text.equals("كرمان")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.kerman, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.kerman, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
         } else if (text.equals("كرمانشاه")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.kermanshah, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.kermanshah, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
         } else if (text.equals("کهگیلویه\u200Cو\u200Cبویراحمد")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.kohkiloyevaboyerahmad, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.kohkiloyevaboyerahmad, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
         } else if (text.equals("گلستان")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.golestan, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.golestan, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
         } else if (text.equals("گیلان")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.gilan, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.gilan, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
         } else if (text.equals("لرستان")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.lorstan, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.lorstan, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
         } else if (text.equals("مازندران")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.mazandaran, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.mazandaran, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
         } else if (text.equals("مركزی")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.markazi, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.markazi, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
         } else if (text.equals("هرمزگان")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.hormozgan, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.hormozgan, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
 
         } else if (text.equals("همدان")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.hamedan, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.hamedan, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
 
         } else if (text.equals("یزد")) {
-             adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.yazd, android.R.layout.simple_spinner_item);
+            adapter = ArrayAdapter.createFromResource(G.CurrentActivity, R.array.yazd, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spnershahr.setAdapter(adapter);
 
