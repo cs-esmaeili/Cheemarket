@@ -30,7 +30,7 @@
 
         <item
             android:id="@+id/yourorders"
-            android:icon="@drawable/ic_location_on_black_24dp"
+            android:icon="@drawable/ic_assignment_turned_in_black_24dp"
             android:title="سفارش های شما"
             android:fontFamily="@font/vazir"/>
 
@@ -49,16 +49,19 @@
         <menu>
             <item
                 android:id="@+id/problems"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/ic_bug_report_black_24dp"
                 android:fontFamily="@font/vazir"
                 android:title="گزاش مشکلات نرم افزار" />
-
             <item
                 android:id="@+id/darbareyema"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/logo"
                 android:fontFamily="@font/vazir"
                 android:title="درباره ما" />
-
+            <item
+                android:id="@+id/tamasbama"
+                android:icon="@drawable/ic_phone_black_24dp"
+                android:fontFamily="@font/vazir"
+                android:title="تماس با ما" />
         </menu>
     </item>
 

@@ -129,7 +129,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
 
             if (finaldataset.get(position).Image1 != null && !finaldataset.get(position).Image1.equals("")) {
-                Commands.showimage(G.Baseurl + "Listimages/" + finaldataset.get(position).Image1 + "/" + finaldataset.get(position).Image1 + ".jpg", null, holder.imageone, true);
+                Commands.showimage(G.Baseurl + "Listimages/" + finaldataset.get(position).Image1 + "/" + finaldataset.get(position).Image1 + ".jpg", null, holder.imageone);
             }
 
 
@@ -190,7 +190,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
 
                 if (finaldataset.get(position).Image2 != null && !finaldataset.get(position).Image2.equals("")) {
-                    Commands.showimage(G.Baseurl + "Listimages/" + finaldataset.get(position).Image2 + "/" + finaldataset.get(position).Image2 + ".jpg", null, holder.imagetwo, true);
+                    Commands.showimage(G.Baseurl + "Listimages/" + finaldataset.get(position).Image2 + "/" + finaldataset.get(position).Image2 + ".jpg", null, holder.imagetwo);
                 }
 
 

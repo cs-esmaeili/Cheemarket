@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
 
     android:orientation="vertical"
-    tools:context=".Orderinformation">
+    tools:context=".ActivityOrderinformation">
 
     <include layout="@layout/toolbarforall" />
 
@@ -23,7 +23,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/List"
                 android:layout_width="match_parent"
-                android:layout_height="0dip"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layoutDirection="ltr">
 
@@ -39,7 +39,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dip"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="7dip"
                 android:layout_marginTop="15dip"
                 android:layout_marginRight="5dip"
@@ -72,8 +72,7 @@
                         android:layout_weight="0.5"
                         android:gravity="right"
                         android:text="نام و نام خانوادگی"
-                        android:textSize="15dip"
-                        />
+                        android:textSize="15dip" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -100,8 +99,7 @@
                         android:layout_weight="0.5"
                         android:gravity="right"
                         android:text="شماره تلفن همراه"
-                        android:textSize="15dip"
-                        />
+                        android:textSize="15dip" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -128,8 +126,7 @@
                         android:layout_weight="0.5"
                         android:gravity="right"
                         android:text="شماره ثابت"
-                        android:textSize="15dip"
-                        />
+                        android:textSize="15dip" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -215,8 +212,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dip"
-                    android:layout_weight="0.125"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <TextView

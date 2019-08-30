@@ -40,7 +40,7 @@
                 <data
                     android:host="www.cheemarket.com"
                     android:pathPrefix="/product/"
-                    android:scheme="http" />
+                    android:scheme="https" />
             </intent-filter>
         </activity>
         <activity
@@ -66,7 +66,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".activityNetwork"
+            android:name=".ActivityNetwork"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
         <activity
@@ -74,11 +74,11 @@
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Dastebandimahsolat"
+            android:name=".ActivityDastebandimahsolat"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Subdastebandi"
+            android:name=".ActivitySubdastebandi"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
         <activity
@@ -86,7 +86,7 @@
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Alaghemandiha"
+            android:name=".ActivityAlaghemandiha"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
         <activity
@@ -104,15 +104,15 @@
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Orders"
+            android:name=".ActivityOrders"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Orderinformation"
+            android:name=".ActivityOrderinformation"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SearchActivity"
+            android:name=".ActivitySearch"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
         <activity

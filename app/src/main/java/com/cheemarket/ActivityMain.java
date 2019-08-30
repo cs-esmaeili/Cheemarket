@@ -57,6 +57,7 @@ public class ActivityMain extends AppCompatActivity
     public static Activity thisactivity;
 
 
+    private static RecyclerView List;
     private static RecyclerView RecyclerViewList1;
     private static RecyclerView RecyclerViewList4;
     private static RecyclerView RecyclerViewList6;
@@ -92,21 +93,7 @@ public class ActivityMain extends AppCompatActivity
     static int daghighe = 0;
     static int saniye = 0;
 
-    private static CircleImageView imgkhoshbar;
-    private static CircleImageView imgsayfijat;
-    private static CircleImageView imgchaei;
-    private static CircleImageView imgkhorma;
-    private static CircleImageView imgasal;
-    private static CircleImageView imgsabzijat;
-    private static CircleImageView imgasasi;
 
-    private static LinearLayout khoshbar;
-    private static LinearLayout sayfijat;
-    private static LinearLayout chaei;
-    private static LinearLayout khorma;
-    private static LinearLayout asal;
-    private static LinearLayout sabzijat;
-    private static LinearLayout asasi;
     private static LinearLayout layoutprofile;
     private static badgelogo badge;
 
@@ -170,7 +157,7 @@ public class ActivityMain extends AppCompatActivity
 
         Commands.setbadgenumber(badge);
 
-
+        List = (RecyclerView) findViewById(R.id.List);
         RecyclerViewList1 = (RecyclerView) findViewById(R.id.List1);
         RecyclerViewList4 = (RecyclerView) findViewById(R.id.List4);
         RecyclerViewList6 = (RecyclerView) findViewById(R.id.List6);
@@ -195,22 +182,7 @@ public class ActivityMain extends AppCompatActivity
         s = (TextView) findViewById(R.id.s);
 
 
-        imgkhoshbar = (CircleImageView) findViewById(R.id.imgkhoshbar);
-        imgsayfijat = (CircleImageView) findViewById(R.id.imgsayfijat);
-        imgchaei = (CircleImageView) findViewById(R.id.imgchaei);
-        imgkhorma = (CircleImageView) findViewById(R.id.imgkhorma);
-        imgasal = (CircleImageView) findViewById(R.id.imgasal);
-        imgasasi = (CircleImageView) findViewById(R.id.imgasasi);
-        imgsabzijat = (CircleImageView) findViewById(R.id.imgsabzijat);
 
-
-        khoshbar = (LinearLayout) findViewById(R.id.khoshbar);
-        sayfijat = (LinearLayout) findViewById(R.id.sayfijat);
-        chaei = (LinearLayout) findViewById(R.id.chaei);
-        khorma = (LinearLayout) findViewById(R.id.khorma);
-        asal = (LinearLayout) findViewById(R.id.asal);
-        asasi = (LinearLayout) findViewById(R.id.asasi);
-        sabzijat = (LinearLayout) findViewById(R.id.sabzijat);
 
 
         scroll = (ScrollView) findViewById(R.id.scroll);
@@ -224,7 +196,7 @@ public class ActivityMain extends AppCompatActivity
         shoplogo.setOnClickListener(Commands.onClickListenersabadkharid);
 
 
-
+/*
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -234,24 +206,9 @@ public class ActivityMain extends AppCompatActivity
             }
         };
 
+*/
 
 
-
-        khoshbar.setTag("dastebandi_khoshkbar");
-        sayfijat.setTag("dastebandi_seyfijat");
-        chaei.setTag("dastebandi_chay");
-        khorma.setTag("dastebandi_khorma");
-        asal.setTag("dastebandi_asal");
-        asasi.setTag("dastebandi_kalahayeasasi");
-        sabzijat.setTag("dastebandi_sabzijat");
-        
-        khoshbar.setOnClickListener(onClickListener);
-        sayfijat.setOnClickListener(onClickListener);
-        chaei.setOnClickListener(onClickListener);
-        khorma.setOnClickListener(onClickListener);
-        asal.setOnClickListener(onClickListener);
-        asasi.setOnClickListener(onClickListener);
-        sabzijat.setOnClickListener(onClickListener);
 
 
         layoutprofile.setOnClickListener(new View.OnClickListener() {
@@ -271,9 +228,9 @@ public class ActivityMain extends AppCompatActivity
             startActivity(intent);
 
         } else {
-            // addview.add("App");
+
             applinkaction();
-            getimageurls();
+            Commands.getMaindastebandi("yes",List);
             pagework();
         }
 
@@ -652,7 +609,7 @@ public class ActivityMain extends AppCompatActivity
     private static void showimage(final ImageView img, final JSONObject jsonObject) {
 
         try {
-            Commands.showimage(G.Baseurl + "Listimages/" + jsonObject.getString("Postimage") + "/" + jsonObject.getString("Postimage") + ".jpg", null, img, true);
+            Commands.showimage(G.Baseurl + "Listimages/" + jsonObject.getString("Postimage") + "/" + jsonObject.getString("Postimage") + ".jpg", null, img);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -717,80 +674,5 @@ public class ActivityMain extends AppCompatActivity
     }
 
 
-    private void getimageurls() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
 
-                final ImageView[] imageViews = new ImageView[]{imgasasi, imgkhoshbar, imgkhorma, imgsayfijat, imgsabzijat, imgchaei, imgasal};
-                Webservice.request("Dastebandi_Images/indexs.php", new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-
-                        Webservice.handelerro(e, new Callable<Void>() {
-                            @Override
-                            public Void call() throws Exception {
-                                getimageurls();
-                                return null;
-                            }
-                        });
-
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        String input = response.body().string();
-
-                        if (input != "") {
-                            try {
-                                final JSONArray array = new JSONArray(input);
-                                int temp = 0;
-                                for (int i = 0; i < 7; i++) {
-
-
-                                    if (i == 1) {
-                                        temp = 1;
-                                    } else if (i == 2) {
-                                        temp = 3;
-                                    } else if (i == 3) {
-                                        temp = 12;
-                                    } else if (i == 4) {
-                                        temp = 13;
-                                    } else if (i == 5) {
-                                        temp = 14;
-                                    } else if (i == 6) {
-                                        temp = 15;
-                                    }
-
-
-                                    final int finalTemp = temp;
-                                    final int finalI = i;
-                                    G.HANDLER.post(new Runnable() {
-                                        @Override
-                                        public void run() {
-
-                                            try {
-                                                Commands.showimage(array.get(finalTemp).toString(), null, imageViews[finalI], true);
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-
-                                        }
-                                    });
-
-
-                                }
-
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                }, null);
-
-            }
-        }).start();
-
-    }
 }

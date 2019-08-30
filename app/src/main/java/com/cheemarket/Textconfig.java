@@ -44,14 +44,24 @@ public class Textconfig {
 
     public static  String formattext(String text){
         String orginaltext = text;
-        text = text.replace("تومان","");
 
-        if (TextUtils.isDigitsOnly(text) && !text.equals("")){
-            DecimalFormat formatter = new DecimalFormat("#,###,###");
-            return formatter.format(Long.parseLong(text)) + " تومان";
-        }
-        if(orginaltext.contains("تومان")) {
-            text = text + "تومان";
+        if(orginaltext.contains("تومان")){
+            text = text.replace("تومان","");
+
+
+            if (TextUtils.isDigitsOnly(text) && !text.equals("")){
+                DecimalFormat formatter = new DecimalFormat("#,###,###");
+                return formatter.format(Long.parseLong(text)) + " تومان";
+            }
+
+                text = text + "تومان";
+
+
+        }else {
+            if (TextUtils.isDigitsOnly(text) && !text.equals("")){
+                DecimalFormat formatter = new DecimalFormat("#,###,###");
+                return formatter.format(Long.parseLong(text));
+            }
         }
         return text;
     }

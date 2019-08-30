@@ -56,7 +56,7 @@ public class ActivityDarbareyema extends AppCompatActivity {
             });
         }
 
-        Commands.showimage(null,R.drawable.logo,img,false);
+        Commands.showimage(null,R.drawable.logo,img);
 
 
     }

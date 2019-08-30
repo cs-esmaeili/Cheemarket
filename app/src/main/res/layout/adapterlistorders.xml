@@ -32,7 +32,7 @@
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text="TextView"
+                    android:gravity="left"
                     android:textSize="20dip" />
 
                 <TextView
@@ -76,7 +76,7 @@
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text="TextView"
+                    android:gravity="left"
                     android:textColor="#78da4a"
                     android:textSize="20dip" />
 
@@ -101,7 +101,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="left"
-                    android:text="TextView"
                     android:textSize="20dip" />
 
                 <TextView

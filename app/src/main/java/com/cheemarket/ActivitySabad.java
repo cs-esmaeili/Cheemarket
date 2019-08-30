@@ -26,6 +26,7 @@ import java.util.concurrent.Callable;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+
 import com.cheemarket.Adapter.SabadAdapter;
 import com.cheemarket.Structure.sabad;
 
@@ -76,12 +77,11 @@ public class ActivitySabad extends AppCompatActivity {
         Adapter.notifyDataSetChanged();
 
 
-
         btnpay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if(G.mdatasetsabad.size() > 0){
+                if (G.mdatasetsabad.size() > 0) {
                     ActivitySabad.pagework();
                 }
 
@@ -134,11 +134,10 @@ public class ActivitySabad extends AppCompatActivity {
         requestparameter.key = "jsontext";
         requestparameter.value = temp;
 
-        Log.i("LOG" , "text =" + temp);
+        Log.i("LOG", "text =" + temp);
         Webservice.requestparameter requestparameter1 = new Webservice.requestparameter();
         requestparameter1.key = "Connectioncode";
         requestparameter1.value = G.Connectioncode;
-
 
 
         array.add(requestparameter);
@@ -152,7 +151,7 @@ public class ActivitySabad extends AppCompatActivity {
                         G.HANDLER.post(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(G.context,"مشکلی در ارتیاط با سرور پیش آمد دوباره سعی کنید", Toast.LENGTH_LONG).show();
+                                Toast.makeText(G.context, "مشکلی در ارتیاط با سرور پیش آمد دوباره سعی کنید", Toast.LENGTH_LONG).show();
                             }
                         });
                         return null;
@@ -164,7 +163,7 @@ public class ActivitySabad extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 String input = response.body().string();
 
-                Log.i("LOG" ,"kala = " + input);
+                Log.i("LOG", "kala = " + input);
 
 
                 if (input.equals("[]") || input.equals("")) {
@@ -186,14 +185,14 @@ public class ActivitySabad extends AppCompatActivity {
 
                         for (int j = 0; j < G.mdatasetsabad.size(); j++) {
 
-                            if(object.has("delete") && G.mdatasetsabad.get(j).Id.equals(object.getString("Id"))){
+                            if (object.has("delete") && G.mdatasetsabad.get(j).Id.equals(object.getString("Id"))) {
                                 G.mdatasetsabad.remove(j);
                                 text = "بعضی از کالاها به دلیل عدم موجودی پاک شدند";
                             }
 
 
                             if (G.mdatasetsabad.get(j).Id.equals(object.getString("Id"))) {
-                                if(!text.contains("عوض")){
+                                if (!text.contains("عوض")) {
                                     text += "\n" + "اطلاعات بعضی از کالا ها عوض شد";
                                 }
 
@@ -203,17 +202,15 @@ public class ActivitySabad extends AppCompatActivity {
                                 G.mdatasetsabad.get(j).Image = object.getString("Image");
                                 G.mdatasetsabad.get(j).Ordernumber = object.getString("Ordernumber");
 
-                              //  G.mdatasetsabad.get(j).Tedad = object.getString("Tedad");
+                                //  G.mdatasetsabad.get(j).Tedad = object.getString("Tedad");
 
-                                if(Integer.parseInt(G.mdatasetsabad.get(j).Ordernumber) < Integer.parseInt( G.mdatasetsabad.get(j).Tedad)){
+                                if (Integer.parseInt(G.mdatasetsabad.get(j).Ordernumber) < Integer.parseInt(G.mdatasetsabad.get(j).Tedad)) {
                                     G.mdatasetsabad.get(j).Tedad = G.mdatasetsabad.get(j).Ordernumber;
 
                                 }
-                                if(Integer.parseInt(object.getString("Tedad")) < Integer.parseInt(G.mdatasetsabad.get(j).Tedad) ){
+                                if (Integer.parseInt(object.getString("Tedad")) < Integer.parseInt(G.mdatasetsabad.get(j).Tedad)) {
                                     G.mdatasetsabad.get(j).Tedad = object.getString("Tedad");
                                 }
-
-
 
 
                             }

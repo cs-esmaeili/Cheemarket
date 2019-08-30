@@ -59,7 +59,7 @@ public class Dialogs extends Application {
                 btncansel.setVisibility( (canselvisi.equals("yes")? View.VISIBLE :  View.GONE) );
 
                 txt.setText(matn);
-                Commands.showimage(Image, null, img, true);
+                Commands.showimage(Image, null, img);
 
 
                 btnOk.setOnClickListener(new View.OnClickListener() {

@@ -193,7 +193,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
         imgsheare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String shareBody = "http://www.cheemarket.com/product/?productid=" + mysabad.Id;
+                String shareBody = "https://www.cheemarket.com/product/?productid=" + mysabad.Id;
                 Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
                 sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject Here");

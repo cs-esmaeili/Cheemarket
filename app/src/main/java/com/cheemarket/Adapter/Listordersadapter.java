@@ -50,7 +50,7 @@ public class Listordersadapter extends RecyclerView.Adapter<Listordersadapter.Vi
 
 
         Textconfig.settext(holder.txtCode, mdataset.get(position).Category + "");
-        Textconfig.settext(holder.txtprice, mdataset.get(position).sum + "");
+        Textconfig.settext(holder.txtprice, mdataset.get(position).sum + " تومان");
 
         switch (Integer.parseInt(mdataset.get(position).Vaziyat)) {
             case 1:

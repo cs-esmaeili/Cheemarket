@@ -118,7 +118,7 @@ public class Payment {
                 Log.i("loG", input);
 
 
-                if (input.contains("https://www.zarinpal.com/pg/StartPay/") && input.contains("/ZarinGate")) {
+                if (input.contains("https://")) {
 
                     Paymentstep.Address = null;
                     G.mdatasetsabad.clear();

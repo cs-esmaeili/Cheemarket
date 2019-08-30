@@ -69,9 +69,8 @@
                             <TextView
                                 android:id="@+id/txtname"
                                 android:layout_width="match_parent"
-                                android:layout_height="0dip"
+                                android:layout_height="wrap_content"
                                 android:layout_margin="3dip"
-                                android:layout_weight="0.166"
                                 android:gravity="right|center"
                                 android:text=""
                                 android:textColor="#000000"
@@ -80,9 +79,8 @@
                             <TextView
                                 android:id="@+id/txtcode"
                                 android:layout_width="match_parent"
-                                android:layout_height="0dip"
+                                android:layout_height="wrap_content"
                                 android:layout_margin="3dip"
-                                android:layout_weight="0.166"
                                 android:gravity="right|center"
                                 android:text=""
                                 android:textColor="#000000"
@@ -278,7 +276,8 @@
                             android:layout_margin="5dip"
                             android:gravity="right"
                             android:text=""
-                            android:textColor="#000000" />
+                            android:textColor="#000000"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/txt3"
