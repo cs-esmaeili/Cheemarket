@@ -86,7 +86,7 @@ public class Webservice {
             G.HANDLER.post(new Runnable() {
                 @Override
                 public void run() {
-                 //   Toast.makeText(G.CurrentActivity, "اینترنت شما بسیار ضعیت است !", Toast.LENGTH_LONG).show();
+                    //   Toast.makeText(G.CurrentActivity, "اینترنت شما بسیار ضعیت است !", Toast.LENGTH_LONG).show();
                     try {
                         Method.call();
                     } catch (Exception e1) {

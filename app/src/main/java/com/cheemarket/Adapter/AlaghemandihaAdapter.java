@@ -16,7 +16,7 @@ import com.cheemarket.Commands;
 import com.cheemarket.Customview.Lineimage;
 import com.cheemarket.G;
 import com.cheemarket.R;
-import com.cheemarket.Structure.KalaStructure;
+import com.cheemarket.Structure.PoductStructure;
 import com.cheemarket.Textconfig;
 
 /**
@@ -25,9 +25,9 @@ import com.cheemarket.Textconfig;
 
 public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdapter.ViewHolder> {
 
-    private ArrayList<KalaStructure> mdataset;
+    private ArrayList<PoductStructure> mdataset;
 
-    public AlaghemandihaAdapter(ArrayList<KalaStructure> mdataset) {
+    public AlaghemandihaAdapter(ArrayList<PoductStructure> mdataset) {
         this.mdataset = mdataset;
 
     }
@@ -71,12 +71,14 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
             } else {
                 holder.txtnameone.setVisibility(View.INVISIBLE);
             }
-
+/*
             if (mdataset.get(position).Image1 != null && !mdataset.get(position).Image1.equals("")) {
                 Commands.showimage(G.Baseurl + "Listimages/" + mdataset.get(position).Image1 + "/" + mdataset.get(position).Image1 + ".jpg", null, holder.imageone);
             }
 
 
+
+ */
 
 
             holder.cardone.setOnClickListener(new View.OnClickListener() {
@@ -124,11 +126,11 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
                 holder.textPricetwo.setVisibility(View.INVISIBLE);
             }
 
-
+/*
             if (mdataset.get(position).Image2 != null && !mdataset.get(position).Image2.equals("")) {
                 Commands.showimage(G.Baseurl + "Listimages/" + mdataset.get(position).Image2 + "/" + mdataset.get(position).Image2 + ".jpg", null, holder.imagetwo);
             }
-
+*/
 
             holder.cardtwo.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -23,7 +23,7 @@ import com.cheemarket.Commands;
 import com.cheemarket.G;
 import com.cheemarket.R;
 
-import static com.cheemarket.Start.checkrunword;
+
 
 /**
  * Created by user on 7/1/2018.

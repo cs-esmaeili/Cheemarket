@@ -26,13 +26,13 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import com.cheemarket.Adapter.Listpaymentadapter;
-import com.cheemarket.Structure.KalaStructure;
+import com.cheemarket.Structure.PoductStructure;
 
 public class ActivityOrderinformation extends AppCompatActivity {
 
 
     private static RecyclerView.Adapter AdapterList1;
-    private static ArrayList<KalaStructure> mdatasetList1;
+    private static ArrayList<PoductStructure> mdatasetList1;
     private static RecyclerView RecyclerViewList1;
     private static RecyclerView.LayoutManager LayoutManagerList1;
     private static RatingBar ratingBar;
@@ -143,7 +143,7 @@ public class ActivityOrderinformation extends AppCompatActivity {
             }
         });
 
-        mdatasetList1 = new ArrayList<KalaStructure>();
+        mdatasetList1 = new ArrayList<PoductStructure>();
 
 
         RecyclerViewList1.setHasFixedSize(true);
@@ -156,8 +156,8 @@ public class ActivityOrderinformation extends AppCompatActivity {
 
 
         Webservice.requestparameter param1 = new Webservice.requestparameter();
-        param1.key = "Connectioncode";
-        param1.value = G.Connectioncode;
+        param1.key = "token";
+        param1.value = G.token;
         Webservice.requestparameter param2 = new Webservice.requestparameter();
         param2.key = "Category";
         param2.value = ActivityOrders.mdatasetList.get(position).Category + "";
@@ -192,12 +192,12 @@ public class ActivityOrderinformation extends AppCompatActivity {
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject object = array.getJSONObject(i);
 
-                        KalaStructure kalaStructure = new KalaStructure();
+                        PoductStructure poductStructure = new PoductStructure();
 
-                        Commands.convertinputdata(object, kalaStructure, true);
-                        kalaStructure.Ordernumber1 = object.getString("Tedad");
+                        Commands.convertinputdata(object, poductStructure, true);
+                        poductStructure.Ordernumber1 = object.getString("Tedad");
 
-                        mdatasetList1.add(kalaStructure);
+                        mdatasetList1.add(poductStructure);
 
                     }
                     final JSONObject object = array.getJSONObject(0);
@@ -234,8 +234,8 @@ public class ActivityOrderinformation extends AppCompatActivity {
     private void setrating(final float rate, final int position) {
 
         Webservice.requestparameter param1 = new Webservice.requestparameter();
-        param1.key = "Connectioncode";
-        param1.value = G.Connectioncode;
+        param1.key = "token";
+        param1.value = G.token;
         Webservice.requestparameter param2 = new Webservice.requestparameter();
         param2.key = "Category";
         param2.value = ActivityOrders.mdatasetList.get(position).Category + "";

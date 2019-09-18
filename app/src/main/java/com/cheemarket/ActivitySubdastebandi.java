@@ -17,7 +17,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
@@ -29,7 +28,7 @@ import com.cheemarket.Adapter.Adapter;
 import com.cheemarket.Adapter.SubdastebandiAdapter;
 import com.cheemarket.Customview.Dialogs;
 import com.cheemarket.Customview.badgelogo;
-import com.cheemarket.Structure.KalaStructure;
+import com.cheemarket.Structure.PoductStructure;
 
 
 public class ActivitySubdastebandi extends AppCompatActivity {
@@ -37,8 +36,8 @@ public class ActivitySubdastebandi extends AppCompatActivity {
     private static String code = "";
     private static String codesubdastebandi = "";
     public static ArrayList<com.cheemarket.Structure.Subdastebandi> mdatasetListsubdastebandi;
-    public static ArrayList<KalaStructure> mdatasetkalafortwokala;
-    public static ArrayList<KalaStructure> mdatasetkalaforonekala;
+    public static ArrayList<PoductStructure> mdatasetkalafortwokala;
+    public static ArrayList<PoductStructure> mdatasetkalaforonekala;
     public static LinearLayoutManager layoutManager = null;
 
 
@@ -198,13 +197,8 @@ public class ActivitySubdastebandi extends AppCompatActivity {
         List.setAdapter(AdapterListsubcategory);
 
 
-        ArrayList<Webservice.requestparameter> array1 = new ArrayList<>();
-        Webservice.requestparameter object1 = new Webservice.requestparameter();
-        object1.key = "title";
-        object1.value = code;
 
-        array1.add(object1);
-        Webservice.request("Store.php?action=getsubdastebandi", new Callback() {
+        Webservice.request("subCategory/" + code , new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Webservice.handelerro(e, new Callable<Void>() {
@@ -229,10 +223,10 @@ public class ActivitySubdastebandi extends AppCompatActivity {
                     for (int i = 0; i < array.length(); i++) {
                         final JSONObject object = array.getJSONObject(i);
                         com.cheemarket.Structure.Subdastebandi subdastebandi = new com.cheemarket.Structure.Subdastebandi();
-                        subdastebandi.Subdastebandi = object.getString("Subdastebandi");
-                        subdastebandi.Title = object.getString("Title");
-                        subdastebandi.Image = object.getString("Image");
-                        subdastebandi.Id = object.getString("Id");
+                        subdastebandi.Subdastebandi = object.getString("category");
+                        subdastebandi.Title = object.getString("title");
+                        subdastebandi.Image = object.getString("image");
+                        subdastebandi.Id = object.getString("sub_category_id");
                         mdatasetListsubdastebandi.add(subdastebandi);
                     }
 
@@ -248,7 +242,7 @@ public class ActivitySubdastebandi extends AppCompatActivity {
 
 
             }
-        }, array1);
+        }, null);
 
 
     }
@@ -266,8 +260,8 @@ public class ActivitySubdastebandi extends AppCompatActivity {
         code = mycode;
 
         layoutManager = new LinearLayoutManager(G.CurrentActivity);
-        mdatasetkalafortwokala = new ArrayList<KalaStructure>();
-        mdatasetkalaforonekala = new ArrayList<KalaStructure>();
+        mdatasetkalafortwokala = new ArrayList<PoductStructure>();
+        mdatasetkalaforonekala = new ArrayList<PoductStructure>();
         AdapterListkala = new Adapter(mdatasetkalaforonekala, mdatasetkalafortwokala, R.layout.listtwo);
 
         List.setHasFixedSize(true);
@@ -275,7 +269,7 @@ public class ActivitySubdastebandi extends AppCompatActivity {
         List.setAdapter(AdapterListkala);
         List.setNestedScrollingEnabled(false);
 
-        Commands.addview("زیر دسته بندی " + code + " بازدید شد");
+       // Commands.addview("زیر دسته بندی " + code + " بازدید شد");
 
         mycall  = new Callback() {
             @Override
@@ -296,7 +290,7 @@ public class ActivitySubdastebandi extends AppCompatActivity {
                         object3.key = "sort";
                         object3.value = sort;
                         array1.add(object3);
-                        Webservice.request("Store.php?action=partofdata", mycall, array1);
+                        Webservice.request("productList", mycall, array1);
                         return null;
                     }
                 });
@@ -315,7 +309,7 @@ public class ActivitySubdastebandi extends AppCompatActivity {
                 }
                 try {
                     JSONArray array = new JSONArray(input);
-                    KalaStructure kala = new KalaStructure();
+                    PoductStructure kala = new PoductStructure();
                     boolean kalaone = true;
                     Listnumber += array.length();
 
@@ -333,13 +327,13 @@ public class ActivitySubdastebandi extends AppCompatActivity {
                         }
 
 
-                        KalaStructure temp = new KalaStructure();
+                        PoductStructure temp = new PoductStructure();
                         Commands.convertinputdata(object, temp, true);
                         mdatasetkalaforonekala.add(temp);
 
 
                         if (kalaone) {
-                            kala = new KalaStructure();
+                            kala = new PoductStructure();
                             Commands.convertinputdata(object, kala, kalaone);
                             if (i == array.length() - 1) {
                                 mdatasetkalafortwokala.add(kala);
@@ -387,7 +381,7 @@ public class ActivitySubdastebandi extends AppCompatActivity {
 
 
 
-        Webservice.request("Store.php?action=partofdata", mycall, array1);
+        Webservice.request("productList", mycall, array1);
 
 
         List.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
@@ -421,7 +415,7 @@ public class ActivitySubdastebandi extends AppCompatActivity {
                             object3.key = "sort";
                             object3.value = sort;
                             array1.add(object3);
-                            Webservice.request("Store.php?action=partofdata", mycall, array1);
+                            Webservice.request("productList", mycall, array1);
 
                         }
                     }

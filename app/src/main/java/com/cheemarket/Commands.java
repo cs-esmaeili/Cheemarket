@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -27,7 +28,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.cheemarket.Structure.KalaStructure;
+import com.cheemarket.Structure.PoductStructure;
 
 import okhttp3.Call;
 import okhttp3.Response;
@@ -35,31 +36,31 @@ import okhttp3.Response;
 public class Commands {
 
 
-    public static void convertinputdata(JSONObject jsonObject, KalaStructure kalaStructure, boolean kalaone) {
+    public static void convertinputdata(JSONObject jsonObject, PoductStructure poductStructure, boolean kalaone) {
 
         if (kalaone) {
             try {
-                kalaStructure.Name1 = jsonObject.getString("Name");
-                kalaStructure.Weight1 = jsonObject.getString("Weight");
-                kalaStructure.Price1 = jsonObject.getString("Price");
-                kalaStructure.OldPrice1 = jsonObject.getString("OldPrice");
-                kalaStructure.Image1 = jsonObject.getString("Image");
-                kalaStructure.Status1 = jsonObject.getString("Status");
-                kalaStructure.Datetime1 = jsonObject.getString("Datetime");
-                kalaStructure.Id1 = jsonObject.getString("Id");
+                poductStructure.Name1 = jsonObject.getString("name");
+                poductStructure.Price1 = jsonObject.getString("price");
+                poductStructure.OldPrice1 = jsonObject.getString("old_price");
+                poductStructure.Image_thumbnail1 = jsonObject.getString("image_thumbnail");
+                poductStructure.Image_folder1 = jsonObject.getString("image_folder");
+                poductStructure.Status1 = jsonObject.getString("status");
+                poductStructure.Datetime1 = jsonObject.getString("datetime");
+                poductStructure.Id1 = jsonObject.getString("product_id");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         } else {
             try {
-                kalaStructure.Name2 = jsonObject.getString("Name");
-                kalaStructure.Weight2 = jsonObject.getString("Weight");
-                kalaStructure.Price2 = jsonObject.getString("Price");
-                kalaStructure.OldPrice2 = jsonObject.getString("OldPrice");
-                kalaStructure.Image2 = jsonObject.getString("Image");
-                kalaStructure.Status2 = jsonObject.getString("Status");
-                kalaStructure.Datetime2 = jsonObject.getString("Datetime");
-                kalaStructure.Id2 = jsonObject.getString("Id");
+                poductStructure.Name2 = jsonObject.getString("name");
+                poductStructure.Price2 = jsonObject.getString("price");
+                poductStructure.OldPrice2 = jsonObject.getString("old_price");
+                poductStructure.Image_thumbnail2 = jsonObject.getString("image_thumbnail");
+                poductStructure.Image_folder2 = jsonObject.getString("image_folder");
+                poductStructure.Status2 = jsonObject.getString("status");
+                poductStructure.Datetime2 = jsonObject.getString("datetime");
+                poductStructure.Id2 = jsonObject.getString("product_id");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -68,25 +69,25 @@ public class Commands {
 
     }
 
-    public static void openactivity(ArrayList<KalaStructure> mdataset, int position, boolean one, Class<? extends Activity> target) {
+    public static void openactivity(ArrayList<PoductStructure> mdataset, int position, boolean one, Class<? extends Activity> target) {
 
 
         Intent intent = new Intent(G.CurrentActivity, target);
-
+        Log.i("LOG", "=" + mdataset.get(position).Name1);
+        Log.i("LOG", "=" + mdataset.get(position).Image_folder1);
+        Log.i("LOG", "=" + mdataset.get(position).Id1);
         if (one) {
             intent.putExtra("Name", mdataset.get(position).Name1);
-            intent.putExtra("Weight", mdataset.get(position).Weight1);
-            intent.putExtra("Image", mdataset.get(position).Image1);
+            intent.putExtra("Image", mdataset.get(position).Image_folder1);
             intent.putExtra("Id", mdataset.get(position).Id1);
         } else {
             intent.putExtra("Name", mdataset.get(position).Name2);
-            intent.putExtra("Weight", mdataset.get(position).Weight2);
-            intent.putExtra("Image", mdataset.get(position).Image2);
+            intent.putExtra("Image", mdataset.get(position).Image_folder2);
             intent.putExtra("Id", mdataset.get(position).Id2);
         }
 
         G.CurrentActivity.startActivity(intent);
-
+        G.CurrentActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
 
     }
 
@@ -95,19 +96,19 @@ public class Commands {
 
         try {
             Intent intent = new Intent(G.CurrentActivity, target);
-            intent.putExtra("Name", jsonObject.getString("Name"));
-            intent.putExtra("Weight", jsonObject.getString("Weight"));
-            intent.putExtra("Volume", jsonObject.getString("Volume"));
-            intent.putExtra("Image", jsonObject.getString("Image"));
-            intent.putExtra("Id", jsonObject.getString("Id"));
+            intent.putExtra("Name", jsonObject.getString("name"));
+            intent.putExtra("Image", jsonObject.getString("image"));
+            intent.putExtra("Id", jsonObject.getString("product_id"));
 
             G.CurrentActivity.startActivity(intent);
+            G.CurrentActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
 
     }
+
 
     public static void showimage(@Nullable final String url, @Nullable final Integer src, final ImageView img) {
 
@@ -121,7 +122,8 @@ public class Commands {
 
                     Picasso.get()
                             .load(url)
-                            .resize(G.IMAGES_HEIGHT, G.IMAGES_WIDTH)
+                            // .resize(G.IMAGES_HEIGHT, G.IMAGES_WIDTH)
+                            .fit().centerInside()
                             .error(R.drawable.brokenimage)
                             .into(img, new Callback() {
                                 @Override
@@ -139,7 +141,8 @@ public class Commands {
                 } else if (src != null) {
                     Picasso.get()
                             .load(src)
-                            .resize(G.IMAGES_HEIGHT, G.IMAGES_WIDTH)
+                            //  .resize(G.IMAGES_HEIGHT, G.IMAGES_WIDTH)
+                            .fit().centerInside()
                             .error(R.drawable.brokenimage)
                             .into(img, new Callback() {
                                 @Override
@@ -165,18 +168,21 @@ public class Commands {
         public void onClick(View v) {
             Intent intent = new Intent(G.CurrentActivity, ActivitySearch.class);
             G.CurrentActivity.startActivity(intent);
+            G.CurrentActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
         }
     };
 
     public static View.OnClickListener onClickListenersabadkharid = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (G.Connectioncode.equals("")) {
+            if (G.token.equals("")) {
                 Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
                 G.CurrentActivity.startActivity(intent);
+                G.CurrentActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
             } else {
                 Intent intent = new Intent(G.CurrentActivity, ActivitySabad.class);
                 G.CurrentActivity.startActivity(intent);
+                G.CurrentActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
             }
 
         }
@@ -234,17 +240,17 @@ public class Commands {
     }
 
 
-    public static void getMaindastebandi(final String firstpage, final RecyclerView List) {
+    public static void getMaindastebandi(final String page, final RecyclerView List) {
 
         Webservice.requestparameter param = new Webservice.requestparameter();
-        param.key = "Firstpage";
-        param.value = firstpage;
+        param.key = "page";
+        param.value = page;
         final ArrayList<Webservice.requestparameter> array = new ArrayList<>();
         array.add(param);
 
         final ArrayList<Maindastebandifistpage> dastebandihafirstpage = new ArrayList<>();
         final ArrayList<Maindastebandi> dastebandiha = new ArrayList<>();
-        Webservice.request("Store.php?action=getMaindastebandi", new okhttp3.Callback() {
+        Webservice.request("mainCategory", new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
 
@@ -253,6 +259,7 @@ public class Commands {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String input = response.body().string();
+
                 if (!input.equals("[]")) {
                     try {
                         JSONArray array1 = new JSONArray(input);
@@ -263,40 +270,38 @@ public class Commands {
                                 JSONObject obj = array1.getJSONObject(j);
 
 
-                                if (firstpage.equals("yes") && Integer.parseInt(obj.getString("FirstpageIndex")) != index) {
+                                if (page.equals("first") && Integer.parseInt(obj.getString("firstpage_index")) != index) {
                                     continue;
                                 }
 
-                                if (firstpage.equals("no") && Integer.parseInt(obj.getString("DastebandiIndex")) != index) {
+                                if (page.equals("main") && Integer.parseInt(obj.getString("category_index")) != index) {
                                     continue;
                                 }
 
                                 index++;
 
 
-                                if (firstpage.equals("yes")){
+                                if (page.equals("first")) {
                                     Maindastebandifistpage maindastebandifistpage = new Maindastebandifistpage();
-                                    maindastebandifistpage.Title = obj.getString("Title");
-                                    maindastebandifistpage.Image = obj.getString("Image");
+                                    maindastebandifistpage.Title = obj.getString("title");
+                                    maindastebandifistpage.Image = obj.getString("image");
 
-                                    maindastebandifistpage.Id = obj.getString("Id");
+                                    maindastebandifistpage.Id = obj.getString("main_category_id");
                                     dastebandihafirstpage.add(maindastebandifistpage);
                                 }
 
-                                if (firstpage.equals("no")){
+                                if (page.equals("main")) {
 
 
-
-
-                                    if(dastebandiha.size() > 0 && dastebandiha.get(dastebandiha.size() - 1).Id2 == null){
-                                        dastebandiha.get(dastebandiha.size() - 1) .Title2 = obj.getString("Title");
-                                        dastebandiha.get(dastebandiha.size() - 1) .Image2 = obj.getString("Image");
-                                        dastebandiha.get(dastebandiha.size() - 1) .Id2 = obj.getString("Id");
-                                    }else {
+                                    if (dastebandiha.size() > 0 && dastebandiha.get(dastebandiha.size() - 1).Id2 == null) {
+                                        dastebandiha.get(dastebandiha.size() - 1).Title2 = obj.getString("title");
+                                        dastebandiha.get(dastebandiha.size() - 1).Image2 = obj.getString("image");
+                                        dastebandiha.get(dastebandiha.size() - 1).Id2 = obj.getString("main_category_id");
+                                    } else {
                                         Maindastebandi maindastebandifistpage = new Maindastebandi();
-                                        maindastebandifistpage.Title1 = obj.getString("Title");
-                                        maindastebandifistpage.Image1 = obj.getString("Image");
-                                        maindastebandifistpage.Id1 = obj.getString("Id");
+                                        maindastebandifistpage.Title1 = obj.getString("title");
+                                        maindastebandifistpage.Image1 = obj.getString("image");
+                                        maindastebandifistpage.Id1 = obj.getString("main_category_id");
                                         dastebandiha.add(maindastebandifistpage);
                                     }
 
@@ -311,13 +316,13 @@ public class Commands {
                             @Override
                             public void run() {
 
-                                if(firstpage.equals("yes")){
+                                if (page.equals("first")) {
                                     List.setHasFixedSize(true);
                                     RecyclerView.LayoutManager LayoutManagerList = new LinearLayoutManager(G.CurrentActivity, LinearLayoutManager.HORIZONTAL, true);
                                     List.setLayoutManager(LayoutManagerList);
                                     RecyclerView.Adapter AdapterList = new Maindastebandifirstpageadapter(dastebandihafirstpage);
                                     List.setAdapter(AdapterList);
-                                }else {
+                                } else {
                                     List.setHasFixedSize(true);
                                     RecyclerView.LayoutManager LayoutManagerList = new LinearLayoutManager(G.CurrentActivity, LinearLayoutManager.VERTICAL, false);
                                     List.setLayoutManager(LayoutManagerList);

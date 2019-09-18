@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,7 +27,6 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 import com.cheemarket.Customview.badgelogo;
-import com.cheemarket.R;
 
 import com.cheemarket.Adapter.AddressAdapter;
 import com.cheemarket.Structure.AddressStructure;
@@ -204,11 +202,13 @@ public class ActivityAddress extends AppCompatActivity {
 
 
         Webservice.requestparameter param = new Webservice.requestparameter();
-        param.key = "Connectioncode";
-        param.value = G.Connectioncode;
+        param.key = "token";
+        param.value = G.token;
+
+
         ArrayList<Webservice.requestparameter> array = new ArrayList<>();
         array.add(param);
-        Webservice.request("Store.php?action=address", new Callback() {
+        Webservice.request("address", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Webservice.handelerro(e, new Callable<Void>() {
@@ -222,6 +222,8 @@ public class ActivityAddress extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                String input = response.body().string();
+
 
                 mdatasetList.clear();
                 colors.clear();
@@ -233,7 +235,7 @@ public class ActivityAddress extends AppCompatActivity {
                     }
                 });
 
-                String input = response.body().string();
+
                 if (input != null && !input.equals("[]")) {
                     try {
                         JSONArray temparray = new JSONArray(input);
@@ -312,8 +314,8 @@ public class ActivityAddress extends AppCompatActivity {
         array.add(param7);
 
         Webservice.requestparameter param8 = new Webservice.requestparameter();
-        param8.key = "Connectioncode";
-        param8.value = G.Connectioncode;
+        param8.key = "token";
+        param8.value = G.token;
         array.add(param8);
 
         if (updateid != null && !updateid.equals("-1")) {

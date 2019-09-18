@@ -18,7 +18,7 @@ import com.cheemarket.G;
 import com.cheemarket.Customview.Lineimage;
 import com.cheemarket.R;
 
-import com.cheemarket.Structure.KalaStructure;
+import com.cheemarket.Structure.PoductStructure;
 import com.cheemarket.Textconfig;
 
 /**
@@ -27,14 +27,14 @@ import com.cheemarket.Textconfig;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
-    private ArrayList<KalaStructure> datasetonekala;
-    private ArrayList<KalaStructure> datasettwokala;
-    private ArrayList<KalaStructure> finaldataset;
+    private ArrayList<PoductStructure> datasetonekala;
+    private ArrayList<PoductStructure> datasettwokala;
+    private ArrayList<PoductStructure> finaldataset;
 
     private int layout;
     private ImageView.ScaleType scaleType = ImageView.ScaleType.FIT_XY;
 
-    public Adapter(ArrayList<KalaStructure> datasetonekala, ArrayList<KalaStructure> datasettwokala, int layout) {
+    public Adapter(ArrayList<PoductStructure> datasetonekala, ArrayList<PoductStructure> datasettwokala, int layout) {
         this.datasetonekala = datasetonekala;
         this.datasettwokala = datasettwokala;
 
@@ -128,8 +128,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             }
 
 
-            if (finaldataset.get(position).Image1 != null && !finaldataset.get(position).Image1.equals("")) {
-                Commands.showimage(G.Baseurl + "Listimages/" + finaldataset.get(position).Image1 + "/" + finaldataset.get(position).Image1 + ".jpg", null, holder.imageone);
+
+            if (finaldataset.get(position).Image_thumbnail1 != null && !finaldataset.get(position).Image_thumbnail1.equals("")) {
+
+                Commands.showimage(finaldataset.get(position).Image_thumbnail1, null, holder.imageone);
             }
 
 
@@ -138,6 +140,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 public void onClick(View v) {
 
                     Commands.openactivity(finaldataset, position, true, ActivityAtelaatkala.class);
+
 
                 }
             });
@@ -189,8 +192,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 }
 
 
-                if (finaldataset.get(position).Image2 != null && !finaldataset.get(position).Image2.equals("")) {
-                    Commands.showimage(G.Baseurl + "Listimages/" + finaldataset.get(position).Image2 + "/" + finaldataset.get(position).Image2 + ".jpg", null, holder.imagetwo);
+                if (finaldataset.get(position).Image_thumbnail2 != null && !finaldataset.get(position).Image_thumbnail2.equals("")) {
+                    Commands.showimage( finaldataset.get(position).Image_thumbnail2, null, holder.imagetwo);
                 }
 
 

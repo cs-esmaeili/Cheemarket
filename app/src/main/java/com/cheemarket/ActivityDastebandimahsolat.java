@@ -45,7 +45,7 @@ public class ActivityDastebandimahsolat extends AppCompatActivity {
         badge = (badgelogo) findViewById(R.id.badgelogo);
         Commands.setbadgenumber(badge);
 
-        Commands.getMaindastebandi("no",List);
+        Commands.getMaindastebandi("main",List);
 
 
 

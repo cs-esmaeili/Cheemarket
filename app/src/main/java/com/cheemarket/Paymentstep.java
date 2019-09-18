@@ -19,14 +19,14 @@ import com.cheemarket.Adapter.Adapter;
 import com.cheemarket.Customview.Lineimage;
 import com.cheemarket.Customview.badgelogo;
 import com.cheemarket.Structure.AddressStructure;
-import com.cheemarket.Structure.KalaStructure;
+import com.cheemarket.Structure.PoductStructure;
 import com.cheemarket.Structure.sabad;
 
 public class Paymentstep extends AppCompatActivity {
 
 
     private static RecyclerView.Adapter AdapterList1;
-    private static ArrayList<KalaStructure> mdatasetList1;
+    private static ArrayList<PoductStructure> mdatasetList1;
     private static RecyclerView RecyclerViewList1;
     private static RecyclerView.LayoutManager LayoutManagerList1;
     public static AddressStructure Address;
@@ -104,24 +104,24 @@ public class Paymentstep extends AppCompatActivity {
         });
 
 
-        mdatasetList1 = new ArrayList<KalaStructure>();
+        mdatasetList1 = new ArrayList<PoductStructure>();
 
         for (sabad a : G.mdatasetsabad) {
-            KalaStructure kalaStructure = new KalaStructure();
-            kalaStructure.Name1 = a.Name;
-            kalaStructure.Code1 = a.Code;
-            kalaStructure.Weight1 = a.Weight;
-            kalaStructure.Price1 = a.Price;
-            kalaStructure.Image1 = a.Image;
-            kalaStructure.Tozihat1 = a.Tozihat;
-            kalaStructure.Datetime1 = a.Datetime;
-            kalaStructure.Ordernumber1 = a.Tedad;
-            kalaStructure.OldPrice1 = a.OldPrice;
-            kalaStructure.Status1 = a.Status;
-            kalaStructure.Id1 = a.Id;
+            PoductStructure poductStructure = new PoductStructure();
+            poductStructure.Name1 = a.Name;
+         //   poductStructure.Code1 = a.Code;
+         //   poductStructure.Weight1 = a.Weight;
+            poductStructure.Price1 = a.Price;
+         //   poductStructure.Image1 = a.Image;
+         //   poductStructure.Tozihat1 = a.Tozihat;
+            poductStructure.Datetime1 = a.Datetime;
+            poductStructure.Ordernumber1 = a.Tedad;
+            poductStructure.OldPrice1 = a.OldPrice;
+            poductStructure.Status1 = a.Status;
+            poductStructure.Id1 = a.Id;
 
 
-            mdatasetList1.add(kalaStructure);
+            mdatasetList1.add(poductStructure);
         }
 
 

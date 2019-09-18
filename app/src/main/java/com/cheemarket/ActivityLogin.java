@@ -2,13 +2,11 @@ package com.cheemarket;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,8 +16,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
-import com.cheemarket.Customview.badgelogo;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -317,10 +313,10 @@ public class ActivityLogin extends AppCompatActivity {
                     } else {
                         try {
                             usernametemp = mEmailView.getText().toString();
-                            G.Connectioncode = input;
+                            G.token = input;
                             SharedPreferences.Editor editor = pre.edit();
                             editor.putString("Username", usernametemp);
-                            editor.putString("Connectioncode", G.Connectioncode);
+                            editor.putString("token", G.token);
 
                             editor.apply();
 

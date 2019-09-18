@@ -24,7 +24,7 @@ import com.cheemarket.Structure.IntromanegmentStructure;
 
 import static com.cheemarket.G.pre;
 
-public class Start extends AppCompatActivity {
+public class ActivityStart extends AppCompatActivity {
 
     public static Uri appLinkData;
 
@@ -54,7 +54,7 @@ public class Start extends AppCompatActivity {
 
 
 
-        checkrunword();
+        check_Atelae();
 
     }
 
@@ -69,16 +69,12 @@ public class Start extends AppCompatActivity {
         param2.key = "messageid";
         param2.value =  (pre.contains("messageid") && !pre.getString("messageid", "Error").equals("Error")?   pre.getString("messageid", "Error") : "-1" ) ;
 
-
-        Webservice.requestparameter param3 = new Webservice.requestparameter();
-        param3.key = "action";
-        param3.value = "check";
+        Log.i("LOG" ,    param2.value );
 
         params.add(param1);
         params.add(param2);
-        params.add(param3);
 
-        Webservice.request("intromanegment.php", new Callback() {
+        Webservice.request("versionControl", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
 
@@ -96,7 +92,7 @@ public class Start extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String input = response.body().string();
-                Log.i("LOG" , input);
+                Log.i("LOG" , "=" + input);
                 if (!input.equals("[]")) {
                     try {
                         JSONObject object = new JSONObject(input);
@@ -165,53 +161,6 @@ public class Start extends AppCompatActivity {
                 }
             }
         }, params);
-
-    }
-
-
-    public static void checkrunword() {
-
-        Webservice.request("server.php", new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-                Webservice.handelerro(e, new Callable<Void>() {
-                    @Override
-                    public Void call() throws Exception {
-                        checkrunword();
-                        return null;
-                    }
-                });
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-
-                try {
-                    if (response.body().string().equals("run")) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-
-
-
-                                    check_Atelae();
-
-                            }
-                        }).start();
-                    } else {
-
-                        Dialogs.ShowRepairDialog();
-                    }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-        }, null);
 
     }
 }

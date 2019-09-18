@@ -18,6 +18,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,7 +35,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import me.relex.circleindicator.CircleIndicator;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -43,11 +43,11 @@ import okhttp3.Response;
 import com.cheemarket.Adapter.Adapter;
 import com.cheemarket.Customview.Dialogs;
 import com.cheemarket.Customview.badgelogo;
-import com.cheemarket.Structure.KalaStructure;
+import com.cheemarket.Structure.PoductStructure;
 import com.cheemarket.Structure.SliderStructure;
 
 import static com.cheemarket.G.pre;
-import static com.cheemarket.Start.appLinkData;
+import static com.cheemarket.ActivityStart.appLinkData;
 
 
 public class ActivityMain extends AppCompatActivity
@@ -67,9 +67,9 @@ public class ActivityMain extends AppCompatActivity
     public static RecyclerView.Adapter AdapterList1;
     public static RecyclerView.Adapter AdapterList4;
     public static RecyclerView.Adapter AdapterList6;
-    public static ArrayList<KalaStructure> mdatasetList1;
-    public static ArrayList<KalaStructure> mdatasetList4;
-    public static ArrayList<KalaStructure> mdatasetList6;
+    public static ArrayList<PoductStructure> mdatasetList1;
+    public static ArrayList<PoductStructure> mdatasetList4;
+    public static ArrayList<PoductStructure> mdatasetList6;
 
 
     private static ImageView[] imgs = new ImageView[6];
@@ -105,11 +105,11 @@ public class ActivityMain extends AppCompatActivity
 
         G.CurrentActivity = this;
 
-        if (pre.contains("Username") && pre.contains("Connectioncode")) {
-            if (!pre.getString("Username", "Error").equals("Error") && !pre.getString("Connectioncode", "Error").equals("")) {
+        if (pre.contains("Username") && pre.contains("token")) {
+            if (!pre.getString("Username", "Error").equals("Error") && !pre.getString("token", "Error").equals("")) {
                 // Textconfig.settext(txtprofile, pre.getString("Username", "Error"));
                 txtprofile.setText(pre.getString("Username", "Error"));
-                G.Connectioncode = pre.getString("Connectioncode", "Error");
+                G.token = pre.getString("token", "Error");
             }
         }
 
@@ -216,9 +216,10 @@ public class ActivityMain extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                if (G.Connectioncode.equals("")) {
+                if (G.token.equals("")) {
                     Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
                     G.CurrentActivity.startActivity(intent);
+                    overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
                 }
             }
         });
@@ -226,18 +227,19 @@ public class ActivityMain extends AppCompatActivity
         if (!Commands.readNetworkStatus()) {
             Intent intent = new Intent(G.CurrentActivity, ActivityNetwork.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
 
         } else {
 
             applinkaction();
-            Commands.getMaindastebandi("yes",List);
+            Commands.getMaindastebandi("first",List);
             pagework();
         }
 
 
     }
 
-    private static void applinkaction() {
+    private  void applinkaction() {
         if(appLinkData != null){
             String productid = appLinkData.toString();
 
@@ -248,6 +250,7 @@ public class ActivityMain extends AppCompatActivity
             Intent intent = new Intent(G.CurrentActivity,ActivityAtelaatkala.class);
             intent.putExtra("Id" , productid);
             G.CurrentActivity.startActivity(intent);
+            overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
         }
 
     }
@@ -256,18 +259,18 @@ public class ActivityMain extends AppCompatActivity
     public static void pagework() {
 
         if (pre.contains("Username") && pre.contains("Id")) {
-            if (!pre.getString("Username", "Error").equals("Error") && !pre.getString("Connectioncode", "Error").equals("")) {
+            if (!pre.getString("Username", "Error").equals("Error") && !pre.getString("token", "Error").equals("")) {
                 Textconfig.settext(txtprofile, pre.getString("Username", "Error"));
-                G.Connectioncode = pre.getString("Connectioncode", "Error");
+                G.token = pre.getString("token", "Error");
             }
         }
         index = -1;
 
         Dialogs.Checkpermissions();
 
-        mdatasetList1 = new ArrayList<KalaStructure>();
-        mdatasetList4 = new ArrayList<KalaStructure>();
-        mdatasetList6 = new ArrayList<KalaStructure>();
+        mdatasetList1 = new ArrayList<PoductStructure>();
+        mdatasetList4 = new ArrayList<PoductStructure>();
+        mdatasetList6 = new ArrayList<PoductStructure>();
 
 
         RecyclerViewList1.setHasFixedSize(true);
@@ -294,8 +297,8 @@ public class ActivityMain extends AppCompatActivity
 
 
 
-        Webservice.request("Store.php?action=Firstpagedata", callback, null);
-        Commands.addview("صفحه اصلی");
+        Webservice.request("firstPage", callback, null);
+      //  Commands.addview("صفحه اصلی");
 
     }
 
@@ -308,7 +311,7 @@ public class ActivityMain extends AppCompatActivity
             Webservice.handelerro(e, new Callable<Void>() {
                 @Override
                 public Void call() throws Exception {
-                    Webservice.request("Store.php?action=Firstpagedata", callback, null);
+                    Webservice.request("firstPage", callback, null);
                     return null;
                 }
             });
@@ -327,55 +330,56 @@ public class ActivityMain extends AppCompatActivity
                 Slider.array.clear();
 
                 String input = response.body().string();
+                Log.i("llll=" , "=" + input);
                 JSONArray array = new JSONArray(input);
 
 
                 for (int i = 0; i < array.length(); i++) {
                     final JSONObject jsonObject = array.getJSONObject(i);
 
-                    if (jsonObject.has("Name") && jsonObject.getString("Postimage").equals("")) {
+                    if (jsonObject.has("name") && jsonObject.getString("post_image").equals("")) {
 
-                        KalaStructure kalaStructure = new KalaStructure();
+                        PoductStructure poductStructure = new PoductStructure();
 
-                        Commands.convertinputdata(jsonObject, kalaStructure, true);
+                        Commands.convertinputdata(jsonObject, poductStructure, true);
 
-                        if (jsonObject.getString("Location").equals("1")) {
-                            mdatasetList1.add(kalaStructure);
-                        } else if (jsonObject.getString("Location").equals("7")) {
-                            mdatasetList4.add(kalaStructure);
-                        } else if (jsonObject.getString("Location").equals("9")) {
-                            mdatasetList6.add(kalaStructure);
+                        if (jsonObject.getString("location").equals("1")) {
+                            mdatasetList1.add(poductStructure);
+                        } else if (jsonObject.getString("location").equals("7")) {
+                            mdatasetList4.add(poductStructure);
+                        } else if (jsonObject.getString("location").equals("9")) {
+                            mdatasetList6.add(poductStructure);
                         }
 
                     } else {
 
-                        if (jsonObject.getString("Location").equals("2")) {
+                        if (jsonObject.getString("location").equals("2")) {
                             index = 0;
                             showimage(imgs[index], jsonObject);
                             setonclicks(imgs[index], jsonObject);
-                        } else if (jsonObject.getString("Location").equals("3")) {
+                        } else if (jsonObject.getString("location").equals("3")) {
                             index = 1;
                             showimage(imgs[index], jsonObject);
                             setonclicks(imgs[index], jsonObject);
-                        } else if (jsonObject.getString("Location").equals("4")) {
+                        } else if (jsonObject.getString("location").equals("4")) {
                             index = 2;
                             showimage(imgs[index], jsonObject);
                             setonclicks(imgs[index], jsonObject);
-                        } else if (jsonObject.getString("Location").equals("5")) {
+                        } else if (jsonObject.getString("location").equals("5")) {
                             index = 3;
                             showimage(imgs[index], jsonObject);
                             setonclicks(imgs[index], jsonObject);
-                        } else if (jsonObject.getString("Location").equals("6")) {
+                        } else if (jsonObject.getString("location").equals("6")) {
                             index = 4;
                             showimage(imgs[index], jsonObject);
                             setonclicks(imgs[index], jsonObject);
-                        } else if (jsonObject.getString("Location").equals("8")) {
+                        } else if (jsonObject.getString("location").equals("8")) {
                             index = 5;
                             showimage(imgs[index], jsonObject);
                             setonclicks(imgs[index], jsonObject);
-                        } else if (jsonObject.getString("Location").equals("10")) {
+                        } else if (jsonObject.getString("location").equals("10")) {
                             SliderStructure sliderStructure = new SliderStructure();
-                            sliderStructure.Postimage = jsonObject.getString("Postimage");
+                            sliderStructure.Postimage = jsonObject.getString("post_image");
                             sliderStructure.Caption = "";
                             Slider.array.add(sliderStructure);
                         }
@@ -516,64 +520,89 @@ public class ActivityMain extends AppCompatActivity
         if (id == R.id.category) {
             Intent intent = new Intent(G.CurrentActivity, ActivityDastebandimahsolat.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
         } else if (id == R.id.sabadkharid) {
-            if (G.Connectioncode.equals("")) {
+            if (G.token.equals("")) {
                 Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
             } else {
                 Intent intent = new Intent(G.CurrentActivity, ActivitySabad.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
             }
 
         } else if (id == R.id.alaghemandiha) {
-            if (G.Connectioncode.equals("")) {
+            if (G.token.equals("")) {
                 Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+
             } else {
                 Intent intent = new Intent(G.CurrentActivity, ActivityAlaghemandiha.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
             }
 
         } else if (id == R.id.address) {
-            if (G.Connectioncode.equals("")) {
+            if (G.token.equals("")) {
                 Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
             } else {
                 Intent intent = new Intent(G.CurrentActivity, ActivityAddress.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
             }
 
         } else if (id == R.id.yourorders) {
-            if (G.Connectioncode.equals("")) {
+            if (G.token.equals("")) {
                 Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
             } else {
                 Intent intent = new Intent(G.CurrentActivity, ActivityOrders.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
             }
         } else if (id == R.id.problems) {
-            if (G.Connectioncode.equals("")) {
+            if (G.token.equals("")) {
                 Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
             } else {
                 Intent intent = new Intent(G.CurrentActivity, Activityproblems.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
             }
         }else if (id == R.id.darbareyema) {
                 Intent intent = new Intent(G.CurrentActivity, ActivityDarbareyema.class);
                 startActivity(intent);
+                  overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
         } else if (id == R.id.btn) {
-            G.Connectioncode = "";
+            G.token = "";
             SharedPreferences.Editor editor = pre.edit();
             editor.putString("Username", "");
-            editor.putString("Connectioncode", "");
+            editor.putString("token", "");
             editor.apply();
             txtprofile.setText("وارد شوید / ثبت نام کنید");
 
+        }else  if (id == R.id.mashaghel){
+            Intent intent = new Intent(G.CurrentActivity, ActivityMashaghel.class);
+            startActivity(intent);
+
+
+            overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
         }
 
 
-        drawer.closeDrawer(GravityCompat.END);
+        G.HANDLER.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                drawer.closeDrawer(GravityCompat.END);
+            }
+        },2000);
+
         return true;
     }
 
@@ -609,7 +638,7 @@ public class ActivityMain extends AppCompatActivity
     private static void showimage(final ImageView img, final JSONObject jsonObject) {
 
         try {
-            Commands.showimage(G.Baseurl + "Listimages/" + jsonObject.getString("Postimage") + "/" + jsonObject.getString("Postimage") + ".jpg", null, img);
+            Commands.showimage( jsonObject.getString("post_image"), null, img);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -657,11 +686,7 @@ public class ActivityMain extends AppCompatActivity
                         img.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-
-
                                 Commands.openactivity(jsonObject, ActivityAtelaatkala.class);
-
-
                             }
                         });
                     }

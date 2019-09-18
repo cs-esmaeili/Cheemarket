@@ -12,21 +12,18 @@ import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import com.cheemarket.Adapter.Adapter;
 import com.cheemarket.Customview.badgelogo;
-import com.cheemarket.Structure.KalaStructure;
+import com.cheemarket.Structure.PoductStructure;
 
 
 public class ActivitySearch extends AppCompatActivity {
@@ -35,8 +32,8 @@ public class ActivitySearch extends AppCompatActivity {
     private static RecyclerView RecyclerViewList;
     private static LinearLayoutManager LayoutManagerList;
     private static Adapter AdapterList;
-    private static ArrayList<KalaStructure> mdatasetkalaforonekala;
-    private static ArrayList<KalaStructure> mdatasetkalafortwokala;
+    private static ArrayList<PoductStructure> mdatasetkalaforonekala;
+    private static ArrayList<PoductStructure> mdatasetkalafortwokala;
     private static TextView error;
     static Button btnview;
     static Button btnsort;
@@ -122,8 +119,8 @@ public class ActivitySearch extends AppCompatActivity {
             }
         });
 
-        mdatasetkalaforonekala = new ArrayList<KalaStructure>();
-        mdatasetkalafortwokala = new ArrayList<KalaStructure>();
+        mdatasetkalaforonekala = new ArrayList<PoductStructure>();
+        mdatasetkalafortwokala = new ArrayList<PoductStructure>();
         RecyclerViewList.setHasFixedSize(true);
         LayoutManagerList = new LinearLayoutManager(G.CurrentActivity);
         RecyclerViewList.setLayoutManager(LayoutManagerList);
@@ -138,7 +135,7 @@ public class ActivitySearch extends AppCompatActivity {
                 reset();
 
                 namayeshkalaha(query);
-                Commands.addview(query + " سرچ شد");
+                //Commands.addview(query + " سرچ شد");
                 return false;
             }
 
@@ -205,7 +202,7 @@ public class ActivitySearch extends AppCompatActivity {
                 try {
 
                     JSONArray array = new JSONArray(input);
-                    KalaStructure kala = new KalaStructure();
+                    PoductStructure kala = new PoductStructure();
                     boolean kalaone = true;
 
                     for (int i = 0; i < array.length(); i++) {
@@ -222,13 +219,13 @@ public class ActivitySearch extends AppCompatActivity {
                         }
 
 
-                        KalaStructure temp = new KalaStructure();
+                        PoductStructure temp = new PoductStructure();
                         Commands.convertinputdata(object, temp, true);
                         mdatasetkalaforonekala.add(temp);
 
 
                         if (kalaone) {
-                            kala = new KalaStructure();
+                            kala = new PoductStructure();
                             Commands.convertinputdata(object, kala, kalaone);
                             if (i == array.length() - 1) {
                                 mdatasetkalafortwokala.add(kala);
@@ -261,7 +258,7 @@ public class ActivitySearch extends AppCompatActivity {
 
         ArrayList<Webservice.requestparameter> array1 = new ArrayList<>();
         Webservice.requestparameter param1 = new Webservice.requestparameter();
-        param1.key = "matn";
+        param1.key = "text";
         param1.value = query;
 
         Webservice.requestparameter param2 = new Webservice.requestparameter();
@@ -270,7 +267,7 @@ public class ActivitySearch extends AppCompatActivity {
 
         array1.add(param1);
         array1.add(param2);
-        Webservice.request("Store.php?action=search", mycall, array1);
+        Webservice.request("search", mycall, array1);
 
 
     }

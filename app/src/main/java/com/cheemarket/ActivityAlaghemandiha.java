@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,7 +11,7 @@ import android.widget.Toast;
 
 import com.cheemarket.Adapter.AlaghemandihaAdapter;
 import com.cheemarket.Customview.badgelogo;
-import com.cheemarket.Structure.KalaStructure;
+import com.cheemarket.Structure.PoductStructure;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,7 +31,7 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
 
     private static LinearLayoutManager LayoutManagerList;
     private static RecyclerView.Adapter AdapterList;
-    private static ArrayList<KalaStructure> mdatasetList;
+    private static ArrayList<PoductStructure> mdatasetList;
     private static TextView txtempty;
 
     static long Listnumber = 0;
@@ -58,7 +57,7 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
         RecyclerViewList.setFocusable(false);
 
 
-        mdatasetList = new ArrayList<KalaStructure>();
+        mdatasetList = new ArrayList<PoductStructure>();
 
         ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
         ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
@@ -92,8 +91,8 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
 
 
         Webservice.requestparameter object1 = new Webservice.requestparameter();
-        object1.key = "Connectioncode";
-        object1.value = G.Connectioncode;
+        object1.key = "token";
+        object1.value = G.token;
 
         Webservice.requestparameter object2 = new Webservice.requestparameter();
         object2.key = "number";
@@ -137,7 +136,7 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
                 }
                 try {
                     JSONArray array = new JSONArray(input);
-                    KalaStructure kala = new KalaStructure();
+                    PoductStructure kala = new PoductStructure();
                     boolean kalaone = true;
                     Listnumber += array.length();
 
@@ -156,7 +155,7 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
 
 
                         if (kalaone) {
-                            kala = new KalaStructure();
+                            kala = new PoductStructure();
                             Commands.convertinputdata(object, kala, kalaone);
                             if (i == array.length() - 1) {
                                 mdatasetList.add(kala);
@@ -208,8 +207,8 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
 
 
                             Webservice.requestparameter object1 = new Webservice.requestparameter();
-                            object1.key = "Connectioncode";
-                            object1.value = G.Connectioncode;
+                            object1.key = "token";
+                            object1.value = G.token;
 
                             Webservice.requestparameter object2 = new Webservice.requestparameter();
                             object2.key = "number";
@@ -239,8 +238,8 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
     public static void addtoalaghemandiha(String id) {
 
         Webservice.requestparameter object1 = new Webservice.requestparameter();
-        object1.key = "Connectioncode";
-        object1.value = G.Connectioncode;
+        object1.key = "token";
+        object1.value = G.token;
 
         Webservice.requestparameter object2 = new Webservice.requestparameter();
         object2.key = "Kalaid";
@@ -294,8 +293,8 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
 
     public static void deletealaghemandiha(final String id) {
         Webservice.requestparameter object1 = new Webservice.requestparameter();
-        object1.key = "Connectioncode";
-        object1.value = G.Connectioncode;
+        object1.key = "token";
+        object1.value = G.token;
 
         Webservice.requestparameter object2 = new Webservice.requestparameter();
         object2.key = "Kalaid";
@@ -363,12 +362,12 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
                                         mdatasetList.get(i).Id1 = mdatasetList.get(i).Id2;
 
                                         mdatasetList.get(i).Name1 = mdatasetList.get(i).Name2;
-                                        mdatasetList.get(i).Code1 = mdatasetList.get(i).Code2;
-                                        mdatasetList.get(i).Weight1 = mdatasetList.get(i).Weight2;
+                                   //     mdatasetList.get(i).Code1 = mdatasetList.get(i).Code2;
+                                   //     mdatasetList.get(i).Weight1 = mdatasetList.get(i).Weight2;
                                         mdatasetList.get(i).Price1 = mdatasetList.get(i).Price2;
                                         mdatasetList.get(i).OldPrice1 = mdatasetList.get(i).OldPrice2;
-                                        mdatasetList.get(i).Image1 = mdatasetList.get(i).Image2;
-                                        mdatasetList.get(i).Tozihat1 = mdatasetList.get(i).Tozihat2;
+                                   //     mdatasetList.get(i).Image1 = mdatasetList.get(i).Image2;
+                                   //     mdatasetList.get(i).Tozihat1 = mdatasetList.get(i).Tozihat2;
                                         mdatasetList.get(i).Ordernumber1 = mdatasetList.get(i).Ordernumber2;
                                         mdatasetList.get(i).Status1 = mdatasetList.get(i).Status2;
                                         mdatasetList.get(i).Datetime1 = mdatasetList.get(i).Datetime2;
@@ -387,12 +386,12 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
 
                                             mdatasetList.get(i).Id2 = mdatasetList.get(i + 1).Id1;
                                             mdatasetList.get(i).Name2 = mdatasetList.get(i + 1).Name1;
-                                            mdatasetList.get(i).Code2 = mdatasetList.get(i + 1).Code1;
-                                            mdatasetList.get(i).Weight2 = mdatasetList.get(i + 1).Weight1;
+                                        //    mdatasetList.get(i).Code2 = mdatasetList.get(i + 1).Code1;
+                                        //    mdatasetList.get(i).Weight2 = mdatasetList.get(i + 1).Weight1;
                                             mdatasetList.get(i).Price2 = mdatasetList.get(i + 1).Price1;
                                             mdatasetList.get(i).OldPrice2 = mdatasetList.get(i + 1).OldPrice1;
-                                            mdatasetList.get(i).Image2 = mdatasetList.get(i + 1).Image1;
-                                            mdatasetList.get(i).Tozihat2 = mdatasetList.get(i + 1).Tozihat1;
+                                         //   mdatasetList.get(i).Image2 = mdatasetList.get(i + 1).Image1;
+                                         //   mdatasetList.get(i).Tozihat2 = mdatasetList.get(i + 1).Tozihat1;
                                             mdatasetList.get(i).Ordernumber2 = mdatasetList.get(i + 1).Ordernumber1;
                                             mdatasetList.get(i).Status2 = mdatasetList.get(i + 1).Status1;
                                             mdatasetList.get(i).Datetime2 = mdatasetList.get(i + 1).Datetime1;

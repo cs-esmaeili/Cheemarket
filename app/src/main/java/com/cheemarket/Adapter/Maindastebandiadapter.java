@@ -48,7 +48,7 @@ public class Maindastebandiadapter extends RecyclerView.Adapter<Maindastebandiad
         if (mdataset.get(position).Id1 != null) {
             holder.cat1.setVisibility(View.VISIBLE);
             holder.txt1.setText(mdataset.get(position).Title1);
-            Commands.showimage(G.Baseurl + "Listimages/" + mdataset.get(position).Image1 + "/" + mdataset.get(position).Image1 + ".jpg", null, holder.img1);
+            Commands.showimage( mdataset.get(position).Image1 , null, holder.img1);
 
             holder.cat1.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -66,7 +66,7 @@ public class Maindastebandiadapter extends RecyclerView.Adapter<Maindastebandiad
 
             holder.cat2.setVisibility(View.VISIBLE);
             holder.txt2.setText(mdataset.get(position).Title2);
-            Commands.showimage(G.Baseurl + "Listimages/" + mdataset.get(position).Image2 + "/" + mdataset.get(position).Image2 + ".jpg", null, holder.img2);
+            Commands.showimage( mdataset.get(position).Image2, null, holder.img2);
 
             holder.cat2.setOnClickListener(new View.OnClickListener() {
                 @Override

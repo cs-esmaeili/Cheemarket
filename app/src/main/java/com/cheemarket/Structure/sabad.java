@@ -7,8 +7,6 @@ package com.cheemarket.Structure;
 public class sabad {
 
     public String Name;
-    public String Code;
-    public String Weight;
     public String Price;
     public String OldPrice;
     public String Image;

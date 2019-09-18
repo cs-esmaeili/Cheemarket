@@ -24,7 +24,7 @@ public class Slider {
                 mysilder.removealldata();
                 for (int i = 0; i < array.size(); i++) {
 
-                        mysilder.addsilder(G.Baseurl + "Listimages/" + array.get(i).Postimage + "/" + array.get(i).Postimage + ".jpg");
+                        mysilder.addsilder(array.get(i).Postimage);
 
 
                 }

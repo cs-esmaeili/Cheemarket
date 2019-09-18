@@ -1,6 +1,7 @@
 package com.cheemarket.Adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,7 @@ import com.cheemarket.Structure.Subdastebandi;
  * Created by user on 8/21/2018.
  */
 
-public class SubdastebandiAdapter extends RecyclerView.Adapter<SubdastebandiAdapter.ViewHolder>{
+public class SubdastebandiAdapter extends RecyclerView.Adapter<SubdastebandiAdapter.ViewHolder> {
 
     private ArrayList<Subdastebandi> mdataset;
 
@@ -29,7 +30,7 @@ public class SubdastebandiAdapter extends RecyclerView.Adapter<SubdastebandiAdap
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v =  LayoutInflater.from(parent.getContext()).inflate(R.layout.adaptersubdastebandi, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.adaptersubdastebandi, parent, false);
 
         ViewHolder vh = new ViewHolder(v);
         return vh;
@@ -40,19 +41,15 @@ public class SubdastebandiAdapter extends RecyclerView.Adapter<SubdastebandiAdap
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
 
-
-        if(mdataset.get(position).Image != null && !mdataset.get(position).Image.equals("")){
-            Commands.showimage(G.Baseurl + mdataset.get(position).Image,null,holder.img);
+        if (mdataset.get(position).Image != null && !mdataset.get(position).Image.equals("")) {
+            Commands.showimage(mdataset.get(position).Image, null, holder.img);
         }
-
-
 
         holder.img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             //   Toast.makeText(G.context, "Width =" + holder.img.getWidth() + " ?? Height =" + holder.img.getHeight(), Toast.LENGTH_LONG).show();
 
-               ActivitySubdastebandi.namayeshkalaha(mdataset.get(position).Subdastebandi , mdataset.get(position).Title);
+                ActivitySubdastebandi.namayeshkalaha(mdataset.get(position).Subdastebandi, mdataset.get(position).Title);
             }
         });
 
@@ -64,16 +61,15 @@ public class SubdastebandiAdapter extends RecyclerView.Adapter<SubdastebandiAdap
         return mdataset.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView img;
-
 
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            img =(ImageView) itemView.findViewById(R.id.img);
+            img = (ImageView) itemView.findViewById(R.id.img);
 
 
         }

@@ -51,11 +51,6 @@ public class SabadAdapter extends RecyclerView.Adapter<SabadAdapter.ViewHolder> 
             holder.txt4.setVisibility(View.GONE);
         }
 
-        if(mdataset.get(position).Code != null && !mdataset.get(position).Code.equals("")){
-            Textconfig.settext(holder.txt5, "بارکد کالا : " + mdataset.get(position).Code);
-        }else{
-            holder.txt5.setVisibility(View.GONE);
-        }
 
         if(mdataset.get(position).Id != null && !mdataset.get(position).Id.equals("")){
             Textconfig.settext(holder.txt6, "کد کالا : " + mdataset.get(position).Id);
@@ -76,11 +71,6 @@ public class SabadAdapter extends RecyclerView.Adapter<SabadAdapter.ViewHolder> 
 
 
 
-        if (mdataset.get(position).Weight == null || mdataset.get(position).Weight.equals("")) {
-            holder.txt2.setVisibility(View.GONE);
-        } else {
-            Textconfig.settext(holder.txt2, "وزن کالا : " + mdataset.get(position).Weight);
-        }
 
 
 

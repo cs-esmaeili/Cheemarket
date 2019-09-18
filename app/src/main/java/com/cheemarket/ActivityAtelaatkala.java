@@ -8,6 +8,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,6 +26,7 @@ import me.relex.circleindicator.CircleIndicator;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+
 import com.cheemarket.Customview.Lineimage;
 import com.cheemarket.Customview.Sliderimage;
 import com.cheemarket.Structure.sabad;
@@ -45,8 +47,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
     public static ViewPager viewPager;
     public static CircleIndicator circleIndicator;
 
-    private TextView txt1;
-    private TextView txt3;
+
     private TextView txttozihat;
     private TextView txtafzodan;
     private TextView txtprice;
@@ -65,8 +66,8 @@ public class ActivityAtelaatkala extends AppCompatActivity {
         super.onResume();
         G.CurrentActivity = this;
         if (G.comeback) {
-           G.comeback = false;
-           G.CurrentActivity.finish();
+            G.comeback = false;
+            G.CurrentActivity.finish();
         }
     }
 
@@ -80,8 +81,6 @@ public class ActivityAtelaatkala extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         txtname = (TextView) findViewById(R.id.txtname);
         txtcode = (TextView) findViewById(R.id.txtcode);
-        txt1 = (TextView) findViewById(R.id.txt1);
-        txt3 = (TextView) findViewById(R.id.txt3);
         txttozihat = (TextView) findViewById(R.id.txttozihat);
         txtafzodan = (TextView) findViewById(R.id.txtafzodan);
         txtprice = (TextView) findViewById(R.id.txtprice);
@@ -102,11 +101,12 @@ public class ActivityAtelaatkala extends AppCompatActivity {
         colaps.setExpandedTitleColor(Color.TRANSPARENT);
 
 
-
-
         mysabad = new sabad();
 
         Bundle extras = getIntent().getExtras();
+        Log.i("LOG", "=" + extras.getString("Name"));
+        Log.i("LOG", "=" + extras.getString("Image"));
+        Log.i("LOG", "=" + extras.getString("Id"));
         if (extras != null) {
 
             if (extras.containsKey("Name") && extras.getString("Name") != null && !extras.getString("Name").equals("") && !extras.getString("Name").equals("null")) {
@@ -114,11 +114,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
             } else {
                 mysabad.Name = "";
             }
-            if (extras.containsKey("Weight") && extras.getString("Weight") != null && !extras.getString("Weight").equals("") && !extras.getString("Weight").equals("null")) {
-                mysabad.Weight = extras.getString("Weight");
-            } else {
-                mysabad.Weight = "";
-            }
+
             if (extras.containsKey("Image") && extras.getString("Image") != null && !extras.getString("Image").equals("") && !extras.getString("Image").equals("null")) {
                 mysabad.Image = extras.getString("Image");
             } else {
@@ -132,16 +128,12 @@ public class ActivityAtelaatkala extends AppCompatActivity {
 
         }
 
-        Commands.addview("کالای " + mysabad.Id   + " بازدید شد");
+        Commands.addview("کالای " + mysabad.Id + " بازدید شد");
 
 
-        if (mysabad.Name == null || mysabad.Name.equals("")) {
-            setkaladata(true);
-        } else {
-            settextdata();
-            showimage();
-            setkaladata(false);
-        }
+        settextdata();
+        showimage();
+        setkaladata();
 
 
     }
@@ -152,7 +144,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (G.Connectioncode.equals("")) {
+                if (G.token.equals("")) {
                     Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
                     startActivity(intent);
                     return;
@@ -163,14 +155,13 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                     if (G.mdatasetsabad.get(i).Id.equals(mysabad.Id)) {
 
                         G.mdatasetsabad.get(i).Ordernumber = mysabad.Ordernumber;
-                        if(Integer.parseInt(G.mdatasetsabad.get(i).Tedad)>  Integer.parseInt(mysabad.Ordernumber)){
-                           G.mdatasetsabad.set(i , mysabad);
+                        if (Integer.parseInt(G.mdatasetsabad.get(i).Tedad) > Integer.parseInt(mysabad.Ordernumber)) {
+                            G.mdatasetsabad.set(i, mysabad);
                         }
 
-                        if((Integer.parseInt(G.mdatasetsabad.get(i).Tedad) + 1) <= Integer.parseInt(G.mdatasetsabad.get(i).Ordernumber)){
+                        if ((Integer.parseInt(G.mdatasetsabad.get(i).Tedad) + 1) <= Integer.parseInt(G.mdatasetsabad.get(i).Ordernumber)) {
                             G.mdatasetsabad.get(i).Tedad = (Integer.parseInt(G.mdatasetsabad.get(i).Tedad) + 1) + "";
                         }
-
 
 
                         Intent intent = new Intent(G.CurrentActivity, ActivitySabad.class);
@@ -179,7 +170,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                         return;
                     }
                 }
-                if(temp == false){
+                if (temp == false) {
                     G.mdatasetsabad.add(mysabad);
 
                     Intent intent = new Intent(G.CurrentActivity, ActivitySabad.class);
@@ -216,33 +207,14 @@ public class ActivityAtelaatkala extends AppCompatActivity {
             Textconfig.settext(txtname, "نام کالا : " + mysabad.Name);
         }
 
-        if (mysabad.Weight == null || mysabad.Weight.equals("")) {
-            txt1.setVisibility(View.GONE);
-        } else {
-            Textconfig.settext(txt1, "وزن کالا : " + mysabad.Weight);
-        }
-
-
 
     }
 
-    private void setkaladata(final boolean alldata) {
+    private void setkaladata() {
 
-        ArrayList<Webservice.requestparameter> list = new ArrayList<>();
-        Webservice.requestparameter object1 = new Webservice.requestparameter();
-        object1.key = "kalaid";
-        object1.value = mysabad.Id;
 
-        if (alldata) {
-            Webservice.requestparameter object2 = new Webservice.requestparameter();
-            object2.key = "Alldata";
-            object2.value = "true";
-            list.add(object2);
-        }
 
-        list.add(object1);
-
-        Webservice.request("Store.php?action=onekaladata", new Callback() {
+        Webservice.request("product/" + mysabad.Id , new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Webservice.handelerro(e, new Callable<Void>() {
@@ -258,27 +230,18 @@ public class ActivityAtelaatkala extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 String input = response.body().string();
                 try {
-                    JSONArray array = new JSONArray(input);
-
-                    JSONObject object = array.getJSONObject(0);
-                    mysabad.Code = object.getString("Code");
-                    mysabad.Price = object.getString("Price");
-                    mysabad.OldPrice = object.getString("OldPrice");
-                    mysabad.Tozihat = object.getString("Tozihat").equals("null") ? "ندارد" : object.getString("Tozihat");
-                    mysabad.Ordernumber = object.getString("Ordernumber");
-                    mysabad.Status = object.getString("Status");
+                    JSONObject object = new JSONObject(input);
+                    mysabad.Price = object.getString("price");
+                    mysabad.OldPrice = object.getString("old_price");
+                    mysabad.Tozihat = object.getString("description").equals("null") ? "ندارد" : object.getString("description");
+                    mysabad.Ordernumber = object.getString("order_number");
+                    mysabad.Status = object.getString("status");
                     mysabad.Tedad = "1";
 
-                    if (alldata) {
-                        mysabad.Name = object.getString("Name");
-                        mysabad.Weight = object.getString("Weight");
-                        mysabad.Image = object.getString("Image");
-                    }
 
                     G.HANDLER.post(new Runnable() {
                         @Override
                         public void run() {
-                            Textconfig.settext(txt3, "بارکد درج شده بر روی کالا : " + mysabad.Code);
                             Textconfig.settext(txttozihat, mysabad.Tozihat);
                             Textconfig.settext(txtprice, "" + mysabad.Price);
                             txtoff.setText("" + mysabad.OldPrice);
@@ -305,10 +268,6 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                                 txtafzodan.setEnabled(false);
                             }
 
-                            if (alldata) {
-                                settextdata();
-                                showimage();
-                            }
 
 
                         }
@@ -319,7 +278,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        }, list);
+        }, null);
 
 
     }
@@ -327,12 +286,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
     private void showimage() {
 
 
-        ArrayList<Webservice.requestparameter> array1 = new ArrayList<>();
-        Webservice.requestparameter object1 = new Webservice.requestparameter();
-        object1.key = "Foldername";
-        object1.value = mysabad.Image + "";
-        array1.add(object1);
-        Webservice.request("Store.php?action=images", new Callback() {
+        Webservice.request("product/images/" + mysabad.Image , new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Webservice.handelerro(e, new Callable<Void>() {
@@ -404,7 +358,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
 
 
             }
-        }, array1);
+        }, null);
 
     }
 
@@ -475,13 +429,12 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                                             s.setText(saniye + "");
 
 
-
                                         }
                                     });
 
                                     if (saat == 0 && daghighe == 0 && saniye == 0) {
 
-                                        setkaladata(false);
+                                        setkaladata();
                                         showimage();
 
                                         break;
@@ -517,5 +470,11 @@ public class ActivityAtelaatkala extends AppCompatActivity {
     protected void onDestroy() {
         mysabad = null;
         super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 }

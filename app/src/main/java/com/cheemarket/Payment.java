@@ -3,7 +3,6 @@ package com.cheemarket;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -12,8 +11,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +60,7 @@ public class Payment {
             orderStructure.Codeposti = Paymentstep.Address.Codeposti;
             orderStructure.Address = Paymentstep.Address.Address;
 
-            orderStructure.Connectioncode = G.Connectioncode;
+            orderStructure.Connectioncode = G.token;
             array.add(orderStructure);
         }
 

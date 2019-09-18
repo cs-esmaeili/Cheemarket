@@ -3,7 +3,6 @@ package com.cheemarket.Adapter;
 import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,8 +76,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
             @Override
             public void onClick(View v) {
                 Webservice.requestparameter param1 = new Webservice.requestparameter();
-                param1.key = "Connectioncode";
-                param1.value = G.Connectioncode;
+                param1.key = "token";
+                param1.value = G.token;
                 Webservice.requestparameter param2 = new Webservice.requestparameter();
                 param2.key = "Id";
                 param2.value = mdataset.get(position).Id;

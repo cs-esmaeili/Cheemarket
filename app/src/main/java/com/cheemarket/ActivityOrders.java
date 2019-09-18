@@ -4,7 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -77,8 +76,8 @@ public class ActivityOrders extends AppCompatActivity {
         Commands.setbadgenumber(badge);
 
         Webservice.requestparameter param1 = new Webservice.requestparameter();
-        param1.key = "Connectioncode";
-        param1.value = G.Connectioncode;
+        param1.key = "token";
+        param1.value = G.token;
         ArrayList<Webservice.requestparameter> array = new ArrayList<>();
         array.add(param1);
         Webservice.request("Store.php?action=listorders", new Callback() {

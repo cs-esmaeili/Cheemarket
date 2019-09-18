@@ -20,7 +20,7 @@ import com.cheemarket.Structure.sabad;
 
 public class G extends Application {
 
-    public static String Baseurl = "https://www.cheemarket.com/Store/";
+    public static String Baseurl = "https://www.cheemarket.com/api/user/";
     public static Activity CurrentActivity;
     public static Context context;
     public static  int IMAGES_HEIGHT = 0;
@@ -28,7 +28,7 @@ public class G extends Application {
     public static final Handler HANDLER = new Handler();
 
     public static ArrayList<sabad> mdatasetsabad = new ArrayList<sabad>();
-    public static String Connectioncode = "";
+    public static String token = "";
     public static boolean comeback = false;
     public static SharedPreferences pre;
 

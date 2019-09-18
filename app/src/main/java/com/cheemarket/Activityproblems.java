@@ -53,8 +53,8 @@ public class Activityproblems extends AppCompatActivity {
                     param.value = editText.getText().toString() + "";
 
                     Webservice.requestparameter param1 = new Webservice.requestparameter();
-                    param1.key = "Connectioncode";
-                    param1.value = G.Connectioncode;
+                    param1.key = "token";
+                    param1.value = G.token;
 
 
 

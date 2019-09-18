@@ -14,7 +14,7 @@ import com.cheemarket.Commands;
 import com.cheemarket.Customview.Lineimage;
 import com.cheemarket.G;
 import com.cheemarket.R;
-import com.cheemarket.Structure.KalaStructure;
+import com.cheemarket.Structure.PoductStructure;
 import com.cheemarket.Textconfig;
 
 /**
@@ -23,9 +23,9 @@ import com.cheemarket.Textconfig;
 
 public class Listpaymentadapter extends RecyclerView.Adapter<Listpaymentadapter.ViewHolder>{
 
-    private ArrayList<KalaStructure> mdataset;
+    private ArrayList<PoductStructure> mdataset;
 
-    public Listpaymentadapter(ArrayList<KalaStructure> mdataset) {
+    public Listpaymentadapter(ArrayList<PoductStructure> mdataset) {
         this.mdataset = mdataset;
     }
 
@@ -63,7 +63,7 @@ public class Listpaymentadapter extends RecyclerView.Adapter<Listpaymentadapter.
 
 
 
-        Commands.showimage(G.Baseurl + "Listimages/" + mdataset.get(position).Image1 + "/" +  mdataset.get(position).Image1 + ".jpg", null, holder.image);
+        //Commands.showimage(G.Baseurl + "Listimages/" + mdataset.get(position).Image1 + "/" +  mdataset.get(position).Image1 + ".jpg", null, holder.image);
 
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override

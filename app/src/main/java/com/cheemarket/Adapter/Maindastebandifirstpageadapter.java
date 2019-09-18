@@ -41,7 +41,7 @@ public class Maindastebandifirstpageadapter extends RecyclerView.Adapter<Maindas
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-        Commands.showimage(G.Baseurl + "Listimages/" + mdataset.get(position).Image + "/"  + mdataset.get(position).Image  + ".jpg", null,holder.img);
+        Commands.showimage(mdataset.get(position).Image , null,holder.img);
         holder.txt.setText(mdataset.get(position).Title);
 
         holder.layout.setOnClickListener(new View.OnClickListener() {

@@ -1,11 +1,13 @@
 package com.cheemarket;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.transition.Fade;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -17,6 +19,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cheemarket.Customview.badgelogo;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,6 +52,7 @@ public class ActivitySabtnam extends AppCompatActivity {
         setContentView(R.layout.activity_sabtnam);
         G.CurrentActivity = this;
 
+
         ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
         ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
 
@@ -54,11 +60,8 @@ public class ActivitySabtnam extends AppCompatActivity {
         shoplogo.setVisibility(View.GONE);
 
 
-        // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
-
-
         message = (TextView) findViewById(R.id.message);
 
 
@@ -170,22 +173,9 @@ public class ActivitySabtnam extends AppCompatActivity {
             ArrayList<Webservice.requestparameter> array = new ArrayList<>();
             array.add(param1);
             array.add(param2);
-            if (mEmailView.getText().toString().contains("@gmail.com") || mEmailView.getText().toString().contains("@yahoo.com")) {
-                Webservice.requestparameter param3 = new Webservice.requestparameter();
-                param3.key = "type";
-                param3.value = "email";
-                array.add(param3);
-
-            } else if (mEmailView.getText().toString().contains("09") && mEmailView.getText().toString().length() == 11) {
-                Webservice.requestparameter param3 = new Webservice.requestparameter();
-                param3.key = "type";
-                param3.value = "phonenumber";
-                array.add(param3);
-
-            }
 
 
-            Webservice.request("AccountManagement.php?action=adduser", new Callback() {
+            Webservice.request("signup", new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     Webservice.handelerro(e, new Callable<Void>() {
@@ -200,34 +190,18 @@ public class ActivitySabtnam extends AppCompatActivity {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     String input = response.body().string();
+                    try {
+                        JSONObject obj = new JSONObject(input);
+                        if (obj.has("remaining_time") && obj.has("status") && obj.getString("status").equals("ok")) {
 
-                   if (input.equals("send")) {
-
-                            G.HANDLER.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    message.setText("لینک تایید برای شما ارسال شد");
-                                }
-                            });
-
-                            G.HANDLER.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Intent intent = new Intent(G.CurrentActivity,ActivityLogin.class);
-                                    G.CurrentActivity.startActivity(intent);
-                                   G.CurrentActivity.finish();
-                                }
-                            }, 5000);
-
-                    } else if (input.equals("not")) {
-                        G.HANDLER.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                message.setText("این نام کاربری وجود دارد");
-                            }
-                        });
-
+                        } else if (obj.has("status") && obj.getString("status").equals("ok")) {
+                            Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
+                            G.CurrentActivity.startActivity(intent);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
+
 
                 }
             }, array);
