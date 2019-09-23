@@ -22,3 +22,4 @@
 
 
 -keep class com.cheemarket.Payment$OrderStructure { *; }
+-keep class com.cheemarket.Structure.sabad { *; }

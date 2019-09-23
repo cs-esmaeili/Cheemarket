@@ -71,14 +71,14 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
             } else {
                 holder.txtnameone.setVisibility(View.INVISIBLE);
             }
-/*
-            if (mdataset.get(position).Image1 != null && !mdataset.get(position).Image1.equals("")) {
-                Commands.showimage(G.Baseurl + "Listimages/" + mdataset.get(position).Image1 + "/" + mdataset.get(position).Image1 + ".jpg", null, holder.imageone);
+
+            if (mdataset.get(position).Image_thumbnail1 != null && !mdataset.get(position).Image_thumbnail1.equals("")) {
+                Commands.showimage( mdataset.get(position).Image_thumbnail1 , null, holder.imageone);
             }
 
 
 
- */
+
 
 
             holder.cardone.setOnClickListener(new View.OnClickListener() {
@@ -126,11 +126,11 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
                 holder.textPricetwo.setVisibility(View.INVISIBLE);
             }
 
-/*
-            if (mdataset.get(position).Image2 != null && !mdataset.get(position).Image2.equals("")) {
-                Commands.showimage(G.Baseurl + "Listimages/" + mdataset.get(position).Image2 + "/" + mdataset.get(position).Image2 + ".jpg", null, holder.imagetwo);
+
+            if (mdataset.get(position).Image_thumbnail2 != null && !mdataset.get(position).Image_thumbnail2.equals("")) {
+                Commands.showimage(mdataset.get(position).Image_thumbnail2 , null, holder.imagetwo);
             }
-*/
+
 
             holder.cardtwo.setOnClickListener(new View.OnClickListener() {
                 @Override

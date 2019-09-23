@@ -1,6 +1,10 @@
 package com.cheemarket.Adapter;
 
+import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,26 +13,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.Callable;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
 
 import com.cheemarket.ActivityAddress;
+import com.cheemarket.ActivityEdite;
+import com.cheemarket.Customview.Lineimage;
 import com.cheemarket.G;
+import com.cheemarket.Paymentstep;
 import com.cheemarket.R;
 import com.cheemarket.Structure.AddressStructure;
-import com.cheemarket.Textconfig;
-import com.cheemarket.Webservice;
 
-import static com.cheemarket.ActivityAddress.spinershahrha;
+import java.util.ArrayList;
 
 /**
  * Created by user on 8/21/2018.
@@ -38,13 +32,13 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
 
 
     private ArrayList<AddressStructure> mdataset;
-    public static ArrayList<Integer> colors = new ArrayList<>();
-    public static String updateid;
+    private int selected = -1;
+    private boolean needselection ;
 
-
-    public AddressAdapter(ArrayList<AddressStructure> mdataset, ArrayList<Integer> colors) {
+    public AddressAdapter(ArrayList<AddressStructure> mdataset, boolean needselection , int selected ) {
         this.mdataset = mdataset;
-        this.colors = colors;
+        this.selected = selected;
+        this.needselection = needselection;
 
     }
 
@@ -60,163 +54,75 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-        holder.card.setBackgroundColor(colors.get(position));
 
-        holder.layout.setBackgroundColor(colors.get(position));
-
-        Textconfig.settext(holder.txtname, "" + mdataset.get(position).Name);
-//        Textconfig.settext(holder.txtphonenumber, "" +mdataset.get(position).Phonenumber);
-        holder.txtphonenumber.setText("" + mdataset.get(position).Phonenumber);
-        Textconfig.settext(holder.txtaddress, "" + mdataset.get(position).Address);
+        if (position == selected) {
+            holder.card.setBackgroundColor(Color.parseColor("#E9F1E9"));
+        }else {
+            holder.card.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        }
 
 
-        holder.card.setBackgroundColor(colors.get(position));
+        holder.txtname.setText(mdataset.get(position).Name);
+        holder.txtostan.setText(mdataset.get(position).Ostan);
+        holder.txtshahr.setText(mdataset.get(position).Shahr);
+        holder.txtaddress.setText(mdataset.get(position).Address);
+        holder.txtphonenumber.setText(mdataset.get(position).Phonenumber);
+        holder.txthomenumber.setText(mdataset.get(position).Homenumber);
 
-        holder.imgdelete.setOnClickListener(new View.OnClickListener() {
+        holder.txtdelete.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Webservice.requestparameter param1 = new Webservice.requestparameter();
-                param1.key = "token";
-                param1.value = G.token;
-                Webservice.requestparameter param2 = new Webservice.requestparameter();
-                param2.key = "Id";
-                param2.value = mdataset.get(position).Id;
-                ArrayList<Webservice.requestparameter> array = new ArrayList<>();
-                array.add(param1);
-                array.add(param2);
-                Webservice.request("Store.php?action=deleteaddress", new Callback() {
+            public void onClick(View view) {
+
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                     @Override
-                    public void onFailure(Call call, IOException e) {
-                        Webservice.handelerro(e, new Callable<Void>() {
-                            @Override
-                            public Void call() throws Exception {
+                    public void onClick(DialogInterface dialog, int which) {
 
-                                return null;
-                            }
-                        });
-                    }
+                        switch (which) {
+                            case DialogInterface.BUTTON_POSITIVE:
 
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        String input = response.body().string();
-                        if (input != null && !input.equals("")) {
-                            if (input.equals("Ok")) {
-                                G.HANDLER.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(G.context, "آدرس شما حذف شد", Toast.LENGTH_LONG).show();
-                                        ActivityAddress.pagework();
-                                    }
-                                });
-                            }
-                        }
-                    }
-                }, array);
-
-            }
-        });
-
-
-        holder.layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                if (colors.get(position).equals(Color.WHITE)) {
-
-
-                    colors.set(position, Color.TRANSPARENT);
-                    holder.card.setBackgroundColor(colors.get(position));
-
-
-/*
-                    Textconfig.settext( ActivityAddress.edtaddress, "" +mdataset.get(position).Address);
-                    Textconfig.settext( ActivityAddress.edtcodeposti, "" +mdataset.get(position).Codeposti);
-                    Textconfig.settext( ActivityAddress.edtname, "" +mdataset.get(position).Name);
-                    Textconfig.settext( ActivityAddress.edthomenumber, "" +mdataset.get(position).Homenumber);
-                    Textconfig.settext( ActivityAddress.edtphonenumber, "" +mdataset.get(position).Phonenumber);
-
-*/
-                    ActivityAddress.edtaddress.setText("" + mdataset.get(position).Address);
-                    ActivityAddress.edtcodeposti.setText("" + mdataset.get(position).Codeposti);
-                    ActivityAddress.edtname.setText("" + mdataset.get(position).Name);
-                    ActivityAddress.edthomenumber.setText("" + mdataset.get(position).Homenumber);
-                    ActivityAddress.edtphonenumber.setText("" + mdataset.get(position).Phonenumber);
-
-                    if (ActivityAddress.btnselect.getVisibility() == View.VISIBLE) {
-                        ActivityAddress.btnselect.setBackgroundColor(Color.parseColor("#66BB6A"));
-                    }
-
-                    List<String> Lines = Arrays.asList(G.context.getResources().getStringArray(R.array.ostanha));
-                    for (int i = 0; i < Lines.size(); i++) {
-                        if (Lines.get(i).equals(mdataset.get(position).Ostan)) {
-                            ActivityAddress.spnerostan.setSelection(i);
-                            spinershahrha();
-                            break;
-                        }
-                    }
-
-
-                    for (int i = 0; i < ActivityAddress.adapter.getCount(); i++) {
-
-                        if (ActivityAddress.adapter.getItem(i).toString().equals(mdataset.get(position).Shahr)) {
-                            final int finalI = i;
-                            G.HANDLER.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    ActivityAddress.spnershahr.setSelection(finalI);
+                                if(needselection){
+                                    ActivityAddress.deleteaddress(mdataset.get(position).Id, mdataset, Paymentstep.AdapterList);
+                                }else {
+                                    ActivityAddress.deleteaddress(mdataset.get(position).Id, mdataset, ActivityAddress.AdapterList);
                                 }
-                            }, 300);
 
-                            break;
+
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+
+                                break;
                         }
                     }
+                };
 
-
-                    ActivityAddress.btnsave.setText("ثبت تغییرات");
-                    updateid = mdataset.get(position).Id;
-
-
-                    ActivityAddress.btnselect.clearFocus();
-                    ActivityAddress.btnselect.setFocusableInTouchMode(true);
-                    ActivityAddress.btnselect.requestFocus();
-                } else if (colors.get(position).equals(Color.TRANSPARENT)) {
-
-                    colors.set(position, Color.WHITE);
-                    holder.card.setBackgroundColor(colors.get(position));
-
-
-                    ActivityAddress.edtaddress.setText("");
-                    ActivityAddress.edtcodeposti.setText("");
-                    ActivityAddress.edtname.setText("");
-                    ActivityAddress.edthomenumber.setText("");
-                    ActivityAddress.edtphonenumber.setText("");
-                    if (ActivityAddress.btnselect.getVisibility() == View.VISIBLE) {
-                        ActivityAddress.btnselect.setBackgroundColor(Color.parseColor("#D6D7D7"));
-                    }
-
-                    ActivityAddress.spnerostan.setSelection(0);
-
-                    spinershahrha();
-
-                    ActivityAddress.btnsave.setText("اضافه کردن آدرس جدید");
-                    updateid = null;
-                }
-
-
-                for (int i = 0; i < colors.size(); i++) {
-
-                    if (i == position) {
-                        continue;
-                    }
-                    colors.set(i, Color.WHITE);
-                }
-
-                notifyDataSetChanged();
+                AlertDialog.Builder builder = new AlertDialog.Builder(G.CurrentActivity);
+                builder.setMessage("آیا از حذف این آدرس اطمینان دارید؟").setPositiveButton("بله", dialogClickListener)
+                        .setNegativeButton("خیر", dialogClickListener).show();
 
 
             }
         });
+
+        holder.lyoutedite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(G.CurrentActivity, ActivityEdite.class);
+                intent.putExtra("position", position);
+                G.CurrentActivity.startActivity(intent);
+            }
+        });
+
+        if(needselection){
+            holder.card.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Paymentstep.Addressid = mdataset.get(position).Id;
+                    selected = position;
+                    notifyDataSetChanged();
+                }
+            });
+        }
 
 
     }
@@ -230,21 +136,27 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView txtname;
-        public TextView txtphonenumber;
+        public TextView txtostan;
+        public TextView txtshahr;
         public TextView txtaddress;
-        public ImageView imgdelete;
-        public LinearLayout layout;
+        public TextView txtphonenumber;
+        public TextView txthomenumber;
+        public TextView txtdelete;
+        public LinearLayout lyoutedite;
         public CardView card;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            txtname = (TextView) itemView.findViewById(R.id.txtname);
-            txtphonenumber = (TextView) itemView.findViewById(R.id.txtphonenumber);
-            txtaddress = (TextView) itemView.findViewById(R.id.txtaddress);
-            imgdelete = (ImageView) itemView.findViewById(R.id.imgdelete);
-            layout = (LinearLayout) itemView.findViewById(R.id.layout);
-            card = (CardView) itemView.findViewById(R.id.card);
 
+            txtname = (TextView) itemView.findViewById(R.id.txtname);
+            txtostan = (TextView) itemView.findViewById(R.id.txtostan);
+            txtshahr = (TextView) itemView.findViewById(R.id.txtshahr);
+            txtaddress = (TextView) itemView.findViewById(R.id.txtaddress);
+            txtphonenumber = (TextView) itemView.findViewById(R.id.txtphonenumber);
+            txthomenumber = (TextView) itemView.findViewById(R.id.txthomenumber);
+            txtdelete = (TextView) itemView.findViewById(R.id.txtdelete);
+            lyoutedite = (LinearLayout) itemView.findViewById(R.id.lyoutedite);
+            card = (CardView) itemView.findViewById(R.id.card);
         }
     }
 }

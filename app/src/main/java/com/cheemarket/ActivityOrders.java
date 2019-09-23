@@ -27,10 +27,9 @@ import com.cheemarket.Customview.badgelogo;
 public class ActivityOrders extends AppCompatActivity {
 
     public class order {
-        public String Category;
+        public String factor_id;
         public String sum;
-        public String Vaziyat;
-        public Float Rate;
+        public String status;
     }
 
 
@@ -80,7 +79,7 @@ public class ActivityOrders extends AppCompatActivity {
         param1.value = G.token;
         ArrayList<Webservice.requestparameter> array = new ArrayList<>();
         array.add(param1);
-        Webservice.request("Store.php?action=listorders", new Callback() {
+        Webservice.request("factor", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Webservice.handelerro(e, new Callable<Void>() {
@@ -118,10 +117,9 @@ public class ActivityOrders extends AppCompatActivity {
                     for (int i = array.length() - 1; i >= 0 ; i--) {
                         JSONObject object = array.getJSONObject(i);
                         order order = new order();
-                        order.Category = object.getString("Category");
+                        order.factor_id = object.getString("factor_id");
                         order.sum = object.getString("sum");
-                        order.Rate = Float.parseFloat(object.getString("Rate").equals("null") ? "0.0" : object.getString("Rate"));
-                        order.Vaziyat = object.getString("Vaziyat");
+                        order.status = object.getString("status");
                         mdatasetList.add(order);
 
 

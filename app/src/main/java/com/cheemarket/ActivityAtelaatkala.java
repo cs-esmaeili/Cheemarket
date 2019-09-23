@@ -115,10 +115,16 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                 mysabad.Name = "";
             }
 
-            if (extras.containsKey("Image") && extras.getString("Image") != null && !extras.getString("Image").equals("") && !extras.getString("Image").equals("null")) {
-                mysabad.Image = extras.getString("Image");
+            if (extras.containsKey("Image_folder") && extras.getString("Image_folder") != null && !extras.getString("Image_folder").equals("") && !extras.getString("Image_folder").equals("null")) {
+                mysabad.Image_folder = extras.getString("Image_folder");
             } else {
-                mysabad.Image = "";
+                mysabad.Image_folder = "";
+            }
+
+            if (extras.containsKey("Image_thumbnail") && extras.getString("Image_thumbnail") != null && !extras.getString("Image_thumbnail").equals("") && !extras.getString("Image_thumbnail").equals("null")) {
+                mysabad.Image_thumbnail = extras.getString("Image_thumbnail");
+            } else {
+                mysabad.Image_thumbnail = "";
             }
 
             if (extras.containsKey("Id") && extras.getString("Id") != null && !extras.getString("Id").equals("") && !extras.getString("Id").equals("null")) {
@@ -196,7 +202,15 @@ public class ActivityAtelaatkala extends AppCompatActivity {
         imgalaghemandi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityAlaghemandiha.addtoalaghemandiha(mysabad.Id);
+
+                if (G.token.equals("")) {
+                    Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                } else {
+                    ActivityAlaghemandiha.addtoalaghemandiha(mysabad.Id);
+                }
+
             }
         });
 
@@ -213,8 +227,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
     private void setkaladata() {
 
 
-
-        Webservice.request("product/" + mysabad.Id , new Callback() {
+        Webservice.request("product/" + mysabad.Id, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Webservice.handelerro(e, new Callable<Void>() {
@@ -269,7 +282,6 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                             }
 
 
-
                         }
                     });
 
@@ -286,7 +298,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
     private void showimage() {
 
 
-        Webservice.request("product/images/" + mysabad.Image , new Callback() {
+        Webservice.request("product/images/" + mysabad.Image_folder, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Webservice.handelerro(e, new Callable<Void>() {
@@ -364,12 +376,8 @@ public class ActivityAtelaatkala extends AppCompatActivity {
 
     private void setdateandtime() {
 
-        ArrayList<Webservice.requestparameter> array2 = new ArrayList<>();
-        Webservice.requestparameter object2 = new Webservice.requestparameter();
-        object2.key = "kalaid";
-        object2.value = mysabad.Id;
-        array2.add(object2);
-        Webservice.request("Store.php?action=gettime", new Callback() {
+
+        Webservice.request("getTime/" + mysabad.Id, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Webservice.handelerro(e, new Callable<Void>() {
@@ -462,7 +470,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                 }
 
             }
-        }, array2);
+        }, null);
 
     }
 

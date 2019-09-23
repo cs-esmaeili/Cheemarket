@@ -7,20 +7,20 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.Callable;
 
+import java.util.concurrent.Callable;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-
 import com.cheemarket.Customview.Dialogs;
 import com.cheemarket.Structure.IntromanegmentStructure;
+
 
 import static com.cheemarket.G.pre;
 
@@ -55,7 +55,6 @@ public class ActivityStart extends AppCompatActivity {
 
 
         check_Atelae();
-
     }
 
     private static void check_Atelae() {

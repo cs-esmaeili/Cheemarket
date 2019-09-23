@@ -22,21 +22,8 @@ import okhttp3.Response;
 public class Payment {
 
     static class OrderStructure {
-        public String PersonName;
-        public String Homenumber;
-        public String Phonenumber;
-        public String Ostan;
-        public String Shahr;
-        public String Codeposti;
-        public String Address;
-
-
-        public String Price;
-        public String OldPrice;
         public String Tedad;
         public String kalaId;
-
-        public String Connectioncode;
     }
 
     public static void openpaymentgate() {
@@ -45,22 +32,8 @@ public class Payment {
         for (int i = 0; i < G.mdatasetsabad.size(); i++) {
 
             OrderStructure orderStructure = new OrderStructure();
-
-
-            orderStructure.Price = G.mdatasetsabad.get(i).Price;
-            orderStructure.OldPrice = G.mdatasetsabad.get(i).OldPrice;
-            orderStructure.Tedad = G.mdatasetsabad.get(i).Tedad;
             orderStructure.kalaId = G.mdatasetsabad.get(i).Id;
-
-            orderStructure.PersonName = Paymentstep.Address.Name;
-            orderStructure.Homenumber = Paymentstep.Address.Homenumber;
-            orderStructure.Phonenumber = Paymentstep.Address.Phonenumber;
-            orderStructure.Ostan = Paymentstep.Address.Ostan;
-            orderStructure.Shahr = Paymentstep.Address.Shahr;
-            orderStructure.Codeposti = Paymentstep.Address.Codeposti;
-            orderStructure.Address = Paymentstep.Address.Address;
-
-            orderStructure.Connectioncode = G.token;
+            orderStructure.Tedad = G.mdatasetsabad.get(i).Tedad;
             array.add(orderStructure);
         }
 
@@ -77,23 +50,39 @@ public class Payment {
         JsonArray jsonArray = element.getAsJsonArray();
 
 
-        Webservice.requestparameter param = new Webservice.requestparameter();
-        param.key = "action";
-        param.value = "Paymentwork";
 
         Webservice.requestparameter param1 = new Webservice.requestparameter();
-        param1.key = "jsontext";
+        param1.key = "products";
         param1.value = jsonArray.toString();
 
 
-        Log.i("loG", jsonArray.toString());
+        Webservice.requestparameter param2 = new Webservice.requestparameter();
+        param2.key = "address_id";
+        param2.value = Paymentstep.Addressid;
+
+
+        Webservice.requestparameter param3 = new Webservice.requestparameter();
+        param3.key = "date";
+        param3.value = Paymentstep.Date;
+
+        Webservice.requestparameter param4 = new Webservice.requestparameter();
+        param4.key = "token";
+        param4.value = G.token;
+
+
+        Log.i("LOG", jsonArray.toString());
+        Log.i("LOG", Paymentstep.Addressid);
+        Log.i("LOG", Paymentstep.Date);
+        Log.i("LOG", G.token);
 
         ArrayList<Webservice.requestparameter> arrayList = new ArrayList<>();
-        arrayList.add(param);
         arrayList.add(param1);
+        arrayList.add(param2);
+        arrayList.add(param3);
+        arrayList.add(param4);
 
 
-        Webservice.request("Request.php", new Callback() {
+        Webservice.request("payment/start", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
 
@@ -117,7 +106,8 @@ public class Payment {
 
                 if (input.contains("https://")) {
 
-                    Paymentstep.Address = null;
+                    Paymentstep.Addressid = null;
+                    Paymentstep.Date = null;
                     G.mdatasetsabad.clear();
 
 

@@ -109,7 +109,7 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
                 Webservice.handelerro(e, new Callable<Void>() {
                     @Override
                     public Void call() throws Exception {
-                        Webservice.request("Store.php?action=Listalaghemandiha", mycall, array);
+                        Webservice.request("Favorites", mycall, array);
                         return null;
                     }
                 });
@@ -187,7 +187,7 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
         };
 
 
-        Webservice.request("Store.php?action=Listalaghemandiha", mycall, array);
+        Webservice.request("Favorites", mycall, array);
 
 
         RecyclerViewList.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
@@ -218,7 +218,7 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
                             array.add(object1);
                             array.add(object2);
 
-                            Webservice.request("Store.php?action=Listalaghemandiha", mycall, array);
+                            Webservice.request("Favorites", mycall, array);
                         }
                     }
 
@@ -242,7 +242,7 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
         object1.value = G.token;
 
         Webservice.requestparameter object2 = new Webservice.requestparameter();
-        object2.key = "Kalaid";
+        object2.key = "product_id";
         object2.value = id + "";
 
         ArrayList<Webservice.requestparameter> array = new ArrayList<>();
@@ -250,7 +250,7 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
         array.add(object2);
 
 
-        Webservice.request("Store.php?action=addtolistalaghemandiha", new Callback() {
+        Webservice.request("addFavorite", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Webservice.handelerro(e, new Callable<Void>() {
@@ -270,21 +270,31 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String temp = response.body().string();
-                if (temp.equals("Ok")) {
-                    G.HANDLER.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(G.context, "به علاقه مندی های شما اضافه شد", Toast.LENGTH_LONG).show();
-                        }
-                    });
-                } else {
-                    G.HANDLER.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(G.context, "مشکلی در اضافه شدن پیش آمد !", Toast.LENGTH_LONG).show();
-                        }
-                    });
+                try {
+                    JSONObject obj = new JSONObject(temp);
+
+
+                    if (obj.getString("status").equals("ok") || obj.getString("status").equals("fail")) {
+                        G.HANDLER.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(G.context, "به علاقه مندی های شما اضافه شد", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    } else {
+                        G.HANDLER.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(G.context, "مشکلی در اضافه شدن پیش آمد !", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
+
             }
         }, array);
 
@@ -297,7 +307,7 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
         object1.value = G.token;
 
         Webservice.requestparameter object2 = new Webservice.requestparameter();
-        object2.key = "Kalaid";
+        object2.key = "product_id";
         object2.value = id + "";
 
         ArrayList<Webservice.requestparameter> array = new ArrayList<>();
@@ -305,7 +315,7 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
         array.add(object2);
 
 
-        Webservice.request("Store.php?action=deletefromlistalaghemandiha", new Callback() {
+        Webservice.request("deleteFavorite", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Webservice.handelerro(e, new Callable<Void>() {
@@ -325,111 +335,32 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String temp = response.body().string();
-                if (temp.equals("Ok")) {
+                try {
+                    JSONObject obj = new JSONObject(temp);
+                    if (obj.getString("status").equals("ok")) {
 
-                    G.HANDLER.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            boolean find = false;
-                            for (int i = 0; i < mdatasetList.size(); i++) {
+                        G.HANDLER.post(new Runnable() {
+                            @Override
+                            public void run() {
 
-
-                                if (!find && mdatasetList.get(i).Id1.equals(id)) {
-
-                                    mdatasetList.get(i).Id1 = null;
-                                    find = true;
-
-                                    if (mdatasetList.get(i).Id2 == null) {
-                                        mdatasetList.remove(i);
-                                        continue;
-                                    }
-
-                                } else if (!find && mdatasetList.get(i).Id2.equals(id)) {
-
-                                    mdatasetList.get(i).Id2 = null;
-                                    find = true;
-
-
-                                }
-                                // 3
-
-                                if (find) {
-                                    if (mdatasetList.get(i).Id1 == null) {
-
-                                        if (mdatasetList.get(i).Id2 == null) {
-                                            break;
-                                        }
-                                        mdatasetList.get(i).Id1 = mdatasetList.get(i).Id2;
-
-                                        mdatasetList.get(i).Name1 = mdatasetList.get(i).Name2;
-                                   //     mdatasetList.get(i).Code1 = mdatasetList.get(i).Code2;
-                                   //     mdatasetList.get(i).Weight1 = mdatasetList.get(i).Weight2;
-                                        mdatasetList.get(i).Price1 = mdatasetList.get(i).Price2;
-                                        mdatasetList.get(i).OldPrice1 = mdatasetList.get(i).OldPrice2;
-                                   //     mdatasetList.get(i).Image1 = mdatasetList.get(i).Image2;
-                                   //     mdatasetList.get(i).Tozihat1 = mdatasetList.get(i).Tozihat2;
-                                        mdatasetList.get(i).Ordernumber1 = mdatasetList.get(i).Ordernumber2;
-                                        mdatasetList.get(i).Status1 = mdatasetList.get(i).Status2;
-                                        mdatasetList.get(i).Datetime1 = mdatasetList.get(i).Datetime2;
-
-
-                                        mdatasetList.get(i).Id2 = null;
-
-
-                                    }
-                                    if (mdatasetList.get(i).Id2 == null) {
-                                        if ((i + 1) < mdatasetList.size()) {
-
-                                            if (mdatasetList.get(i + 1).Id1 == null) {
-                                                break;
-                                            }
-
-                                            mdatasetList.get(i).Id2 = mdatasetList.get(i + 1).Id1;
-                                            mdatasetList.get(i).Name2 = mdatasetList.get(i + 1).Name1;
-                                        //    mdatasetList.get(i).Code2 = mdatasetList.get(i + 1).Code1;
-                                        //    mdatasetList.get(i).Weight2 = mdatasetList.get(i + 1).Weight1;
-                                            mdatasetList.get(i).Price2 = mdatasetList.get(i + 1).Price1;
-                                            mdatasetList.get(i).OldPrice2 = mdatasetList.get(i + 1).OldPrice1;
-                                         //   mdatasetList.get(i).Image2 = mdatasetList.get(i + 1).Image1;
-                                         //   mdatasetList.get(i).Tozihat2 = mdatasetList.get(i + 1).Tozihat1;
-                                            mdatasetList.get(i).Ordernumber2 = mdatasetList.get(i + 1).Ordernumber1;
-                                            mdatasetList.get(i).Status2 = mdatasetList.get(i + 1).Status1;
-                                            mdatasetList.get(i).Datetime2 = mdatasetList.get(i + 1).Datetime1;
-
-                                            mdatasetList.get(i + 1).Id1 = null;
-
-                                            if (mdatasetList.get(i + 1).Id2 == null) {
-                                                mdatasetList.remove(i + 1);
-                                            }
-                                        } else {
-                                            break;
-                                        }
-
-                                    }
-
-
-                                }
-
+                                pagework();
 
                             }
+                        });
 
-                            AdapterList.notifyDataSetChanged();
-                            if (mdatasetList.size() == 0) {
-                                txtempty.setVisibility(View.VISIBLE);
+
+                    } else {
+                        G.HANDLER.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(G.context, "مشکلی در حذف پیش آمد !", Toast.LENGTH_LONG).show();
                             }
-
-
-                        }
-                    });
-
-                } else {
-                    G.HANDLER.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(G.context, "مشکلی در حذف پیش آمد !", Toast.LENGTH_LONG).show();
-                        }
-                    });
+                        });
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
+
             }
         }, array);
     }

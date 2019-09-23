@@ -49,10 +49,10 @@ public class Listordersadapter extends RecyclerView.Adapter<Listordersadapter.Vi
 
 
 
-        Textconfig.settext(holder.txtCode, mdataset.get(position).Category + "");
+        Textconfig.settext(holder.txtCode, mdataset.get(position).factor_id + "");
         Textconfig.settext(holder.txtprice, mdataset.get(position).sum + " تومان");
 
-        switch (Integer.parseInt(mdataset.get(position).Vaziyat)) {
+        switch (Integer.parseInt(mdataset.get(position).status)) {
             case 1:
                 holder.txtvaziyat.setText(status.get(0));
                 break;
@@ -73,7 +73,6 @@ public class Listordersadapter extends RecyclerView.Adapter<Listordersadapter.Vi
             public void onClick(View v) {
                 Intent intent = new Intent(G.CurrentActivity, ActivityOrderinformation.class);
                 intent.putExtra("position", position);
-                intent.putExtra("Rate", mdataset.get(position).Rate);
                 G.CurrentActivity.startActivity(intent);
             }
         });

@@ -1,59 +1,207 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
         android:id="@+id/card"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dip"
-        app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true">
 
         <LinearLayout
-            android:layout_width="300dip"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:background="#F8F8F8"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/txtaddress"
-                    android:layout_width="match_parent"
+                    android:id="@+id/txtdelete"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:padding="5dip"
-                    android:text="TextView" />
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginTop="5dip"
+                    android:layout_marginRight="5dip"
+                    android:layout_marginBottom="5dip"
+                    android:text="حذف"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/txtname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="5dip"
                     android:gravity="right"
-                    android:padding="5dip"
-                    android:text="TextView" />
-
-                <TextView
-                    android:id="@+id/txtphonenumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:padding="5dip"
-                    android:text="TextView" />
+                    android:text="جواد اسماعیلی"
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/imgdelete"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_delete_forever_black_24dp" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtshahr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:gravity="right"
+                        android:text="اصفهان"
+                        android:textColor="#000000"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/textView29"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginRight="10dip"
+                        android:gravity="right"
+                        android:text="شهر: "
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/txtostan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:gravity="right"
+                        android:text="اصفهان"
+                        android:textColor="#000000"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/textView27"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginRight="5dip"
+                        android:gravity="right"
+                        android:text="استان: "
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtaddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dip"
+                    android:gravity="right"
+                    android:text="خیابان مدرس-خیابان مولوی -فرعی11-کوچه شهاب-پلاک68"
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txthomenumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginRight="5dip"
+                        android:gravity="right"
+                        android:text="اصفهان"
+                        android:textColor="#000000"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginRight="5dip"
+                        android:gravity="right"
+                        android:text="شماره تماس ثابت"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dip"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/lyoutedite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="left"
+                        android:gravity="left"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView30"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dip"
+                            android:text="ویرایش"
+                            android:textColor="#2196F3"
+                            android:textSize="18sp" />
+
+                        <ImageView
+                            android:id="@+id/imageView10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ic_create_black_24dp"
+                            tools:srcCompat="@drawable/ic_create_black_24dp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/txtphonenumber2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginRight="5dip"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:textColor="#000000"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/txtphonenumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginRight="5dip"
+                        android:gravity="right"
+                        android:text="اصفهان"
+                        android:textSize="18sp"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:id="@+id/textView19"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginRight="5dip"
+                        android:gravity="right"
+                        android:text="شماره تماس ضروری"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
         </LinearLayout>
 
     </android.support.v7.widget.CardView>

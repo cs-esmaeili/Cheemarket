@@ -73,16 +73,15 @@ public class Commands {
 
 
         Intent intent = new Intent(G.CurrentActivity, target);
-        Log.i("LOG", "=" + mdataset.get(position).Name1);
-        Log.i("LOG", "=" + mdataset.get(position).Image_folder1);
-        Log.i("LOG", "=" + mdataset.get(position).Id1);
         if (one) {
             intent.putExtra("Name", mdataset.get(position).Name1);
-            intent.putExtra("Image", mdataset.get(position).Image_folder1);
+            intent.putExtra("Image_folder", mdataset.get(position).Image_folder1);
+            intent.putExtra("Image_thumbnail", mdataset.get(position).Image_thumbnail1);
             intent.putExtra("Id", mdataset.get(position).Id1);
         } else {
             intent.putExtra("Name", mdataset.get(position).Name2);
-            intent.putExtra("Image", mdataset.get(position).Image_folder2);
+            intent.putExtra("Image_folder", mdataset.get(position).Image_folder2);
+            intent.putExtra("Image_thumbnail", mdataset.get(position).Image_thumbnail2);
             intent.putExtra("Id", mdataset.get(position).Id2);
         }
 

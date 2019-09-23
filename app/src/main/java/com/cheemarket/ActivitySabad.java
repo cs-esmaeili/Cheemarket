@@ -21,6 +21,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.Callable;
 
 import okhttp3.Call;
@@ -120,21 +121,15 @@ public class ActivitySabad extends AppCompatActivity {
         JsonArray myCustomArray = gson.toJsonTree(G.mdatasetsabad).getAsJsonArray();
 
 
-        String temp = "[";
-        for (int i = 0; i < myCustomArray.size(); i++) {
-            temp = temp + myCustomArray.get(i).toString();
-            if (i + 1 != myCustomArray.size()) {
-                temp += ",";
-            }
-        }
-        temp += "]";
+        Log.i("LOG", "text =" + myCustomArray);
+
 
         ArrayList<Webservice.requestparameter> array = new ArrayList<>();
+
         Webservice.requestparameter requestparameter = new Webservice.requestparameter();
         requestparameter.key = "jsontext";
-        requestparameter.value = temp;
+        requestparameter.value = "" + myCustomArray;
 
-        Log.i("LOG", "text =" + temp);
         Webservice.requestparameter requestparameter1 = new Webservice.requestparameter();
         requestparameter1.key = "token";
         requestparameter1.value = G.token;
@@ -142,7 +137,7 @@ public class ActivitySabad extends AppCompatActivity {
 
         array.add(requestparameter);
         array.add(requestparameter1);
-        Webservice.request("Store.php?action=Checkalldata", new Callback() {
+        Webservice.request("checkCart", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Webservice.handelerro(e, new Callable<Void>() {
@@ -185,39 +180,35 @@ public class ActivitySabad extends AppCompatActivity {
 
                         for (int j = 0; j < G.mdatasetsabad.size(); j++) {
 
-                            if (object.has("delete") && G.mdatasetsabad.get(j).Id.equals(object.getString("Id"))) {
+                            if (object.has("delete") && G.mdatasetsabad.get(j).Id.equals(object.getString("delete"))) {
+                                Log.i("LOG", "delete = " + object.getString("delete"));
                                 G.mdatasetsabad.remove(j);
                                 text = "بعضی از کالاها به دلیل عدم موجودی پاک شدند";
-                            }
-
-
-                            if (G.mdatasetsabad.get(j).Id.equals(object.getString("Id"))) {
+                                j = 0;
+                            }else if (G.mdatasetsabad.size() > j && G.mdatasetsabad.get(j).Id.equals(object.getString("product_id"))) {
                                 if (!text.contains("عوض")) {
                                     text += "\n" + "اطلاعات بعضی از کالا ها عوض شد";
                                 }
 
-                                G.mdatasetsabad.get(j).Name = object.getString("Name");
-                                G.mdatasetsabad.get(j).Price = object.getString("Price");
-                                G.mdatasetsabad.get(j).Image = object.getString("Image");
-                                G.mdatasetsabad.get(j).Ordernumber = object.getString("Ordernumber");
+                                G.mdatasetsabad.get(j).Name = object.getString("name");
+                                G.mdatasetsabad.get(j).Price = object.getString("price");
+                                G.mdatasetsabad.get(j).Image_thumbnail = object.getString("image_thumbnail");
+                                G.mdatasetsabad.get(j).Ordernumber = object.getString("order_number");
 
-                                //  G.mdatasetsabad.get(j).Tedad = object.getString("Tedad");
 
                                 if (Integer.parseInt(G.mdatasetsabad.get(j).Ordernumber) < Integer.parseInt(G.mdatasetsabad.get(j).Tedad)) {
                                     G.mdatasetsabad.get(j).Tedad = G.mdatasetsabad.get(j).Ordernumber;
 
                                 }
+                                /*
                                 if (Integer.parseInt(object.getString("Tedad")) < Integer.parseInt(G.mdatasetsabad.get(j).Tedad)) {
                                     G.mdatasetsabad.get(j).Tedad = object.getString("Tedad");
                                 }
 
-
+*/
                             }
 
-
                         }
-
-
                     }
 
                     final String finalText = text;

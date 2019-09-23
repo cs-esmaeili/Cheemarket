@@ -1,13 +1,11 @@
 package com.cheemarket;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.transition.Fade;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -17,8 +15,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.cheemarket.Customview.badgelogo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,8 +56,8 @@ public class ActivitySabtnam extends AppCompatActivity {
         shoplogo.setVisibility(View.GONE);
 
 
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        mPasswordView = (EditText) findViewById(R.id.password);
+        mEmailView = (AutoCompleteTextView) findViewById(R.id.password1);
+        mPasswordView = (EditText) findViewById(R.id.password2);
         message = (TextView) findViewById(R.id.message);
 
 
@@ -190,13 +186,61 @@ public class ActivitySabtnam extends AppCompatActivity {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     String input = response.body().string();
+                    Log.i("LOG" , input);
                     try {
                         JSONObject obj = new JSONObject(input);
                         if (obj.has("remaining_time") && obj.has("status") && obj.getString("status").equals("ok")) {
 
+                            Intent intent = new Intent(G.CurrentActivity, ActivityEnterCode.class);
+                            int m = (Integer.parseInt(obj.getString("remaining_time")) / 60) >= 1 ? Integer.parseInt(obj.getString("remaining_time")) / 60 : 0;
+                            int s = Integer.parseInt(obj.getString("remaining_time")) - (m * 60);
+                            intent.putExtra("m", m);
+                            intent.putExtra("s", s);
+                            intent.putExtra("username", mEmailView.getText().toString());
+                            intent.putExtra("password", mPasswordView.getText().toString());
+
+                            if (mEmailView.getText().toString().contains("09") && mEmailView.getText().toString().length() == 11) {
+                                intent.putExtra("type", "phonenumber");
+                                G.CurrentActivity.startActivity(intent);
+                                finish();
+                            } else if (mEmailView.getText().toString().contains("@gmail.com") || mEmailView.getText().toString().contains("@yahoo.com")) {
+                                intent.putExtra("type", "email");
+                                G.CurrentActivity.startActivity(intent);
+                                finish();
+                            }
+
+
                         } else if (obj.has("status") && obj.getString("status").equals("ok")) {
-                            Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
-                            G.CurrentActivity.startActivity(intent);
+
+                            Intent intent = new Intent(G.CurrentActivity, ActivityEnterCode.class);
+                            intent.putExtra("m", 1);
+                            intent.putExtra("s", 60);
+                            intent.putExtra("username", mEmailView.getText().toString());
+                            intent.putExtra("password", mPasswordView.getText().toString());
+                            if (mEmailView.getText().toString().contains("09") && mEmailView.getText().toString().length() == 11) {
+                                intent.putExtra("type", "phonenumber");
+                                G.CurrentActivity.startActivity(intent);
+                                finish();
+                            } else if (mEmailView.getText().toString().contains("@gmail.com") || mEmailView.getText().toString().contains("@yahoo.com")) {
+                                intent.putExtra("type", "email");
+                                G.CurrentActivity.startActivity(intent);
+                                finish();
+                            }
+
+                        } else if (obj.has("status") && obj.getString("status").equals("ban")) {
+                            G.HANDLER.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    message.setText("تعداد تلاش بیتشر از حد مجاز!");
+                                }
+                            });
+                        } else if (obj.has("status") && obj.getString("status").equals("Account available")) {
+                            G.HANDLER.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    message.setText("اکانتی با این مشخصات وجود دارد");
+                                }
+                            });
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

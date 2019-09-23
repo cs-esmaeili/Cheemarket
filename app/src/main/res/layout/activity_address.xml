@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,142 +7,34 @@
     android:orientation="vertical"
     tools:context=".ActivityAddress">
 
-    <include layout="@layout/toolbarforall" />
+    <include
+        android:id="@+id/include7"
+        layout="@layout/toolbarforall" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/List"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include7">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+    </android.support.v7.widget.RecyclerView>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/List"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipChildren="false"
-                android:clipToPadding="false">
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_add_circle_black_24dp"/>
 
-            </android.support.v7.widget.RecyclerView>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <EditText
-                    android:id="@+id/edtname"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dip"
-                    android:gravity="right"
-                    android:focusable="auto"
-                    android:hint="نام و نام خانوادگی"
-                    android:inputType="textPersonName"
-                    android:maxLength="30" />
-
-                <EditText
-                    android:id="@+id/edthomenumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dip"
-                    android:focusable="auto"
-                    android:gravity="right"
-                    android:hint="شماره ثابت"
-                    android:inputType="number"
-                    android:maxLength="20" />
-
-                <EditText
-                    android:id="@+id/edtphonenumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dip"
-                    android:focusable="auto"
-                    android:gravity="right"
-                    android:hint="شماره همراه"
-                    android:inputType="number"
-                    android:maxLength="15" />
-
-                <EditText
-                    android:id="@+id/edtcodeposti"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dip"
-                    android:focusable="auto"
-                    android:gravity="right"
-                    android:hint="کد پستی (اختیاری)"
-                    android:inputType="number"
-                    android:maxLength="25" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <Spinner
-                        android:id="@+id/spnershahr"
-                        android:layout_width="0dip"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:hapticFeedbackEnabled="false"
-                        android:saveEnabled="false"
-                        android:soundEffectsEnabled="false"
-                        android:clickable="false"
-                        android:enabled="false"/>
-
-
-                    <Spinner
-                        android:id="@+id/spnerostan"
-                        android:layout_width="0dip"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:clickable="false"
-                        android:entries="@array/ostanha"
-                        android:hapticFeedbackEnabled="false"
-                        android:saveEnabled="false"
-                        android:soundEffectsEnabled="false"
-                        android:enabled="false"/>
-                </LinearLayout>
-
-                <EditText
-
-                    android:id="@+id/edtaddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dip"
-                    android:layout_weight="1"
-                    android:focusable="auto"
-                    android:hint="آدرس"
-                    android:inputType="textMultiLine"
-                    android:maxLength="100"
-                    />
-
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/btnsave"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dip"
-                android:text="اضافه کردن آدرس جدید"
-                android:textSize="20dip" />
-
-            <Button
-                android:id="@+id/btnselect"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="انتخاب این آدرس"
-                android:visibility="gone"
-                android:focusable="true"
-                android:focusableInTouchMode="true"/>
-
-
-        </LinearLayout>
-    </ScrollView>
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

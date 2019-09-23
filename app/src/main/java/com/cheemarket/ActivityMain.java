@@ -266,7 +266,7 @@ public class ActivityMain extends AppCompatActivity
         }
         index = -1;
 
-        Dialogs.Checkpermissions();
+
 
         mdatasetList1 = new ArrayList<PoductStructure>();
         mdatasetList4 = new ArrayList<PoductStructure>();
@@ -623,7 +623,7 @@ public class ActivityMain extends AppCompatActivity
                     public void onClick(DialogInterface dialog, int id) {
 
                         alertDialog.dismiss();
-                        Dialogs.Checkpermissions();
+
 
                     }
                 });

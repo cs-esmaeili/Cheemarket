@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActivityEdite">
+
+    <include
+        android:id="@+id/include9"
+        layout="@layout/toolbarforall" />
+
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include9">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dip"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/edtname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dip"
+                    android:focusable="auto"
+                    android:gravity="right"
+                    android:hint="نام و نام خانوادگی"
+                    android:inputType="textPersonName"
+                    android:maxLength="30"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/edthomenumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dip"
+                    android:focusable="auto"
+                    android:gravity="right"
+                    android:hint="شماره ثابت"
+                    android:inputType="number"
+                    android:maxLength="20"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/edtphonenumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dip"
+                    android:focusable="auto"
+                    android:gravity="right"
+                    android:hint="شماره همراه"
+                    android:inputType="number"
+                    android:maxLength="15"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/edtcodeposti"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dip"
+                    android:focusable="auto"
+                    android:gravity="right"
+                    android:hint="کد پستی (اختیاری)"
+                    android:inputType="number"
+                    android:maxLength="25"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/spnershahr"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:clickable="false"
+                        android:enabled="false"
+                        android:hapticFeedbackEnabled="false"
+                        android:saveEnabled="false"
+                        android:soundEffectsEnabled="false" />
+
+
+                    <Spinner
+                        android:id="@+id/spnerostan"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:clickable="false"
+                        android:enabled="false"
+                        android:entries="@array/ostanha"
+                        android:hapticFeedbackEnabled="false"
+                        android:saveEnabled="false"
+                        android:soundEffectsEnabled="false" />
+                </LinearLayout>
+
+                <EditText
+
+                    android:id="@+id/edtaddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dip"
+                    android:layout_weight="1"
+                    android:focusable="auto"
+                    android:hint="آدرس"
+                    android:inputType="textMultiLine"
+                    android:maxLength="100"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/btnsave"
+                android:layout_width="match_parent"
+                android:layout_height="50dip"
+                android:background="#66BB6A"
+                android:gravity="center"
+                android:text="ثبت تغییرات"
+                android:textColor="#ffffff"
+                android:textSize="18dip" />
+
+
+        </LinearLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>

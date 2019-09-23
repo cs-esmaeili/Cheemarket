@@ -10,6 +10,9 @@ import android.widget.Toast;
 
 import com.cheemarket.Customview.badgelogo;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -62,7 +65,7 @@ public class Activityproblems extends AppCompatActivity {
                     array.add(param);
                     array.add(param1);
 
-                    Webservice.request("Store.php?action=problems", new Callback() {
+                    Webservice.request("problems", new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
                             G.HANDLER.post(new Runnable() {
@@ -77,22 +80,28 @@ public class Activityproblems extends AppCompatActivity {
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
                             String input = response.body().string();
-                            if(input.equals("Ok")){
-                                G.HANDLER.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        editText.setText("");
-                                        Toast.makeText(G.context,"پیام شما ثبت شد متشکریم برای کمک شما به بهبود عملکر برنامه",Toast.LENGTH_LONG).show();
-                                    }
-                                });
-                            }else {
-                                G.HANDLER.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(G.context,"در ثبت پیام شما مشکلی پیش آمد دوباره تلاش کنید",Toast.LENGTH_LONG).show();
-                                    }
-                                });
+                            try {
+                                JSONObject obj = new JSONObject(input);
+                                if(obj.getString("status").equals("ok")){
+                                    G.HANDLER.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            editText.setText("");
+                                            Toast.makeText(G.context,"پیام شما ثبت شد متشکریم برای کمک شما به بهبود عملکر برنامه",Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+                                }else if(obj.getString("status").equals("fail")){
+                                    G.HANDLER.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(G.context,"در ثبت پیام شما مشکلی پیش آمد دوباره تلاش کنید",Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
+
 
                         }
                     },array);

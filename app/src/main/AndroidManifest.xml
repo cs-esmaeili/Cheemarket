@@ -21,7 +21,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ActivityEnterCode"></activity>
+        <activity android:name=".ActivityEdite"></activity>
+        <activity android:name=".ActivityResetPassword" />
+        <activity android:name=".ActivityEnterCode" />
         <activity
             android:name=".ActivityStart"
             android:configChanges="orientation|screenSize">

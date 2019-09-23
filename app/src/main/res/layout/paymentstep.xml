@@ -12,19 +12,19 @@
         layout="@layout/toolbarforall" />
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:clipToPadding="false"
         android:fillViewport="true"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/btnpay"
-        app:layout_constraintTop_toBottomOf="@+id/include2"
-        app:layout_constraintVertical_bias="0.522"
-        tools:layout_editor_absoluteX="113dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include2">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +35,8 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardPreventCornerOverlap="false"
+                android:layout_margin="10dip"
+                app:cardPreventCornerOverlap="true"
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -56,15 +57,20 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:orientation="vertical">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/Listaddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="250dip" />
 
                         <Button
                             android:id="@+id/selectaddress"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="6dip"
-                            android:text="انتخاب آدرس" />
+                            android:background="#66BB6A"
+                            android:text="آدرس جدید" />
 
                         <android.support.v7.widget.CardView
                             android:id="@+id/card"
@@ -129,13 +135,69 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/List"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_margin="10dip" />
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="0dip"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dip">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <CheckBox
+                            android:id="@+id/fori"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:button="@null"
+                            android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                            android:gravity="right|center_vertical"
+                            android:minWidth="200dip"
+                            android:text="تحویل فوری تا یک ساعت آینده" />
+
+                        <LinearLayout
+                            android:id="@+id/backspiner"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <Spinner
+                                android:id="@+id/spinnershift"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <Spinner
+                                android:id="@+id/spinnerdate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_width="0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="زمان تحویل سفارش" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dip"
-                android:layout_weight="1"
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -219,6 +281,7 @@
                         </LinearLayout>
 
                     </android.support.v7.widget.CardView>
+
                     <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="0dip"
@@ -257,6 +320,7 @@
                         </LinearLayout>
 
                     </android.support.v7.widget.CardView>
+
                     <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="0dip"
@@ -298,7 +362,6 @@
                     </android.support.v7.widget.CardView>
 
 
-
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -311,20 +374,17 @@
                 android:textColor="#10e610"
                 android:textSize="18dip" />
 
+            <TextView
+                android:id="@+id/btnpay"
+                android:layout_width="match_parent"
+                android:layout_height="50dip"
+                android:background="#66BB6A"
+                android:gravity="center"
+                android:text="خرید خود را نهایی کنید"
+
+                />
+
         </LinearLayout>
     </ScrollView>
-
-    <TextView
-        android:id="@+id/btnpay"
-        android:layout_width="match_parent"
-        android:layout_height="45dip"
-        android:background="#D6D7D7"
-        android:gravity="center"
-        android:text="خرید خود را نهایی کنید"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-
-        />
 
 </android.support.constraint.ConstraintLayout>

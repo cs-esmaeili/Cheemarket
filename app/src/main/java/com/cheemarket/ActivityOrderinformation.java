@@ -25,6 +25,7 @@ import java.util.concurrent.Callable;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+
 import com.cheemarket.Adapter.Listpaymentadapter;
 import com.cheemarket.Structure.PoductStructure;
 
@@ -38,6 +39,9 @@ public class ActivityOrderinformation extends AppCompatActivity {
     private static RatingBar ratingBar;
 
     private badgelogo badge;
+    float Rate = 0.0f;
+    int position = -1;
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -95,53 +99,11 @@ public class ActivityOrderinformation extends AppCompatActivity {
                 .commit();
 
 
-        int position = -1;
-        float Rate = 0.0f;
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-
             position = extras.getInt("position");
-            Rate = extras.getFloat("Rate");
-
-
-        }
-        ratingBar.setRating(Rate);
-        if (Rate > 0.0) {
-            ratingBar.setEnabled(false);
-        }
-        int currentvaziyat = Integer.parseInt(ActivityOrders.mdatasetList.get(position).Vaziyat);
-        switch (currentvaziyat) {
-            case 1:
-                stepView.go(0, true);
-                break;
-            case 2:
-                stepView.go(1, true);
-                break;
-            case 3:
-                stepView.go(2, true);
-                break;
-            case 4:
-                stepView.go(3, true);
-                stepView.done(true);
-                ratingBar.setRating(ActivityOrders.mdatasetList.get(position).Rate);
-                break;
         }
 
-        final int finalPosition = position;
-        final float finalRate = Rate;
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-
-                if (fromUser && stepView.getCurrentStep() != 3) {
-                    Toast.makeText(G.CurrentActivity, "بعد از تحویل کالا میتوانید نظر بدهید", Toast.LENGTH_LONG).show();
-                    ratingBar.setRating(finalRate);
-                } else if (fromUser) {
-                    setrating(ratingBar.getRating(), finalPosition);
-                    ratingBar.setEnabled(false);
-                }
-            }
-        });
 
         mdatasetList1 = new ArrayList<PoductStructure>();
 
@@ -160,11 +122,11 @@ public class ActivityOrderinformation extends AppCompatActivity {
         param1.value = G.token;
         Webservice.requestparameter param2 = new Webservice.requestparameter();
         param2.key = "Category";
-        param2.value = ActivityOrders.mdatasetList.get(position).Category + "";
+        param2.value = ActivityOrders.mdatasetList.get(position).factor_id + "";
         ArrayList<Webservice.requestparameter> array = new ArrayList<>();
         array.add(param1);
         array.add(param2);
-        Webservice.request("Store.php?action=informationorders", new Callback() {
+        Webservice.request("factorInformation", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Webservice.handelerro(e, new Callable<Void>() {
@@ -173,7 +135,7 @@ public class ActivityOrderinformation extends AppCompatActivity {
                         G.HANDLER.post(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(G.context,"مشکلی در ارتیاط با سرور پیش آمد دوباره سعی کنید", Toast.LENGTH_LONG).show();
+                                Toast.makeText(G.context, "مشکلی در ارتیاط با سرور پیش آمد دوباره سعی کنید", Toast.LENGTH_LONG).show();
                             }
                         });
                         return null;
@@ -190,34 +152,85 @@ public class ActivityOrderinformation extends AppCompatActivity {
                     JSONArray array = new JSONArray(input);
 
                     for (int i = 0; i < array.length(); i++) {
-                        JSONObject object = array.getJSONObject(i);
+                        final JSONObject object = array.getJSONObject(i);
 
-                        PoductStructure poductStructure = new PoductStructure();
+                        G.HANDLER.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    txtname.setText("" + object.getString("name"));
+                                    txtphonenumber.setText("" + object.getString("phone_number"));
+                                    txthomenumber.setText("" + object.getString("home_number"));
+                                    txtcodeposti.setText("" + object.getString("postal_code"));
+                                    txtaddress.setText("" + object.getString("address"));
+                                    txtostan.setText("" + object.getString("state"));
+                                    txtshahr.setText("" + object.getString("city"));
+                                    Rate = Float.parseFloat(object.getString("rate"));
 
-                        Commands.convertinputdata(object, poductStructure, true);
-                        poductStructure.Ordernumber1 = object.getString("Tedad");
+                                    ratingBar.setRating(Rate);
+                                    if (Rate > 0.0) {
+                                        ratingBar.setEnabled(false);
+                                    }
+                                    int currentvaziyat = Integer.parseInt(ActivityOrders.mdatasetList.get(position).status);
+                                    switch (currentvaziyat) {
+                                        case 1:
+                                            stepView.go(0, true);
+                                            break;
+                                        case 2:
+                                            stepView.go(1, true);
+                                            break;
+                                        case 3:
+                                            stepView.go(2, true);
+                                            break;
+                                        case 4:
+                                            stepView.go(3, true);
+                                            stepView.done(true);
+                                            ratingBar.setRating(Rate);
+                                            break;
+                                    }
 
-                        mdatasetList1.add(poductStructure);
+                                    final int finalPosition = position;
+                                    final float finalRate = Rate;
+                                    ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                                        @Override
+                                        public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+
+                                            if (fromUser && stepView.getCurrentStep() != 3) {
+                                                Toast.makeText(G.CurrentActivity, "بعد از تحویل کالا میتوانید نظر بدهید", Toast.LENGTH_LONG).show();
+                                                ratingBar.setRating(finalRate);
+                                            } else if (fromUser) {
+                                                setrating(ratingBar.getRating(), finalPosition);
+                                                ratingBar.setEnabled(false);
+                                            }
+                                        }
+                                    });
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+
+                            }
+                        });
+
+                        JSONArray products = object.getJSONArray("products");
+                        for (int j = 0; j < products.length(); j++) {
+                            final JSONObject product = products.getJSONObject(j);
+                            PoductStructure poductStructure = new PoductStructure();
+                            poductStructure.Ordernumber1 = product.getString("number");
+                            poductStructure.Name1 = product.getString("name");
+                            poductStructure.Price1 = product.getString("price");
+                            poductStructure.OldPrice1 = product.getString("old_price");
+                            poductStructure.Image_thumbnail1 = product.getString("image_thumbnail");
+                            mdatasetList1.add(poductStructure);
+                        }
+
 
                     }
-                    final JSONObject object = array.getJSONObject(0);
+
                     G.HANDLER.post(new Runnable() {
                         @Override
                         public void run() {
-                            try {
-                                txtname.setText("" + object.getString("personnames"));
-                                txtphonenumber.setText("" + object.getString("phonenumber"));
-                                txthomenumber.setText("" + object.getString("homenumber"));
-                                txtcodeposti.setText("" + object.getString("Codeposti"));
-                                txtaddress.setText("" + object.getString("address"));
-                                txtostan.setText("" + object.getString("Ostan"));
-                                txtshahr.setText("" + object.getString("Shar"));
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-
                             AdapterList1.notifyDataSetChanged();
                         }
                     });
@@ -237,8 +250,8 @@ public class ActivityOrderinformation extends AppCompatActivity {
         param1.key = "token";
         param1.value = G.token;
         Webservice.requestparameter param2 = new Webservice.requestparameter();
-        param2.key = "Category";
-        param2.value = ActivityOrders.mdatasetList.get(position).Category + "";
+        param2.key = "factor_id";
+        param2.value = ActivityOrders.mdatasetList.get(position).factor_id + "";
 
         Webservice.requestparameter param3 = new Webservice.requestparameter();
         param3.key = "rate";
@@ -250,7 +263,7 @@ public class ActivityOrderinformation extends AppCompatActivity {
         array.add(param2);
         array.add(param3);
 
-        Webservice.request("Store.php?action=setrating", new Callback() {
+        Webservice.request("factorRating", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Webservice.handelerro(e, new Callable<Void>() {
@@ -259,7 +272,7 @@ public class ActivityOrderinformation extends AppCompatActivity {
                         G.HANDLER.post(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(G.context,"مشکلی در ارتیاط با سرور پیش آمد دوباره سعی کنید", Toast.LENGTH_LONG).show();
+                                Toast.makeText(G.context, "مشکلی در ارتیاط با سرور پیش آمد دوباره سعی کنید", Toast.LENGTH_LONG).show();
                                 ratingBar.setRating(0.0f);
                                 ratingBar.setEnabled(true);
                             }
@@ -272,14 +285,27 @@ public class ActivityOrderinformation extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String input = response.body().string();
-                if (input.equals("Ok")) {
-                    G.HANDLER.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(G.context, "امتیاز شما با موفقیت ثبت شد", Toast.LENGTH_LONG).show();
-                        }
-                    });
+                try {
+                    JSONObject obj = new JSONObject(input);
+                    if (obj.getString("status").equals("ok")) {
+                        G.HANDLER.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(G.context, "امتیاز شما با موفقیت ثبت شد", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    } else {
+                        G.HANDLER.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(G.context, "شما فقط یک بار میتوانید رای بدهید", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
+
             }
         }, array);
 

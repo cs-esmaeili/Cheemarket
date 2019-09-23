@@ -6,4 +6,172 @@
     android:layout_height="match_parent"
     tools:context=".ActivityEnterCode">
 
+    <TextView
+        android:id="@+id/txt"
+        android:layout_width="320dp"
+        android:layout_height="97dp"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/txtviewback"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include5" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal"
+        android:padding="2dip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt">
+
+        <TextView
+            android:id="@+id/m"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|center_horizontal"
+
+            android:padding="3dip"
+            android:text="0"
+            android:textColor="#000000"
+            android:textSize="25dip" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|center_horizontal"
+
+            android:text=":"
+            android:textSize="25dip" />
+
+        <TextView
+            android:id="@+id/s"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|center_horizontal"
+
+            android:padding="3dip"
+            android:text="0"
+            android:textColor="#000000"
+            android:textSize="25dip" />
+
+    </LinearLayout>
+
+    <include
+        android:id="@+id/include5"
+        layout="@layout/toolbarforall" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/textView15"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        app:layout_constraintVertical_bias="0.61">
+
+        <EditText
+            android:id="@+id/edt1"
+            android:layout_width="0dip"
+            android:layout_height="47dp"
+            android:layout_marginLeft="60dip"
+            android:layout_weight="0.2"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="1"
+            android:maxLines="1" />
+
+        <EditText
+            android:id="@+id/edt2"
+            android:layout_width="0dip"
+            android:layout_height="47dp"
+            android:layout_marginLeft="25dip"
+            android:layout_weight="0.2"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="1"
+            android:maxLines="1" />
+
+        <EditText
+            android:id="@+id/edt3"
+            android:layout_width="0dip"
+            android:layout_height="47dp"
+            android:layout_marginLeft="25dip"
+            android:layout_weight="0.2"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="1"
+            android:maxLines="1" />
+
+        <EditText
+            android:id="@+id/edt4"
+            android:layout_width="0dip"
+            android:layout_height="47dp"
+            android:layout_marginLeft="25dip"
+            android:layout_weight="0.2"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="1"
+            android:maxLines="1" />
+
+        <EditText
+            android:id="@+id/edt5"
+            android:layout_width="0dip"
+            android:layout_height="47dp"
+            android:layout_marginLeft="25dip"
+            android:layout_marginRight="60dip"
+            android:layout_weight="0.2"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="1"
+            android:maxLines="1" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="124dp"
+        android:layout_height="24dp"
+        android:layout_marginBottom="128dp"
+        android:gravity="center"
+        android:text="تغییر شماره تماس"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.536"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include5"
+        app:layout_constraintVertical_bias="0.858" />
+
+    <TextView
+        android:id="@+id/txtretry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:gravity="center"
+        android:text="ارسال مجدد کد تایید"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="84dp"
+        android:layout_marginRight="5dip"
+        android:layout_marginBottom="8dp"
+        android:text="کد تایید را وارد نمایید"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt"
+        app:layout_constraintVertical_bias="1.0" />
+
 </android.support.constraint.ConstraintLayout>
