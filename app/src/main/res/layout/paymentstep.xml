@@ -149,9 +149,18 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView11"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dip"
+                            android:gravity="center"
+                            android:text="زمان تحویل سفارش"
+                            android:textColor="#000000"
+                            android:textSize="18sp" />
 
                         <CheckBox
                             android:id="@+id/fori"
@@ -161,34 +170,37 @@
                             android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
                             android:gravity="right|center_vertical"
                             android:minWidth="200dip"
-                            android:text="تحویل فوری تا یک ساعت آینده" />
+                            android:text="تحویل فوری ( 2 ساعت پس از ثبت سفارش)" />
+
+                        <CheckBox
+                            android:id="@+id/zaman"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:button="@null"
+                            android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                            android:gravity="right|center_vertical"
+                            android:minWidth="200dip"
+                            android:text="تعیین زمان تحویل سفارش" />
 
                         <LinearLayout
                             android:id="@+id/backspiner"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
                             <Spinner
                                 android:id="@+id/spinnershift"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+                                android:layout_width="0dip"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.5" />
 
                             <Spinner
                                 android:id="@+id/spinnerdate"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dip"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1" />
+                                android:layout_weight="0.5" />
                         </LinearLayout>
                     </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/textView11"
-                        android:layout_width="0dip"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="زمان تحویل سفارش" />
 
                 </LinearLayout>
 
@@ -370,9 +382,36 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dip"
                 android:gravity="center"
-                android:text="هزینه پیک برای خرید های بالای 100 هزار تومان رایگان است"
+                android:text="هزینه پیک برای خرید های بالای 75 هزار تومان رایگان است"
                 android:textColor="#10e610"
                 android:textSize="18dip" />
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dip"
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/payment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="پرداخت آنلاین" />
+
+                    <CheckBox
+                        android:id="@+id/paymentoff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="پرداخت درب منزل" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
 
             <TextView
                 android:id="@+id/btnpay"

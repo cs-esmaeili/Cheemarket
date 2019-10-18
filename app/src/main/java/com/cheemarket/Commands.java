@@ -224,7 +224,7 @@ public class Commands {
         array.add(object1);
 
 
-        Webservice.request("Store.php?action=view", new okhttp3.Callback() {
+        Webservice.request("view", new okhttp3.Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
 

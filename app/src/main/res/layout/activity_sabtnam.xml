@@ -6,7 +6,7 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:layoutDirection="ltr"
-    tools:context="com.cheemarket.com.LoginActivity">
+    tools:context="com.cheemarket.ActivityLogin">
 
     <!-- Login progress -->
 
@@ -43,7 +43,7 @@
                     android:layout_weight="1">
 
                     <AutoCompleteTextView
-                        android:id="@+id/password1"
+                        android:id="@+id/username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint=" ایمیل / شماره تلفن "
@@ -76,7 +76,7 @@
                     android:layout_weight="1">
 
                     <EditText
-                        android:id="@+id/password2"
+                        android:id="@+id/password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint=" رمز ورود "

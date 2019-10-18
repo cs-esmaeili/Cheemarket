@@ -196,26 +196,12 @@ public class ActivityMain extends AppCompatActivity
         shoplogo.setOnClickListener(Commands.onClickListenersabadkharid);
 
 
-/*
-        View.OnClickListener onClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(G.CurrentActivity, ActivitySubdastebandi.class);
-                intent.putExtra("subdastebandistring", "" + v.getTag());
-                startActivity(intent);
-            }
-        };
-
-*/
-
-
 
 
         layoutprofile.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-
                 if (G.token.equals("")) {
                     Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
                     G.CurrentActivity.startActivity(intent);
@@ -298,7 +284,7 @@ public class ActivityMain extends AppCompatActivity
 
 
         Webservice.request("firstPage", callback, null);
-      //  Commands.addview("صفحه اصلی");
+        Commands.addview("صفحه اصلی");
 
     }
 
@@ -330,7 +316,7 @@ public class ActivityMain extends AppCompatActivity
                 Slider.array.clear();
 
                 String input = response.body().string();
-                Log.i("llll=" , "=" + input);
+
                 JSONArray array = new JSONArray(input);
 
 
@@ -587,12 +573,6 @@ public class ActivityMain extends AppCompatActivity
             editor.apply();
             txtprofile.setText("وارد شوید / ثبت نام کنید");
 
-        }else  if (id == R.id.mashaghel){
-            Intent intent = new Intent(G.CurrentActivity, ActivityMashaghel.class);
-            startActivity(intent);
-
-
-            overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
         }
 
 

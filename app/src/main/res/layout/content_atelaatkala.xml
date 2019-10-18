@@ -260,6 +260,17 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
+                        <view
+                            android:id="@+id/txtoff"
+                            class="com.cheemarket.Customview.Lineimage"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dip"
+                            android:layout_marginTop="10dip"
+                            android:layout_marginRight="8dip"
+                            android:layout_weight="1"
+                            android:textSize="18dip" />
+
                         <TextView
                             android:id="@+id/txtprice"
                             android:layout_width="match_parent"
@@ -270,17 +281,6 @@
                             android:gravity="center"
                             android:padding="3dip"
                             android:text=""
-                            android:textSize="18dip" />
-
-                        <view
-                            android:id="@+id/txtoff"
-                            class="com.cheemarket.Customview.Lineimage"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dip"
-                            android:layout_marginTop="10dip"
-                            android:layout_marginRight="8dip"
-                            android:layout_weight="1"
                             android:textSize="18dip" />
 
                         <TextView

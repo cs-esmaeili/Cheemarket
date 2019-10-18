@@ -1,8 +1,8 @@
 package com.cheemarket;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -10,19 +10,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.Callable;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-
-import static com.cheemarket.ActivityMain.s;
 
 public class ActivityEnterCode extends AppCompatActivity {
 
@@ -47,6 +45,8 @@ public class ActivityEnterCode extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_code);
+
+        G.CurrentActivity = this;
 
         ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
         ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
@@ -90,9 +90,17 @@ public class ActivityEnterCode extends AppCompatActivity {
         txtretry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                txtretry.setVisibility(View.INVISIBLE);
+                edt1.setText("");
+                edt2.setText("");
+                edt3.setText("");
+                edt4.setText("");
+                edt5.setText("");
+                edt1.requestFocus();
                 if (password.equals("reset")) {
+
                     resetagain();
-                }else {
+                } else {
                     signupagain();
                 }
 
@@ -139,7 +147,7 @@ public class ActivityEnterCode extends AppCompatActivity {
                 if (edt5.getText().toString().length() == 1 && edt4.getText().toString().length() == 1 && edt3.getText().toString().length() == 1 && edt2.getText().toString().length() == 1 && edt1.getText().toString().length() == 1) {
                     if (password.equals("reset")) {
                         verifyreset(edt1.getText().toString() + edt2.getText().toString() + edt3.getText().toString() + edt4.getText().toString() + edt5.getText().toString());
-                    }else {
+                    } else {
                         verify(edt1.getText().toString() + edt2.getText().toString() + edt3.getText().toString() + edt4.getText().toString() + edt5.getText().toString());
                     }
 
@@ -159,6 +167,7 @@ public class ActivityEnterCode extends AppCompatActivity {
 
     private void verify(String token) {
 
+        Log.i("LOG", "verify");
         Webservice.requestparameter param1 = new Webservice.requestparameter();
         param1.key = "username";
         param1.value = username;
@@ -167,6 +176,8 @@ public class ActivityEnterCode extends AppCompatActivity {
         param2.key = "token";
         param2.value = token;
 
+        Log.i("LOG", username);
+        Log.i("LOG", token);
 
         ArrayList<Webservice.requestparameter> array = new ArrayList<>();
         array.add(param1);
@@ -181,7 +192,7 @@ public class ActivityEnterCode extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String input = response.body().string();
-
+                Log.i("LOG", "verify=" + input);
                 try {
                     JSONObject obj = new JSONObject(input);
                     if (obj.getString("status").equals("ok")) {
@@ -194,17 +205,19 @@ public class ActivityEnterCode extends AppCompatActivity {
                         G.HANDLER.post(new Runnable() {
                             @Override
                             public void run() {
-                                txtretry.setText("کد تایید اشتباه است");
-                                txtretry.setVisibility(View.VISIBLE);
+                                //  txtretry.setText("کد تایید اشتباه است");
+                                //   txtretry.setVisibility(View.VISIBLE);
+                                Toast.makeText(G.CurrentActivity, "کد تایید اشتباه است", Toast.LENGTH_LONG).show();
                             }
                         });
 
-                    }else if (obj.getString("status").equals("expired")) {
+                    } else if (obj.getString("status").equals("expired")) {
                         G.HANDLER.post(new Runnable() {
                             @Override
                             public void run() {
-                                txtretry.setText("کد تایید منقضی شده است");
-                                txtretry.setVisibility(View.VISIBLE);
+                                Toast.makeText(G.CurrentActivity, "کد تایید منقضی شده است", Toast.LENGTH_LONG).show();
+                                //  txtretry.setText("کد تایید منقضی شده است");
+                                //  txtretry.setVisibility(View.VISIBLE);
                             }
                         });
 
@@ -218,6 +231,7 @@ public class ActivityEnterCode extends AppCompatActivity {
 
     private void setCode() {
 
+        Log.i("LOG", "username=" + username);
         Webservice.requestparameter param1 = new Webservice.requestparameter();
         param1.key = "username";
         param1.value = username;
@@ -248,6 +262,18 @@ public class ActivityEnterCode extends AppCompatActivity {
                 try {
                     while (true) {
 
+                        if (daghighe == 0 && saniye == 0) {
+
+                            break;
+                        }
+                        Thread.sleep(1000);
+                        if (saniye > 0) {
+                            saniye--;
+                        } else if (daghighe > 0) {
+                            daghighe--;
+                            saniye = 60;
+                        }
+
                         G.HANDLER.post(new Runnable() {
                             @Override
                             public void run() {
@@ -265,17 +291,6 @@ public class ActivityEnterCode extends AppCompatActivity {
                             }
                         });
 
-                        if (daghighe == 0 && saniye == 0) {
-
-                            break;
-                        }
-                        Thread.sleep(1000);
-                        if (saniye > 0) {
-                            saniye--;
-                        } else if (daghighe > 0) {
-                            daghighe--;
-                            saniye = 60;
-                        }
 
                     }
                 } catch (InterruptedException e) {
@@ -320,7 +335,7 @@ public class ActivityEnterCode extends AppCompatActivity {
                         G.HANDLER.post(new Runnable() {
                             @Override
                             public void run() {
-                                txtretry.setText("تعداد تلاش بیتشر از حد مجاز!");
+                                Toast.makeText(G.CurrentActivity, "تعداد تلاش بیتشر از حد مجاز!", Toast.LENGTH_LONG).show();
                                 txtretry.setClickable(false);
                             }
                         });
@@ -329,7 +344,7 @@ public class ActivityEnterCode extends AppCompatActivity {
                         G.HANDLER.post(new Runnable() {
                             @Override
                             public void run() {
-                                txtretry.setText("اکانتی با این مشخصات وجود دارد");
+                                Toast.makeText(G.CurrentActivity, "اکانتی با این مشخصات وجود دارد", Toast.LENGTH_LONG).show();
                                 txtretry.setClickable(false);
                             }
                         });
@@ -355,7 +370,6 @@ public class ActivityEnterCode extends AppCompatActivity {
         param2.value = token;
 
 
-
         ArrayList<Webservice.requestparameter> array = new ArrayList<>();
         array.add(param1);
         array.add(param2);
@@ -369,13 +383,13 @@ public class ActivityEnterCode extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String input = response.body().string();
-                Log.i("LOG", input);
+
                 try {
                     JSONObject obj = new JSONObject(input);
                     if (obj.getString("status").equals("ok")) {
                         Intent intent = new Intent(G.CurrentActivity, ActivityResetPassword.class);
-                        intent.putExtra("username" , username);
-                        intent.putExtra("token" , obj.getString("token"));
+                        intent.putExtra("username", username);
+                        intent.putExtra("token", obj.getString("token"));
                         G.CurrentActivity.startActivity(intent);
                         G.CurrentActivity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                         finish();
@@ -391,10 +405,10 @@ public class ActivityEnterCode extends AppCompatActivity {
                     } else if (obj.getString("status").equals("notexist")) {
                         txtretry.setText("اکانت با این مشخصات وجود ندارد");
                         txtretry.setVisibility(View.VISIBLE);
-                    }else if (obj.getString("status").equals("ban")) {
+                    } else if (obj.getString("status").equals("ban")) {
                         txtretry.setText("تعداد تلاش بیتشر از حد مجاز!");
                         txtretry.setVisibility(View.VISIBLE);
-                    }else if (obj.getString("status").equals("expired")) {
+                    } else if (obj.getString("status").equals("expired")) {
                         txtretry.setText("کد تایید شما منقضی شده است");
                         txtretry.setVisibility(View.VISIBLE);
                     }
@@ -459,16 +473,16 @@ public class ActivityEnterCode extends AppCompatActivity {
                         G.HANDLER.post(new Runnable() {
                             @Override
                             public void run() {
-                                txtretry.setText("تعداد تلاش بیتشر از حد مجاز!");
+                                Toast.makeText(G.CurrentActivity, "تعداد تلاش بیتشر از حد مجاز!", Toast.LENGTH_LONG).show();
                                 txtretry.setClickable(false);
                             }
                         });
 
-                    }else if (obj.has("status") && obj.getString("status").equals("notexist")) {
+                    } else if (obj.has("status") && obj.getString("status").equals("notexist")) {
                         G.HANDLER.post(new Runnable() {
                             @Override
                             public void run() {
-                                txtretry.setText("اکانت با این مشخصات وجود ندارد");
+                                Toast.makeText(G.CurrentActivity, "اکانت با این مشخصات وجود ندارد", Toast.LENGTH_LONG).show();
                                 txtretry.setClickable(false);
                             }
                         });

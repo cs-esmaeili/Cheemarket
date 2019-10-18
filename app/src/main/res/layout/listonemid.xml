@@ -40,11 +40,10 @@
                     android:id="@+id/txtnameone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
+                    android:gravity="center"
                     android:maxLines="1"
                     android:paddingRight="4dip"
                     android:singleLine="true"
-                    android:text="نان حجیم"
                     android:textColor="#000000" />
 
                 <TextView
@@ -81,10 +80,9 @@
                     android:id="@+id/textPriceone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
+                    android:gravity="center"
                     android:paddingRight="4dip"
                     android:paddingBottom="4dip"
-                    android:text="3,000 تومان"
                     android:textAlignment="center"
                     android:textColor="#66BB6A"
                     android:textSize="18dip" />

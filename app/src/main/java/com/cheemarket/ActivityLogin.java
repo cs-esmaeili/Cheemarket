@@ -33,8 +33,8 @@ import static com.cheemarket.G.pre;
 
 public class ActivityLogin extends AppCompatActivity {
 
-    private AutoCompleteTextView mEmailView;
-    private EditText mPasswordView;
+    private AutoCompleteTextView username;
+    private EditText password;
     private TextView resetpass;
     private TextView sabtname;
     private TextView message;
@@ -60,9 +60,9 @@ public class ActivityLogin extends AppCompatActivity {
         searchlogo.setVisibility(View.GONE);
         shoplogo.setVisibility(View.GONE);
 
-        // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.password1);
-        mPasswordView = (EditText) findViewById(R.id.password2);
+
+        username = (AutoCompleteTextView) findViewById(R.id.username);
+        password = (EditText) findViewById(R.id.password);
 
         resetpass = (TextView) findViewById(R.id.resetpass);
         sabtname = (TextView) findViewById(R.id.sabtname);
@@ -72,7 +72,7 @@ public class ActivityLogin extends AppCompatActivity {
         final TextView mEmailSignInButton = (TextView) findViewById(R.id.email_sign_in_button);
 
 
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
@@ -100,6 +100,7 @@ public class ActivityLogin extends AppCompatActivity {
                 finish();
             }
         });
+
         TextWatcher watcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -116,20 +117,20 @@ public class ActivityLogin extends AppCompatActivity {
                 message.setText("");
             }
         };
-        mEmailView.addTextChangedListener(watcher);
-        mPasswordView.addTextChangedListener(watcher);
+        username.addTextChangedListener(watcher);
+        password.addTextChangedListener(watcher);
 
         resetpass.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 message.setText("");
-                if (mEmailView.getText().toString().contains("@gmail.com") || mEmailView.getText().toString().contains("@yahoo.com")) {
+                if (username.getText().toString().contains("@gmail.com") || username.getText().toString().contains("@yahoo.com")) {
                     message.setText("");
-                    recovery(mEmailView.getText().toString());
+                    recovery(username.getText().toString());
 
-                } else if (mEmailView.getText().toString().contains("09") && mEmailView.getText().toString().length() == 11) {
+                } else if (username.getText().toString().contains("09") && username.getText().toString().length() == 11 || username.getText().toString().contains("۰۹") && username.getText().toString().length() == 11) {
 
-                    recovery(mEmailView.getText().toString());
+                    recovery(username.getText().toString());
                 } else {
                     message.setText(getString(R.string.error_invalid_email));
                 }
@@ -141,7 +142,7 @@ public class ActivityLogin extends AppCompatActivity {
 
         Webservice.requestparameter param1 = new Webservice.requestparameter();
         param1.key = "username";
-        param1.value = mEmailView.getText().toString();
+        param1.value = username.getText().toString();
 
 
         ArrayList<Webservice.requestparameter> array = new ArrayList<>();
@@ -163,6 +164,7 @@ public class ActivityLogin extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String input = response.body().string();
+
                 try {
                     JSONObject obj = new JSONObject(input);
                     if (obj.has("remaining_time") && obj.has("status") && obj.getString("status").equals("ok")) {
@@ -171,14 +173,14 @@ public class ActivityLogin extends AppCompatActivity {
                         int s = Integer.parseInt(obj.getString("remaining_time")) - (m * 60);
                         intent.putExtra("m", m);
                         intent.putExtra("s", s);
-                        intent.putExtra("username", mEmailView.getText().toString());
+                        intent.putExtra("username", username.getText().toString());
                         intent.putExtra("password", "reset");
 
-                        if (mEmailView.getText().toString().contains("09") && mEmailView.getText().toString().length() == 11) {
+                        if ((username.getText().toString().contains("09") || username.getText().toString().contains("۰۹")) && username.getText().toString().length() == 11) {
                             intent.putExtra("type", "phonenumber");
                             G.CurrentActivity.startActivity(intent);
                             finish();
-                        } else if (mEmailView.getText().toString().contains("@gmail.com") || mEmailView.getText().toString().contains("@yahoo.com")) {
+                        } else if (username.getText().toString().contains("@gmail.com") || username.getText().toString().contains("@yahoo.com")) {
                             intent.putExtra("type", "email");
                             G.CurrentActivity.startActivity(intent);
                             finish();
@@ -189,13 +191,13 @@ public class ActivityLogin extends AppCompatActivity {
                         Intent intent = new Intent(G.CurrentActivity, ActivityEnterCode.class);
                         intent.putExtra("m", 1);
                         intent.putExtra("s", 60);
-                        intent.putExtra("username", mEmailView.getText().toString());
+                        intent.putExtra("username", username.getText().toString());
                         intent.putExtra("password", "reset");
-                        if (mEmailView.getText().toString().contains("09") && mEmailView.getText().toString().length() == 11) {
+                        if ((username.getText().toString().contains("09") || username.getText().toString().contains("۰۹")) && username.getText().toString().length() == 11) {
                             intent.putExtra("type", "phonenumber");
                             G.CurrentActivity.startActivity(intent);
                             finish();
-                        } else if (mEmailView.getText().toString().contains("@gmail.com") || mEmailView.getText().toString().contains("@yahoo.com")) {
+                        } else if (username.getText().toString().contains("@gmail.com") || username.getText().toString().contains("@yahoo.com")) {
                             intent.putExtra("type", "email");
                             G.CurrentActivity.startActivity(intent);
                             finish();
@@ -230,64 +232,72 @@ public class ActivityLogin extends AppCompatActivity {
 
     private void attemptLogin() {
 
-        // Reset errors.
-        mEmailView.setError(null);
-        mPasswordView.setError(null);
 
-        // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        username.setError(null);
+        password.setError(null);
+
+
+        String password1temp = username.getText().toString();
+        String password2temp = password.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
-        // Check for a valid password, if the user entered one.
 
+        if (TextUtils.isEmpty(password1temp)) {
 
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
-
-            if (!message.getText().toString().contains("\n" + getString(R.string.error_field_required)))
+            if (!message.getText().toString().contains("\n" + getString(R.string.error_field_required))){
                 message.setText(message.getText().toString() + "\n" + getString(R.string.error_field_required));
-            //mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
+            }
+
+
+            focusView = username;
             cancel = true;
-        } else if (!isEmailValid(email)) {
+
+        } else if (!isEmailValid(password1temp)) {
             if (!message.getText().toString().contains("\n" + getString(R.string.error_invalid_email)))
                 message.setText(message.getText().toString() + "\n" + getString(R.string.error_invalid_email));
-            // mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
+
+            focusView = username;
             cancel = true;
         }
 
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        if (!TextUtils.isEmpty(password2temp) && !isPasswordValid(password2temp)) {
             message.setText(getString(R.string.error_invalid_password));
-            //  mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
+
+            focusView = password;
             cancel = true;
-        } else if (TextUtils.isEmpty(password)) {
+        } else if (TextUtils.isEmpty(password2temp)) {
 
             if (!message.getText().toString().contains("\n" + "قسمت رمز ورود خالی است"))
                 message.setText(message.getText().toString() + "\n" + "قسمت رمز ورود خالی است");
-            //mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
+
+            focusView = username;
             cancel = true;
         }
 
 
+        if(password.getText().toString().length() < 5){
+            if (!message.getText().toString().contains("\n" + getString(R.string.error_invalid_email)))
+                message.setText(message.getText().toString() + "\n" + "رمز عبور شما باید از 4 کارکتر بیشتر باشد");
+
+            focusView = username;
+            cancel = true;
+        }
+
         if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
+
             focusView.requestFocus();
+
         } else {
 
             Webservice.requestparameter param1 = new Webservice.requestparameter();
             param1.key = "username";
-            param1.value = mEmailView.getText().toString();
+            param1.value = username.getText().toString();
 
             Webservice.requestparameter param2 = new Webservice.requestparameter();
             param2.key = "password";
-            param2.value = mPasswordView.getText().toString();
+            param2.value = password.getText().toString();
 
             ArrayList<Webservice.requestparameter> array = new ArrayList<>();
             array.add(param1);
@@ -313,7 +323,7 @@ public class ActivityLogin extends AppCompatActivity {
                         JSONObject obj = new JSONObject(input);
                         if (obj.has("status") && obj.getString("status").equals("ok") && obj.has("token")) {
 
-                            usernametemp = mEmailView.getText().toString();
+                            usernametemp = username.getText().toString();
                             G.token = obj.getString("token");
                             SharedPreferences.Editor editor = pre.edit();
                             editor.putString("Username", usernametemp);
@@ -345,7 +355,7 @@ public class ActivityLogin extends AppCompatActivity {
 
 
     private boolean isEmailValid(String email) {
-        if (email.contains("09") && email.length() == 11) {
+        if (email.contains("09") && email.length() == 11 || email.contains("۰۹") && email.length() == 11) {
             return true;
         } else if (email.contains("@gmail.com") || email.contains("@yahoo.com")) {
             return true;

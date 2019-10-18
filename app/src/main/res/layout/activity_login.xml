@@ -43,9 +43,10 @@
                     android:layout_weight="1">
 
                     <AutoCompleteTextView
-                        android:id="@+id/password1"
+                        android:id="@+id/username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@.۱۲۳۴۵۶۷۸۹۰"
                         android:hint=" ایمیل / شماره تلفن "
                         android:inputType="textEmailAddress"
                         android:maxLines="1"
@@ -76,11 +77,12 @@
                     android:layout_weight="1">
 
                     <EditText
-                        android:id="@+id/password2"
+                        android:id="@+id/password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+
                         android:hint=" رمز ورود "
-                        android:imeActionId="@+id/login"
+
                         android:imeActionLabel="@string/action_sign_in_short"
                         android:imeOptions="actionUnspecified"
                         android:inputType="textPassword"

@@ -121,9 +121,6 @@ public class ActivitySabad extends AppCompatActivity {
         JsonArray myCustomArray = gson.toJsonTree(G.mdatasetsabad).getAsJsonArray();
 
 
-        Log.i("LOG", "text =" + myCustomArray);
-
-
         ArrayList<Webservice.requestparameter> array = new ArrayList<>();
 
         Webservice.requestparameter requestparameter = new Webservice.requestparameter();
@@ -158,8 +155,6 @@ public class ActivitySabad extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 String input = response.body().string();
 
-                Log.i("LOG", "kala = " + input);
-
 
                 if (input.equals("[]") || input.equals("")) {
 
@@ -181,7 +176,7 @@ public class ActivitySabad extends AppCompatActivity {
                         for (int j = 0; j < G.mdatasetsabad.size(); j++) {
 
                             if (object.has("delete") && G.mdatasetsabad.get(j).Id.equals(object.getString("delete"))) {
-                                Log.i("LOG", "delete = " + object.getString("delete"));
+
                                 G.mdatasetsabad.remove(j);
                                 text = "بعضی از کالاها به دلیل عدم موجودی پاک شدند";
                                 j = 0;

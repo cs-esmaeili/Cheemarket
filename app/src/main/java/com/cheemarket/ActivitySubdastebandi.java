@@ -269,7 +269,7 @@ public class ActivitySubdastebandi extends AppCompatActivity {
         List.setAdapter(AdapterListkala);
         List.setNestedScrollingEnabled(false);
 
-       // Commands.addview("زیر دسته بندی " + code + " بازدید شد");
+        Commands.addview("زیر دسته بندی " + code + " بازدید شد");
 
         mycall  = new Callback() {
             @Override
@@ -451,7 +451,7 @@ public class ActivitySubdastebandi extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i("log" ,"empty");
+
 
         clearalldata();
 

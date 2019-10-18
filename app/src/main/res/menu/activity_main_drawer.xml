@@ -34,11 +34,7 @@
             android:title="سفارش های شما"
             android:fontFamily="@font/vazir"/>
 
-        <item
-            android:id="@+id/mashaghel"
-            android:icon="@drawable/ic_people_black_24dp"
-            android:title="مشاغل"
-            android:fontFamily="@font/vazir"/>
+
 
 
     </group>

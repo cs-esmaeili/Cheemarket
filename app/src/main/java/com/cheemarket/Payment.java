@@ -70,16 +70,18 @@ public class Payment {
         param4.value = G.token;
 
 
-        Log.i("LOG", jsonArray.toString());
-        Log.i("LOG", Paymentstep.Addressid);
-        Log.i("LOG", Paymentstep.Date);
-        Log.i("LOG", G.token);
+        Webservice.requestparameter param5 = new Webservice.requestparameter();
+        param5.key = "payment";
+        param5.value = Paymentstep.paymentway + "";
+
+
 
         ArrayList<Webservice.requestparameter> arrayList = new ArrayList<>();
         arrayList.add(param1);
         arrayList.add(param2);
         arrayList.add(param3);
         arrayList.add(param4);
+        arrayList.add(param5);
 
 
         Webservice.request("payment/start", new Callback() {
@@ -99,11 +101,7 @@ public class Payment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String input = response.body().string();
-
-
-                Log.i("loG", input);
-
-
+                Log.i("LOG",input);
                 if (input.contains("https://")) {
 
                     Paymentstep.Addressid = null;

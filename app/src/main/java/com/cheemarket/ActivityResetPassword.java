@@ -7,10 +7,14 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -29,8 +33,8 @@ public class ActivityResetPassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_password);
 
-        password1 = (AutoCompleteTextView) findViewById(R.id.password1);
-        password2 = (EditText) findViewById(R.id.password2);
+        password1 = (AutoCompleteTextView) findViewById(R.id.username);
+        password2 = (EditText) findViewById(R.id.password);
         btn = (TextView) findViewById(R.id.btn);
         error = (TextView) findViewById(R.id.error);
 
@@ -42,7 +46,11 @@ public class ActivityResetPassword extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                resetpassword();
+                if (password1.getText().toString().equals(password2.getText().toString())) {
+                    resetpassword();
+                } else {
+                    Toast.makeText(G.CurrentActivity, "رمز عبور و تکرار رمز عبور یکسان نمی باشد", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

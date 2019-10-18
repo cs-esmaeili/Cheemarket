@@ -135,7 +135,7 @@ public class ActivitySearch extends AppCompatActivity {
                 reset();
 
                 namayeshkalaha(query);
-                //Commands.addview(query + " سرچ شد");
+                Commands.addview(query + " سرچ شد");
                 return false;
             }
 

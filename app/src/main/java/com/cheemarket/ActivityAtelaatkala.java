@@ -104,9 +104,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
         mysabad = new sabad();
 
         Bundle extras = getIntent().getExtras();
-        Log.i("LOG", "=" + extras.getString("Name"));
-        Log.i("LOG", "=" + extras.getString("Image"));
-        Log.i("LOG", "=" + extras.getString("Id"));
+
         if (extras != null) {
 
             if (extras.containsKey("Name") && extras.getString("Name") != null && !extras.getString("Name").equals("") && !extras.getString("Name").equals("null")) {
@@ -134,13 +132,12 @@ public class ActivityAtelaatkala extends AppCompatActivity {
 
         }
 
+
         Commands.addview("کالای " + mysabad.Id + " بازدید شد");
 
 
-        settextdata();
-        showimage();
-        setkaladata();
 
+        setkaladata();
 
     }
 
@@ -226,6 +223,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
 
     private void setkaladata() {
 
+        Log.i("LOG", mysabad.Id);
 
         Webservice.request("product/" + mysabad.Id, new Callback() {
             @Override
@@ -250,6 +248,9 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                     mysabad.Ordernumber = object.getString("order_number");
                     mysabad.Status = object.getString("status");
                     mysabad.Tedad = "1";
+                    mysabad.Name = object.getString("name");
+                    mysabad.Image_folder = object.getString("image_folder");
+                    mysabad.Image_thumbnail = object.getString("image_thumbnail");
 
 
                     G.HANDLER.post(new Runnable() {
@@ -281,7 +282,8 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                                 txtafzodan.setEnabled(false);
                             }
 
-
+                            settextdata();
+                            showimage();
                         }
                     });
 
@@ -296,6 +298,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
     }
 
     private void showimage() {
+
 
 
         Webservice.request("product/images/" + mysabad.Image_folder, new Callback() {

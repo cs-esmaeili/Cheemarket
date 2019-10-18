@@ -54,6 +54,9 @@ public class ActivityEdite extends AppCompatActivity {
         spnerostan = (Spinner) findViewById(R.id.spnerostan);
         btnsave = (TextView) findViewById(R.id.btnsave);
 
+
+
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             position = extras.getInt("position");
@@ -111,6 +114,9 @@ public class ActivityEdite extends AppCompatActivity {
                 save();
             }
         });
+
+        spnerostan.setEnabled(false);
+        spnershahr.setEnabled(false);
     }
 
     private void setdata() {
@@ -119,6 +125,10 @@ public class ActivityEdite extends AppCompatActivity {
         edtphonenumber.setText(ActivityAddress.address.get(position).Phonenumber);
         edtcodeposti.setText(ActivityAddress.address.get(position).Codeposti);
         edtaddress.setText(ActivityAddress.address.get(position).Address);
+
+        edthomenumber.setSelection(edthomenumber.getText().length());
+        edtphonenumber.setSelection(edtphonenumber.getText().length());
+        edtcodeposti.setSelection(edtcodeposti.getText().length());
 
     }
 
@@ -129,6 +139,37 @@ public class ActivityEdite extends AppCompatActivity {
         final ArrayList<Webservice.requestparameter> array = new ArrayList<>();
 
 
+        boolean temp = false;
+        if(edtname.getText().length() == 0){
+            edtname.setError("نام و نام خانوادگی را وارد کنید");
+            temp = true;
+        }
+        if(edthomenumber.getText().length() == 0){
+            edthomenumber.setError("شماره ثابت را وارد کنید");
+            temp = true;
+        }else if(edthomenumber.getText().length() < 11){
+            edthomenumber.setError("شماره ثابت صحیح نمی باشد");
+            temp = true;
+        }
+
+        if(edtphonenumber.getText().length() == 0){
+            edtphonenumber.setError("شماره همراه را وارد کنید");
+            temp = true;
+        }else if(edtphonenumber.getText().length() < 11){
+            edtphonenumber.setError("شماره همراه کوتاه است");
+            temp = true;
+        }else if(!edtphonenumber.getText().toString().contains("09") && !edtphonenumber.getText().toString().contains("۰۹")){
+            edtphonenumber.setError("شماره همراه صحیح نمی باشد");
+            temp = true;
+        }
+
+        if(edtaddress.getText().length() == 0){
+            edtaddress.setError("آدرس  را وارد کنید");
+            temp = true;
+        }
+        if(temp){
+            return;
+        }
         Webservice.requestparameter param1 = new Webservice.requestparameter();
         param1.key = "name";
         param1.value = edtname.getText() + "";
@@ -156,8 +197,9 @@ public class ActivityEdite extends AppCompatActivity {
 
         Webservice.requestparameter param6 = new Webservice.requestparameter();
         param6.key = "postal_code";
-        param6.value = edtcodeposti.getText() + "";
+        param6.value = (edtcodeposti.getText().length() == 0)? "0" : edtcodeposti.getText() + "";
         array.add(param6);
+
         Webservice.requestparameter param7 = new Webservice.requestparameter();
         param7.key = "address";
         param7.value = edtaddress.getText() + "";
