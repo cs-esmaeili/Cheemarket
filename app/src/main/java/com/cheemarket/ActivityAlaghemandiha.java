@@ -1,13 +1,14 @@
 package com.cheemarket;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cheemarket.Adapter.AlaghemandihaAdapter;
 import com.cheemarket.Customview.badgelogo;
@@ -112,7 +113,7 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
                         Webservice.request("Favorites", mycall, array);
                         return null;
                     }
-                });
+                },G.CurrentActivity);
             }
 
             @Override
@@ -120,7 +121,7 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
                 String input = response.body().string();
                 allownext = false;
 
-                if (input.equals("null")) {
+                if (input.equals("[]")) {
                     if (Listnumber == 0) {
 
 
@@ -264,7 +265,7 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
                         });
                         return null;
                     }
-                });
+                },G.CurrentActivity);
             }
 
             @Override
@@ -329,7 +330,7 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
                         });
                         return null;
                     }
-                });
+                },G.CurrentActivity);
             }
 
             @Override

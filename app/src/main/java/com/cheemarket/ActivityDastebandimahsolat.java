@@ -2,12 +2,12 @@ package com.cheemarket;
 
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
-import com.cheemarket.Customview.badgelogo;
 
-import java.util.ArrayList;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.cheemarket.Customview.badgelogo;
 
 
 public class ActivityDastebandimahsolat extends AppCompatActivity {

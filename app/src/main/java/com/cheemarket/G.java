@@ -3,16 +3,12 @@ package com.cheemarket;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Handler;
-import android.view.View;
-
-import java.util.ArrayList;
 
 import com.cheemarket.Structure.sabad;
+
+import java.util.ArrayList;
 
 /**
  * Created by user on 7/1/2018.
@@ -32,7 +28,7 @@ public class G extends Application {
     public static boolean comeback = false;
     public static SharedPreferences pre;
 
-    public static final String  VERSIONNAME = "2.0.1";
+    public static final String VERSIONNAME = "1.0.0";
 
 
     @Override

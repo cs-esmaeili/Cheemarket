@@ -2,12 +2,13 @@ package com.cheemarket;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,7 +47,9 @@ public class ActivityResetPassword extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (password1.getText().toString().equals(password2.getText().toString())) {
+                if (password1.getText().toString().length() <= 4) {
+                    Toast.makeText(G.CurrentActivity, "رمز عبور و تکرار رمز عبور یکسان نمی باشد", Toast.LENGTH_LONG).show();
+                }else if (password1.getText().toString().equals(password2.getText().toString()) && password1.getText().toString().length() > 4) {
                     resetpassword();
                 } else {
                     Toast.makeText(G.CurrentActivity, "رمز عبور و تکرار رمز عبور یکسان نمی باشد", Toast.LENGTH_LONG).show();

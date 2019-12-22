@@ -5,27 +5,34 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
+
+import com.cheemarket.Adapter.Adapter;
+import com.cheemarket.Customview.badgelogo;
+import com.cheemarket.Structure.PoductStructure;
+import com.cheemarket.Structure.SliderStructure;
+import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,14 +47,8 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-import com.cheemarket.Adapter.Adapter;
-import com.cheemarket.Customview.Dialogs;
-import com.cheemarket.Customview.badgelogo;
-import com.cheemarket.Structure.PoductStructure;
-import com.cheemarket.Structure.SliderStructure;
-
-import static com.cheemarket.G.pre;
 import static com.cheemarket.ActivityStart.appLinkData;
+import static com.cheemarket.G.pre;
 
 
 public class ActivityMain extends AppCompatActivity
@@ -80,6 +81,7 @@ public class ActivityMain extends AppCompatActivity
 
     NavigationView navigationView;
     public static ViewPager viewPager;
+    public static RelativeLayout silderparent;
     public static CircleIndicator circleIndicator;
 
     public static boolean needpagework = false;
@@ -135,7 +137,6 @@ public class ActivityMain extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
 
-
         thisactivity = this;
         G.CurrentActivity = this;
 
@@ -166,7 +167,6 @@ public class ActivityMain extends AppCompatActivity
         RecyclerViewList6.setFocusable(false);
 
 
-
         imgs[0] = (ImageView) findViewById(R.id.post2);
         imgs[1] = (ImageView) findViewById(R.id.post3);
         imgs[2] = (ImageView) findViewById(R.id.post4);
@@ -176,13 +176,11 @@ public class ActivityMain extends AppCompatActivity
 
         circleIndicator = findViewById(R.id.circle);
         viewPager = findViewById(R.id.view_pager);
+        silderparent = findViewById(R.id.silderparent);
 
         h = (TextView) findViewById(R.id.h);
         m = (TextView) findViewById(R.id.m);
         s = (TextView) findViewById(R.id.s);
-
-
-
 
 
         scroll = (ScrollView) findViewById(R.id.scroll);
@@ -196,8 +194,6 @@ public class ActivityMain extends AppCompatActivity
         shoplogo.setOnClickListener(Commands.onClickListenersabadkharid);
 
 
-
-
         layoutprofile.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -205,7 +201,7 @@ public class ActivityMain extends AppCompatActivity
                 if (G.token.equals("")) {
                     Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
                     G.CurrentActivity.startActivity(intent);
-                    overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 }
             }
         });
@@ -213,30 +209,31 @@ public class ActivityMain extends AppCompatActivity
         if (!Commands.readNetworkStatus()) {
             Intent intent = new Intent(G.CurrentActivity, ActivityNetwork.class);
             startActivity(intent);
-            overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
         } else {
 
             applinkaction();
-            Commands.getMaindastebandi("first",List);
+            Commands.getMaindastebandi("first", List);
             pagework();
         }
 
 
     }
 
-    private  void applinkaction() {
-        if(appLinkData != null){
+    private void applinkaction() {
+        if (appLinkData != null) {
             String productid = appLinkData.toString();
 
-            if(productid.contains("productid=")){
+            if (productid.contains("productid=")) {
                 productid = productid.substring(productid.indexOf("=") + 1);
 
             }
-            Intent intent = new Intent(G.CurrentActivity,ActivityAtelaatkala.class);
-            intent.putExtra("Id" , productid);
+            Intent intent = new Intent(G.CurrentActivity, ActivityAtelaatkala.class);
+
+            intent.putExtra("Id", productid);
             G.CurrentActivity.startActivity(intent);
-            overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }
 
     }
@@ -251,7 +248,6 @@ public class ActivityMain extends AppCompatActivity
             }
         }
         index = -1;
-
 
 
         mdatasetList1 = new ArrayList<PoductStructure>();
@@ -280,9 +276,6 @@ public class ActivityMain extends AppCompatActivity
         RecyclerViewList6.setAdapter(AdapterList6);
 
 
-
-
-
         Webservice.request("firstPage", callback, null);
         Commands.addview("صفحه اصلی");
 
@@ -300,7 +293,7 @@ public class ActivityMain extends AppCompatActivity
                     Webservice.request("firstPage", callback, null);
                     return null;
                 }
-            });
+            }, G.CurrentActivity);
 
 
         }
@@ -366,7 +359,9 @@ public class ActivityMain extends AppCompatActivity
                         } else if (jsonObject.getString("location").equals("10")) {
                             SliderStructure sliderStructure = new SliderStructure();
                             sliderStructure.Postimage = jsonObject.getString("post_image");
-                            sliderStructure.Caption = "";
+                            sliderStructure.name_subcategori = jsonObject.getString("name_subcategori");
+                            sliderStructure.sub_categori = jsonObject.getString("sub_categori");
+                            sliderStructure.url = jsonObject.getString("url");
                             Slider.array.add(sliderStructure);
                         }
 
@@ -387,79 +382,82 @@ public class ActivityMain extends AppCompatActivity
                         AdapterList6.notifyDataSetChanged();
                     }
                 });
-                Datetimeserver = mdatasetList1.get(0).Datetime1;
-                if (Datetimeserver.equals("0000-00-00 00:00:00")) {
-                    G.HANDLER.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            h.setTypeface(Textconfig.gettypeface());
-                            m.setTypeface(Textconfig.gettypeface());
-                            s.setTypeface(Textconfig.gettypeface());
-                            h.setText(saat + "");
-                            m.setText(daghighe + "");
-                            s.setText(saniye + "");
-
-
-                        }
-                    });
-
-                    return;
-                }
-
-                int roz = Integer.parseInt(Datetimeserver.substring(Datetimeserver.lastIndexOf("-") + 1, Datetimeserver.lastIndexOf("-") + 3).trim());
-                roz = roz * 24;
-                saat = roz + Integer.parseInt(Datetimeserver.substring(Datetimeserver.indexOf(" ") + 1, Datetimeserver.indexOf(" ") + 3).replace(":", ""));///
-                daghighe = Integer.parseInt(Datetimeserver.substring(Datetimeserver.indexOf(":") + 1, Datetimeserver.indexOf(":") + 3).replace(":", ""));
-
-                saniye = Integer.parseInt(Datetimeserver.substring(Datetimeserver.lastIndexOf(":") + 1, Datetimeserver.length()));
-
-
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        try {
-                            while (true) {
-
-                                G.HANDLER.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-
-                                        h.setTypeface(Textconfig.gettypeface());
-                                        m.setTypeface(Textconfig.gettypeface());
-                                        s.setTypeface(Textconfig.gettypeface());
-                                        h.setText(saat + "");
-                                        m.setText(daghighe + "");
-                                        s.setText(saniye + "");
-
-
-                                    }
-                                });
-
-                                if (saat == 0 && daghighe == 0 && saniye == 0) {
-
-                                    break;
-                                }
-                                Thread.sleep(1000);
-                                if (saniye > 0) {
-                                    saniye--;
-                                } else if (daghighe > 0) {
-                                    daghighe--;
-                                    saniye = 60;
-                                } else if (saat > 0) {
-                                    saat--;
-                                    daghighe = 60;
-
-                                }
+                if (mdatasetList1.size() > 0) {
+                    Datetimeserver = mdatasetList1.get(0).Datetime1;
+                    if (Datetimeserver.equals("0000-00-00 00:00:00")) {
+                        G.HANDLER.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                h.setTypeface(Textconfig.gettypeface());
+                                m.setTypeface(Textconfig.gettypeface());
+                                s.setTypeface(Textconfig.gettypeface());
+                                h.setText(saat + "");
+                                m.setText(daghighe + "");
+                                s.setText(saniye + "");
 
 
                             }
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                        });
 
+                        return;
                     }
-                }).start();
+
+                    int roz = Integer.parseInt(Datetimeserver.substring(Datetimeserver.lastIndexOf("-") + 1, Datetimeserver.lastIndexOf("-") + 3).trim());
+                    roz = roz * 24;
+                    saat = roz + Integer.parseInt(Datetimeserver.substring(Datetimeserver.indexOf(" ") + 1, Datetimeserver.indexOf(" ") + 3).replace(":", ""));///
+                    daghighe = Integer.parseInt(Datetimeserver.substring(Datetimeserver.indexOf(":") + 1, Datetimeserver.indexOf(":") + 3).replace(":", ""));
+
+                    saniye = Integer.parseInt(Datetimeserver.substring(Datetimeserver.lastIndexOf(":") + 1, Datetimeserver.length()));
+
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            try {
+                                while (true) {
+
+                                    G.HANDLER.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+
+                                            h.setTypeface(Textconfig.gettypeface());
+                                            m.setTypeface(Textconfig.gettypeface());
+                                            s.setTypeface(Textconfig.gettypeface());
+                                            h.setText(saat + "");
+                                            m.setText(daghighe + "");
+                                            s.setText(saniye + "");
+
+
+                                        }
+                                    });
+
+                                    if (saat == 0 && daghighe == 0 && saniye == 0) {
+
+                                        break;
+                                    }
+                                    Thread.sleep(1000);
+                                    if (saniye > 0) {
+                                        saniye--;
+                                    } else if (daghighe > 0) {
+                                        daghighe--;
+                                        saniye = 60;
+                                    } else if (saat > 0) {
+                                        saat--;
+                                        daghighe = 60;
+
+                                    }
+
+
+                                }
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }).start();
+                }
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -506,65 +504,73 @@ public class ActivityMain extends AppCompatActivity
         if (id == R.id.category) {
             Intent intent = new Intent(G.CurrentActivity, ActivityDastebandimahsolat.class);
             startActivity(intent);
-            overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         } else if (id == R.id.sabadkharid) {
             if (G.token.equals("")) {
                 Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             } else {
                 Intent intent = new Intent(G.CurrentActivity, ActivitySabad.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
 
         } else if (id == R.id.alaghemandiha) {
             if (G.token.equals("")) {
                 Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
             } else {
                 Intent intent = new Intent(G.CurrentActivity, ActivityAlaghemandiha.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
 
         } else if (id == R.id.address) {
             if (G.token.equals("")) {
                 Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             } else {
                 Intent intent = new Intent(G.CurrentActivity, ActivityAddress.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
 
         } else if (id == R.id.yourorders) {
             if (G.token.equals("")) {
                 Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             } else {
                 Intent intent = new Intent(G.CurrentActivity, ActivityOrders.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         } else if (id == R.id.problems) {
             if (G.token.equals("")) {
                 Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             } else {
                 Intent intent = new Intent(G.CurrentActivity, Activityproblems.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
-        }else if (id == R.id.darbareyema) {
-                Intent intent = new Intent(G.CurrentActivity, ActivityDarbareyema.class);
-                startActivity(intent);
-                  overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+        } else if (id == R.id.darbareyema) {
+            Intent intent = new Intent(G.CurrentActivity, ActivityDarbareyema.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        } else if (id == R.id.tamasbama) {
+            Intent intent = new Intent(G.CurrentActivity, ActivityTamasbama.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        } else if (id == R.id.ghavanin) {
+            Intent intent = new Intent(G.CurrentActivity, Activityghavanin.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         } else if (id == R.id.btn) {
             G.token = "";
             SharedPreferences.Editor editor = pre.edit();
@@ -581,7 +587,7 @@ public class ActivityMain extends AppCompatActivity
             public void run() {
                 drawer.closeDrawer(GravityCompat.END);
             }
-        },2000);
+        }, 2000);
 
         return true;
     }
@@ -618,7 +624,7 @@ public class ActivityMain extends AppCompatActivity
     private static void showimage(final ImageView img, final JSONObject jsonObject) {
 
         try {
-            Commands.showimage( jsonObject.getString("post_image"), null, img);
+            Commands.showimage(jsonObject.getString("post_image"), null, img);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -634,7 +640,7 @@ public class ActivityMain extends AppCompatActivity
                 try {
 
 
-                    if (jsonObject.has("Subcategori") && !jsonObject.getString("Subcategori").equals("")) {
+                    if (jsonObject.has("sub_categori") && !jsonObject.getString("sub_categori").equals("")) {
 
                         img.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -647,8 +653,8 @@ public class ActivityMain extends AppCompatActivity
                                         try {
 
                                             Intent intent = new Intent(G.CurrentActivity, ActivitySubdastebandi.class);
-                                            intent.putExtra("subkala", jsonObject.getString("Subcategori"));
-                                            intent.putExtra("NameSubcategori", jsonObject.getString("NameSubcategori"));
+                                            intent.putExtra("subkala", jsonObject.getString("sub_categori"));
+                                            intent.putExtra("NameSubcategori", jsonObject.getString("name_subcategori"));
                                             G.CurrentActivity.startActivity(intent);
 
                                         } catch (JSONException e) {
@@ -662,11 +668,39 @@ public class ActivityMain extends AppCompatActivity
                             }
                         });
 
-                    } else if (jsonObject.has("Name") && !jsonObject.getString("Name").equals("")) {
+                    } else if (jsonObject.has("name") && !jsonObject.getString("name").equals("")) {
                         img.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 Commands.openactivity(jsonObject, ActivityAtelaatkala.class);
+                            }
+                        });
+                    } else if (jsonObject.has("url") && !jsonObject.getString("url").equals("")) {
+                        img.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                try {
+                                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(jsonObject.getString("url")));
+                                    G.CurrentActivity.startActivity(browserIntent);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+
+                            }
+                        });
+                    } else if (jsonObject.has("main_category") && !jsonObject.getString("main_category").equals("")) {
+                        img.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(G.CurrentActivity, ActivitySubdastebandi.class);
+                                try {
+                                    intent.putExtra("subdastebandistring", jsonObject.getString("main_category"));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                G.CurrentActivity.startActivity(intent);
                             }
                         });
                     }
@@ -677,7 +711,6 @@ public class ActivityMain extends AppCompatActivity
         });
 
     }
-
 
 
 }

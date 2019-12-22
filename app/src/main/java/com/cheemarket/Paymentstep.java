@@ -3,37 +3,31 @@ package com.cheemarket;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.cheemarket.Adapter.Adapter;
 import com.cheemarket.Adapter.AddressAdapter;
 import com.cheemarket.Customview.Lineimage;
 import com.cheemarket.Customview.badgelogo;
-import com.cheemarket.Structure.AddressStructure;
 import com.cheemarket.Structure.PoductStructure;
 import com.cheemarket.Structure.sabad;
 
 import java.math.BigInteger;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 import static com.cheemarket.ActivityAddress.address;
 import static com.cheemarket.ActivityAddress.getAddress;
@@ -46,7 +40,7 @@ public class Paymentstep extends AppCompatActivity {
     private static ArrayList<PoductStructure> mdatasetList1;
     private static RecyclerView RecyclerViewList1;
     private static RecyclerView.LayoutManager LayoutManagerList1;
-    private TextView btnpay;
+    public static TextView btnpay;
     public static RecyclerView.Adapter AdapterList;
     private Spinner spinnershift;
     private Spinner spinnerdate;
@@ -56,10 +50,11 @@ public class Paymentstep extends AppCompatActivity {
     private badgelogo badge;
     private CheckBox payment;
     private CheckBox paymentoff;
-
+    private static TextView txtempty;
     public static String Addressid;
     public static String Date = null;
     public static boolean paymentway = true;
+    public static boolean close = false;
 
     @Override
     protected void onResume() {
@@ -68,10 +63,20 @@ public class Paymentstep extends AppCompatActivity {
         G.CurrentActivity = this;
         Commands.setbadgenumber(badge);
 
-
+        if(txtempty != null){
+            txtempty.setVisibility(View.GONE);
+        }
         if (needtorealod) {
             needtorealod = false;
-            getAddress(address, AdapterList);
+            getAddress(address, AdapterList ,txtempty);
+        }
+
+        if(close){
+            Paymentstep.btnpay.setEnabled(true);
+            close = false;
+            Intent intent = new Intent(G.CurrentActivity, ActivityMain.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            G.CurrentActivity.startActivity(intent);
         }
     }
 
@@ -100,13 +105,14 @@ public class Paymentstep extends AppCompatActivity {
         badge = (badgelogo) findViewById(R.id.badgelogo);
         payment = (CheckBox) findViewById(R.id.payment);
         paymentoff = (CheckBox) findViewById(R.id.paymentoff);
-
+        txtempty = (TextView) findViewById(R.id.txtempty);
         Listaddress.setHasFixedSize(true);
         RecyclerView.LayoutManager LayoutManagerList = new LinearLayoutManager(G.CurrentActivity, LinearLayoutManager.VERTICAL, false);
         Listaddress.setLayoutManager(LayoutManagerList);
-        AdapterList = new AddressAdapter(address, true, -1);
+        AdapterList = new AddressAdapter(address, true, -1 , txtempty);
         Listaddress.setAdapter(AdapterList);
-        getAddress(address, AdapterList);
+        getAddress(address, AdapterList ,txtempty);
+
 
         selectaddress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,16 +174,16 @@ public class Paymentstep extends AppCompatActivity {
             public void onClick(View v) {
                 if (Addressid == null) {
                     Toast.makeText(G.context, "آدرس را انتخاب کنید", Toast.LENGTH_LONG).show();
-                } else if (fori.isChecked() == false && (spinnershift.getSelectedItemPosition() == 0 || spinnerdate.getSelectedItemPosition() == 0)) {
+                } else if (fori.isChecked() == false && zaman.isChecked() == false && (spinnershift.getSelectedItemPosition() == 0 || spinnerdate.getSelectedItemPosition() == 0)) {
                     Toast.makeText(G.context, "زمان تحویل سفارش را انتخاب کنید", Toast.LENGTH_LONG).show();
                 } else {
-                    if (spinnerdate.getSelectedItemPosition() == 0 || spinnerdate.getSelectedItemPosition() == 0) {
+                    if ((zaman.isChecked() == false && fori.isChecked() == true) && (spinnerdate.getSelectedItemPosition() == 0 || spinnerdate.getSelectedItemPosition() == 0)) {
                         Date = "فوری";
                     } else {
                         Date = spinnerdate.getSelectedItem().toString() + "  " + spinnershift.getSelectedItem().toString();
                     }
 
-
+                    btnpay.setEnabled(false);
                     Payment.openpaymentgate();
                 }
 
@@ -214,37 +220,47 @@ public class Paymentstep extends AppCompatActivity {
         AdapterList1.notifyDataSetChanged();
 
 
-        BigInteger temp1 = BigInteger.valueOf(0);
-        BigInteger temp2 = BigInteger.valueOf(0);
+        BigInteger ghymat = BigInteger.valueOf(0);
+        BigInteger ghymatoff = BigInteger.valueOf(0);
         BigInteger temp3 = BigInteger.valueOf(0);
+
+
         for (sabad a : G.mdatasetsabad) {
 
             BigInteger multi = BigInteger.valueOf(0);
             multi = multi.add(BigInteger.valueOf(Integer.parseInt(a.Price)));
             multi = multi.multiply(BigInteger.valueOf(Integer.parseInt(a.Tedad)));
 
-            temp1 = temp1.add(multi);
+            ghymat = ghymat.add(multi);
 
 
-            BigInteger sumoff = BigInteger.valueOf(Integer.parseInt(a.OldPrice));
-            sumoff = sumoff.multiply(BigInteger.valueOf(Integer.parseInt(a.Tedad)));
-            temp2 = temp2.add(sumoff);
+            if (Integer.parseInt(a.OldPrice) == 0) {
+                BigInteger sumoff = BigInteger.valueOf(Integer.parseInt(a.Price));
+                sumoff = sumoff.multiply(BigInteger.valueOf(Integer.parseInt(a.Tedad)));
+                ghymatoff = ghymatoff.add(sumoff);
+            } else {
+                BigInteger sumoff = BigInteger.valueOf(Integer.parseInt(a.OldPrice));
+                sumoff = sumoff.multiply(BigInteger.valueOf(Integer.parseInt(a.Tedad)));
+                ghymatoff = ghymatoff.add(sumoff);
+            }
+
         }
-        temp3 = temp2.subtract(temp1);
-        //   finalprice.setText(temp1 + " " + "تومان");
-        txtwhitoutoff.setText(temp2 + " " + "تومان");
-        txtoff.setText(temp3 + " " + "تومان");
+        //temp3 = ghymatoff.subtract(ghymat);
+
+
+        txtwhitoutoff.setText(ghymatoff + " " + "تومان");
+        txtoff.setText(ghymat + " " + "تومان");
 
         BigInteger multi = BigInteger.valueOf(75000);
-        if (temp1.compareTo(multi) == 1 || temp1.compareTo(multi) == 0) {
+        if (ghymat.compareTo(multi) == 1 || ghymat.compareTo(multi) == 0) {
             paykperice.setText("رایگان");
             paykperice.setBackgroundColor(Color.parseColor("#66BB6A"));
-            finalprice.setText(temp1 + " " + "تومان");
+            finalprice.setText(ghymat + " " + "تومان");
         } else {
             paykperice.setText("5000" + " تومان");
             multi = BigInteger.valueOf(5000);
-            temp1 = temp1.add(multi);
-            finalprice.setText(temp1 + " " + "تومان");
+            ghymat = ghymat.add(multi);
+            finalprice.setText(ghymat + " " + "تومان");
         }
 
 
@@ -255,12 +271,13 @@ public class Paymentstep extends AppCompatActivity {
         Calendar c = Calendar.getInstance();
         final int h = c.get(Calendar.HOUR_OF_DAY);
 
+
         ArrayList<String> dates = new ArrayList<>();
 
 
-        for (int i = (h >= 20)? 1 : 0; i < 7; i++) {
+        for (int i = (h >= 20) ? 1 : 0; i < 7; i++) {
 
-             c = Calendar.getInstance();
+            c = Calendar.getInstance();
 
             c.add(Calendar.DATE, i);
 
@@ -280,34 +297,37 @@ public class Paymentstep extends AppCompatActivity {
         AdapterView.OnItemSelectedListener lisener = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (spinnerdate.getSelectedItemPosition() == 0  && spinnerdate.getCount() == 7) {
+                if (spinnerdate.getSelectedItemPosition() == 0 && spinnerdate.getCount() == 7) {
 
                     ArrayList<String> shift = new ArrayList<>();
 
-                    if (!(h >= 9)) {
+                    if (h < 9) {
                         shift.add("9-11");
                     }
-                    if (!(h >= 11)) {
+                    if (h < 11) {
                         shift.add("11-13");
                     }
 
-                    if (!(h >= 13)) {
+                    if (h < 13) {
                         shift.add("13-15");
                     }
-                    if (!(h >= 15)) {
+                    if (h < 15) {
                         shift.add("15-17");
                     }
 
-                    if (!(h >= 17)) {
+                    if (h < 17) {
                         shift.add("17-19");
                     }
-                    if (!(h >= 19)) {
+                    if (h < 19) {
                         shift.add("19-21");
                     }
+                    if(h < 22){
                         shift.add("22");
+                    }
 
 
-                    if (h >= 20) {
+
+                    if (h >= 20 || h < 9) {
                         fori.setChecked(false);
                         fori.setEnabled(false);
                         zaman.setEnabled(true);
@@ -347,7 +367,6 @@ public class Paymentstep extends AppCompatActivity {
             }
         };
         spinnerdate.setOnItemSelectedListener(lisener);
-
 
 
     }

@@ -4,15 +4,20 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.cheemarket.Customview.Dialogs;
 import com.cheemarket.Structure.IntromanegmentStructure;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -74,7 +79,7 @@ public class ActivityStart extends AppCompatActivity {
                         check_Atelae();
                         return null;
                     }
-                });
+                }, G.CurrentActivity);
 
 
             }

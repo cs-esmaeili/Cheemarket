@@ -2,17 +2,16 @@ package com.cheemarket;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
-import com.cheemarket.Adapter.Adapter;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.cheemarket.Adapter.AddressAdapter;
 import com.cheemarket.Structure.AddressStructure;
-import com.cheemarket.Structure.PoductStructure;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,16 +30,21 @@ public class ActivityAddress extends AppCompatActivity {
     public static RecyclerView.Adapter AdapterList;
     public static ArrayList<AddressStructure> address = new ArrayList<>();
     public static boolean needtorealod = false;
-
+    private static TextView txtempty;
 
     @Override
     protected void onResume() {
         super.onResume();
         G.CurrentActivity = this;
+        if (txtempty != null) {
+            txtempty.setVisibility(View.GONE);
+        }
+
         if (needtorealod) {
             needtorealod = false;
-            getAddress(address, AdapterList);
+            getAddress(address, AdapterList, txtempty);
         }
+
 
     }
 
@@ -54,14 +58,14 @@ public class ActivityAddress extends AppCompatActivity {
 
         RecyclerView List = (RecyclerView) findViewById(R.id.List);
         FloatingActionButton add = (FloatingActionButton) findViewById(R.id.add);
-
+        txtempty = (TextView) findViewById(R.id.txtempty);
         List.setHasFixedSize(true);
         RecyclerView.LayoutManager LayoutManagerList = new LinearLayoutManager(G.CurrentActivity, LinearLayoutManager.VERTICAL, false);
         List.setLayoutManager(LayoutManagerList);
-        AdapterList = new AddressAdapter(address, false, -1);
+        AdapterList = new AddressAdapter(address, false, -1 , txtempty);
         List.setAdapter(AdapterList);
 
-        getAddress(address, AdapterList);
+        getAddress(address, AdapterList, txtempty);
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +77,7 @@ public class ActivityAddress extends AppCompatActivity {
 
     }
 
-    public static void getAddress(final ArrayList<AddressStructure> save, final RecyclerView.Adapter AdapterList) {
+    public static void getAddress(final ArrayList<AddressStructure> save, final RecyclerView.Adapter AdapterList, final TextView empty) {
 
         address.clear();
         AdapterList.notifyDataSetChanged();
@@ -124,13 +128,22 @@ public class ActivityAddress extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                } else {
+                    G.HANDLER.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (empty != null)
+                                empty.setVisibility(View.VISIBLE);
+                        }
+                    });
+
                 }
             }
         }, array);
 
     }
 
-    public static void deleteaddress(final String addressid, final ArrayList<AddressStructure> deleteas, final RecyclerView.Adapter AdapterList) {
+    public static void deleteaddress(final String addressid, final ArrayList<AddressStructure> deleteas, final RecyclerView.Adapter AdapterList , final TextView txtempty) {
 
         Webservice.requestparameter param1 = new Webservice.requestparameter();
         param1.key = "token";
@@ -166,6 +179,9 @@ public class ActivityAddress extends AppCompatActivity {
                             @Override
                             public void run() {
                                 AdapterList.notifyDataSetChanged();
+                                if (deleteas.size() == 0 && txtempty != null) {
+                                    txtempty.setVisibility(View.VISIBLE);
+                                }
                             }
                         });
                     }

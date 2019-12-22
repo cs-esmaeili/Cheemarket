@@ -2,7 +2,6 @@ package com.cheemarket;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -14,11 +13,16 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -63,7 +67,7 @@ public class ActivitySabtnam extends AppCompatActivity {
         password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                if (id == EditorInfo.IME_NULL) {
                     attemptLogin();
                     return true;
                 }
@@ -147,7 +151,7 @@ public class ActivitySabtnam extends AppCompatActivity {
             cancel = true;
         }
 
-        if(username.getText().toString().length() < 5){
+        if(password.getText().toString().length() < 5){
             if (!message.getText().toString().contains("\n" + getString(R.string.error_invalid_email)))
                 message.setText(message.getText().toString() + "\n" + "رمز عبور شما باید از 4 کارکتر بیشتر باشد");
 
@@ -184,7 +188,7 @@ public class ActivitySabtnam extends AppCompatActivity {
                             attemptLogin();
                             return null;
                         }
-                    });
+                    },G.CurrentActivity);
                 }
 
                 @Override
@@ -208,7 +212,7 @@ public class ActivitySabtnam extends AppCompatActivity {
                                 G.CurrentActivity.startActivity(intent);
                                 finish();
                             } else if (username.getText().toString().contains("@gmail.com") || username.getText().toString().contains("@yahoo.com")) {
-                                intent.putExtra("type", "username");
+                                intent.putExtra("type", "email");
                                 G.CurrentActivity.startActivity(intent);
                                 finish();
                             }
@@ -226,7 +230,7 @@ public class ActivitySabtnam extends AppCompatActivity {
                                 G.CurrentActivity.startActivity(intent);
                                 finish();
                             } else if (username.getText().toString().contains("@gmail.com") || username.getText().toString().contains("@yahoo.com")) {
-                                intent.putExtra("type", "username");
+                                intent.putExtra("type", "email");
                                 G.CurrentActivity.startActivity(intent);
                                 finish();
                             }
@@ -235,7 +239,7 @@ public class ActivitySabtnam extends AppCompatActivity {
                             G.HANDLER.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    message.setText("تعداد تلاش بیتشر از حد مجاز!");
+                                    message.setText("تعداد تلاش بیشتر از حد مجاز!");
                                 }
                             });
                         } else if (obj.has("status") && obj.getString("status").equals("Account available")) {

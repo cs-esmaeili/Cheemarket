@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Call;
-
 import okhttp3.Callback;
 import okhttp3.Response;
 
@@ -38,7 +37,6 @@ public class Payment {
         }
 
 
-
         Gson gson = new Gson();
         JsonElement element = gson.toJsonTree(array, new TypeToken<List<OrderStructure>>() {
         }.getType());
@@ -48,7 +46,6 @@ public class Payment {
         }
 
         JsonArray jsonArray = element.getAsJsonArray();
-
 
 
         Webservice.requestparameter param1 = new Webservice.requestparameter();
@@ -75,13 +72,13 @@ public class Payment {
         param5.value = Paymentstep.paymentway + "";
 
 
-
         ArrayList<Webservice.requestparameter> arrayList = new ArrayList<>();
         arrayList.add(param1);
         arrayList.add(param2);
         arrayList.add(param3);
         arrayList.add(param4);
         arrayList.add(param5);
+
 
 
         Webservice.request("payment/start", new Callback() {
@@ -92,6 +89,7 @@ public class Payment {
                 G.HANDLER.post(new Runnable() {
                     @Override
                     public void run() {
+                        Paymentstep.btnpay.setEnabled(true);
                         Toast.makeText(G.context, "مشکلی در ارتباط با سرور پیش آمد دوباره سعی کنید", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -101,16 +99,28 @@ public class Payment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String input = response.body().string();
-                Log.i("LOG",input);
+
                 if (input.contains("https://")) {
 
                     Paymentstep.Addressid = null;
                     Paymentstep.Date = null;
+                    Paymentstep.close = true;
                     G.mdatasetsabad.clear();
 
 
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(input));
-                    G.CurrentActivity.startActivity(browserIntent);
+                    try {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(input));
+                        G.CurrentActivity.startActivity(browserIntent);
+
+                    } catch (Exception e) {
+                        G.HANDLER.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Paymentstep.btnpay.setEnabled(true);
+                                Toast.makeText(G.context, "مشکلی در ارتباط با سرور پیش آمد دوباره سعی کنید", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
 
 
                 } else {
@@ -118,6 +128,7 @@ public class Payment {
                     G.HANDLER.post(new Runnable() {
                         @Override
                         public void run() {
+                            Paymentstep.btnpay.setEnabled(true);
                             Toast.makeText(G.context, "مشکلی در ارتباط با سرور پیش آمد دوباره سعی کنید", Toast.LENGTH_LONG).show();
                         }
                     });
@@ -129,4 +140,6 @@ public class Payment {
 
 
     }
+
+
 }

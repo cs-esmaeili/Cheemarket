@@ -5,18 +5,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cheemarket.Adapter.Maindastebandiadapter;
 import com.cheemarket.Adapter.Maindastebandifirstpageadapter;
 import com.cheemarket.Customview.badgelogo;
 import com.cheemarket.Structure.Maindastebandi;
 import com.cheemarket.Structure.Maindastebandifistpage;
+import com.cheemarket.Structure.PoductStructure;
 import com.github.florent37.materialimageloading.MaterialImageLoading;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -27,8 +28,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
-import com.cheemarket.Structure.PoductStructure;
 
 import okhttp3.Call;
 import okhttp3.Response;
@@ -86,7 +85,7 @@ public class Commands {
         }
 
         G.CurrentActivity.startActivity(intent);
-        G.CurrentActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+        G.CurrentActivity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
     }
 
@@ -100,7 +99,7 @@ public class Commands {
             intent.putExtra("Id", jsonObject.getString("product_id"));
 
             G.CurrentActivity.startActivity(intent);
-            G.CurrentActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+            G.CurrentActivity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -167,7 +166,7 @@ public class Commands {
         public void onClick(View v) {
             Intent intent = new Intent(G.CurrentActivity, ActivitySearch.class);
             G.CurrentActivity.startActivity(intent);
-            G.CurrentActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+            G.CurrentActivity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }
     };
 
@@ -177,11 +176,11 @@ public class Commands {
             if (G.token.equals("")) {
                 Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
                 G.CurrentActivity.startActivity(intent);
-                G.CurrentActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+                G.CurrentActivity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             } else {
                 Intent intent = new Intent(G.CurrentActivity, ActivitySabad.class);
                 G.CurrentActivity.startActivity(intent);
-                G.CurrentActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+                G.CurrentActivity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
 
         }

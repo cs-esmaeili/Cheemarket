@@ -4,32 +4,31 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
+
+import com.cheemarket.Customview.Lineimage;
+import com.cheemarket.Customview.Sliderimage;
+import com.cheemarket.Structure.sabad;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
 import me.relex.circleindicator.CircleIndicator;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-
-import com.cheemarket.Customview.Lineimage;
-import com.cheemarket.Customview.Sliderimage;
-import com.cheemarket.Structure.sabad;
 
 import static android.text.Layout.JUSTIFICATION_MODE_INTER_WORD;
 
@@ -220,21 +219,19 @@ public class ActivityAtelaatkala extends AppCompatActivity {
 
 
     }
-
+    static Callback callback = null;
     private void setkaladata() {
 
-        Log.i("LOG", mysabad.Id);
-
-        Webservice.request("product/" + mysabad.Id, new Callback() {
+            callback =  new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Webservice.handelerro(e, new Callable<Void>() {
                     @Override
                     public Void call() throws Exception {
-
+                        Webservice.request("product/" + mysabad.Id, callback, null);
                         return null;
                     }
-                });
+                },G.CurrentActivity);
             }
 
             @Override
@@ -257,8 +254,8 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                         @Override
                         public void run() {
                             Textconfig.settext(txttozihat, mysabad.Tozihat);
-                            Textconfig.settext(txtprice, "" + mysabad.Price);
-                            txtoff.setText("" + mysabad.OldPrice);
+                            Textconfig.settext(txtprice , "تومان " + mysabad.Price);
+                            txtoff.setText("تومان " + mysabad.OldPrice);
 
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 txttozihat.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
@@ -292,25 +289,26 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        }, null);
+        };
+        Webservice.request("product/" + mysabad.Id,callback, null);
 
 
     }
 
+
+    Callback callbackimg = null;
     private void showimage() {
 
-
-
-        Webservice.request("product/images/" + mysabad.Image_folder, new Callback() {
+        callbackimg = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Webservice.handelerro(e, new Callable<Void>() {
                     @Override
                     public Void call() throws Exception {
-
+                        Webservice.request("product/images/" + mysabad.Image_folder, callbackimg, null);
                         return null;
                     }
-                });
+                },G.CurrentActivity);
             }
 
             @Override
@@ -373,23 +371,24 @@ public class ActivityAtelaatkala extends AppCompatActivity {
 
 
             }
-        }, null);
+        };
+        Webservice.request("product/images/" + mysabad.Image_folder, callbackimg, null);
 
     }
 
+    Callback time = null;
     private void setdateandtime() {
 
-
-        Webservice.request("getTime/" + mysabad.Id, new Callback() {
+        time = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Webservice.handelerro(e, new Callable<Void>() {
                     @Override
                     public Void call() throws Exception {
-
+                        Webservice.request("getTime/" + mysabad.Id, time, null);
                         return null;
                     }
-                });
+                },G.CurrentActivity);
             }
 
             @Override
@@ -473,7 +472,9 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                 }
 
             }
-        }, null);
+        };
+
+        Webservice.request("getTime/" + mysabad.Id, time, null);
 
     }
 

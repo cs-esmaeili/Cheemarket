@@ -1,19 +1,20 @@
 package com.cheemarket;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.support.v7.widget.Toolbar;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.cheemarket.Customview.badgelogo;
 
 public class ActivityDarbareyema extends AppCompatActivity {
 
     private int count = 0;
-    private  badgelogo  badge;
+    private badgelogo badge;
     @Override
     protected void onResume() {
         super.onResume();
@@ -49,14 +50,14 @@ public class ActivityDarbareyema extends AppCompatActivity {
                     count++;
 
                     if(count == 25){
-                        Intent intent = new Intent(ActivityDarbareyema.this,Activityprogrammer.class);
+                        Intent intent = new Intent(ActivityDarbareyema.this, Activityprogrammer.class);
                         ActivityDarbareyema.this.startActivity(intent);
                     }
                 }
             });
         }
 
-        Commands.showimage(null,R.drawable.logo,img);
+        Commands.showimage(null, R.drawable.logo,img);
 
 
     }

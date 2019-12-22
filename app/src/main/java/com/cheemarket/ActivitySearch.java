@@ -1,29 +1,34 @@
 package com.cheemarket;
 
 import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.concurrent.Callable;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.cheemarket.Adapter.Adapter;
 import com.cheemarket.Customview.badgelogo;
 import com.cheemarket.Structure.PoductStructure;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.concurrent.Callable;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 
 public class ActivitySearch extends AppCompatActivity {
@@ -181,7 +186,7 @@ public class ActivitySearch extends AppCompatActivity {
                         });
                         return null;
                     }
-                });
+                },G.CurrentActivity);
 
             }
 

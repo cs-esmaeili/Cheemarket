@@ -42,7 +42,7 @@ public class Textconfig {
 
     }
 
-    public static  String formattext(String text){
+    public static String formattext(String text){
         String orginaltext = text;
 
         if(orginaltext.contains("تومان")){
@@ -66,7 +66,7 @@ public class Textconfig {
         return text;
     }
 
-    public static void settext(TextView textView,String text){
+    public static void settext(TextView textView, String text){
         changefont(textView);
         textView.setText(formattext(text));
 

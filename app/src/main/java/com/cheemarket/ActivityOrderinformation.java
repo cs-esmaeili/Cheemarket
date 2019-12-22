@@ -1,17 +1,21 @@
 package com.cheemarket;
 
 import android.graphics.Color;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.cheemarket.Adapter.Listpaymentadapter;
+import com.cheemarket.Customview.Dialogs;
 import com.cheemarket.Customview.badgelogo;
+import com.cheemarket.Structure.PoductStructure;
 import com.shuhart.stepview.StepView;
 
 import org.json.JSONArray;
@@ -25,9 +29,6 @@ import java.util.concurrent.Callable;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-
-import com.cheemarket.Adapter.Listpaymentadapter;
-import com.cheemarket.Structure.PoductStructure;
 
 public class ActivityOrderinformation extends AppCompatActivity {
 
@@ -121,7 +122,7 @@ public class ActivityOrderinformation extends AppCompatActivity {
         param1.key = "token";
         param1.value = G.token;
         Webservice.requestparameter param2 = new Webservice.requestparameter();
-        param2.key = "Category";
+        param2.key = "factor_id";
         param2.value = ActivityOrders.mdatasetList.get(position).factor_id + "";
         ArrayList<Webservice.requestparameter> array = new ArrayList<>();
         array.add(param1);
@@ -140,7 +141,7 @@ public class ActivityOrderinformation extends AppCompatActivity {
                         });
                         return null;
                     }
-                });
+                }, G.CurrentActivity);
             }
 
             @Override
@@ -167,6 +168,9 @@ public class ActivityOrderinformation extends AppCompatActivity {
                                     txtshahr.setText("" + object.getString("city"));
                                     Rate = Float.parseFloat(object.getString("rate"));
 
+                                    ActivityOrders.mdatasetList.get(position).status = object.getString("status");
+                                    ActivityOrders.mdatasetList.get(position).difference_status = object.getString("difference_status");
+                                    ActivityOrders.mdatasetList.get(position).price = object.getString("price");
                                     ratingBar.setRating(Rate);
                                     if (Rate > 0.0) {
                                         ratingBar.setEnabled(false);
@@ -180,9 +184,12 @@ public class ActivityOrderinformation extends AppCompatActivity {
                                             stepView.go(1, true);
                                             break;
                                         case 3:
+                                            stepView.go(1, true);
+                                            break;
+                                        case 7:
                                             stepView.go(2, true);
                                             break;
-                                        case 4:
+                                        case 8:
                                             stepView.go(3, true);
                                             stepView.done(true);
                                             ratingBar.setRating(Rate);
@@ -232,6 +239,13 @@ public class ActivityOrderinformation extends AppCompatActivity {
                         @Override
                         public void run() {
                             AdapterList1.notifyDataSetChanged();
+
+                            if ((Integer.parseInt(ActivityOrders.mdatasetList.get(position).status) == 4) && (ActivityOrders.mdatasetList.get(position).difference_status.equals("give_gate"))) {
+                                Dialogs.gate(true, ActivityOrders.mdatasetList.get(position).price ,  ActivityOrders.mdatasetList.get(position).factor_id + "");
+                            } else if ((Integer.parseInt(ActivityOrders.mdatasetList.get(position).status) == 4) && (ActivityOrders.mdatasetList.get(position).difference_status.equals("send_card"))) {
+                                Dialogs.gate(false, ActivityOrders.mdatasetList.get(position).price ,  ActivityOrders.mdatasetList.get(position).factor_id + "");
+                            }
+
                         }
                     });
 
@@ -279,7 +293,7 @@ public class ActivityOrderinformation extends AppCompatActivity {
                         });
                         return null;
                     }
-                });
+                }, G.CurrentActivity);
             }
 
             @Override

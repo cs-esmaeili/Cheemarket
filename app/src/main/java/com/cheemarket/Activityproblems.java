@@ -1,12 +1,13 @@
 package com.cheemarket;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.cheemarket.Customview.badgelogo;
 
@@ -22,7 +23,7 @@ import okhttp3.Response;
 
 public class Activityproblems extends AppCompatActivity {
 
-    private  badgelogo  badge;
+    private badgelogo badge;
     @Override
     protected void onResume() {
         super.onResume();
@@ -87,14 +88,14 @@ public class Activityproblems extends AppCompatActivity {
                                         @Override
                                         public void run() {
                                             editText.setText("");
-                                            Toast.makeText(G.context,"پیام شما ثبت شد متشکریم برای کمک شما به بهبود عملکر برنامه",Toast.LENGTH_LONG).show();
+                                            Toast.makeText(G.context,"پیام شما ثبت شد متشکریم برای کمک شما به بهبود عملکر برنامه", Toast.LENGTH_LONG).show();
                                         }
                                     });
                                 }else if(obj.getString("status").equals("fail")){
                                     G.HANDLER.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            Toast.makeText(G.context,"در ثبت پیام شما مشکلی پیش آمد دوباره تلاش کنید",Toast.LENGTH_LONG).show();
+                                            Toast.makeText(G.context,"در ثبت پیام شما مشکلی پیش آمد دوباره تلاش کنید", Toast.LENGTH_LONG).show();
                                         }
                                     });
                                 }

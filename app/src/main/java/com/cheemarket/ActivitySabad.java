@@ -2,14 +2,17 @@ package com.cheemarket;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.cheemarket.Adapter.SabadAdapter;
+import com.cheemarket.Structure.sabad;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -21,15 +24,11 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.concurrent.Callable;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-
-import com.cheemarket.Adapter.SabadAdapter;
-import com.cheemarket.Structure.sabad;
 
 public class ActivitySabad extends AppCompatActivity {
 
@@ -148,7 +147,7 @@ public class ActivitySabad extends AppCompatActivity {
                         });
                         return null;
                     }
-                });
+                },G.CurrentActivity);
             }
 
             @Override

@@ -1,13 +1,17 @@
 package com.cheemarket;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.cheemarket.Adapter.Listordersadapter;
+import com.cheemarket.Customview.badgelogo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,8 +24,6 @@ import java.util.concurrent.Callable;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-import com.cheemarket.Adapter.Listordersadapter;
-import com.cheemarket.Customview.badgelogo;
 
 
 public class ActivityOrders extends AppCompatActivity {
@@ -30,6 +32,8 @@ public class ActivityOrders extends AppCompatActivity {
         public String factor_id;
         public String sum;
         public String status;
+        public String difference_status;
+        public String price;
     }
 
 
@@ -93,7 +97,7 @@ public class ActivityOrders extends AppCompatActivity {
                         });
                         return null;
                     }
-                });
+                },G.CurrentActivity);
             }
 
             @Override

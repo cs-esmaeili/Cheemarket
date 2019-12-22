@@ -2,15 +2,15 @@ package com.cheemarket;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -77,6 +77,7 @@ public class ActivityEnterCode extends AppCompatActivity {
             } else if (type.equals("email")) {
                 txt.setText("کد تایید به ایمیل " + username + " ارسال شد");
             }
+
             if (password.equals("reset")) {
                 setTime();
                 setCodereset();
@@ -110,7 +111,13 @@ public class ActivityEnterCode extends AppCompatActivity {
         TextWatcher watcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                txtretry.setVisibility(View.INVISIBLE);
+                if (daghighe != 0 && saniye != 0) {
+                    txtretry.setVisibility(View.INVISIBLE);
+                }
+                if (daghighe == 0 && saniye == 0) {
+                    txtretry.setVisibility(View.VISIBLE);
+                    txtretry.setText("ارسال مجدد کد تایید");
+                }
             }
 
             @Override
@@ -167,7 +174,7 @@ public class ActivityEnterCode extends AppCompatActivity {
 
     private void verify(String token) {
 
-        Log.i("LOG", "verify");
+
         Webservice.requestparameter param1 = new Webservice.requestparameter();
         param1.key = "username";
         param1.value = username;
@@ -175,9 +182,7 @@ public class ActivityEnterCode extends AppCompatActivity {
         Webservice.requestparameter param2 = new Webservice.requestparameter();
         param2.key = "token";
         param2.value = token;
-
-        Log.i("LOG", username);
-        Log.i("LOG", token);
+        ;
 
         ArrayList<Webservice.requestparameter> array = new ArrayList<>();
         array.add(param1);
@@ -192,7 +197,6 @@ public class ActivityEnterCode extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String input = response.body().string();
-                Log.i("LOG", "verify=" + input);
                 try {
                     JSONObject obj = new JSONObject(input);
                     if (obj.getString("status").equals("ok")) {
@@ -205,8 +209,8 @@ public class ActivityEnterCode extends AppCompatActivity {
                         G.HANDLER.post(new Runnable() {
                             @Override
                             public void run() {
-                                //  txtretry.setText("کد تایید اشتباه است");
-                                //   txtretry.setVisibility(View.VISIBLE);
+                                txtretry.setText("کد تایید اشتباه است");
+                                txtretry.setVisibility(View.VISIBLE);
                                 Toast.makeText(G.CurrentActivity, "کد تایید اشتباه است", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -216,8 +220,8 @@ public class ActivityEnterCode extends AppCompatActivity {
                             @Override
                             public void run() {
                                 Toast.makeText(G.CurrentActivity, "کد تایید منقضی شده است", Toast.LENGTH_LONG).show();
-                                //  txtretry.setText("کد تایید منقضی شده است");
-                                //  txtretry.setVisibility(View.VISIBLE);
+                                txtretry.setText("کد تایید منقضی شده است");
+                                txtretry.setVisibility(View.VISIBLE);
                             }
                         });
 
@@ -231,7 +235,7 @@ public class ActivityEnterCode extends AppCompatActivity {
 
     private void setCode() {
 
-        Log.i("LOG", "username=" + username);
+
         Webservice.requestparameter param1 = new Webservice.requestparameter();
         param1.key = "username";
         param1.value = username;
@@ -244,7 +248,7 @@ public class ActivityEnterCode extends AppCompatActivity {
         Webservice.request("signupCodeSender", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                setCode();
             }
 
             @Override
@@ -286,6 +290,7 @@ public class ActivityEnterCode extends AppCompatActivity {
                                 s.setText(saniye + "");
 
                                 if (daghighe == 0 && saniye == 0) {
+                                    txtretry.setText("ارسال مجدد کد تایید");
                                     txtretry.setVisibility(View.VISIBLE);
                                 }
                             }
@@ -335,7 +340,9 @@ public class ActivityEnterCode extends AppCompatActivity {
                         G.HANDLER.post(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(G.CurrentActivity, "تعداد تلاش بیتشر از حد مجاز!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(G.CurrentActivity, "تعداد تلاش بیشتر از حد مجاز!", Toast.LENGTH_LONG).show();
+                                txtretry.setText("تعداد تلاش بیشتر از حد مجاز!");
+                                txtretry.setVisibility(View.VISIBLE);
                                 txtretry.setClickable(false);
                             }
                         });
@@ -345,6 +352,8 @@ public class ActivityEnterCode extends AppCompatActivity {
                             @Override
                             public void run() {
                                 Toast.makeText(G.CurrentActivity, "اکانتی با این مشخصات وجود دارد", Toast.LENGTH_LONG).show();
+                                txtretry.setText("اکانتی با این مشخصات وجود دارد");
+                                txtretry.setVisibility(View.VISIBLE);
                                 txtretry.setClickable(false);
                             }
                         });
@@ -406,7 +415,7 @@ public class ActivityEnterCode extends AppCompatActivity {
                         txtretry.setText("اکانت با این مشخصات وجود ندارد");
                         txtretry.setVisibility(View.VISIBLE);
                     } else if (obj.getString("status").equals("ban")) {
-                        txtretry.setText("تعداد تلاش بیتشر از حد مجاز!");
+                        txtretry.setText("تعداد تلاش بیشتر از حد مجاز!");
                         txtretry.setVisibility(View.VISIBLE);
                     } else if (obj.getString("status").equals("expired")) {
                         txtretry.setText("کد تایید شما منقضی شده است");
@@ -433,7 +442,7 @@ public class ActivityEnterCode extends AppCompatActivity {
         Webservice.request("resetPasswordCodeSender", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                setCodereset();
             }
 
             @Override
@@ -473,7 +482,9 @@ public class ActivityEnterCode extends AppCompatActivity {
                         G.HANDLER.post(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(G.CurrentActivity, "تعداد تلاش بیتشر از حد مجاز!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(G.CurrentActivity, "تعداد تلاش بیشتر از حد مجاز!", Toast.LENGTH_LONG).show();
+                                txtretry.setText("تعداد تلاش بیشتر از حد مجاز!");
+                                txtretry.setVisibility(View.VISIBLE);
                                 txtretry.setClickable(false);
                             }
                         });
@@ -483,6 +494,8 @@ public class ActivityEnterCode extends AppCompatActivity {
                             @Override
                             public void run() {
                                 Toast.makeText(G.CurrentActivity, "اکانت با این مشخصات وجود ندارد", Toast.LENGTH_LONG).show();
+                                txtretry.setText("اکانت با این مشخصات وجود ندارد");
+                                txtretry.setVisibility(View.VISIBLE);
                                 txtretry.setClickable(false);
                             }
                         });

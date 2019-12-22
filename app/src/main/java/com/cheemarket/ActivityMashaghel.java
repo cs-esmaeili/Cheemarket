@@ -1,18 +1,15 @@
 package com.cheemarket;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cheemarket.Adapter.AdapterDastebandimashaghel;
 import com.cheemarket.Adapter.Adaptermashaghel;
-import com.cheemarket.Adapter.Maindastebandifirstpageadapter;
 import com.cheemarket.Structure.Mashaghel;
 import com.cheemarket.Structure.Mashagheldastebandi;
 
@@ -31,10 +28,10 @@ public class ActivityMashaghel extends AppCompatActivity {
 
 
     public static ArrayList<Mashagheldastebandi> dastebandiha = new ArrayList<>();
-    public static ArrayList<Mashaghel>  shoghlha = new ArrayList<>();
+    public static ArrayList<Mashaghel> shoghlha = new ArrayList<>();
     private static RecyclerView Listdastebandi;
     private static RecyclerView Listshoghlha;
-    public static  String id = "0";
+    public static String id = "0";
     public static TextView pagetitle;
 
     public static SearchView searchView = null;

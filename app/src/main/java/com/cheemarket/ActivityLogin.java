@@ -3,7 +3,6 @@ package com.cheemarket;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -16,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -75,7 +75,7 @@ public class ActivityLogin extends AppCompatActivity {
         password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                if (id == EditorInfo.IME_NULL) {
                     attemptLogin();
                     return true;
                 }
@@ -158,7 +158,7 @@ public class ActivityLogin extends AppCompatActivity {
                         attemptLogin();
                         return null;
                     }
-                });
+                },G.CurrentActivity);
             }
 
             @Override
@@ -207,7 +207,7 @@ public class ActivityLogin extends AppCompatActivity {
                         G.HANDLER.post(new Runnable() {
                             @Override
                             public void run() {
-                                message.setText("تعداد تلاش بیتشر از حد مجاز!");
+                                message.setText("تعداد تلاش بیشتر از حد مجاز!");
 
                             }
                         });
@@ -313,7 +313,7 @@ public class ActivityLogin extends AppCompatActivity {
                             attemptLogin();
                             return null;
                         }
-                    });
+                    },G.CurrentActivity);
                 }
 
                 @Override
@@ -340,6 +340,8 @@ public class ActivityLogin extends AppCompatActivity {
                             });
                         } else if (obj.has("status") && obj.getString("status").equals("notexist")) {
                             message.setText("نام کاربری یا رمز عبور اشتباه است");
+                        } else if (obj.has("status") && obj.getString("status").equals("wrong")) {
+                            message.setText("اکانتی با این نام وجود ندارد");
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

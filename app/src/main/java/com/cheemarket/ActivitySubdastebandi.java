@@ -1,16 +1,24 @@
 package com.cheemarket;
 
 import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.cheemarket.Adapter.Adapter;
+import com.cheemarket.Adapter.SubdastebandiAdapter;
+import com.cheemarket.Customview.Dialogs;
+import com.cheemarket.Customview.badgelogo;
+import com.cheemarket.Structure.PoductStructure;
+import com.cheemarket.Structure.Subdastebandi;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,41 +28,31 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-import com.cheemarket.Adapter.Adapter;
-import com.cheemarket.Adapter.SubdastebandiAdapter;
-import com.cheemarket.Customview.Dialogs;
-import com.cheemarket.Customview.badgelogo;
-import com.cheemarket.Structure.PoductStructure;
 
 
 public class ActivitySubdastebandi extends AppCompatActivity {
 
     private static String code = "";
     private static String codesubdastebandi = "";
-    public static ArrayList<com.cheemarket.Structure.Subdastebandi> mdatasetListsubdastebandi;
+    public static ArrayList<Subdastebandi> mdatasetListsubdastebandi;
     public static ArrayList<PoductStructure> mdatasetkalafortwokala;
     public static ArrayList<PoductStructure> mdatasetkalaforonekala;
     public static LinearLayoutManager layoutManager = null;
-
-
     public static RecyclerView.Adapter AdapterListsubcategory;
     public static Adapter AdapterListkala;
-
     public static RecyclerView List = null;
-    public static long Listnumber = 0;
     public static boolean showsubdastebandi = true;
     static Button btnview;
     static Button btnsort;
     private static TextView pagetitle;
-    private static boolean allownext = true;
     private static String sort = "Nothing";
     private boolean needtoclose = false;
     private static String toptitle = "";
     private badgelogo badge;
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -91,7 +89,7 @@ public class ActivitySubdastebandi extends AppCompatActivity {
                 codesubdastebandi = extras.getString("subdastebandistring");
                 namayeshsubdastebandi(codesubdastebandi);
 
-                Commands.addview("دسته بندی " + codesubdastebandi +  " بازدید شد");
+                Commands.addview("دسته بندی " + codesubdastebandi + " بازدید شد");
 
             } else if (extras.containsKey("subkala")) {
                 code = extras.getString("subkala");
@@ -151,7 +149,6 @@ public class ActivitySubdastebandi extends AppCompatActivity {
     private static void clearalldata() {
 
 
-
         if (mdatasetkalaforonekala != null) {
             mdatasetkalaforonekala.clear();
         }
@@ -176,6 +173,7 @@ public class ActivitySubdastebandi extends AppCompatActivity {
         AdapterListsubcategory = null;
         AdapterListkala = null;
 
+        Listnumbers.clear();
         Listnumber = 0;
         showsubdastebandi = false;
         toptitle = "";
@@ -197,8 +195,7 @@ public class ActivitySubdastebandi extends AppCompatActivity {
         List.setAdapter(AdapterListsubcategory);
 
 
-
-        Webservice.request("subCategory/" + code , new Callback() {
+        Webservice.request("subCategory/" + code, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Webservice.handelerro(e, new Callable<Void>() {
@@ -207,7 +204,7 @@ public class ActivitySubdastebandi extends AppCompatActivity {
                         namayeshsubdastebandi(code);
                         return null;
                     }
-                });
+                }, G.CurrentActivity);
             }
 
             @Override
@@ -248,6 +245,9 @@ public class ActivitySubdastebandi extends AppCompatActivity {
     }
 
     static Callback mycall;
+    static long Listnumber = 0;
+    static ArrayList<Long> Listnumbers = new ArrayList<>();
+
     public static void namayeshkalaha(final String mycode, String title) throws NullPointerException {
 
         clearalldata();
@@ -258,6 +258,7 @@ public class ActivitySubdastebandi extends AppCompatActivity {
         btnsort.setVisibility(View.VISIBLE);
         btnview.setVisibility(View.VISIBLE);
         code = mycode;
+
 
         layoutManager = new LinearLayoutManager(G.CurrentActivity);
         mdatasetkalafortwokala = new ArrayList<PoductStructure>();
@@ -271,7 +272,7 @@ public class ActivitySubdastebandi extends AppCompatActivity {
 
         Commands.addview("زیر دسته بندی " + code + " بازدید شد");
 
-        mycall  = new Callback() {
+        mycall = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Webservice.handelerro(e, new Callable<Void>() {
@@ -290,31 +291,38 @@ public class ActivitySubdastebandi extends AppCompatActivity {
                         object3.key = "sort";
                         object3.value = sort;
                         array1.add(object3);
-                        Webservice.request("productList", mycall, array1);
+                        if (Listnumbers.get(Listnumbers.size() - 1) == Listnumber) {
+                            Webservice.request("productList", mycall, array1);
+                        }
                         return null;
                     }
-                });
+                }, G.CurrentActivity);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String input = response.body().string();
-                allownext = false;
 
-                if (input.equals("[]")) {
-                    if (Listnumber == 0) {
-                        Dialogs.vizhegiayande();
-                    }
-                    return;
-                }
                 try {
-                    JSONArray array = new JSONArray(input);
+                    JSONObject object = new JSONObject(input);
+                    JSONArray array = new JSONArray(object.getString("products"));
+                    if (array.length() == 0) {
+                        if (Listnumber == 0) {
+                            Dialogs.vizhegiayande();
+                        }
+                        return;
+                    }
+
+                    object = new JSONObject(input);
+                    Listnumber = Integer.parseInt(object.getString("number"));
+                    array = new JSONArray(object.getString("products"));
                     PoductStructure kala = new PoductStructure();
                     boolean kalaone = true;
                     Listnumber += array.length();
 
                     for (int i = 0; i < array.length(); i++) {
-                        JSONObject object = array.getJSONObject(i);
+
+                        object = array.getJSONObject(i);
 
                         if (i == 0) {
                             if (mdatasetkalafortwokala.size() > 0) {
@@ -353,8 +361,6 @@ public class ActivitySubdastebandi extends AppCompatActivity {
                             AdapterListkala.notifyItemInserted(AdapterListkala.getItemCount() + 1);
                         }
                     });
-                    allownext = true;
-
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -378,28 +384,25 @@ public class ActivitySubdastebandi extends AppCompatActivity {
         object3.key = "sort";
         object3.value = sort;
         array1.add(object3);
-
-
-
-        Webservice.request("productList", mycall, array1);
+        if (Listnumbers.indexOf(Listnumber) == -1) {
+            Listnumbers.add(Listnumber);
+            Webservice.request("productList", mycall, array1);
+        }
 
 
         List.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
             public void onChildViewAttachedToWindow(View view) {
 
+
                 if (showsubdastebandi) {
                     return;
                 }
+
                 if (mdatasetkalafortwokala.size() > 2) {
                     TextView txtname = (TextView) view.findViewById(R.id.txtnameone);
                     if (txtname.getText().toString().equals(mdatasetkalafortwokala.get(mdatasetkalafortwokala.size() - 2).Name1) || txtname.getText().toString().equals(mdatasetkalafortwokala.get(mdatasetkalafortwokala.size() - 1).Name1)) {
                         if (layoutManager.findLastVisibleItemPosition() == (mdatasetkalafortwokala.size() - 1) - 1) {
-
-                            if (allownext == false) {
-                                return;
-                            }
-                            allownext = false;
 
 
                             ArrayList<Webservice.requestparameter> array1 = new ArrayList<>();
@@ -415,7 +418,10 @@ public class ActivitySubdastebandi extends AppCompatActivity {
                             object3.key = "sort";
                             object3.value = sort;
                             array1.add(object3);
-                            Webservice.request("productList", mycall, array1);
+                            if (Listnumbers.indexOf(Listnumber) == -1) {
+                                Listnumbers.add(Listnumber);
+                                Webservice.request("productList", mycall, array1);
+                            }
 
                         }
                     }

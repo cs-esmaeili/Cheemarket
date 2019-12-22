@@ -1,21 +1,18 @@
 package com.cheemarket;
 
 
+import android.app.Activity;
 import android.content.Intent;
 
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import okhttp3.Callback;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-
-import com.cheemarket.Customview.Dialogs;
 
 
 public class Webservice {
@@ -72,7 +69,38 @@ public class Webservice {
     }
 
 
-    public static void handelerro(Exception e, final Callable<Void> Method) {
+    public static void handelerro(Exception e, final Callable<Void> Method, Activity activity) {
+
+        if (!Commands.readNetworkStatus()) {
+            Intent intent = new Intent(G.CurrentActivity, ActivityNetwork.class);
+            G.CurrentActivity.startActivity(intent);
+            return;
+        }
+
+        if (!(activity.getWindow().getDecorView().getRootView().isShown())) {
+            return;
+        }
+
+        G.HANDLER.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Method.call();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+
+
+    }
+
+}
+/*
+
+Old model
+
+    public static void handelerro(Exception e, final Callable<Void> Method , Activity activity) {
 
         if (!Commands.readNetworkStatus()) {
             Intent intent = new Intent(G.CurrentActivity, ActivityNetwork.class);
@@ -102,5 +130,4 @@ public class Webservice {
 
 
     }
-
-}
+ */
