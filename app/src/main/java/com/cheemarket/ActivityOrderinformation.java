@@ -63,6 +63,7 @@ public class ActivityOrderinformation extends AppCompatActivity {
         final TextView txtaddress = (TextView) findViewById(R.id.txtaddress);
         final TextView txtostan = (TextView) findViewById(R.id.txtostan);
         final TextView txtshahr = (TextView) findViewById(R.id.txtshahr);
+        final TextView txtweight = (TextView) findViewById(R.id.txtweight);
         RecyclerViewList1 = (RecyclerView) findViewById(R.id.List);
         final StepView stepView = (StepView) findViewById(R.id.step_view);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
@@ -166,8 +167,8 @@ public class ActivityOrderinformation extends AppCompatActivity {
                                     txtaddress.setText("" + object.getString("address"));
                                     txtostan.setText("" + object.getString("state"));
                                     txtshahr.setText("" + object.getString("city"));
-                                    Rate = Float.parseFloat(object.getString("rate"));
-
+                                    txtweight.setText("" + object.getString("price_weight")  + " تومان");
+                                    Rate = Float.parseFloat(object.getString("rate"));//
                                     ActivityOrders.mdatasetList.get(position).status = object.getString("status");
                                     ActivityOrders.mdatasetList.get(position).difference_status = object.getString("difference_status");
                                     ActivityOrders.mdatasetList.get(position).price = object.getString("price");
@@ -231,15 +232,12 @@ public class ActivityOrderinformation extends AppCompatActivity {
                             poductStructure.Image_thumbnail1 = product.getString("image_thumbnail");
                             mdatasetList1.add(poductStructure);
                         }
-
-
                     }
 
                     G.HANDLER.post(new Runnable() {
                         @Override
                         public void run() {
                             AdapterList1.notifyDataSetChanged();
-
                             if ((Integer.parseInt(ActivityOrders.mdatasetList.get(position).status) == 4) && (ActivityOrders.mdatasetList.get(position).difference_status.equals("give_gate"))) {
                                 Dialogs.gate(true, ActivityOrders.mdatasetList.get(position).price ,  ActivityOrders.mdatasetList.get(position).factor_id + "");
                             } else if ((Integer.parseInt(ActivityOrders.mdatasetList.get(position).status) == 4) && (ActivityOrders.mdatasetList.get(position).difference_status.equals("send_card"))) {

@@ -25,12 +25,13 @@
 
 
             <RelativeLayout
+                android:id="@+id/silderparent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <requestFocus />
 
-                <android.support.v4.view.ViewPager
+                <androidx.viewpager.widget.ViewPager
                     android:id="@+id/view_pager"
                     android:layout_width="match_parent"
                     android:layout_height="220dp" />
@@ -57,7 +58,7 @@
                     android:layout_marginBottom="8dip"
                     android:orientation="horizontal">
 
-                    <android.support.v7.widget.RecyclerView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/List"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -97,10 +98,9 @@
                                 android:id="@+id/h"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_gravity="center_vertical|center_horizontal"
-                                android:elevation="0dp"
+                                android:layout_gravity="center"
 
-                                android:padding="3dip"
+                                android:elevation="0dp"
                                 android:text="0"
                                 android:textColor="#ffffff"
                                 android:textSize="25dip" />
@@ -108,18 +108,20 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_gravity="center_vertical|center_horizontal"
+                                android:layout_gravity="center"
 
+                                android:layout_marginLeft="5dip"
+                                android:layout_marginRight="5dip"
                                 android:text=":"
+                                android:textColor="#ffffff"
                                 android:textSize="25dip" />
 
                             <TextView
                                 android:id="@+id/m"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_gravity="center_vertical|center_horizontal"
+                                android:layout_gravity="center"
 
-                                android:padding="3dip"
                                 android:text="0"
                                 android:textColor="#ffffff"
                                 android:textSize="25dip" />
@@ -127,18 +129,20 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_gravity="center_vertical|center_horizontal"
+                                android:layout_gravity="center"
 
+                                android:layout_marginLeft="5dip"
+                                android:layout_marginRight="5dip"
                                 android:text=":"
+                                android:textColor="#ffffff"
                                 android:textSize="25dip" />
 
                             <TextView
                                 android:id="@+id/s"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_gravity="center_vertical|center_horizontal"
+                                android:layout_gravity="center"
 
-                                android:padding="3dip"
                                 android:text="0"
                                 android:textColor="#ffffff"
                                 android:textSize="25dip" />
@@ -152,7 +156,7 @@
                         android:focusable="false"
                         android:orientation="horizontal">
 
-                        <android.support.v7.widget.RecyclerView
+                        <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/List1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -258,7 +262,7 @@
                         android:scaleType="fitXY"
                         app:srcCompat="@drawable/porforoshtarinmahsolat" />
 
-                    <android.support.v7.widget.RecyclerView
+                    <androidx.recyclerview.widget.RecyclerView
 
                         android:id="@+id/List4"
                         android:layout_width="match_parent"
@@ -293,7 +297,7 @@
                             android:scaleType="fitXY"
                             app:srcCompat="@drawable/mahbodtarinmahsolat" />
 
-                        <android.support.v7.widget.RecyclerView
+                        <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/List6"
                             android:layout_width="match_parent"
                             android:layout_height="270dip"

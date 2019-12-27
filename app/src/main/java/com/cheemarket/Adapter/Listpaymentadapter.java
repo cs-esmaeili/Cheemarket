@@ -1,21 +1,21 @@
 package com.cheemarket.Adapter;
 
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import java.util.ArrayList;
 
-import com.cheemarket.ActivityAtelaatkala;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.cheemarket.Commands;
 import com.cheemarket.Customview.Lineimage;
-import com.cheemarket.G;
 import com.cheemarket.R;
 import com.cheemarket.Structure.PoductStructure;
 import com.cheemarket.Textconfig;
+
+import java.util.ArrayList;
 
 /**
  * Created by user on 8/21/2018.
@@ -45,7 +45,7 @@ public class Listpaymentadapter extends RecyclerView.Adapter<Listpaymentadapter.
         if(mdataset.get(position).OldPrice1.equals("0")){
             holder.textoffPrice.setVisibility(View.INVISIBLE);
         }else {
-            holder.textoffPrice.setText(mdataset.get(position).OldPrice1 + "");
+            holder.textoffPrice.setText( mdataset.get(position).OldPrice1 + " تومان" );
         }
 
         if (mdataset.get(position).Status1 != null && mdataset.get(position).Status1.equals("2")) {
@@ -55,7 +55,7 @@ public class Listpaymentadapter extends RecyclerView.Adapter<Listpaymentadapter.
         }
 
         Textconfig.settext(holder.txtname, "" + mdataset.get(position).Name1);
-        Textconfig.settext(holder.textPrice, "" + mdataset.get(position).Price1);
+        Textconfig.settext(holder.textPrice, "تومان " + mdataset.get(position).Price1);
         Textconfig.settext(holder.mess, "تعداد انتخاب شده: " + mdataset.get(position).Ordernumber1);
 
 

@@ -25,7 +25,7 @@ public class Payment {
         public String kalaId;
     }
 
-    public static void openpaymentgate() {
+    public static void openpaymentgate(String description) {
 
         ArrayList<OrderStructure> array = new ArrayList<OrderStructure>();
         for (int i = 0; i < G.mdatasetsabad.size(); i++) {
@@ -72,19 +72,23 @@ public class Payment {
         param5.value = Paymentstep.paymentway + "";
 
 
+        Webservice.requestparameter param6 = new Webservice.requestparameter();
+        param6.key = "description";
+        param6.value = description;
+
+
         ArrayList<Webservice.requestparameter> arrayList = new ArrayList<>();
         arrayList.add(param1);
         arrayList.add(param2);
         arrayList.add(param3);
         arrayList.add(param4);
         arrayList.add(param5);
-
+        arrayList.add(param6);
 
 
         Webservice.request("payment/start", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
 
                 G.HANDLER.post(new Runnable() {
                     @Override
@@ -93,9 +97,7 @@ public class Payment {
                         Toast.makeText(G.context, "مشکلی در ارتباط با سرور پیش آمد دوباره سعی کنید", Toast.LENGTH_LONG).show();
                     }
                 });
-
             }
-
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String input = response.body().string();

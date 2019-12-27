@@ -19,8 +19,9 @@
             android:layout_height="125dip"
             android:layout_gravity="center"
             android:layout_margin="4dip"
-            android:background="#ffffff"
-            android:src="@drawable/repair" />
+            android:background="@color/colorPrimary"
+            android:padding="10dip"
+            android:src="@drawable/logo" />
 
         <TextView
             android:id="@+id/txt"
@@ -28,10 +29,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="4dip"
-
             android:text="ارتباط با سرور بر قرار نشد"
             android:textColor="#000000"
-            android:textSize="25dip" />
+            android:textSize="22dip" />
 
         <Button
             android:id="@+id/btn"
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="4dip"
             android:text="خروج از برنامه"
-            android:textSize="25dip" />
+            android:textSize="22dip" />
 
 
     </LinearLayout>

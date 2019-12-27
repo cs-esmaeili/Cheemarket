@@ -9,6 +9,13 @@
     <ImageView
         android:id="@+id/img"
         android:layout_width="match_parent"
-        android:layout_height="200dip"
+        android:layout_height="100dip"
+        android:scaleType="fitXY" />
+
+    <ImageView
+        android:id="@+id/img3"
+        android:layout_width="match_parent"
+        android:layout_height="2dip"
+        android:background="@color/black_overlay"
         android:scaleType="fitXY" />
 </LinearLayout>

@@ -8,8 +8,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,14 +23,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cheemarket.Adapter.Adapter;
 import com.cheemarket.Adapter.AddressAdapter;
+import com.cheemarket.Customview.Dialogs;
 import com.cheemarket.Customview.Lineimage;
 import com.cheemarket.Customview.badgelogo;
 import com.cheemarket.Structure.PoductStructure;
+import com.cheemarket.Structure.header;
+import com.cheemarket.Structure.peyment_step_structure;
 import com.cheemarket.Structure.sabad;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 import static com.cheemarket.ActivityAddress.address;
 import static com.cheemarket.ActivityAddress.getAddress;
@@ -55,6 +71,14 @@ public class Paymentstep extends AppCompatActivity {
     public static String Date = null;
     public static boolean paymentway = true;
     public static boolean close = false;
+    private static ProgressBar progressbar;
+    private static TextView max_price_text;
+    private static ScrollView main;
+    private static TextView finalprice;
+    private static TextView txtoff;
+    private static TextView txtwhitoff;
+    private static TextView paykperice;
+    private static Lineimage txtwhitoutoff;
 
     @Override
     protected void onResume() {
@@ -63,15 +87,15 @@ public class Paymentstep extends AppCompatActivity {
         G.CurrentActivity = this;
         Commands.setbadgenumber(badge);
 
-        if(txtempty != null){
+        if (txtempty != null) {
             txtempty.setVisibility(View.GONE);
         }
         if (needtorealod) {
             needtorealod = false;
-            getAddress(address, AdapterList ,txtempty);
+            getAddress(address, AdapterList, txtempty);
         }
 
-        if(close){
+        if (close) {
             Paymentstep.btnpay.setEnabled(true);
             close = false;
             Intent intent = new Intent(G.CurrentActivity, ActivityMain.class);
@@ -88,10 +112,11 @@ public class Paymentstep extends AppCompatActivity {
         G.CurrentActivity = this;
         RecyclerViewList1 = (RecyclerView) findViewById(R.id.List);
 
-        Lineimage txtwhitoutoff = (Lineimage) findViewById(R.id.lineimage);
-        TextView finalprice = (TextView) findViewById(R.id.finalprice);
-        TextView txtoff = (TextView) findViewById(R.id.txtoff);
-        TextView paykperice = (TextView) findViewById(R.id.paykperice);
+        txtwhitoutoff = (Lineimage) findViewById(R.id.whitoutoff);
+        finalprice = (TextView) findViewById(R.id.finalprice);
+        txtoff = (TextView) findViewById(R.id.txtoff);
+        txtwhitoff = (TextView) findViewById(R.id.txtwhitoff);
+        paykperice = (TextView) findViewById(R.id.paykperice);
         btnpay = (TextView) findViewById(R.id.btnpay);
         Button selectaddress = (Button) findViewById(R.id.selectaddress);
         spinnershift = (Spinner) findViewById(R.id.spinnershift);
@@ -106,12 +131,16 @@ public class Paymentstep extends AppCompatActivity {
         payment = (CheckBox) findViewById(R.id.payment);
         paymentoff = (CheckBox) findViewById(R.id.paymentoff);
         txtempty = (TextView) findViewById(R.id.txtempty);
+        progressbar = (ProgressBar) findViewById(R.id.progressbar);
+        max_price_text = (TextView) findViewById(R.id.max_price_text);
+        main = (ScrollView) findViewById(R.id.main);
+        final EditText desc = (EditText) findViewById(R.id.desc);
         Listaddress.setHasFixedSize(true);
         RecyclerView.LayoutManager LayoutManagerList = new LinearLayoutManager(G.CurrentActivity, LinearLayoutManager.VERTICAL, false);
         Listaddress.setLayoutManager(LayoutManagerList);
-        AdapterList = new AddressAdapter(address, true, -1 , txtempty);
+        AdapterList = new AddressAdapter(address, true, -1, txtempty);
         Listaddress.setAdapter(AdapterList);
-        getAddress(address, AdapterList ,txtempty);
+        getAddress(address, AdapterList, txtempty);
 
 
         selectaddress.setOnClickListener(new View.OnClickListener() {
@@ -126,7 +155,7 @@ public class Paymentstep extends AppCompatActivity {
 
 
         Commands.setbadgenumber(badge);
-        setspineers();
+        peyment_step();
 
         fori.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,12 +213,160 @@ public class Paymentstep extends AppCompatActivity {
                     }
 
                     btnpay.setEnabled(false);
-                    Payment.openpaymentgate();
+                    Payment.openpaymentgate(desc.getText().toString());
                 }
 
             }
         });
 
+
+    }
+
+    private void setspineers() {
+
+        final ArrayList<String> dates = new ArrayList<>();
+        for (int i = 0; i < date_times.size(); i++) {
+            dates.add(date_times.get(i).header_obj.date);
+        }
+
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, dates);
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerdate.setAdapter(spinnerArrayAdapter);
+
+
+        AdapterView.OnItemSelectedListener lisener = new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (date_times.get(spinnerdate.getSelectedItemPosition()).header_obj.message != null && !date_times.get(spinnerdate.getSelectedItemPosition()).header_obj.message.equals("")) {
+                    Dialogs.message_dialog(date_times.get(spinnerdate.getSelectedItemPosition()).header_obj.message);
+                }
+                ArrayAdapter<String> spinnerArrayAdapterr = new ArrayAdapter<String>(G.CurrentActivity, android.R.layout.simple_spinner_item, date_times.get(spinnerdate.getSelectedItemPosition()).times);
+                spinnerArrayAdapterr.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnershift.setAdapter(spinnerArrayAdapterr);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        };
+        spinnerdate.setOnItemSelectedListener(lisener);
+
+
+    }
+
+    List<peyment_step_structure> date_times = new ArrayList<>();
+
+    private void peyment_step() {
+        date_times.clear();
+        Webservice.requestparameter param1 = new Webservice.requestparameter();
+        param1.key = "token";
+        param1.value = G.token;
+
+        final ArrayList<Webservice.requestparameter> array = new ArrayList<>();
+        array.add(param1);
+
+
+        Webservice.request("peyment_step", new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                peyment_step();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String input = response.body().string();
+
+
+                try {
+                    final JSONObject obj = new JSONObject(input);
+
+                    G.HANDLER.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressbar.setVisibility(View.GONE);
+                            main.setVisibility(View.VISIBLE);
+                            try {
+                                set_prices(obj.getString("courier_price"), obj.getString("max_price"));
+
+                                G.HANDLER.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        try {
+                                            if (obj.getString("fast").equals("no")) {
+                                                fori.setChecked(false);
+                                                fori.setEnabled(false);
+
+                                                zaman.setEnabled(true);
+                                                zaman.setChecked(true);
+                                                spinnerdate.setEnabled(true);
+                                                spinnershift.setEnabled(true);
+                                            } else {
+                                                fori.setChecked(true);
+                                                fori.setEnabled(true);
+
+                                                zaman.setEnabled(true);
+                                                spinnerdate.setEnabled(false);
+                                                spinnershift.setEnabled(false);
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+
+
+                                    }
+                                });
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+
+                    max_price_text.setText(obj.getString("max_price_text"));
+                    JSONArray dates_array = obj.getJSONArray("dates");
+                    for (int i = 0; i < dates_array.length(); i++) {
+
+                        JSONArray inner_array = dates_array.getJSONArray(i);
+
+                        peyment_step_structure temp = new peyment_step_structure();
+                        header header_obj = new header();
+                        header_obj.date = inner_array.getJSONObject(0).getString("date");
+                        header_obj.message = inner_array.getJSONObject(0).getString("message");
+                        temp.header_obj = header_obj;
+
+                        JSONArray times = inner_array.getJSONArray(1);
+                        ArrayList<String> string_times = new ArrayList<>();
+                        for (int j = 0; j < times.length(); j++) {
+                            string_times.add(times.getString(j));
+                        }
+                        temp.times = string_times;
+
+                        date_times.add(temp);
+
+                    }
+
+                    G.HANDLER.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            setspineers();
+                        }
+                    });
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, array);
+
+    }
+
+    private void set_prices(String courier_price, String max_price) {
 
         mdatasetList1 = new ArrayList<PoductStructure>();
 
@@ -220,153 +397,54 @@ public class Paymentstep extends AppCompatActivity {
         AdapterList1.notifyDataSetChanged();
 
 
-        BigInteger ghymat = BigInteger.valueOf(0);
+        BigInteger ghymatbedonetakhfif = BigInteger.valueOf(0);
+        BigInteger ghymatbebatakhfif = BigInteger.valueOf(0);
         BigInteger ghymatoff = BigInteger.valueOf(0);
-        BigInteger temp3 = BigInteger.valueOf(0);
 
 
         for (sabad a : G.mdatasetsabad) {
-
-            BigInteger multi = BigInteger.valueOf(0);
-            multi = multi.add(BigInteger.valueOf(Integer.parseInt(a.Price)));
-            multi = multi.multiply(BigInteger.valueOf(Integer.parseInt(a.Tedad)));
-
-            ghymat = ghymat.add(multi);
+            BigInteger sum = BigInteger.valueOf(Integer.parseInt(a.Price));
+            sum = sum.multiply(BigInteger.valueOf(Integer.parseInt(a.Tedad)));
+            ghymatbebatakhfif = ghymatbebatakhfif.add(sum);
 
 
             if (Integer.parseInt(a.OldPrice) == 0) {
                 BigInteger sumoff = BigInteger.valueOf(Integer.parseInt(a.Price));
                 sumoff = sumoff.multiply(BigInteger.valueOf(Integer.parseInt(a.Tedad)));
-                ghymatoff = ghymatoff.add(sumoff);
+                ghymatbedonetakhfif = ghymatbedonetakhfif.add(sumoff);
             } else {
                 BigInteger sumoff = BigInteger.valueOf(Integer.parseInt(a.OldPrice));
                 sumoff = sumoff.multiply(BigInteger.valueOf(Integer.parseInt(a.Tedad)));
-                ghymatoff = ghymatoff.add(sumoff);
+                ghymatbedonetakhfif = ghymatbedonetakhfif.add(sumoff);
             }
 
         }
-        //temp3 = ghymatoff.subtract(ghymat);
+        ghymatoff = ghymatbedonetakhfif.subtract(ghymatbebatakhfif);
 
 
-        txtwhitoutoff.setText(ghymatoff + " " + "تومان");
-        txtoff.setText(ghymat + " " + "تومان");
+        txtwhitoutoff.setText(ghymatbedonetakhfif + " " + "تومان");
+        txtoff.setText(ghymatoff + " " + "تومان");
+        txtwhitoff.setText(ghymatbebatakhfif + " " + "تومان");
 
-        BigInteger multi = BigInteger.valueOf(75000);
-        if (ghymat.compareTo(multi) == 1 || ghymat.compareTo(multi) == 0) {
+        BigInteger max = new BigInteger(max_price);
+
+
+        if (ghymatbebatakhfif.compareTo(max) == 1) {
             paykperice.setText("رایگان");
-            paykperice.setBackgroundColor(Color.parseColor("#66BB6A"));
-            finalprice.setText(ghymat + " " + "تومان");
+            paykperice.setBackgroundColor(Color.parseColor("#026202"));
+            finalprice.setText(ghymatbebatakhfif + " " + "تومان");
         } else {
-            paykperice.setText("5000" + " تومان");
-            multi = BigInteger.valueOf(5000);
-            ghymat = ghymat.add(multi);
-            finalprice.setText(ghymat + " " + "تومان");
+            paykperice.setText(courier_price + " " + " تومان");
+            BigInteger courier = new BigInteger(courier_price);
+            ghymatbebatakhfif = ghymatbebatakhfif.add(courier);
+            finalprice.setText(ghymatbebatakhfif + " " + "تومان");
         }
-
-
-    }
-
-    private void setspineers() {
-
-        Calendar c = Calendar.getInstance();
-        final int h = c.get(Calendar.HOUR_OF_DAY);
-
-
-        ArrayList<String> dates = new ArrayList<>();
-
-
-        for (int i = (h >= 20) ? 1 : 0; i < 7; i++) {
-
-            c = Calendar.getInstance();
-
-            c.add(Calendar.DATE, i);
-
-            DateConverter converter = new DateConverter();
-
-            converter.gregorianToPersian(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH));
-            String finaldate = converter.getYear() + "/" + converter.getMonth() + "/" + converter.getDay();
-            dates.add(finaldate);
-
+        max = new BigInteger("1000");
+        if (ghymatbebatakhfif.compareTo(max) == -1) {
+            payment.setChecked(false);
+            payment.setEnabled(false);
+            paymentoff.setChecked(true);
         }
-
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, dates);
-        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerdate.setAdapter(spinnerArrayAdapter);
-
-
-        AdapterView.OnItemSelectedListener lisener = new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (spinnerdate.getSelectedItemPosition() == 0 && spinnerdate.getCount() == 7) {
-
-                    ArrayList<String> shift = new ArrayList<>();
-
-                    if (h < 9) {
-                        shift.add("9-11");
-                    }
-                    if (h < 11) {
-                        shift.add("11-13");
-                    }
-
-                    if (h < 13) {
-                        shift.add("13-15");
-                    }
-                    if (h < 15) {
-                        shift.add("15-17");
-                    }
-
-                    if (h < 17) {
-                        shift.add("17-19");
-                    }
-                    if (h < 19) {
-                        shift.add("19-21");
-                    }
-                    if(h < 22){
-                        shift.add("22");
-                    }
-
-
-
-                    if (h >= 20 || h < 9) {
-                        fori.setChecked(false);
-                        fori.setEnabled(false);
-                        zaman.setEnabled(true);
-                        zaman.setChecked(true);
-                    }
-
-                    ArrayAdapter<String> spinnerArrayAdapterr = new ArrayAdapter<String>(G.CurrentActivity, android.R.layout.simple_spinner_item, shift);
-                    spinnerArrayAdapterr.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    spinnershift.setAdapter(spinnerArrayAdapterr);
-
-
-                } else {
-
-                    ArrayList<String> shift = new ArrayList<>();
-                    shift.add("9-11");
-                    shift.add("11-13");
-                    shift.add("13-15");
-                    shift.add("15-17");
-                    shift.add("17-19");
-                    shift.add("19-21");
-                    shift.add("22");
-                    fori.setChecked(false);
-                    fori.setEnabled(false);
-                    zaman.setEnabled(true);
-                    zaman.setChecked(true);
-
-                    ArrayAdapter<String> spinnerArrayAdapterr = new ArrayAdapter<String>(G.CurrentActivity, android.R.layout.simple_spinner_item, shift);
-                    spinnerArrayAdapterr.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    spinnershift.setAdapter(spinnerArrayAdapterr);
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        };
-        spinnerdate.setOnItemSelectedListener(lisener);
 
 
     }

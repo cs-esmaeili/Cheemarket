@@ -155,6 +155,8 @@ public class ActivitySabad extends AppCompatActivity {
                 String input = response.body().string();
 
 
+
+                Log.i("LOG" , input);
                 if (input.equals("[]") || input.equals("")) {
 
                     if (G.mdatasetsabad.size() > 0) {

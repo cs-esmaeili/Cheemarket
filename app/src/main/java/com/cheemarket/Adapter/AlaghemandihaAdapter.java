@@ -1,23 +1,23 @@
 package com.cheemarket.Adapter;
 
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.cheemarket.ActivityAtelaatkala;
 import com.cheemarket.ActivityAlaghemandiha;
+import com.cheemarket.ActivityAtelaatkala;
 import com.cheemarket.Commands;
 import com.cheemarket.Customview.Lineimage;
-import com.cheemarket.G;
 import com.cheemarket.R;
 import com.cheemarket.Structure.PoductStructure;
 import com.cheemarket.Textconfig;
+
+import java.util.ArrayList;
 
 /**
  * Created by user on 8/21/2018.
@@ -45,17 +45,17 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-        if(mdataset.get(position).Id1 == null){
+        if (mdataset.get(position).Id1 == null) {
             holder.cardone.setVisibility(View.INVISIBLE);
-        }else{
+        } else {
             if (mdataset.get(position).OldPrice1 == null || mdataset.get(position).OldPrice1.equals("0")) {
                 holder.textoffPriceone.setVisibility(View.INVISIBLE);
             } else {
 
-                holder.textoffPriceone.setText(mdataset.get(position).OldPrice1 + "");
+                holder.textoffPriceone.setText( mdataset.get(position).OldPrice1 + " تومان" );
             }
             if (mdataset.get(position).Price1 != null && !mdataset.get(position).Price1.equals("0")) {
-                Textconfig.settext(holder.textPriceone, "" + mdataset.get(position).Price1);
+                Textconfig.settext(holder.textPriceone,  mdataset.get(position).Price1 + " تومان" );
             } else {
                 holder.textPriceone.setVisibility(View.INVISIBLE);
             }
@@ -73,19 +73,15 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
             }
 
             if (mdataset.get(position).Image_thumbnail1 != null && !mdataset.get(position).Image_thumbnail1.equals("")) {
-                Commands.showimage( mdataset.get(position).Image_thumbnail1 , null, holder.imageone);
+                Commands.showimage(mdataset.get(position).Image_thumbnail1, null, holder.imageone);
             }
-
-
-
-
 
 
             holder.cardone.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    Commands.openactivity(mdataset, position,true, ActivityAtelaatkala.class);
+                    Commands.openactivity(mdataset, position, true, ActivityAtelaatkala.class);
 
                 }
             });
@@ -99,15 +95,14 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
         }
 
 
-
-        if(mdataset.get(position).Id2 == null){
+        if (mdataset.get(position).Id2 == null) {
             holder.cardtwo.setVisibility(View.INVISIBLE);
-        }else{
+        } else {
 
             if (mdataset.get(position).OldPrice2 == null || mdataset.get(position).OldPrice2.equals("0")) {
                 holder.textoffPricetwo.setVisibility(View.INVISIBLE);
             } else {
-                holder.textoffPricetwo.setText(mdataset.get(position).OldPrice2 + "");
+                holder.textoffPricetwo.setText( mdataset.get(position).OldPrice2 + " تومان"  );
             }
 
             if (mdataset.get(position).Status2 != null && mdataset.get(position).Status2.equals("2")) {
@@ -121,14 +116,14 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
                 holder.txtnametwo.setVisibility(View.INVISIBLE);
             }
             if (mdataset.get(position).Price2 != null && !mdataset.get(position).Price2.equals("0")) {
-                Textconfig.settext(holder.textPricetwo, "" + mdataset.get(position).Price2);
+                Textconfig.settext(holder.textPricetwo, mdataset.get(position).Price2 + " تومان" );
             } else {
                 holder.textPricetwo.setVisibility(View.INVISIBLE);
             }
 
 
             if (mdataset.get(position).Image_thumbnail2 != null && !mdataset.get(position).Image_thumbnail2.equals("")) {
-                Commands.showimage(mdataset.get(position).Image_thumbnail2 , null, holder.imagetwo);
+                Commands.showimage(mdataset.get(position).Image_thumbnail2, null, holder.imagetwo);
             }
 
 
@@ -136,7 +131,7 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
                 @Override
                 public void onClick(View v) {
 
-                    Commands.openactivity(mdataset, position,false, ActivityAtelaatkala.class);
+                    Commands.openactivity(mdataset, position, false, ActivityAtelaatkala.class);
                 }
             });
 
@@ -148,9 +143,6 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
             });
 
         }
-
-
-
 
 
     }

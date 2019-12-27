@@ -1,22 +1,20 @@
 package com.cheemarket.Adapter;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.cheemarket.ActivityAddress;
 import com.cheemarket.ActivityEdite;
-import com.cheemarket.Customview.Lineimage;
 import com.cheemarket.G;
 import com.cheemarket.Paymentstep;
 import com.cheemarket.R;
@@ -33,13 +31,14 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
 
     private ArrayList<AddressStructure> mdataset;
     private int selected = -1;
-    private boolean needselection ;
+    private boolean needselection;
+    private TextView txtempty;
 
-    public AddressAdapter(ArrayList<AddressStructure> mdataset, boolean needselection , int selected ) {
+    public AddressAdapter(ArrayList<AddressStructure> mdataset, boolean needselection, int selected, TextView txtempty) {
         this.mdataset = mdataset;
         this.selected = selected;
         this.needselection = needselection;
-
+        this.txtempty = txtempty;
     }
 
     @Override
@@ -57,7 +56,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
 
         if (position == selected) {
             holder.card.setBackgroundColor(Color.parseColor("#E9F1E9"));
-        }else {
+        } else {
             holder.card.setBackgroundColor(Color.parseColor("#FFFFFF"));
         }
 
@@ -80,10 +79,10 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
                         switch (which) {
                             case DialogInterface.BUTTON_POSITIVE:
 
-                                if(needselection){
-                                    ActivityAddress.deleteaddress(mdataset.get(position).Id, mdataset, Paymentstep.AdapterList);
-                                }else {
-                                    ActivityAddress.deleteaddress(mdataset.get(position).Id, mdataset, ActivityAddress.AdapterList);
+                                if (needselection) {
+                                    ActivityAddress.deleteaddress(mdataset.get(position).Id, mdataset, Paymentstep.AdapterList, txtempty);
+                                } else {
+                                    ActivityAddress.deleteaddress(mdataset.get(position).Id, mdataset, ActivityAddress.AdapterList, txtempty);
                                 }
 
 
@@ -113,7 +112,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
             }
         });
 
-        if(needselection){
+        if (needselection) {
             holder.card.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

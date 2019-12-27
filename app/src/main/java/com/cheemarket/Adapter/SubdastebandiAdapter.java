@@ -1,19 +1,18 @@
 package com.cheemarket.Adapter;
 
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import java.util.ArrayList;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cheemarket.ActivitySubdastebandi;
 import com.cheemarket.Commands;
-import com.cheemarket.G;
 import com.cheemarket.R;
 import com.cheemarket.Structure.Subdastebandi;
+
+import java.util.ArrayList;
 
 /**
  * Created by user on 8/21/2018.

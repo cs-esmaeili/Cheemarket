@@ -1,13 +1,12 @@
 package com.cheemarket.Adapter;
 
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import java.util.ArrayList;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cheemarket.ActivitySabad;
 import com.cheemarket.Commands;
@@ -15,6 +14,9 @@ import com.cheemarket.G;
 import com.cheemarket.R;
 import com.cheemarket.Structure.sabad;
 import com.cheemarket.Textconfig;
+
+import java.util.ArrayList;
+
 /**
  * Created by user on 8/21/2018.
  */
@@ -46,7 +48,7 @@ public class SabadAdapter extends RecyclerView.Adapter<SabadAdapter.ViewHolder> 
         }
 
         if(mdataset.get(position).Price != null && !mdataset.get(position).Price.equals("0")){
-            Textconfig.settext(holder.txt4, "قیمت کالا : " + mdataset.get(position).Price);
+            Textconfig.settext(holder.txt4, "قیمت کالا : " + mdataset.get(position).Price + " تومان");
         }else{
             holder.txt4.setVisibility(View.GONE);
         }

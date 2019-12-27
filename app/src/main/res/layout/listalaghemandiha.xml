@@ -13,7 +13,7 @@
         android:layout_margin="5dip"
         android:orientation="horizontal">
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/Cardone"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
@@ -93,16 +93,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.75"
-                    android:background="@color/mycolorAccentprimary"
+                    android:background="@color/colorAccent"
                     android:gravity="center"
                     android:text="حذف از لیست"
                     android:textColor="#000000"
                     android:textSize="20dip" />
 
             </LinearLayout>
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/Cardtwo"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
@@ -184,13 +184,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.75"
-                    android:background="@color/mycolorAccentprimary"
+                    android:background="@color/colorAccent"
                     android:gravity="center"
                     android:text="حذف از لیست"
                     android:textColor="#000000"
                     android:textSize="20dip" />
             </LinearLayout>
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 
 </LinearLayout>

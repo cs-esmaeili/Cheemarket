@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import com.cheemarket.Textconfig;
 
@@ -14,7 +13,7 @@ import com.cheemarket.Textconfig;
  * Created by user on 10/20/2018.
  */
 
-public class Lineimage extends android.support.v7.widget.AppCompatTextView {
+public class Lineimage extends androidx.appcompat.widget.AppCompatTextView {
 
     private Paint paintline = new Paint();
     private Paint painttext = new Paint();

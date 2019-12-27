@@ -23,7 +23,7 @@
 
         <item
             android:id="@+id/alaghemandiha"
-            android:icon="@drawable/iconlike"
+            android:icon="@drawable/ic_favorite_black_24dp"
             android:fontFamily="@font/vazir"
             android:title="علاقه مندی ها" />
 
@@ -51,7 +51,7 @@
                 android:id="@+id/problems"
                 android:icon="@drawable/ic_bug_report_black_24dp"
                 android:fontFamily="@font/vazir"
-                android:title="گزاش مشکلات نرم افزار" />
+                android:title="گزارش مشکلات نرم افزار" />
             <item
                 android:id="@+id/darbareyema"
                 android:icon="@drawable/logo"
@@ -62,6 +62,14 @@
                 android:icon="@drawable/ic_phone_black_24dp"
                 android:fontFamily="@font/vazir"
                 android:title="تماس با ما" />
+
+
+            <item
+                android:id="@+id/ghavanin"
+                android:icon="@drawable/ic_verified_user_black_24dp"
+                android:fontFamily="@font/vazir"
+                android:title="قوانین" />
+
         </menu>
     </item>
 

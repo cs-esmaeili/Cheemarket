@@ -7,5 +7,7 @@ package com.cheemarket.Structure;
 public class SliderStructure {
 
     public String Postimage;
-    public String Caption;
+    public String url;
+    public String sub_categori;
+    public String name_subcategori;
 }

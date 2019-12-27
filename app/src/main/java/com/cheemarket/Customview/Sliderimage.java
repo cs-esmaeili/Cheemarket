@@ -1,23 +1,29 @@
 package com.cheemarket.Customview;
 
 import android.content.Context;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import com.cheemarket.ActivitySubdastebandi;
+import com.cheemarket.Commands;
+import com.cheemarket.G;
+import com.cheemarket.Structure.SliderStructure;
+
 import java.util.ArrayList;
 
 import me.relex.circleindicator.CircleIndicator;
-import com.cheemarket.Commands;
-import com.cheemarket.R;
 
 public class Sliderimage {
 
 
-    private ArrayList<String> imageurlandscaletype =  new ArrayList<>();
+    private ArrayList<SliderStructure> SliderData = new ArrayList<>();
     private Context context;
     private int layoutid;
     private int imageviewid;
@@ -27,7 +33,7 @@ public class Sliderimage {
     private CircleIndicator circleIndicator;
 
 
-    public class MyPager  extends PagerAdapter {
+    public class MyPager extends PagerAdapter {
 
 
         /*
@@ -39,17 +45,35 @@ public class Sliderimage {
 
 
         @Override
-        public Object instantiateItem(ViewGroup container, int position) {
+        public Object instantiateItem(ViewGroup container, final int position) {
             View view = LayoutInflater.from(context).inflate(layoutid, null);
             final ImageView imageView = (ImageView) view.findViewById(imageviewid);
 
             imageView.setScaleType(scaleType);
 
-            Commands.showimage(imageurlandscaletype.get(position),null,imageView);
+            Commands.showimage(SliderData.get(position).Postimage, null, imageView);
+
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if (!SliderData.get(position).url.equals("")) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(SliderData.get(position).url));
+                        G.CurrentActivity.startActivity(browserIntent);
+                    } else if (!SliderData.get(position).sub_categori.equals("")) {
+                        Intent intent = new Intent(G.CurrentActivity, ActivitySubdastebandi.class);
+                        intent.putExtra("subkala", SliderData.get(position).sub_categori);
+                        intent.putExtra("NameSubcategori", SliderData.get(position).name_subcategori);
+                        G.CurrentActivity.startActivity(intent);
+                    }
+                }
+            });
 
             container.addView(view);
             return view;
         }
+
         /*
         This callback is responsible for destroying a page. Since we are using view only as the
         object key we just directly remove the view from parent container
@@ -58,13 +82,15 @@ public class Sliderimage {
         public void destroyItem(ViewGroup container, int position, Object view) {
             container.removeView((View) view);
         }
+
         /*
         Returns the count of the total pages
         */
         @Override
         public int getCount() {
-            return imageurlandscaletype.size();
+            return SliderData.size();
         }
+
         /*
         Used to determine whether the page view is associated with object key returned by instantiateItem.
         Since here view only is the key we return view==object
@@ -75,11 +101,10 @@ public class Sliderimage {
         }
 
 
-
     }
 
 
-    public Sliderimage(final Context context, final ViewPager viewPager , CircleIndicator circleIndicator, int layoutid , int imageviewid , ImageView.ScaleType scaleType) {
+    public Sliderimage(final Context context, final ViewPager viewPager, CircleIndicator circleIndicator, int layoutid, int imageviewid, ImageView.ScaleType scaleType) {
         this.context = context;
         this.layoutid = layoutid;
         this.imageviewid = imageviewid;
@@ -90,16 +115,27 @@ public class Sliderimage {
     }
 
 
-    public void addsilder(String imageurl){
-
-        this.imageurlandscaletype.add(imageurl);
+    public void addsilder(SliderStructure Structure) {
+        this.SliderData.add(Structure);
         this.viewPager.setAdapter(instantadapter);
         circleIndicator.setViewPager(viewPager);
         instantadapter.notifyDataSetChanged();
     }
 
-    public void removealldata(){
-        this.imageurlandscaletype.clear();
+    public void addsilder(String imgurl) {
+        SliderStructure temp = new SliderStructure();
+        temp.Postimage = imgurl;
+        temp.sub_categori = "";
+        temp.url = "";
+        temp.name_subcategori = "";
+        this.SliderData.add(temp);
+        this.viewPager.setAdapter(instantadapter);
+        circleIndicator.setViewPager(viewPager);
+        instantadapter.notifyDataSetChanged();
+    }
+
+    public void removealldata() {
+        this.SliderData.clear();
         instantadapter.notifyDataSetChanged();
     }
 

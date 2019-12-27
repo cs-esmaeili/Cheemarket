@@ -21,17 +21,32 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ActivityEdite"></activity>
-        <activity android:name=".ActivityResetPassword" />
-        <activity android:name=".ActivityEnterCode" />
+
         <activity
-            android:name=".ActivityStart"
-            android:configChanges="orientation|screenSize">
+            android:name=".ActivitySplash"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ActivityEdite"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivityResetPassword"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivityEnterCode"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivityStart"
+            android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -59,8 +74,14 @@
                     android:scheme="cheemarket" />
             </intent-filter>
         </activity>
-        <activity android:name=".ActivityDarbareyema" />
-        <activity android:name=".Activityprogrammer" />
+        <activity
+            android:name=".ActivityDarbareyema"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activityprogrammer"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activityproblems"
             android:configChanges="orientation|screenSize"
@@ -120,14 +141,17 @@
             android:name=".ActivitySabtnam"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
+
         <activity
-            android:name=".ActivityAtelaatshoghl"
+            android:name=".Activityghavanin"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
+
         <activity
-            android:name=".ActivityMashaghel"
+            android:name=".ActivityTamasbama"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

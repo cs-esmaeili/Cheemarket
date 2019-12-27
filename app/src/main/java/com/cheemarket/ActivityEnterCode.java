@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,7 @@ public class ActivityEnterCode extends AppCompatActivity {
     EditText edt4;
     EditText edt5;
 
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,7 @@ public class ActivityEnterCode extends AppCompatActivity {
 
         ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
         ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
-
+        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         m = (TextView) findViewById(R.id.m);
         s = (TextView) findViewById(R.id.s);
@@ -92,6 +94,7 @@ public class ActivityEnterCode extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 txtretry.setVisibility(View.INVISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
                 edt1.setText("");
                 edt2.setText("");
                 edt3.setText("");
@@ -99,7 +102,6 @@ public class ActivityEnterCode extends AppCompatActivity {
                 edt5.setText("");
                 edt1.requestFocus();
                 if (password.equals("reset")) {
-
                     resetagain();
                 } else {
                     signupagain();
@@ -172,9 +174,7 @@ public class ActivityEnterCode extends AppCompatActivity {
 
     }
 
-    private void verify(String token) {
-
-
+    private void verify(final String token) {
         Webservice.requestparameter param1 = new Webservice.requestparameter();
         param1.key = "username";
         param1.value = username;
@@ -191,7 +191,7 @@ public class ActivityEnterCode extends AppCompatActivity {
         Webservice.request("signupVerify", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                verify(token);
             }
 
             @Override
@@ -323,11 +323,12 @@ public class ActivityEnterCode extends AppCompatActivity {
         Webservice.request("signup", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                signupagain();
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                progressBar.setVisibility(View.GONE);
                 String input = response.body().string();
                 try {
                     JSONObject obj = new JSONObject(input);
@@ -369,7 +370,7 @@ public class ActivityEnterCode extends AppCompatActivity {
     }
 
 
-    private void verifyreset(String token) {
+    private void verifyreset(final String token) {
         Webservice.requestparameter param1 = new Webservice.requestparameter();
         param1.key = "username";
         param1.value = username;
@@ -386,7 +387,7 @@ public class ActivityEnterCode extends AppCompatActivity {
         Webservice.request("resetPasswordVerify", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                verifyreset(token);
             }
 
             @Override
@@ -465,11 +466,12 @@ public class ActivityEnterCode extends AppCompatActivity {
         Webservice.request("resetPassword", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                resetagain();
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                progressBar.setVisibility(View.VISIBLE);
                 String input = response.body().string();
                 try {
                     JSONObject obj = new JSONObject(input);

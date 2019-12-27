@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -24,7 +24,7 @@
                 android:layout_marginTop="10dip"
                 android:orientation="vertical">
 
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="6dip">
@@ -74,7 +74,7 @@
                                 android:gravity="right|center"
                                 android:text=""
                                 android:textColor="#000000"
-                                android:textSize="18sp" />
+                                android:textSize="18dip" />
 
                             <TextView
                                 android:id="@+id/txtcode"
@@ -84,7 +84,7 @@
                                 android:gravity="right|center"
                                 android:text=""
                                 android:textColor="#000000"
-                                android:textSize="18sp" />
+                                android:textSize="18dip" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -123,132 +123,69 @@
                                         android:id="@+id/h"
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
-                                        android:layout_gravity="center_vertical|center_horizontal"
+                                        android:layout_gravity="center"
+
+                                        android:layout_weight="1"
                                         android:elevation="0dp"
-                                        android:padding="3dip"
                                         android:text="0"
                                         android:textColor="#ffffff"
                                         android:textSize="25dip" />
 
                                     <TextView
+                                        android:id="@+id/textView22"
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
-                                        android:layout_gravity="center_vertical|center_horizontal"
+
+                                        android:layout_gravity="center"
+                                        android:layout_marginLeft="5dip"
+                                        android:layout_marginRight="5dip"
+                                        android:layout_weight="1"
                                         android:text=":"
+                                        android:textColor="#ffffff"
                                         android:textSize="25dip" />
 
                                     <TextView
                                         android:id="@+id/m"
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
-                                        android:layout_gravity="center_vertical|center_horizontal"
-                                        android:padding="3dip"
+                                        android:layout_gravity="center"
+
+                                        android:layout_weight="1"
                                         android:text="0"
                                         android:textColor="#ffffff"
                                         android:textSize="25dip" />
 
                                     <TextView
+                                        android:id="@+id/textView23"
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
-                                        android:layout_gravity="center_vertical|center_horizontal"
+
+                                        android:layout_gravity="center"
+                                        android:layout_marginLeft="5dip"
+                                        android:layout_marginRight="5dip"
+                                        android:layout_weight="1"
                                         android:text=":"
+                                        android:textColor="#ffffff"
                                         android:textSize="25dip" />
 
                                     <TextView
                                         android:id="@+id/s"
                                         android:layout_width="wrap_content"
                                         android:layout_height="match_parent"
-                                        android:layout_gravity="center_vertical|center_horizontal"
-                                        android:padding="3dip"
+                                        android:layout_gravity="center"
+
+                                        android:layout_weight="1"
                                         android:text="0"
                                         android:textColor="#ffffff"
                                         android:textSize="25dip" />
-
                                 </LinearLayout>
                             </RelativeLayout>
                         </LinearLayout>
 
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-                    <android.support.v7.widget.CardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="2dip"
-                        android:layout_marginTop="10dip"
-                        android:layout_marginRight="15dip"
-                        android:layout_marginBottom="10dip"
-                        android:layout_weight="0.5"
-                        app:cardUseCompatPadding="true">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/text432"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="4dip"
-                                android:gravity="right"
-                                android:padding="7dip"
-                                android:text="نظرات کاربران" />
-
-                            <ImageView
-                                android:id="@+id/imageView123"
-                                android:layout_width="40dip"
-                                android:layout_height="40dip"
-                                app:srcCompat="@drawable/iconcomment" />
-
-                        </LinearLayout>
-
-                    </android.support.v7.widget.CardView>
-
-                    <android.support.v7.widget.CardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="2dip"
-                        android:layout_marginTop="10dip"
-                        android:layout_marginRight="15dip"
-                        android:layout_marginBottom="10dip"
-                        android:layout_weight="0.5"
-                        app:cardUseCompatPadding="true">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/text7"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="4dip"
-                                android:gravity="right"
-                                android:padding="7dip"
-                                android:text="مشخصات" />
-
-                            <ImageView
-                                android:id="@+id/imageView14"
-                                android:layout_width="40dip"
-                                android:layout_height="40dip"
-                                app:srcCompat="@drawable/iconinfo" />
-
-                        </LinearLayout>
-
-                    </android.support.v7.widget.CardView>
-                </LinearLayout>
-
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -297,9 +234,9 @@
                             android:textColor="#000000" />
 
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dip"
@@ -314,7 +251,7 @@
                         android:gravity="right"
                         android:padding="3dip"
                         android:text="" />
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
                 <ImageView
                     android:id="@+id/imageView16"
@@ -327,4 +264,4 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-</android.support.v4.widget.NestedScrollView>
+</androidx.core.widget.NestedScrollView>

@@ -1,21 +1,20 @@
 package com.cheemarket.Adapter;
 
 import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cheemarket.ActivitySubdastebandi;
 import com.cheemarket.Commands;
 import com.cheemarket.G;
 import com.cheemarket.R;
 import com.cheemarket.Structure.Maindastebandi;
-import com.cheemarket.Structure.Maindastebandifistpage;
 
 import java.util.ArrayList;
 
@@ -59,6 +58,10 @@ public class Maindastebandiadapter extends RecyclerView.Adapter<Maindastebandiad
                 }
             });
 
+        }else{
+            holder.cat1.setVisibility(View.INVISIBLE);
+            holder.txt1.setText("");
+
         }
 
 
@@ -77,6 +80,9 @@ public class Maindastebandiadapter extends RecyclerView.Adapter<Maindastebandiad
                 }
             });
 
+        }else {
+            holder.cat2.setVisibility(View.INVISIBLE);
+            holder.txt2.setText("");
         }
 
 

@@ -1,25 +1,26 @@
 package com.cheemarket.Adapter;
 
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cheemarket.ActivityAtelaatkala;
 import com.cheemarket.Commands;
-import com.cheemarket.G;
 import com.cheemarket.Customview.Lineimage;
 import com.cheemarket.R;
-
 import com.cheemarket.Structure.PoductStructure;
 import com.cheemarket.Textconfig;
+
+import java.util.ArrayList;
 
 /**
  * Created by user on 8/21/2018.
@@ -60,7 +61,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         changedataset();
 
 
-
         recyclerView.setAdapter(adapter);
         linearLayoutManager.scrollToPosition(temp);
 
@@ -78,7 +78,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         changedataset();
 
 
-
         recyclerView.setAdapter(adapter);
         linearLayoutManager.scrollToPosition(temp);
 
@@ -94,22 +93,58 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     }
 
+    int width = 0;
+    int height = 0;
+
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
+
 
         if (finaldataset.get(position).Id1 == null) {
             holder.cardone.setVisibility(View.INVISIBLE);
         } else {
 
+            holder.cardone.setVisibility(View.VISIBLE);
+
             if (finaldataset.get(position).OldPrice1 == null || finaldataset.get(position).OldPrice1.equals("0")) {
-                holder.textoffPriceone.setVisibility(View.INVISIBLE);
+
+
+
+                final TextView layout1 = holder.textoffPriceone;
+                ViewTreeObserver vto = layout1.getViewTreeObserver();
+                vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                            layout1.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                        } else {
+                            layout1.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                        }
+                        //width = layout1.getMeasuredWidth();
+                        height = layout1.getMeasuredHeight();
+
+
+                        holder.textoffPriceone.setVisibility(View.GONE);
+
+
+                        TextView layout2 = holder.textPriceone;
+
+                        ViewGroup.LayoutParams params = layout2.getLayoutParams();
+
+                        params.height = height + layout2.getMeasuredHeight();
+                       // params.width = width;
+                        layout2.setLayoutParams(params);
+                    }
+                });
+
+
             } else {
                 holder.textoffPriceone.setVisibility(View.VISIBLE);
                 holder.textoffPriceone.setText(finaldataset.get(position).OldPrice1 + "تومان");
             }
             if (finaldataset.get(position).Price1 != null && !finaldataset.get(position).Price1.equals("0")) {
                 holder.textPriceone.setVisibility(View.VISIBLE);
-                Textconfig.settext(holder.textPriceone,  finaldataset.get(position).Price1 + "تومان" );
+                Textconfig.settext(holder.textPriceone, finaldataset.get(position).Price1 + "تومان");
             } else {
                 holder.textPriceone.setVisibility(View.INVISIBLE);
             }
@@ -150,7 +185,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 holder.mess.setText("تعداد انتخاب شده: " + finaldataset.get(position).Ordernumber1);
             }
 
-            if(layout == R.layout.listonemid){
+            if (layout == R.layout.listonemid) {
                 holder.imageone.setScaleType(scaleType);
             }
         }
@@ -163,9 +198,40 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 holder.cardtwo.setVisibility(View.INVISIBLE);
             } else {
 
+                holder.cardtwo.setVisibility(View.VISIBLE);
 
                 if (finaldataset.get(position).OldPrice2 == null || finaldataset.get(position).OldPrice2.equals("0")) {
-                    holder.textoffPricetwo.setVisibility(View.INVISIBLE);
+
+
+
+                    final TextView layout1 = holder.textoffPricetwo;
+                    ViewTreeObserver vto = layout1.getViewTreeObserver();
+                    vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                        @Override
+                        public void onGlobalLayout() {
+                            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                                layout1.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                            } else {
+                                layout1.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                            }
+                            //width = layout1.getMeasuredWidth();
+                            height = layout1.getMeasuredHeight();
+
+
+                            holder.textoffPricetwo.setVisibility(View.GONE);
+
+
+                            TextView layout2 = holder.textPricetwo;
+
+                            ViewGroup.LayoutParams params = layout2.getLayoutParams();
+
+                            params.height = height + layout2.getMeasuredHeight();
+                            // params.width = width;
+                            layout2.setLayoutParams(params);
+                        }
+                    });
+
+
                 } else {
                     holder.textoffPricetwo.setVisibility(View.VISIBLE);
                     holder.textoffPricetwo.setText(finaldataset.get(position).OldPrice2 + "تومان");
@@ -173,7 +239,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
                 if (finaldataset.get(position).Price2 != null && !finaldataset.get(position).Price2.equals("0")) {
                     holder.textPricetwo.setVisibility(View.VISIBLE);
-                    Textconfig.settext(holder.textPricetwo,  finaldataset.get(position).Price2 + "تومان");
+                    Textconfig.settext(holder.textPricetwo, finaldataset.get(position).Price2 + "تومان");
                 } else {
                     holder.textPricetwo.setVisibility(View.INVISIBLE);
                 }
@@ -192,8 +258,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 }
 
 
+
                 if (finaldataset.get(position).Image_thumbnail2 != null && !finaldataset.get(position).Image_thumbnail2.equals("")) {
-                    Commands.showimage( finaldataset.get(position).Image_thumbnail2, null, holder.imagetwo);
+                    Commands.showimage(finaldataset.get(position).Image_thumbnail2, null, holder.imagetwo);
                 }
 
 

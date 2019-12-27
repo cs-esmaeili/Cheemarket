@@ -59,25 +59,18 @@ public class ActivityOrders extends AppCompatActivity {
         RecyclerViewList = (RecyclerView) findViewById(R.id.List);
         txtempty = (TextView) findViewById(R.id.txtempty);
         G.CurrentActivity = this;
-
         mdatasetList = new ArrayList<order>();
-
-
         RecyclerViewList.setHasFixedSize(true);
         LayoutManagerList = new LinearLayoutManager(G.CurrentActivity, LinearLayoutManager.VERTICAL, false);
         RecyclerViewList.setLayoutManager(LayoutManagerList);
         AdapterList = new Listordersadapter(mdatasetList);
         RecyclerViewList.setAdapter(AdapterList);
-
         ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
         ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
-
         searchlogo.setOnClickListener(Commands.onClickListenersearch);
         shoplogo.setOnClickListener(Commands.onClickListenersabadkharid);
-
         badge = (badgelogo) findViewById(R.id.badgelogo);
         Commands.setbadgenumber(badge);
-
         Webservice.requestparameter param1 = new Webservice.requestparameter();
         param1.key = "token";
         param1.value = G.token;
@@ -111,10 +104,8 @@ public class ActivityOrders extends AppCompatActivity {
                             txtempty.setVisibility(View.VISIBLE);
                         }
                     });
-
                     return;
                 }
-
                 try {
                     JSONArray array = new JSONArray(input);
 
@@ -125,15 +116,11 @@ public class ActivityOrders extends AppCompatActivity {
                         order.sum = object.getString("sum");
                         order.status = object.getString("status");
                         mdatasetList.add(order);
-
-
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
                 G.HANDLER.post(new Runnable() {
                     @Override
                     public void run() {

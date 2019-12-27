@@ -1,20 +1,21 @@
 package com.cheemarket.Adapter;
 
 import android.content.Intent;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.cheemarket.G;
 import com.cheemarket.ActivityOrderinformation;
 import com.cheemarket.ActivityOrders;
+import com.cheemarket.G;
 import com.cheemarket.R;
 import com.cheemarket.Textconfig;
+
+import java.util.ArrayList;
 
 /**
  * Created by user on 8/21/2018.
@@ -60,9 +61,12 @@ public class Listordersadapter extends RecyclerView.Adapter<Listordersadapter.Vi
                 holder.txtvaziyat.setText(status.get(1));
                 break;
             case 3:
+                holder.txtvaziyat.setText(status.get(1));
+                break;
+            case 7:
                 holder.txtvaziyat.setText(status.get(2));
                 break;
-            case 4:
+            case 8:
                 holder.txtvaziyat.setText(status.get(3));
                 break;
         }
