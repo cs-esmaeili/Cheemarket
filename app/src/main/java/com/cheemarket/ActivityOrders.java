@@ -3,6 +3,7 @@ package com.cheemarket;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +43,7 @@ public class ActivityOrders extends AppCompatActivity {
     private static RecyclerView.Adapter AdapterList;
     public static ArrayList<order> mdatasetList;
     public static TextView txtempty;
-
+    private static ProgressBar progressBar;
     private badgelogo badge;
     @Override
     protected void onResume() {
@@ -65,6 +66,7 @@ public class ActivityOrders extends AppCompatActivity {
         RecyclerViewList.setLayoutManager(LayoutManagerList);
         AdapterList = new Listordersadapter(mdatasetList);
         RecyclerViewList.setAdapter(AdapterList);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
         ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
         searchlogo.setOnClickListener(Commands.onClickListenersearch);
@@ -101,6 +103,7 @@ public class ActivityOrders extends AppCompatActivity {
                     G.HANDLER.post(new Runnable() {
                         @Override
                         public void run() {
+                            progressBar.setVisibility(View.GONE);
                             txtempty.setVisibility(View.VISIBLE);
                         }
                     });
@@ -124,6 +127,7 @@ public class ActivityOrders extends AppCompatActivity {
                 G.HANDLER.post(new Runnable() {
                     @Override
                     public void run() {
+                        progressBar.setVisibility(View.GONE);
                         AdapterList.notifyDataSetChanged();
 
                     }

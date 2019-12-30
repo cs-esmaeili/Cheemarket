@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -117,156 +118,133 @@ public class ActivitySabtnam extends AppCompatActivity {
         String usernametemp = username.getText().toString();
         String passwordtemp = this.password.getText().toString();
 
-        boolean cancel = false;
-        View focusView = null;
 
-
-        if (!TextUtils.isEmpty(passwordtemp) && !isPasswordValid(passwordtemp)) {
-            message.setText(getString(R.string.error_invalid_password));
-
-            focusView = this.password;
-            cancel = true;
-        } else if (TextUtils.isEmpty(passwordtemp)) {
-
-            if (!message.getText().toString().contains("\n" + "قسمت رمز ورود خالی است"))
-                message.setText(message.getText().toString() + "\n" + "قسمت رمز ورود خالی است");
-
-            focusView = username;
-            cancel = true;
-        }
-
-        // Check for a valid usernametemp address.
         if (TextUtils.isEmpty(usernametemp)) {
 
-            if (!message.getText().toString().contains("\n" + getString(R.string.error_field_required)))
-                message.setText(message.getText().toString() + "\n" + getString(R.string.error_field_required));
+            message.setText(getString(R.string.username_required));
+            return;
 
-            focusView = username;
-            cancel = true;
-        } else if (!isEmailValid(usernametemp)) {
-            if (!message.getText().toString().contains("\n" + getString(R.string.error_invalid_email)))
-                message.setText(message.getText().toString() + "\n" + getString(R.string.error_invalid_email));
-
-            focusView = username;
-            cancel = true;
+        } else if (!isEmailValid(usernametemp) && !isPhonenumberValid(usernametemp)) {
+            message.setText(getString(R.string.error_invalid_email));
+            return;
         }
 
-        if(password.getText().toString().length() < 5){
-            if (!message.getText().toString().contains("\n" + getString(R.string.error_invalid_email)))
-                message.setText(message.getText().toString() + "\n" + "رمز عبور شما باید از 4 کارکتر بیشتر باشد");
+        if (TextUtils.isEmpty(passwordtemp)) {
+            message.setText(getString(R.string.password_required));
+            return;
 
-            focusView = username;
-            cancel = true;
+        } else if (!isPasswordValid(passwordtemp)) {
+            message.setText(getString(R.string.error_invalid_password));
+            return;
         }
 
 
-        if (cancel) {
+        Webservice.requestparameter param1 = new Webservice.requestparameter();
+        param1.key = "username";
+        param1.value = username.getText().toString();
 
-            focusView.requestFocus();
-        } else {
+        Webservice.requestparameter param2 = new Webservice.requestparameter();
+        param2.key = "password";
+        param2.value = password.getText().toString();
 
-
-            Webservice.requestparameter param1 = new Webservice.requestparameter();
-            param1.key = "username";
-            param1.value = username.getText().toString();
-
-            Webservice.requestparameter param2 = new Webservice.requestparameter();
-            param2.key = "password";
-            param2.value = password.getText().toString();
-
-            ArrayList<Webservice.requestparameter> array = new ArrayList<>();
-            array.add(param1);
-            array.add(param2);
+        ArrayList<Webservice.requestparameter> array = new ArrayList<>();
+        array.add(param1);
+        array.add(param2);
 
 
-            Webservice.request("signup", new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    Webservice.handelerro(e, new Callable<Void>() {
-                        @Override
-                        public Void call() throws Exception {
-                            attemptLogin();
-                            return null;
-                        }
-                    },G.CurrentActivity);
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    String input = response.body().string();
-
-                    try {
-                        JSONObject obj = new JSONObject(input);
-                        if (obj.has("remaining_time") && obj.has("status") && obj.getString("status").equals("ok")) {
-
-                            Intent intent = new Intent(G.CurrentActivity, ActivityEnterCode.class);
-                            int m = (Integer.parseInt(obj.getString("remaining_time")) / 60) >= 1 ? Integer.parseInt(obj.getString("remaining_time")) / 60 : 0;
-                            int s = Integer.parseInt(obj.getString("remaining_time")) - (m * 60);
-                            intent.putExtra("m", m);
-                            intent.putExtra("s", s);
-                            intent.putExtra("username", username.getText().toString());
-                            intent.putExtra("password", ActivitySabtnam.this.password.getText().toString());
-
-                            if ((username.getText().toString().contains("09") || username.getText().toString().contains("۰۹") )&& username.getText().toString().length() == 11) {
-                                intent.putExtra("type", "phonenumber");
-                                G.CurrentActivity.startActivity(intent);
-                                finish();
-                            } else if (username.getText().toString().contains("@gmail.com") || username.getText().toString().contains("@yahoo.com")) {
-                                intent.putExtra("type", "email");
-                                G.CurrentActivity.startActivity(intent);
-                                finish();
-                            }
-
-
-                        } else if (obj.has("status") && obj.getString("status").equals("ok")) {
-
-                            Intent intent = new Intent(G.CurrentActivity, ActivityEnterCode.class);
-                            intent.putExtra("m", 1);
-                            intent.putExtra("s", 60);
-                            intent.putExtra("username", username.getText().toString());
-                            intent.putExtra("password", ActivitySabtnam.this.password.getText().toString());
-                            if ((username.getText().toString().contains("09") || username.getText().toString().contains("۰۹") )&& username.getText().toString().length() == 11) {
-                                intent.putExtra("type", "phonenumber");
-                                G.CurrentActivity.startActivity(intent);
-                                finish();
-                            } else if (username.getText().toString().contains("@gmail.com") || username.getText().toString().contains("@yahoo.com")) {
-                                intent.putExtra("type", "email");
-                                G.CurrentActivity.startActivity(intent);
-                                finish();
-                            }
-
-                        } else if (obj.has("status") && obj.getString("status").equals("ban")) {
-                            G.HANDLER.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    message.setText("تعداد تلاش بیشتر از حد مجاز!");
-                                }
-                            });
-                        } else if (obj.has("status") && obj.getString("status").equals("Account available")) {
-                            G.HANDLER.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    message.setText("اکانتی با این مشخصات وجود دارد");
-                                }
-                            });
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+        Webservice.request("signup", new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Webservice.handelerro(e, new Callable<Void>() {
+                    @Override
+                    public Void call() throws Exception {
+                        attemptLogin();
+                        return null;
                     }
+                }, G.CurrentActivity);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String input = response.body().string();
+
+                try {
+                    JSONObject obj = new JSONObject(input);
+                    if (obj.has("remaining_time") && obj.has("status") && obj.getString("status").equals("ok")) {
+
+                        Intent intent = new Intent(G.CurrentActivity, ActivityEnterCode.class);
+                        int m = (Integer.parseInt(obj.getString("remaining_time")) / 60) >= 1 ? Integer.parseInt(obj.getString("remaining_time")) / 60 : 0;
+                        int s = Integer.parseInt(obj.getString("remaining_time")) - (m * 60);
+                        intent.putExtra("m", m);
+                        intent.putExtra("s", s);
+                        intent.putExtra("username", username.getText().toString());
+                        intent.putExtra("password", ActivitySabtnam.this.password.getText().toString());
+
+                        if (isPhonenumberValid(username.getText().toString())) {
+                            intent.putExtra("type", "phonenumber");
+                            G.CurrentActivity.startActivity(intent);
+                            finish();
+                        } else if (isEmailValid(username.getText().toString())) {
+                            intent.putExtra("type", "email");
+                            G.CurrentActivity.startActivity(intent);
+                            finish();
+                        }
 
 
+                    } else if (obj.has("status") && obj.getString("status").equals("ok")) {
+
+                        Intent intent = new Intent(G.CurrentActivity, ActivityEnterCode.class);
+                        intent.putExtra("m", 1);
+                        intent.putExtra("s", 60);
+                        intent.putExtra("username", username.getText().toString());
+                        intent.putExtra("password", ActivitySabtnam.this.password.getText().toString());
+                        if (isPhonenumberValid(username.getText().toString())) {
+                            intent.putExtra("type", "phonenumber");
+                            G.CurrentActivity.startActivity(intent);
+                            finish();
+                        } else if (isEmailValid(username.getText().toString())) {
+                            intent.putExtra("type", "email");
+                            G.CurrentActivity.startActivity(intent);
+                            finish();
+                        }
+
+                    } else if (obj.has("status") && obj.getString("status").equals("ban")) {
+                        G.HANDLER.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                message.setText("تعداد تلاش بیشتر از حد مجاز!");
+                            }
+                        });
+                    } else if (obj.has("status") && obj.getString("status").equals("Account available")) {
+                        G.HANDLER.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                message.setText("حساب کاربری با این مشخصات وجود دارد");
+                            }
+                        });
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            }, array);
 
 
-        }
+            }
+        }, array);
+
+
     }
 
 
     private boolean isEmailValid(String email) {
-        if (email.contains("09") && email.length() == 11 || email.contains("۰۹") && email.length() == 11) {
+        if (email.contains("@") && email.substring(email.length() - 4).equals(".com") && (!email.contains("09") || !email.contains("۰۹"))) {
             return true;
-        } else if (email.contains("@gmail.com") || email.contains("@yahoo.com")) {
+        } else {
+            return false;
+        }
+    }
+
+    private boolean isPhonenumberValid(String phonenumber) {
+        if ((phonenumber.contains("09") || phonenumber.contains("۰۹")) && phonenumber.length() == 11 && (!phonenumber.contains(".com") || !phonenumber.contains("@"))) {
             return true;
         } else {
             return false;
@@ -274,10 +252,8 @@ public class ActivitySabtnam extends AppCompatActivity {
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 3;
+        return password.length() > 4;
     }
-
 
 }
 

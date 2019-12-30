@@ -37,6 +37,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical|center_horizontal"
 
+            android:gravity="center"
             android:padding="3dip"
             android:text="0"
             android:textColor="#000000"
@@ -56,6 +57,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical|center_horizontal"
 
+            android:gravity="center"
             android:padding="3dip"
             android:text="0"
             android:textColor="#000000"
@@ -155,6 +157,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:layout_marginRight="5dip"
+        android:gravity="center"
         android:text="کد تایید را وارد نمایید"
         android:textSize="18dip"
         app:layout_constraintEnd_toEndOf="parent"
@@ -167,10 +170,10 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
@@ -178,12 +181,12 @@
         android:id="@+id/txtretry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="ارسال مجدد کد تایید"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 

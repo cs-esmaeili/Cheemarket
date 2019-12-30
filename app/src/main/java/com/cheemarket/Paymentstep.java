@@ -72,6 +72,7 @@ public class Paymentstep extends AppCompatActivity {
     public static boolean paymentway = true;
     public static boolean close = false;
     private static ProgressBar progressbar;
+    public static ProgressBar progressbarp;
     private static TextView max_price_text;
     private static ScrollView main;
     private static TextView finalprice;
@@ -132,6 +133,7 @@ public class Paymentstep extends AppCompatActivity {
         paymentoff = (CheckBox) findViewById(R.id.paymentoff);
         txtempty = (TextView) findViewById(R.id.txtempty);
         progressbar = (ProgressBar) findViewById(R.id.progressbar);
+        progressbarp = (ProgressBar) findViewById(R.id.progressBarp);
         max_price_text = (TextView) findViewById(R.id.max_price_text);
         main = (ScrollView) findViewById(R.id.main);
         final EditText desc = (EditText) findViewById(R.id.desc);
@@ -213,6 +215,8 @@ public class Paymentstep extends AppCompatActivity {
                     }
 
                     btnpay.setEnabled(false);
+                    btnpay.setVisibility(View.GONE);
+                    progressbarp.setVisibility(View.VISIBLE);
                     Payment.openpaymentgate(desc.getText().toString());
                 }
 

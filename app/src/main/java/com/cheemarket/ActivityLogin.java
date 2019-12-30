@@ -28,6 +28,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
+import static com.cheemarket.ActivitySabad.check_card_server;
 import static com.cheemarket.G.pre;
 
 
@@ -76,7 +77,7 @@ public class ActivityLogin extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == EditorInfo.IME_NULL) {
-                    attemptLogin();
+                    attemptLogin(username.getText().toString() , password.getText().toString());
                     return true;
                 }
                 return false;
@@ -88,7 +89,7 @@ public class ActivityLogin extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 message.setText("");
-                attemptLogin();
+                attemptLogin(username.getText().toString() , password.getText().toString());
             }
         });
 
@@ -124,12 +125,7 @@ public class ActivityLogin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 message.setText("");
-                if (username.getText().toString().contains("@gmail.com") || username.getText().toString().contains("@yahoo.com")) {
-                    message.setText("");
-                    recovery(username.getText().toString());
-
-                } else if (username.getText().toString().contains("09") && username.getText().toString().length() == 11 || username.getText().toString().contains("۰۹") && username.getText().toString().length() == 11) {
-
+                if (isEmailValid(username.getText().toString()) || isPhonenumberValid(username.getText().toString())) {
                     recovery(username.getText().toString());
                 } else {
                     message.setText(getString(R.string.error_invalid_email));
@@ -139,26 +135,21 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
     private void recovery(final String usernam) {
-
         Webservice.requestparameter param1 = new Webservice.requestparameter();
         param1.key = "username";
         param1.value = username.getText().toString();
-
-
         ArrayList<Webservice.requestparameter> array = new ArrayList<>();
         array.add(param1);
-
-
         Webservice.request("resetPassword", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Webservice.handelerro(e, new Callable<Void>() {
                     @Override
                     public Void call() throws Exception {
-                        attemptLogin();
+                        attemptLogin(username.getText().toString() , password.getText().toString());
                         return null;
                     }
-                },G.CurrentActivity);
+                }, G.CurrentActivity);
             }
 
             @Override
@@ -176,11 +167,11 @@ public class ActivityLogin extends AppCompatActivity {
                         intent.putExtra("username", username.getText().toString());
                         intent.putExtra("password", "reset");
 
-                        if ((username.getText().toString().contains("09") || username.getText().toString().contains("۰۹")) && username.getText().toString().length() == 11) {
+                        if (isPhonenumberValid(username.getText().toString())) {
                             intent.putExtra("type", "phonenumber");
                             G.CurrentActivity.startActivity(intent);
                             finish();
-                        } else if (username.getText().toString().contains("@gmail.com") || username.getText().toString().contains("@yahoo.com")) {
+                        } else if (isEmailValid(username.getText().toString())) {
                             intent.putExtra("type", "email");
                             G.CurrentActivity.startActivity(intent);
                             finish();
@@ -193,11 +184,11 @@ public class ActivityLogin extends AppCompatActivity {
                         intent.putExtra("s", 60);
                         intent.putExtra("username", username.getText().toString());
                         intent.putExtra("password", "reset");
-                        if ((username.getText().toString().contains("09") || username.getText().toString().contains("۰۹")) && username.getText().toString().length() == 11) {
+                        if (isPhonenumberValid(username.getText().toString())) {
                             intent.putExtra("type", "phonenumber");
                             G.CurrentActivity.startActivity(intent);
                             finish();
-                        } else if (username.getText().toString().contains("@gmail.com") || username.getText().toString().contains("@yahoo.com")) {
+                        } else if (isEmailValid(username.getText().toString())) {
                             intent.putExtra("type", "email");
                             G.CurrentActivity.startActivity(intent);
                             finish();
@@ -230,136 +221,123 @@ public class ActivityLogin extends AppCompatActivity {
 
     String usernametemp = "";
 
-    private void attemptLogin() {
+    public void attemptLogin(final String strusername, final String strpassword) {
 
 
         username.setError(null);
         password.setError(null);
 
 
-        String password1temp = username.getText().toString();
-        String password2temp = password.getText().toString();
-
-        boolean cancel = false;
-        View focusView = null;
+        String password1temp = strusername;
+        String password2temp = strpassword;
 
 
         if (TextUtils.isEmpty(password1temp)) {
 
-            if (!message.getText().toString().contains("\n" + getString(R.string.error_field_required))){
-                message.setText(message.getText().toString() + "\n" + getString(R.string.error_field_required));
+            message.setText(getString(R.string.username_required));
+            return;
+
+        } else if (!isEmailValid(password1temp) && !isPhonenumberValid(password1temp)) {
+            message.setText(getString(R.string.error_invalid_email));
+            return;
+        }
+
+        if (TextUtils.isEmpty(password2temp)) {
+            message.setText(getString(R.string.password_required));
+            return;
+
+        } else if (!isPasswordValid(password2temp)) {
+            message.setText(getString(R.string.error_invalid_password));
+            return;
+        }
+
+
+        Webservice.requestparameter param1 = new Webservice.requestparameter();
+        param1.key = "username";
+        param1.value = username.getText().toString();
+
+        Webservice.requestparameter param2 = new Webservice.requestparameter();
+        param2.key = "password";
+        param2.value = password.getText().toString();
+
+        ArrayList<Webservice.requestparameter> array = new ArrayList<>();
+        array.add(param1);
+        array.add(param2);
+
+
+        Webservice.request("login", new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Webservice.handelerro(e, new Callable<Void>() {
+                    @Override
+                    public Void call() throws Exception {
+                        attemptLogin(strusername ,strpassword);
+                        return null;
+                    }
+                }, G.CurrentActivity);
             }
 
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String input = response.body().string();
+                try {
+                    JSONObject obj = new JSONObject(input);
+                    if (obj.has("status") && obj.getString("status").equals("ok") && obj.has("token")) {
 
-            focusView = username;
-            cancel = true;
-
-        } else if (!isEmailValid(password1temp)) {
-            if (!message.getText().toString().contains("\n" + getString(R.string.error_invalid_email)))
-                message.setText(message.getText().toString() + "\n" + getString(R.string.error_invalid_email));
-
-            focusView = username;
-            cancel = true;
-        }
-
-        if (!TextUtils.isEmpty(password2temp) && !isPasswordValid(password2temp)) {
-            message.setText(getString(R.string.error_invalid_password));
-
-            focusView = password;
-            cancel = true;
-        } else if (TextUtils.isEmpty(password2temp)) {
-
-            if (!message.getText().toString().contains("\n" + "قسمت رمز ورود خالی است"))
-                message.setText(message.getText().toString() + "\n" + "قسمت رمز ورود خالی است");
-
-            focusView = username;
-            cancel = true;
-        }
-
-
-        if(password.getText().toString().length() < 5){
-            if (!message.getText().toString().contains("\n" + getString(R.string.error_invalid_email)))
-                message.setText(message.getText().toString() + "\n" + "رمز عبور شما باید از 4 کارکتر بیشتر باشد");
-
-            focusView = username;
-            cancel = true;
-        }
-
-        if (cancel) {
-
-            focusView.requestFocus();
-
-        } else {
-
-            Webservice.requestparameter param1 = new Webservice.requestparameter();
-            param1.key = "username";
-            param1.value = username.getText().toString();
-
-            Webservice.requestparameter param2 = new Webservice.requestparameter();
-            param2.key = "password";
-            param2.value = password.getText().toString();
-
-            ArrayList<Webservice.requestparameter> array = new ArrayList<>();
-            array.add(param1);
-            array.add(param2);
-
-
-            Webservice.request("login", new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    Webservice.handelerro(e, new Callable<Void>() {
-                        @Override
-                        public Void call() throws Exception {
-                            attemptLogin();
-                            return null;
-                        }
-                    },G.CurrentActivity);
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    String input = response.body().string();
-                    try {
-                        JSONObject obj = new JSONObject(input);
-                        if (obj.has("status") && obj.getString("status").equals("ok") && obj.has("token")) {
-
-                            usernametemp = username.getText().toString();
-                            G.token = obj.getString("token");
-                            SharedPreferences.Editor editor = pre.edit();
-                            editor.putString("Username", usernametemp);
-                            editor.putString("token", G.token);
-                            editor.apply();
-                            G.CurrentActivity.finish();
-
-                        } else if (obj.has("status") && obj.getString("status").equals("ban")) {
-                            G.HANDLER.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    message.setText("اکانت شما محدود است با پشتیبانی تماس بگیرید");
-                                }
-                            });
-                        } else if (obj.has("status") && obj.getString("status").equals("notexist")) {
-                            message.setText("نام کاربری یا رمز عبور اشتباه است");
-                        } else if (obj.has("status") && obj.getString("status").equals("wrong")) {
-                            message.setText("اکانتی با این نام وجود ندارد");
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        usernametemp = username.getText().toString();
+                        G.token = obj.getString("token");
+                        SharedPreferences.Editor editor = pre.edit();
+                        editor.putString("Username", usernametemp);
+                        editor.putString("token", G.token);
+                        editor.apply();
+                        check_card_server();
+                        Commands.setbadgenumber(ActivityMain.badge);
+                        G.CurrentActivity.finish();
+                    } else if (obj.has("status") && obj.getString("status").equals("ban")) {
+                        G.HANDLER.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                message.setText("اکانت شما محدود است با پشتیبانی تماس بگیرید");
+                            }
+                        });
+                    } else if (obj.has("status") && obj.getString("status").equals("notexist")) {
+                        G.HANDLER.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                message.setText("نام کاربری یا رمز عبور اشتباه است");
+                            }
+                        });
+                    } else if (obj.has("status") && obj.getString("status").equals("wrong")) {
+                        G.HANDLER.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                message.setText("حساب کاربری با این نام وجود ندارد");
+                            }
+                        });
                     }
-
-
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            }, array);
 
 
-        }
+            }
+        }, array);
+
+
     }
 
 
     private boolean isEmailValid(String email) {
-        if (email.contains("09") && email.length() == 11 || email.contains("۰۹") && email.length() == 11) {
+        if (email.contains("@") && email.substring(email.length() - 4).equals(".com") && (!email.contains("09") || !email.contains("۰۹"))) {
             return true;
-        } else if (email.contains("@gmail.com") || email.contains("@yahoo.com")) {
+        } else {
+            return false;
+        }
+    }
+
+
+    private boolean isPhonenumberValid(String phonenumber) {
+        if ((phonenumber.contains("09") || phonenumber.contains("۰۹")) && phonenumber.length() == 11 && (!phonenumber.contains(".com") || !phonenumber.contains("@"))) {
             return true;
         } else {
             return false;
@@ -367,8 +345,8 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 3;
+        return true;
+        //return password.length() > 4;
     }
 
 

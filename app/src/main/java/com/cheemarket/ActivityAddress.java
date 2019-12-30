@@ -3,6 +3,7 @@ package com.cheemarket;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,14 +32,12 @@ public class ActivityAddress extends AppCompatActivity {
     public static ArrayList<AddressStructure> address = new ArrayList<>();
     public static boolean needtorealod = false;
     private static TextView txtempty;
+    private static ProgressBar progressBar;
 
     @Override
     protected void onResume() {
         super.onResume();
         G.CurrentActivity = this;
-        if (txtempty != null) {
-            txtempty.setVisibility(View.GONE);
-        }
 
         if (needtorealod) {
             needtorealod = false;
@@ -59,6 +58,7 @@ public class ActivityAddress extends AppCompatActivity {
         RecyclerView List = (RecyclerView) findViewById(R.id.List);
         FloatingActionButton add = (FloatingActionButton) findViewById(R.id.add);
         txtempty = (TextView) findViewById(R.id.txtempty);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         List.setHasFixedSize(true);
         RecyclerView.LayoutManager LayoutManagerList = new LinearLayoutManager(G.CurrentActivity, LinearLayoutManager.VERTICAL, false);
         List.setLayoutManager(LayoutManagerList);
@@ -122,6 +122,8 @@ public class ActivityAddress extends AppCompatActivity {
                             @Override
                             public void run() {
                                 AdapterList.notifyDataSetChanged();
+                                progressBar.setVisibility(View.GONE);
+                                empty.setVisibility(View.GONE);
                             }
                         });
 
@@ -132,8 +134,11 @@ public class ActivityAddress extends AppCompatActivity {
                     G.HANDLER.post(new Runnable() {
                         @Override
                         public void run() {
-                            if (empty != null)
+                            if (empty != null){
                                 empty.setVisibility(View.VISIBLE);
+                                progressBar.setVisibility(View.GONE);
+                            }
+
                         }
                     });
 

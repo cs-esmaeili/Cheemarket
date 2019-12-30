@@ -16,6 +16,8 @@ import com.cheemarket.Structure.sabad;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,6 +26,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
 
 import okhttp3.Call;
@@ -31,25 +34,16 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 public class ActivitySabad extends AppCompatActivity {
-
-
     public static RecyclerView.Adapter Adapter;
     public static BigInteger temp;
-
-
     static TextView txt;
     public static TextView txtpyam;
 
     @Override
     protected void onResume() {
         super.onResume();
-
         G.CurrentActivity = this;
-
         setghaymat();
-        if (G.comeback) {
-            G.CurrentActivity.finish();
-        }
     }
 
     @Override
@@ -80,18 +74,17 @@ public class ActivitySabad extends AppCompatActivity {
         btnpay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (G.mdatasetsabad.size() > 0) {
                     ActivitySabad.pagework();
                 }
-
             }
         });
-
-
     }
 
     public static void setghaymat() {
+        add_card_server();
+
+
         temp = BigInteger.valueOf(0);
         for (sabad a : G.mdatasetsabad) {
 
@@ -111,6 +104,99 @@ public class ActivitySabad extends AppCompatActivity {
         }
 
 
+    }
+
+    public static void add_card_server() {
+        if(G.token.equals("") || G.token == null){
+            return;
+        }
+        ArrayList<Webservice.requestparameter> array = new ArrayList<>();
+        Webservice.requestparameter requestparameter1 = new Webservice.requestparameter();
+        requestparameter1.key = "token";
+        requestparameter1.value = G.token;
+
+
+        Gson gson = new Gson();
+        JsonElement element = gson.toJsonTree(G.mdatasetsabad, new TypeToken<List<sabad>>() {
+        }.getType());
+
+        if (!element.isJsonArray()) {
+            //error
+        }
+
+        JsonArray jsonArray = element.getAsJsonArray();
+
+        Webservice.requestparameter requestparameter2 = new Webservice.requestparameter();
+        requestparameter2.key = "json_text";
+        requestparameter2.value = jsonArray + "";
+
+        array.add(requestparameter1);
+        array.add(requestparameter2);
+
+        Webservice.request("add_cart", new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+            }
+        }, array);
+    }
+
+    public static void check_card_server() {
+        if(G.token.equals("") || G.token == null){
+            return;
+        }
+        ArrayList<Webservice.requestparameter> array = new ArrayList<>();
+        Webservice.requestparameter requestparameter1 = new Webservice.requestparameter();
+        requestparameter1.key = "token";
+        requestparameter1.value = G.token;
+        array.add(requestparameter1);
+
+        Webservice.request("cart_products", new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String input = response.body().string();
+                try {
+                    JSONArray jsonArray = new JSONArray(input);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        sabad s = new sabad();
+                        s.Name = jsonObject.getString("name");
+                        s.Price = jsonObject.getString("price");
+                        s.OldPrice = jsonObject.getString("old_price");
+                        s.Image_thumbnail = jsonObject.getString("image_thumbnail");
+                        s.Image_folder = jsonObject.getString("image_folder");
+                        s.Tozihat = jsonObject.getString("description");
+                        s.Ordernumber = jsonObject.getString("order_number");
+                        s.Tedad = jsonObject.getString("number");
+                        s.Status = jsonObject.getString("status");
+                        s.Datetime = jsonObject.getString("datetime");
+                        s.Id = jsonObject.getString("product_id");
+                        G.mdatasetsabad.add(s);
+
+                    }
+                    G.HANDLER.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Commands.setbadgenumber(ActivityMain.badge);
+                        }
+                    });
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, array);
     }
 
     public static void pagework() {
@@ -147,16 +233,13 @@ public class ActivitySabad extends AppCompatActivity {
                         });
                         return null;
                     }
-                },G.CurrentActivity);
+                }, G.CurrentActivity);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String input = response.body().string();
 
-
-
-                Log.i("LOG" , input);
                 if (input.equals("[]") || input.equals("")) {
 
                     if (G.mdatasetsabad.size() > 0) {
@@ -181,7 +264,7 @@ public class ActivitySabad extends AppCompatActivity {
                                 G.mdatasetsabad.remove(j);
                                 text = "بعضی از کالاها به دلیل عدم موجودی پاک شدند";
                                 j = 0;
-                            }else if (G.mdatasetsabad.size() > j && G.mdatasetsabad.get(j).Id.equals(object.getString("product_id"))) {
+                            } else if (G.mdatasetsabad.size() > j && G.mdatasetsabad.get(j).Id.equals(object.getString("product_id"))) {
                                 if (!text.contains("عوض")) {
                                     text += "\n" + "اطلاعات بعضی از کالا ها عوض شد";
                                 }

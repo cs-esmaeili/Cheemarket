@@ -509,11 +509,18 @@
                 android:layout_height="50dip"
                 android:background="#66BB6A"
                 android:gravity="center"
-                android:text="خرید خود را نهایی کنید"
+                android:text="خرید خود را نهایی کنید" />
 
-                />
+            <ProgressBar
+                android:id="@+id/progressBarp"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
 
         </LinearLayout>
+
     </ScrollView>
 
     <ProgressBar

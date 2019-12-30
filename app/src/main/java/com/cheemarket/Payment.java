@@ -3,6 +3,7 @@ package com.cheemarket;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -18,6 +19,9 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
+import static com.cheemarket.ActivitySabad.add_card_server;
+import static com.cheemarket.ActivitySabad.check_card_server;
+
 public class Payment {
 
     static class OrderStructure {
@@ -26,6 +30,8 @@ public class Payment {
     }
 
     public static void openpaymentgate(String description) {
+
+
 
         ArrayList<OrderStructure> array = new ArrayList<OrderStructure>();
         for (int i = 0; i < G.mdatasetsabad.size(); i++) {
@@ -104,21 +110,37 @@ public class Payment {
 
                 if (input.contains("https://")) {
 
-                    Paymentstep.Addressid = null;
-                    Paymentstep.Date = null;
-                    Paymentstep.close = true;
-                    G.mdatasetsabad.clear();
-
+                    G.HANDLER.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Paymentstep.Addressid = null;
+                            Paymentstep.Date = null;
+                            Paymentstep.close = true;
+                            G.mdatasetsabad.clear();
+                            Commands.setbadgenumber(ActivityMain.badge);
+                            add_card_server();
+                        }
+                    });
 
                     try {
+                        Intent intent = new Intent(G.CurrentActivity, ActivityMain.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.addFlags(Intent.FLAG_FROM_BACKGROUND);
+                        G.CurrentActivity.startActivity(intent);
+
                         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(input));
                         G.CurrentActivity.startActivity(browserIntent);
+
+
 
                     } catch (Exception e) {
                         G.HANDLER.post(new Runnable() {
                             @Override
                             public void run() {
                                 Paymentstep.btnpay.setEnabled(true);
+                                Paymentstep.btnpay.setVisibility(View.VISIBLE);
+                                Paymentstep.progressbarp.setVisibility(View.GONE);
                                 Toast.makeText(G.context, "مشکلی در ارتباط با سرور پیش آمد دوباره سعی کنید", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -131,6 +153,8 @@ public class Payment {
                         @Override
                         public void run() {
                             Paymentstep.btnpay.setEnabled(true);
+                            Paymentstep.btnpay.setVisibility(View.VISIBLE);
+                            Paymentstep.progressbarp.setVisibility(View.GONE);
                             Toast.makeText(G.context, "مشکلی در ارتباط با سرور پیش آمد دوباره سعی کنید", Toast.LENGTH_LONG).show();
                         }
                     });

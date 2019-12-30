@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,7 +35,7 @@ public class ActivityEdite extends AppCompatActivity {
     public static Spinner spnershahr;
     public static Spinner spnerostan;
     public static TextView btnsave;
-
+    private static ProgressBar progressBar;
     private static int position = -1;
     public static ArrayAdapter<CharSequence> adapter;
 
@@ -43,7 +44,7 @@ public class ActivityEdite extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edite);
         G.CurrentActivity = this;
-
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         edtname = (EditText) findViewById(R.id.edtname);
         edthomenumber = (EditText) findViewById(R.id.edthomenumber);
         edtphonenumber = (EditText) findViewById(R.id.edtphonenumber);
@@ -52,8 +53,6 @@ public class ActivityEdite extends AppCompatActivity {
         spnershahr = (Spinner) findViewById(R.id.spnershahr);
         spnerostan = (Spinner) findViewById(R.id.spnerostan);
         btnsave = (TextView) findViewById(R.id.btnsave);
-
-
 
 
         Bundle extras = getIntent().getExtras();
@@ -110,6 +109,8 @@ public class ActivityEdite extends AppCompatActivity {
         btnsave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                btnsave.setVisibility(View.GONE);
+                progressBar.setVisibility(View.VISIBLE);
                 save();
             }
         });
@@ -139,34 +140,34 @@ public class ActivityEdite extends AppCompatActivity {
 
 
         boolean temp = false;
-        if(edtname.getText().length() == 0){
+        if (edtname.getText().length() == 0) {
             edtname.setError("نام و نام خانوادگی را وارد کنید");
             temp = true;
         }
-        if(edthomenumber.getText().length() == 0){
+        if (edthomenumber.getText().length() == 0) {
             edthomenumber.setError("شماره ثابت را وارد کنید");
             temp = true;
-        }else if(edthomenumber.getText().length() < 11){
+        } else if (edthomenumber.getText().length() < 11) {
             edthomenumber.setError("شماره ثابت صحیح نمی باشد");
             temp = true;
         }
 
-        if(edtphonenumber.getText().length() == 0){
+        if (edtphonenumber.getText().length() == 0) {
             edtphonenumber.setError("شماره همراه را وارد کنید");
             temp = true;
-        }else if(edtphonenumber.getText().length() < 11){
+        } else if (edtphonenumber.getText().length() < 11) {
             edtphonenumber.setError("شماره همراه کوتاه است");
             temp = true;
-        }else if(!edtphonenumber.getText().toString().contains("09") && !edtphonenumber.getText().toString().contains("۰۹")){
+        } else if (!edtphonenumber.getText().toString().contains("09") && !edtphonenumber.getText().toString().contains("۰۹")) {
             edtphonenumber.setError("شماره همراه صحیح نمی باشد");
             temp = true;
         }
 
-        if(edtaddress.getText().length() == 0){
+        if (edtaddress.getText().length() == 0) {
             edtaddress.setError("آدرس  را وارد کنید");
             temp = true;
         }
-        if(temp){
+        if (temp) {
             return;
         }
         Webservice.requestparameter param1 = new Webservice.requestparameter();
@@ -196,7 +197,7 @@ public class ActivityEdite extends AppCompatActivity {
 
         Webservice.requestparameter param6 = new Webservice.requestparameter();
         param6.key = "postal_code";
-        param6.value = (edtcodeposti.getText().length() == 0)? "0" : edtcodeposti.getText() + "";
+        param6.value = (edtcodeposti.getText().length() == 0) ? "0" : edtcodeposti.getText() + "";
         array.add(param6);
 
         Webservice.requestparameter param7 = new Webservice.requestparameter();
@@ -209,20 +210,25 @@ public class ActivityEdite extends AppCompatActivity {
         param8.value = G.token;
         array.add(param8);
 
-        if(position != -1){
+        if (position != -1) {
             Webservice.requestparameter param9 = new Webservice.requestparameter();
             param9.key = "user_address_id";
             param9.value = ActivityAddress.address.get(position).Id;
             array.add(param9);
         }
-;
+        ;
 
 
-
-        Webservice.request( (position == -1)? "addressAdd" : "addressEdite", new Callback() {
+        Webservice.request((position == -1) ? "addressAdd" : "addressEdite", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                G.HANDLER.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        btnsave.setVisibility(View.VISIBLE);
+                        progressBar.setVisibility(View.GONE);
+                    }
+                });
             }
 
             @Override
@@ -235,7 +241,7 @@ public class ActivityEdite extends AppCompatActivity {
                         G.HANDLER.post(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(G.CurrentActivity,"عملیات با موفقیت انجام شد", Toast.LENGTH_LONG).show();
+                                Toast.makeText(G.CurrentActivity, "عملیات با موفقیت انجام شد", Toast.LENGTH_LONG).show();
                                 ActivityAddress.needtorealod = true;
                                 G.CurrentActivity.finish();
                             }
@@ -243,6 +249,13 @@ public class ActivityEdite extends AppCompatActivity {
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    G.HANDLER.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            btnsave.setVisibility(View.VISIBLE);
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    });
                 }
             }
         }, array);

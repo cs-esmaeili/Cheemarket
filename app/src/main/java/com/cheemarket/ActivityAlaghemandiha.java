@@ -1,8 +1,10 @@
 package com.cheemarket;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +36,7 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
     private static RecyclerView.Adapter AdapterList;
     private static ArrayList<PoductStructure> mdatasetList;
     private static TextView txtempty;
-
+    private static ProgressBar progressBar;
     static long Listnumber = 0;
     static boolean allownext = false;
 
@@ -62,10 +64,9 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
 
         ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
         ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
-
         searchlogo.setOnClickListener(Commands.onClickListenersearch);
         shoplogo.setOnClickListener(Commands.onClickListenersabadkharid);
-
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         badge = (badgelogo) findViewById(R.id.badgelogo);
         Commands.setbadgenumber(badge);
 
@@ -85,6 +86,9 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
 
     private static void pagework() {
 
+        if (mdatasetList == null) {
+            return;
+        }
         mdatasetList.clear();
         AdapterList.notifyDataSetChanged();
         Listnumber = 0;
@@ -113,21 +117,19 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
                         Webservice.request("Favorites", mycall, array);
                         return null;
                     }
-                },G.CurrentActivity);
+                }, G.CurrentActivity);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String input = response.body().string();
                 allownext = false;
-
                 if (input.equals("[]")) {
                     if (Listnumber == 0) {
-
-
                         G.HANDLER.post(new Runnable() {
                             @Override
                             public void run() {
+                                progressBar.setVisibility(View.GONE);
                                 txtempty.setVisibility(View.VISIBLE);
                             }
                         });
@@ -172,12 +174,11 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
                     G.HANDLER.post(new Runnable() {
                         @Override
                         public void run() {
-
+                            progressBar.setVisibility(View.GONE);
                             AdapterList.notifyItemInserted(AdapterList.getItemCount() + 1);
                         }
                     });
                     allownext = true;
-
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -236,7 +237,7 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
 
     }
 
-    public static void addtoalaghemandiha(String id) {
+    public static void addtoalaghemandiha(final String id) {
 
         Webservice.requestparameter object1 = new Webservice.requestparameter();
         object1.key = "token";
@@ -265,7 +266,7 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
                         });
                         return null;
                     }
-                },G.CurrentActivity);
+                }, G.CurrentActivity);
             }
 
             @Override
@@ -273,8 +274,6 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
                 String temp = response.body().string();
                 try {
                     JSONObject obj = new JSONObject(temp);
-
-
                     if (obj.getString("status").equals("ok") || obj.getString("status").equals("fail")) {
                         G.HANDLER.post(new Runnable() {
                             @Override
@@ -330,7 +329,7 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
                         });
                         return null;
                     }
-                },G.CurrentActivity);
+                }, G.CurrentActivity);
             }
 
             @Override
@@ -343,9 +342,7 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
                         G.HANDLER.post(new Runnable() {
                             @Override
                             public void run() {
-
                                 pagework();
-
                             }
                         });
 
@@ -364,5 +361,43 @@ public class ActivityAlaghemandiha extends AppCompatActivity {
 
             }
         }, array);
+    }
+
+    public static void product_favorite_check(final String product_id, final ImageView img) {
+
+        Webservice.requestparameter param1 = new Webservice.requestparameter();
+        param1.key = "token";
+        param1.value = G.token;
+
+        Webservice.requestparameter param2 = new Webservice.requestparameter();
+        param2.key = "product_id";
+        param2.value = product_id;
+
+        final ArrayList<Webservice.requestparameter> array = new ArrayList<>();
+        array.add(param1);
+        array.add(param2);
+
+        Webservice.request("product_favorite_check", new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                product_favorite_check(product_id, img);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String input = response.body().string();
+                G.HANDLER.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (input.equals("yes")) {
+                            img.setImageResource(R.drawable.iconlikeok);
+                        } else if (input.equals("no")) {
+                            img.setImageResource(R.drawable.iconlike);
+                        }
+                    }
+                });
+            }
+        }, array);
+
     }
 }

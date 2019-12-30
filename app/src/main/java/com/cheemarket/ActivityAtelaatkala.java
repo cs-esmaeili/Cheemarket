@@ -23,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
 import me.relex.circleindicator.CircleIndicator;
@@ -64,10 +65,6 @@ public class ActivityAtelaatkala extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         G.CurrentActivity = this;
-        if (G.comeback) {
-            G.comeback = false;
-            G.CurrentActivity.finish();
-        }
     }
 
     @Override
@@ -88,6 +85,9 @@ public class ActivityAtelaatkala extends AppCompatActivity {
         talaei = (LinearLayout) findViewById(R.id.talaei);
         imgsheare = (ImageView) findViewById(R.id.imgsheare);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            txttozihat.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+        }
 
         h = (TextView) findViewById(R.id.h);
         m = (TextView) findViewById(R.id.m);
@@ -133,8 +133,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
 
 
         Commands.addview("کالای " + mysabad.Id + " بازدید شد");
-
-
+        ActivityAlaghemandiha.product_favorite_check(mysabad.Id, imgalaghemandi);
 
         setkaladata();
 
@@ -174,7 +173,6 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                 }
                 if (temp == false) {
                     G.mdatasetsabad.add(mysabad);
-
                     Intent intent = new Intent(G.CurrentActivity, ActivitySabad.class);
                     G.CurrentActivity.startActivity(intent);
                 }
@@ -198,15 +196,19 @@ public class ActivityAtelaatkala extends AppCompatActivity {
         imgalaghemandi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (G.token.equals("")) {
                     Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 } else {
-                    ActivityAlaghemandiha.addtoalaghemandiha(mysabad.Id);
+                    if (imgalaghemandi.getDrawable().getConstantState() == getResources().getDrawable(R.drawable.iconlike).getConstantState()) {
+                        imgalaghemandi.setImageResource(R.drawable.iconlikeok);
+                        ActivityAlaghemandiha.addtoalaghemandiha(mysabad.Id);
+                    } else {
+                        imgalaghemandi.setImageResource(R.drawable.iconlike);
+                        ActivityAlaghemandiha.deletealaghemandiha(mysabad.Id);
+                    }
                 }
-
             }
         });
 
@@ -219,10 +221,13 @@ public class ActivityAtelaatkala extends AppCompatActivity {
 
 
     }
+
+
     static Callback callback = null;
+
     private void setkaladata() {
 
-            callback =  new Callback() {
+        callback = new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Webservice.handelerro(e, new Callable<Void>() {
@@ -231,7 +236,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                         Webservice.request("product/" + mysabad.Id, callback, null);
                         return null;
                     }
-                },G.CurrentActivity);
+                }, G.CurrentActivity);
             }
 
             @Override
@@ -254,7 +259,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                         @Override
                         public void run() {
                             Textconfig.settext(txttozihat, mysabad.Tozihat);
-                            Textconfig.settext(txtprice , "تومان " + mysabad.Price);
+                            Textconfig.settext(txtprice, "تومان " + mysabad.Price);
                             txtoff.setText("تومان " + mysabad.OldPrice);
 
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -290,13 +295,14 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                 }
             }
         };
-        Webservice.request("product/" + mysabad.Id,callback, null);
+        Webservice.request("product/" + mysabad.Id, callback, null);
 
 
     }
 
 
     Callback callbackimg = null;
+
     private void showimage() {
 
         callbackimg = new Callback() {
@@ -308,7 +314,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                         Webservice.request("product/images/" + mysabad.Image_folder, callbackimg, null);
                         return null;
                     }
-                },G.CurrentActivity);
+                }, G.CurrentActivity);
             }
 
             @Override
@@ -377,6 +383,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
     }
 
     Callback time = null;
+
     private void setdateandtime() {
 
         time = new Callback() {
@@ -388,7 +395,7 @@ public class ActivityAtelaatkala extends AppCompatActivity {
                         Webservice.request("getTime/" + mysabad.Id, time, null);
                         return null;
                     }
-                },G.CurrentActivity);
+                }, G.CurrentActivity);
             }
 
             @Override

@@ -1,6 +1,7 @@
 package com.cheemarket;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,10 +19,14 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+
+import static com.cheemarket.ActivitySabad.check_card_server;
+import static com.cheemarket.G.pre;
 
 public class ActivityEnterCode extends AppCompatActivity {
 
@@ -52,7 +57,7 @@ public class ActivityEnterCode extends AppCompatActivity {
 
         ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
         ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
-        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         m = (TextView) findViewById(R.id.m);
         s = (TextView) findViewById(R.id.s);
@@ -93,14 +98,14 @@ public class ActivityEnterCode extends AppCompatActivity {
         txtretry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                txtretry.setVisibility(View.INVISIBLE);
-                progressBar.setVisibility(View.VISIBLE);
                 edt1.setText("");
                 edt2.setText("");
                 edt3.setText("");
                 edt4.setText("");
                 edt5.setText("");
                 edt1.requestFocus();
+                txtretry.setVisibility(View.INVISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
                 if (password.equals("reset")) {
                     resetagain();
                 } else {
@@ -200,11 +205,7 @@ public class ActivityEnterCode extends AppCompatActivity {
                 try {
                     JSONObject obj = new JSONObject(input);
                     if (obj.getString("status").equals("ok")) {
-                        Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
-                        G.CurrentActivity.startActivity(intent);
-                        G.CurrentActivity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                        finish();
-
+                        mini_login(username,password);
                     } else if (obj.getString("status").equals("fail")) {
                         G.HANDLER.post(new Runnable() {
                             @Override
@@ -229,6 +230,62 @@ public class ActivityEnterCode extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+        }, array);
+    }
+
+    private void mini_login(final String strusername, final String strpassword) {
+        Webservice.requestparameter param1 = new Webservice.requestparameter();
+        param1.key = "username";
+        param1.value = strusername;
+
+        Webservice.requestparameter param2 = new Webservice.requestparameter();
+        param2.key = "password";
+        param2.value = strpassword;
+
+        ArrayList<Webservice.requestparameter> array = new ArrayList<>();
+        array.add(param1);
+        array.add(param2);
+
+
+        Webservice.request("login", new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Webservice.handelerro(e, new Callable<Void>() {
+                    @Override
+                    public Void call() throws Exception {
+                        mini_login(strusername, strpassword);
+                        return null;
+                    }
+                }, G.CurrentActivity);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String input = response.body().string();
+                try {
+                    JSONObject obj = new JSONObject(input);
+                    if (obj.has("status") && obj.getString("status").equals("ok") && obj.has("token")) {
+                        G.token = obj.getString("token");
+                        SharedPreferences.Editor editor = pre.edit();
+                        editor.putString("Username", strusername);
+                        editor.putString("token", G.token);
+                        editor.apply();
+                        check_card_server();
+                        Commands.setbadgenumber(ActivityMain.badge);
+                        G.CurrentActivity.finish();
+                    }else {
+                        Intent intent = new Intent(G.CurrentActivity, ActivityLogin.class);
+                        G.CurrentActivity.startActivity(intent);
+                        G.CurrentActivity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        finish();
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
             }
         }, array);
     }
@@ -259,6 +316,12 @@ public class ActivityEnterCode extends AppCompatActivity {
     }
 
     private void setTime() {
+        G.HANDLER.post(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setVisibility(View.GONE);
+            }
+        });
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -328,7 +391,7 @@ public class ActivityEnterCode extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                progressBar.setVisibility(View.GONE);
+
                 String input = response.body().string();
                 try {
                     JSONObject obj = new JSONObject(input);
@@ -352,8 +415,8 @@ public class ActivityEnterCode extends AppCompatActivity {
                         G.HANDLER.post(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(G.CurrentActivity, "اکانتی با این مشخصات وجود دارد", Toast.LENGTH_LONG).show();
-                                txtretry.setText("اکانتی با این مشخصات وجود دارد");
+                                Toast.makeText(G.CurrentActivity, "حساب کاربری با این مشخصات وجود دارد", Toast.LENGTH_LONG).show();
+                                txtretry.setText("حساب کاربری با این مشخصات وجود دارد");
                                 txtretry.setVisibility(View.VISIBLE);
                                 txtretry.setClickable(false);
                             }
@@ -413,14 +476,29 @@ public class ActivityEnterCode extends AppCompatActivity {
                         });
 
                     } else if (obj.getString("status").equals("notexist")) {
-                        txtretry.setText("اکانت با این مشخصات وجود ندارد");
-                        txtretry.setVisibility(View.VISIBLE);
+                        G.HANDLER.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                txtretry.setText("اکانت با این مشخصات وجود ندارد");
+                                txtretry.setVisibility(View.VISIBLE);
+                            }
+                        });
                     } else if (obj.getString("status").equals("ban")) {
-                        txtretry.setText("تعداد تلاش بیشتر از حد مجاز!");
-                        txtretry.setVisibility(View.VISIBLE);
+                        G.HANDLER.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                txtretry.setText("تعداد تلاش بیشتر از حد مجاز!");
+                                txtretry.setVisibility(View.VISIBLE);
+                            }
+                        });
                     } else if (obj.getString("status").equals("expired")) {
-                        txtretry.setText("کد تایید شما منقضی شده است");
-                        txtretry.setVisibility(View.VISIBLE);
+                        G.HANDLER.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                txtretry.setText("کد تایید شما منقضی شده است");
+                                txtretry.setVisibility(View.VISIBLE);
+                            }
+                        });
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -471,7 +549,7 @@ public class ActivityEnterCode extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                progressBar.setVisibility(View.VISIBLE);
+
                 String input = response.body().string();
                 try {
                     JSONObject obj = new JSONObject(input);

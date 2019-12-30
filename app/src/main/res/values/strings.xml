@@ -4,11 +4,12 @@
 
     <string name="error_invalid_email">آدرس ایمیل/شماره همراه صحیح نمی باشد</string>
 
-    <string name="error_invalid_password">رمز ورود شما کوتاه است</string>
+    <string name="error_invalid_password">رمز ورود شما باید بیشتر از 4 کارکتر باشد</string>
 
     <string name="error_incorrect_password">رمز ورود شما صحیح نیست</string>
 
-    <string name="error_field_required"> قسمت نام کاربری خالی است</string>
+    <string name="username_required"> قسمت نام کاربری خالی است</string>
+    <string name="password_required"> قسمت رمز ورود خالی است</string>
 
 
     <string-array name="ostanha">

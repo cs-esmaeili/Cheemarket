@@ -40,18 +40,23 @@ public class ActivityStart extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
         G.CurrentActivity = this;
+       // DisplayMetrics displayMetrics = new DisplayMetrics();
+       // getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+       // G.IMAGES_HEIGHT = (int) (Double.parseDouble(displayMetrics.heightPixels + "") / 2);
+       // G.IMAGES_WIDTH = (int) (Double.parseDouble(displayMetrics.widthPixels + "") / 2);
 
 
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        G.IMAGES_HEIGHT = (int) (Double.parseDouble(displayMetrics.heightPixels + "") / 2);
-        G.IMAGES_WIDTH = (int) (Double.parseDouble(displayMetrics.widthPixels + "") / 2);
+        if (pre.contains("Username") && pre.contains("token")) {
+            if (!pre.getString("Username", "Error").equals("Error") && !pre.getString("token", "Error").equals("")) {
+                G.token = pre.getString("token", "Error");
+
+            }
+        }
+
 
         Intent appLinkIntent = getIntent();
-        String appLinkAction = appLinkIntent.getAction();
+       // String appLinkAction = appLinkIntent.getAction();
         appLinkData = appLinkIntent.getData();
-
-
         check_Atelae();
     }
 

@@ -1,21 +1,19 @@
 package com.cheemarket;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -47,15 +45,13 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
+import static com.cheemarket.ActivitySabad.check_card_server;
 import static com.cheemarket.ActivityStart.appLinkData;
 import static com.cheemarket.G.pre;
 
 
 public class ActivityMain extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-
-    public static Activity thisactivity;
 
 
     private static RecyclerView List;
@@ -71,33 +67,23 @@ public class ActivityMain extends AppCompatActivity
     public static ArrayList<PoductStructure> mdatasetList1;
     public static ArrayList<PoductStructure> mdatasetList4;
     public static ArrayList<PoductStructure> mdatasetList6;
-
-
     private static ImageView[] imgs = new ImageView[6];
-
-    static ScrollView scroll;
     private static DrawerLayout drawer;
     private static TextView txtprofile;
-
     NavigationView navigationView;
     public static ViewPager viewPager;
     public static RelativeLayout silderparent;
     public static CircleIndicator circleIndicator;
-
-    public static boolean needpagework = false;
-
+    public static boolean needpagework = true;
     static String Datetimeserver;
     static TextView h;
     static TextView m;
     static TextView s;
-
     static int saat = 0;
     static int daghighe = 0;
     static int saniye = 0;
-
-
     private static LinearLayout layoutprofile;
-    private static badgelogo badge;
+    public static badgelogo badge;
 
     @Override
     protected void onResume() {
@@ -109,7 +95,6 @@ public class ActivityMain extends AppCompatActivity
 
         if (pre.contains("Username") && pre.contains("token")) {
             if (!pre.getString("Username", "Error").equals("Error") && !pre.getString("token", "Error").equals("")) {
-                // Textconfig.settext(txtprofile, pre.getString("Username", "Error"));
                 txtprofile.setText(pre.getString("Username", "Error"));
                 G.token = pre.getString("token", "Error");
             }
@@ -125,9 +110,12 @@ public class ActivityMain extends AppCompatActivity
         navigationView.getMenu().findItem(R.id.problems).setChecked(false);
         navigationView.getMenu().findItem(R.id.darbareyema).setChecked(false);
         Commands.setbadgenumber(badge);
-        if (needpagework) {
+
+        if (!needpagework) {
+            //needpagework = false;
+         //   pagework();
+        }else {
             needpagework = false;
-            pagework();
         }
     }
 
@@ -136,14 +124,11 @@ public class ActivityMain extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        thisactivity = this;
         G.CurrentActivity = this;
-
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        G.IMAGES_HEIGHT = (int) (Double.parseDouble(displayMetrics.heightPixels + "") / 2);
-        G.IMAGES_WIDTH = (int) (Double.parseDouble(displayMetrics.widthPixels + "") / 2);
+        // DisplayMetrics displayMetrics = new DisplayMetrics();
+        // getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        // G.IMAGES_HEIGHT = (int) (Double.parseDouble(displayMetrics.heightPixels + "") / 2);
+        // G.IMAGES_WIDTH = (int) (Double.parseDouble(displayMetrics.widthPixels + "") / 2);
 
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -154,10 +139,8 @@ public class ActivityMain extends AppCompatActivity
         ImageView shoplogo = (ImageView) findViewById(R.id.shoplogo);
         ImageView searchlogo = (ImageView) findViewById(R.id.searchlogo);
         badge = (badgelogo) findViewById(R.id.badgelogo);
-
-
+        check_card_server();
         Commands.setbadgenumber(badge);
-
         List = (RecyclerView) findViewById(R.id.List);
         RecyclerViewList1 = (RecyclerView) findViewById(R.id.List1);
         RecyclerViewList4 = (RecyclerView) findViewById(R.id.List4);
@@ -165,35 +148,24 @@ public class ActivityMain extends AppCompatActivity
         RecyclerViewList1.setFocusable(false);
         RecyclerViewList4.setFocusable(false);
         RecyclerViewList6.setFocusable(false);
-
-
         imgs[0] = (ImageView) findViewById(R.id.post2);
         imgs[1] = (ImageView) findViewById(R.id.post3);
         imgs[2] = (ImageView) findViewById(R.id.post4);
         imgs[3] = (ImageView) findViewById(R.id.post5);
         imgs[4] = (ImageView) findViewById(R.id.post6);
         imgs[5] = (ImageView) findViewById(R.id.post8);
-
         circleIndicator = findViewById(R.id.circle);
         viewPager = findViewById(R.id.view_pager);
         silderparent = findViewById(R.id.silderparent);
-
         h = (TextView) findViewById(R.id.h);
         m = (TextView) findViewById(R.id.m);
         s = (TextView) findViewById(R.id.s);
-
-
-        scroll = (ScrollView) findViewById(R.id.scroll);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle("");
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-
         searchlogo.setOnClickListener(Commands.onClickListenersearch);
         shoplogo.setOnClickListener(Commands.onClickListenersabadkharid);
-
-
         layoutprofile.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -227,13 +199,13 @@ public class ActivityMain extends AppCompatActivity
 
             if (productid.contains("productid=")) {
                 productid = productid.substring(productid.indexOf("=") + 1);
+                Intent intent = new Intent(G.CurrentActivity, ActivityAtelaatkala.class);
 
+                intent.putExtra("Id", productid);
+                G.CurrentActivity.startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
-            Intent intent = new Intent(G.CurrentActivity, ActivityAtelaatkala.class);
 
-            intent.putExtra("Id", productid);
-            G.CurrentActivity.startActivity(intent);
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }
 
     }
@@ -247,6 +219,9 @@ public class ActivityMain extends AppCompatActivity
                 G.token = pre.getString("token", "Error");
             }
         }
+
+
+
         index = -1;
 
 
@@ -579,6 +554,8 @@ public class ActivityMain extends AppCompatActivity
             editor.apply();
             txtprofile.setText("وارد شوید / ثبت نام کنید");
 
+            G.mdatasetsabad.clear();
+            Commands.setbadgenumber(badge);
         }
 
 

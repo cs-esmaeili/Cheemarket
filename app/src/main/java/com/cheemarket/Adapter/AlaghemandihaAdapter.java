@@ -52,10 +52,10 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
                 holder.textoffPriceone.setVisibility(View.INVISIBLE);
             } else {
 
-                holder.textoffPriceone.setText( mdataset.get(position).OldPrice1 + " تومان" );
+                holder.textoffPriceone.setText(mdataset.get(position).OldPrice1 + " تومان");
             }
             if (mdataset.get(position).Price1 != null && !mdataset.get(position).Price1.equals("0")) {
-                Textconfig.settext(holder.textPriceone,  mdataset.get(position).Price1 + " تومان" );
+                Textconfig.settext(holder.textPriceone, mdataset.get(position).Price1 + " تومان");
             } else {
                 holder.textPriceone.setVisibility(View.INVISIBLE);
             }
@@ -102,7 +102,7 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
             if (mdataset.get(position).OldPrice2 == null || mdataset.get(position).OldPrice2.equals("0")) {
                 holder.textoffPricetwo.setVisibility(View.INVISIBLE);
             } else {
-                holder.textoffPricetwo.setText( mdataset.get(position).OldPrice2 + " تومان"  );
+                holder.textoffPricetwo.setText(mdataset.get(position).OldPrice2 + " تومان");
             }
 
             if (mdataset.get(position).Status2 != null && mdataset.get(position).Status2.equals("2")) {
@@ -116,7 +116,7 @@ public class AlaghemandihaAdapter extends RecyclerView.Adapter<AlaghemandihaAdap
                 holder.txtnametwo.setVisibility(View.INVISIBLE);
             }
             if (mdataset.get(position).Price2 != null && !mdataset.get(position).Price2.equals("0")) {
-                Textconfig.settext(holder.textPricetwo, mdataset.get(position).Price2 + " تومان" );
+                Textconfig.settext(holder.textPricetwo, mdataset.get(position).Price2 + " تومان");
             } else {
                 holder.textPricetwo.setVisibility(View.INVISIBLE);
             }
